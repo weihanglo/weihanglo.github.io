@@ -54,9 +54,11 @@ time_format: HH:mm:ss
 per_page: 20
 pagination_dir: page
 
-# Extensions
-theme: bunny
-
+# Deploy
 deploy:
 - type: git
   repo: git@github.com:weihanglo/weihanglo.github.io.git
+
+
+# Extensions
+theme: even

@@ -17,6 +17,7 @@
     "hexo-generator-tag": "^0.2.0",
     "hexo-renderer-marked": "^0.2.10",
     "hexo-renderer-pug": "^0.0.5",
+    "hexo-renderer-scss": "^1.0.2",
     "hexo-server": "^0.2.0"
   },
   "devDependencies": {}
