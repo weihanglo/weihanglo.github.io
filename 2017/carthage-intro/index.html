@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Carthage 套件管理工具"/>
+
+
+
+
+  <meta name="keywords" content="carthage,swift," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/carthage-intro/"/>
+
+
+<meta name="description" content="Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
+（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Carthage 套件管理工具">
+<meta property="og:url" content="https://weihanglo.github.io/2017/carthage-intro/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
+（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）">
+<meta property="og:updated_time" content="2017-03-10T07:53:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Carthage 套件管理工具">
+<meta name="twitter:description" content="Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
+（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> Carthage 套件管理工具 · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Carthage 套件管理工具
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Mar 5, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#特色"><span class="toc-text">特色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速上手"><span class="toc-text">快速上手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cartfile-版號語法簡介"><span class="toc-text">Cartfile 版號語法簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常見議題"><span class="toc-text">常見議題</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Q：Carthage-資料夾裡面究竟有啥？"><span class="toc-text">Q：Carthage 資料夾裡面究竟有啥？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q：如何避免-carthage-udpate-取得的模組版號不同？"><span class="toc-text">Q：如何避免 carthage udpate 取得的模組版號不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q：我不想提交-Carthage-資料夾到-Git-Server，怎辦？"><span class="toc-text">Q：我不想提交 Carthage 資料夾到 Git Server，怎辦？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q：我需要開發用但非-Project-相關的模組，該如何？"><span class="toc-text">Q：我需要開發用但非 Project 相關的模組，該如何？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q：如何只提供-binary-framework，不開放-source-code？"><span class="toc-text">Q：如何只提供 binary framework，不開放 source code？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q：如何同時修改相依模組的-code，並在-Run-時同步更新嗎？"><span class="toc-text">Q：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="https://github.com/Carthage/Carthage" target="_blank" rel="external">Carthage</a> 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 <a href="https://cocoapods.org/" target="_blank" rel="external">CocoaPods</a> 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。</p>
+<p><em>（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）</em></p>
+<a id="more"></a>
+<h2 id="特色"><a href="#特色" class="headerlink" title="特色"></a>特色</h2><ul>
+<li>時代潮流：Written in Swift! (v.s. CocoaPods in <em>Ruby</em>)</li>
+<li>主流現代：iOS 8+, dynamic framework only</li>
+<li>去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。</li>
+<li>非入侵式：不會修改 Xcode 相關配置，耦合性低。</li>
+</ul>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><ol>
+<li><p>從終端環境安裝 Carthage</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">brew install carthage</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果還沒有裝 homebrew，<a href="https://brew.sh/" target="_blank" rel="external">請來這下載</a></p>
+</blockquote>
+</li>
+<li><p>建立一個 <code>Carfile</code>，列出欲使用的模組，例如：</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><div class="line">github <span class="string">"Alamofire/Alamofire"</span> ~&gt; <span class="number">4.4</span></div><div class="line">github <span class="string">"ReactiveX/RxSwift"</span> ~&gt; <span class="number">3.0</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在終端環境輸入 <code>carthage update</code>，Carthage 將自動下載所有相依模組至 <code>Carthage/Checkouts</code> 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。</p>
+</li>
+<li>將 <code>Carthage/Build</code> 資料夾內編譯好的 frameworks 拖拉進你的 <strong>app target</strong> =&gt; <strong>General</strong> =&gt; <strong>Linked Frameworks and Libraries</strong></li>
+<li><p>在 <strong>app target</strong> =&gt; <strong>Build Phases</strong> 下新增一個 <strong>New Run Script Phase</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 自動將 framework 複製到 target app 的 bundle中</span></div><div class="line">/usr/<span class="built_in">local</span>/bin/carthage copy-frameworks</div></pre></td></tr></table></figure>
+<p>並在 <strong>Input Files</strong> 加入相依的 frameworks 路徑，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework</div><div class="line">$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Cartfile-版號語法簡介"><a href="#Cartfile-版號語法簡介" class="headerlink" title="Cartfile 版號語法簡介"></a>Cartfile 版號語法簡介</h2><p>Cartfile 版號語法與 Podfile 雷同：</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 版號 &gt;= 3.1.2</span></div><div class="line">github <span class="string">"ReactiveX/RxSwift"</span> &gt;= <span class="number">3.1</span>.<span class="number">2</span></div><div class="line"></div><div class="line"><span class="comment"># 版號 3.x (3.0 &lt;= ver &lt; 4.0)</span></div><div class="line">github <span class="string">"SnapKit/SnapKit"</span> ~&gt; <span class="number">3.0</span></div><div class="line"></div><div class="line"><span class="comment"># 僅匹配版號 0.4.1</span></div><div class="line">github <span class="string">"jspahrsummers/libextobjc"</span> == <span class="number">0</span>.<span class="number">4.1</span></div><div class="line"></div><div class="line"><span class="comment"># 最新版</span></div><div class="line">github <span class="string">"jspahrsummers/xcconfigs"</span></div><div class="line"></div><div class="line"><span class="comment"># 指定 Git branch</span></div><div class="line">github <span class="string">"jspahrsummers/xcconfigs"</span> <span class="string">"branch"</span></div><div class="line"></div><div class="line"><span class="comment"># 其他 Git Server Repository 的 develop 分支</span></div><div class="line">git <span class="string">"https://agitserver.com/swift-test/swift-test.git"</span> <span class="string">"develop"</span></div><div class="line"></div><div class="line"><span class="comment"># 本地 local Git Repository</span></div><div class="line">git <span class="string">"file:///directory/to/project"</span> <span class="string">"branch"</span></div></pre></td></tr></table></figure>
+<h2 id="常見議題"><a href="#常見議題" class="headerlink" title="常見議題"></a>常見議題</h2><h3 id="Q：Carthage-資料夾裡面究竟有啥？"><a href="#Q：Carthage-資料夾裡面究竟有啥？" class="headerlink" title="Q：Carthage 資料夾裡面究竟有啥？"></a>Q：Carthage 資料夾裡面究竟有啥？</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Carthage/</div><div class="line">├── Build/</div><div class="line">│   ├── iOS/</div><div class="line">│   │   ├── Alamofire.framework</div><div class="line">│   │   ├── Alamofire.framework.dSYM</div><div class="line">│   │   ├── SnapKit.framework</div><div class="line">│   │   └── SnapKit.framework.dSYM</div><div class="line">│   └── macOS/</div><div class="line">│       └── ... macOS 等其他平台 的 framework</div><div class="line">└── Checkouts/</div><div class="line">    ├── Alamofire/</div><div class="line">    │   ├── ... Alamofire clone 下來的原始碼</div><div class="line">    └── SnapKit/</div><div class="line">        └── ... SnapKit clone 下來的原始碼</div></pre></td></tr></table></figure>
+<ul>
+<li>Carthage/Build: 打包好的 framework（pre-built 或是從 checkouts build 出來的）</li>
+<li>Carthage/Checkouts: 所有相依模組的 source code</li>
+</ul>
+<h3 id="Q：如何避免-carthage-udpate-取得的模組版號不同？"><a href="#Q：如何避免-carthage-udpate-取得的模組版號不同？" class="headerlink" title="Q：如何避免 carthage udpate 取得的模組版號不同？"></a>Q：如何避免 <code>carthage udpate</code> 取得的模組版號不同？</h3><p>Carthage 提供一個鎖定文件 <code>Cartfile.resolved</code>，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，<code>Cartfile.resolved</code> 即會自動更新。可預防部分模組版號沒有完全遵循 <a href="http://semver.org/lang/zh-TW/" target="_blank" rel="external">語意化版本（SEMVER）</a> 時產生的問題。</p>
+<p>建議將 <code>Cartfile.resolved</code> 提交至版本管理系統中。之後將遠端儲存庫 clone 下來，只需要執行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">carthage bootstrap</div></pre></td></tr></table></figure>
+<p>就可以取得與提交時版號完全相同的模組了。</p>
+<h3 id="Q：我不想提交-Carthage-資料夾到-Git-Server，怎辦？"><a href="#Q：我不想提交-Carthage-資料夾到-Git-Server，怎辦？" class="headerlink" title="Q：我不想提交 Carthage 資料夾到 Git Server，怎辦？"></a>Q：我不想提交 Carthage 資料夾到 Git Server，怎辦？</h3><p>一般而言，我們會將 Carthage 加入 Project 的 <code>.gitignore</code> 中：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># in .gitignore</span></div><div class="line">Carthage</div></pre></td></tr></table></figure>
+<p>除非另有需求，不然 <code>Cartfile.resolve</code> 應足以還原 project 與提交時相同版號的模組環境。</p>
+<h3 id="Q：我需要開發用但非-Project-相關的模組，該如何？"><a href="#Q：我需要開發用但非-Project-相關的模組，該如何？" class="headerlink" title="Q：我需要開發用但非 Project 相關的模組，該如何？"></a>Q：我需要開發用但非 Project 相關的模組，該如何？</h3><p>Carthage 提供另一個 <code>Cartfile.private</code>，配置方法與 <code>Cartfile</code> 相同。<code>Cartfile.private</code> 內的相依模組不會被作為主模組的 dependency。可用來配置開發用模組，譬如使用 testing framework。</p>
+<h3 id="Q：如何只提供-binary-framework，不開放-source-code？"><a href="#Q：如何只提供-binary-framework，不開放-source-code？" class="headerlink" title="Q：如何只提供 binary framework，不開放 source code？"></a>Q：如何只提供 binary framework，不開放 source code？</h3><p>Carthage 提供的來源除了 Git 以外，事實上<a href="https://github.com/Carthage/Carthage/commit/3a151a413350b980c68b2f1be8ca234e7947d575" target="_blank" rel="external">最近才提供 binary</a> 這個選項。</p>
+<p><strong>Cartfile</strong> 範例如下：</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><div class="line">binary <span class="string">"https://example.com/release/ExampleFramework.json"</span> ~&gt; <span class="number">1.4</span>.<span class="number">0</span></div></pre></td></tr></table></figure>
+<p>這裡的 json 檔應描述該 framework 對應版號的下載路徑，配置範例如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"1.3.5"</span>: <span class="string">"https://example.com/release/1.3.5/framework.zip"</span>,</div><div class="line">    <span class="attr">"1.4.3"</span>: <span class="string">"https://example.com/release/1.4.3/framework.tar.gz"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>除此之外，目前只接受 <code>https</code> url 連結，且 version 只能對應<a href="http://semver.org/lang/zh-TW/" target="_blank" rel="external">語意化版本</a>， Git branch／tag／commit 都暫時無法使用。</p>
+<h3 id="Q：如何同時修改相依模組的-code，並在-Run-時同步更新嗎？"><a href="#Q：如何同時修改相依模組的-code，並在-Run-時同步更新嗎？" class="headerlink" title="Q：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？"></a>Q：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？</h3><p>可以，請新增一個 <strong>Run Script</strong> build phase，在 Run App 後會自動 build 新的 framework：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">/usr/<span class="built_in">local</span>/bin/carthage build --platform <span class="string">"<span class="variable">$PLATFORM_NAME</span>"</span> --project-directory <span class="string">"<span class="variable">$SRCROOT</span>"</span></div></pre></td></tr></table></figure>
+<p><strong>！！！！！注意！！！！！</strong></p>
+<p>所有在 Carthage/checkouts 內的 source 隨時可能改變。如果確定需要改動相依模組，請利用 <a href="https://github.com/Carthage/Carthage#using-submodules-for-dependencies" target="_blank" rel="external">carthage 指令將相依模組加入 Git submodules</a>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">carthage update --use-submodules</div><div class="line"><span class="comment"># or</span></div><div class="line">carthage checkout --use-submodules</div></pre></td></tr></table></figure>
+<p>之後就可以直接操作 Git submodules 了！</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/carthage-intro/">https://weihanglo.github.io/2017/carthage-intro/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/carthage/">carthage</a>
+          
+            <a href="/tags/swift/">swift</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/fed-toolchain/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Front End Development Toolchain</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/swift-quick-note/">
+        <span class="next-text nav-default">Swift Quick Note</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/carthage-intro/';
+        this.page.identifier = '2017/carthage-intro/';
+        this.page.title = 'Carthage 套件管理工具';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>
