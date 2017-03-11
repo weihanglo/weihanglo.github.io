@@ -290,7 +290,7 @@ npm update
 npm update --global
 ```
 
-> Facebook、Google 幾個大頭在 2016 年 10 月 開源了新一代的 Node.js 套件管理工具 [Yarn][yarn]，在速度、體驗、介面上皆略勝 npm 一籌。Yarn 也會自動產生 `yarn.lock` 檔案，精確記錄相依模組的版號，在套件管理上更安全安心。有興趣的童鞋可嘗試看看。（yarn 除了套件管理，目前未有其他功能，尚無法取代 npm）
+> Facebook、Google 幾個大頭在 2016 年 10 月 開源了新一代的 Node.js 套件管理工具 [Yarn][yarn]，在速度、體驗、介面上皆略勝 npm 一籌。Yarn 也會自動產生 `yarn.lock` 檔案，精確記錄相依模組的版號，在套件管理上更安全安心，有興趣的童鞋可嘗試看看。
 
 **執行自定義腳本**
 
