@@ -43,7 +43,7 @@
 <meta property="og:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
 （撰於 2017-03-10）">
 <meta property="og:image" content="https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg">
-<meta property="og:updated_time" content="2017-03-10T08:51:13.000Z">
+<meta property="og:updated_time" content="2017-03-11T03:08:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Front End Development Toolchain">
 <meta name="twitter:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
@@ -352,7 +352,7 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 創建一個 npm 模組環境（互動式產生 package.json）</span></div><div class="line">npm init</div><div class="line"></div><div class="line"><span class="comment"># 尋找同目錄下的 `package.json`，安裝該檔案內記錄的相依套件</span></div><div class="line">npm install</div><div class="line"></div><div class="line"><span class="comment"># 安裝 axios 套件，不儲存相依關係。</span></div><div class="line">npm install axios</div><div class="line"></div><div class="line"><span class="comment"># 安裝 bluebird 套件，並將相依版號寫入 `package.json` 的 `dependencies` field 中</span></div><div class="line">npm install bluebird --save</div><div class="line"></div><div class="line"><span class="comment"># 安裝 mocha、chai 套件，並將相依版號寫入 `package.json` 的 `devDependencies` field 中（開發用套件）</span></div><div class="line">npm install mocha chai --save-dev</div><div class="line"></div><div class="line"><span class="comment"># 安裝 Globally 的套件，在任何目錄都可直接使用該模組的指令列程式</span></div><div class="line">npm install --global yarn</div><div class="line"></div><div class="line"><span class="comment"># 移除 bluebird 套件，並從 `package.json` 中移除相依關係</span></div><div class="line">npm uninstall bluebird --save</div><div class="line"></div><div class="line"><span class="comment"># 列出 locally（project-wide） 的套件到第一階層（專案的相依套件的相依套件）</span></div><div class="line">npm ls --depth=2</div><div class="line"></div><div class="line"><span class="comment"># 列出全域安裝的套件（只列出 user 直接安裝的套件）</span></div><div class="line">npm ls --global --depth=0</div><div class="line"></div><div class="line"><span class="comment"># 更新 bluebird 套件至 package.json 內的指定版號</span></div><div class="line">npm update bluebird</div><div class="line"></div><div class="line"><span class="comment"># 更新 package.json 記錄的套件至指定版號</span></div><div class="line">npm update</div><div class="line"></div><div class="line"><span class="comment"># 更新所有全員安裝的套件</span></div><div class="line">npm update --global</div></pre></td></tr></table></figure>
 <blockquote>
-<p>Facebook、Google 幾個大頭在 2016 年 10 月 開源了新一代的 Node.js 套件管理工具 <a href="https://yarnpkg.com/" target="_blank" rel="external">Yarn</a>，在速度、體驗、介面上皆略勝 npm 一籌。Yarn 也會自動產生 <code>yarn.lock</code> 檔案，精確記錄相依模組的版號，在套件管理上更安全安心。有興趣的童鞋可嘗試看看。（yarn 除了套件管理，目前未有其他功能，尚無法取代 npm）</p>
+<p>Facebook、Google 幾個大頭在 2016 年 10 月 開源了新一代的 Node.js 套件管理工具 <a href="https://yarnpkg.com/" target="_blank" rel="external">Yarn</a>，在速度、體驗、介面上皆略勝 npm 一籌。Yarn 也會自動產生 <code>yarn.lock</code> 檔案，精確記錄相依模組的版號，在套件管理上更安全安心，有興趣的童鞋可嘗試看看。</p>
 </blockquote>
 <p><strong>執行自定義腳本</strong></p>
 <ul>
