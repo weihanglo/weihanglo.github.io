@@ -339,7 +339,7 @@ npm start
 
 CSS 對程序猿來說，沒有繼承，沒有函式，沒有變數，全部的設定都在 global scope，完全符合設計不良的語言特性。有志青年打造了許多[類似 CSS 的語言][github-css-pre]，提供變數、函式、[mixin][mixin]，再 compile 成 vanilla CSS，讓寫 CSS 能夠更輕鬆，更能專注商業邏輯。這些方便的工具我們通稱 **CSS Preprocessor**。
 
-目前主流的 *CSS Preprocessor** 有 [Less][less]、[Sass][sass]，以及 [Stylus][stylus] 等，每一套都有各自的擁護者，在此簡單比較 **Sass** 與 vanilla CSS，給客倌看看。
+目前主流的 **CSS Preprocessor** 有 [Less][less]、[Sass][sass]，以及 [Stylus][stylus] 等，每一套都有各自的擁護者，在此簡單比較 **Sass** 與 vanilla CSS，給客倌看看。
 
 **Vanilla CSS（同一個 nav 下的元素要分為三個 block 撰寫，且相同的 padding 要寫兩次）**
 
@@ -725,7 +725,7 @@ describe('Async Tests', function () {
 
 - [一定要處理 error][eslint-handle-callback-err]
 - [避免修改以 const 宣告的變數][eslint-no-const-assign]
-- [不要用 ( 、 \[ 、 \` 當開頭][eslint-no-unexpected-multiline]（不寫分號唯一會遇到的問題！）
+- [不要用 `(` `/` `.` `,` 等符號當開頭][eslint-no-unexpected-multiline]（不寫分號唯一會遇到的問題！）
 
 Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 [ESLint][eslint] 作範例。
 
@@ -853,5 +853,5 @@ npm install --save-dev eslint
 [eslint-eslintignore]: https://git-scm.com/docs/gitignore#_examples
 [eslint-config-airbnb]: https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb
 [eslint-configuring]: http://eslint.org/docs/user-guide/configuring
-[atom-eslint]: https://atom.io/packages/linter-eslint
-[vscode-eslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+[eslint-atom]: https://atom.io/packages/linter-eslint
+[eslint-vscode]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
