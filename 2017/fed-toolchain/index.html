@@ -43,7 +43,7 @@
 <meta property="og:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
 （撰於 2017-03-10）">
 <meta property="og:image" content="https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg">
-<meta property="og:updated_time" content="2017-03-11T03:08:42.000Z">
+<meta property="og:updated_time" content="2017-03-13T10:08:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Front End Development Toolchain">
 <meta name="twitter:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
@@ -366,7 +366,7 @@
 <p>預處理器／轉譯器屬於 <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler" target="_blank" rel="external">source-to-source compiler</a>，雖然可以加速開發，但也需要引入 build tools 協助轉換語法，有關 build tools／task runner，會在<a href="#自動化工具打包工具">自動化工具／打包工具</a>與各位分享。</p>
 </blockquote>
 <h3 id="CSS-預處理器"><a href="#CSS-預處理器" class="headerlink" title="CSS 預處理器"></a>CSS 預處理器</h3><p>CSS 對程序猿來說，沒有繼承，沒有函式，沒有變數，全部的設定都在 global scope，完全符合設計不良的語言特性。有志青年打造了許多<a href="https://github.com/showcases/css-preprocessors" target="_blank" rel="external">類似 CSS 的語言</a>，提供變數、函式、<a href="https://en.wikipedia.org/wiki/Mixin" target="_blank" rel="external">mixin</a>，再 compile 成 vanilla CSS，讓寫 CSS 能夠更輕鬆，更能專注商業邏輯。這些方便的工具我們通稱 <strong>CSS Preprocessor</strong>。</p>
-<p>目前主流的 <em>CSS Preprocessor<strong> 有 <a href="http://lesscss.org/" target="_blank" rel="external">Less</a>、<a href="http://sass-lang.com/" target="_blank" rel="external">Sass</a>，以及 <a href="http://stylus-lang.com/" target="_blank" rel="external">Stylus</a> 等，每一套都有各自的擁護者，在此簡單比較 </strong>Sass*</em> 與 vanilla CSS，給客倌看看。</p>
+<p>目前主流的 <strong>CSS Preprocessor</strong> 有 <a href="http://lesscss.org/" target="_blank" rel="external">Less</a>、<a href="http://sass-lang.com/" target="_blank" rel="external">Sass</a>，以及 <a href="http://stylus-lang.com/" target="_blank" rel="external">Stylus</a> 等，每一套都有各自的擁護者，在此簡單比較 <strong>Sass</strong> 與 vanilla CSS，給客倌看看。</p>
 <p><strong>Vanilla CSS（同一個 nav 下的元素要分為三個 block 撰寫，且相同的 padding 要寫兩次）</strong></p>
 <figure class="highlight css"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="selector-tag">nav</span> <span class="selector-tag">ul</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">list-style</span>: none;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">nav</span> <span class="selector-tag">li</span> &#123;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">6px</span> <span class="number">12px</span></div><div class="line">  display: inline-block;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">nav</span> <span class="selector-tag">a</span> &#123;</div><div class="line">  <span class="attribute">display</span>: block;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">6px</span> <span class="number">12px</span>;</div><div class="line">  <span class="attribute">text-decoration</span>: none;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>Sass（SCSS syntax）支援 <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variables_" target="_blank" rel="external">variable</a> 與 <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#nested_rules" target="_blank" rel="external">nested element selector</a></strong></p>
@@ -465,7 +465,7 @@
 <ul>
 <li><a href="http://eslint.org/docs/rules/handle-callback-err" target="_blank" rel="external">一定要處理 error</a></li>
 <li><a href="http://eslint.org/docs/rules/no-const-assign" target="_blank" rel="external">避免修改以 const 宣告的變數</a></li>
-<li>[不要用 ( 、 [ 、 ` 當開頭]<a href="http://eslint.org/docs/rules/no-unexpected-multiline" target="_blank" rel="external">eslint-no-unexpected-multiline</a>（不寫分號唯一會遇到的問題！）</li>
+<li><a href="http://eslint.org/docs/rules/no-unexpected-multiline" target="_blank" rel="external">不要用 <code>(</code> <code>/</code> <code>.</code> <code>,</code> 等符號當開頭</a>（不寫分號唯一會遇到的問題！）</li>
 </ul>
 <p>Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 <a href="http://eslint.org/" target="_blank" rel="external">ESLint</a> 作範例。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 安裝 eslint</span></div><div class="line">npm install --save-dev eslint</div><div class="line"></div><div class="line"><span class="comment"># 互動式建置 `.eslint.js` 配置文件</span></div><div class="line">./node_modules/.bin/eslint --init</div><div class="line"></div><div class="line"><span class="comment"># 之後就可以直接用 eslint 來檢查你的程式碼了</span></div><div class="line">./node_modules/.bin/eslint path/to/your/file.js</div></pre></td></tr></table></figure>
@@ -477,7 +477,7 @@
 <p>有些檔案不需要 linter 檢查（例如 test spec、其他套件的 config），可在 project root 加入 <code>.eslintignore</code> 忽略這些檔案（<a href="https://git-scm.com/docs/gitignore#_examples" target="_blank" rel="external">寫法同 <code>.gitignore</code></a>）。</p>
 </blockquote>
 <p>通常我們會用一些大廠的設定，簡化我們的 Linter config，例如使用 <a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank" rel="external">Airbnb Javascript style</a>，如果需要客製化 linter 可以參考 <a href="http://eslint.org/docs/user-guide/configuring" target="_blank" rel="external">ESLint 如何配置</a>。</p>
-<p>許多文字編輯器有整合的 eslint 的 plugin（如 [Atom][eslint-atom]、[Visual Studio Code][eslint-vscode]），可即時查看 lint 結果，讓開發者更容易檢查語法錯誤。</p>
+<p>許多文字編輯器有整合的 eslint 的 plugin（如 <a href="https://atom.io/packages/linter-eslint" target="_blank" rel="external">Atom</a>、<a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank" rel="external">Visual Studio Code</a>），可即時查看 lint 結果，讓開發者更容易檢查語法錯誤。</p>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>本想簡單介紹如何建置一個前端開發環境，無奈前端之龐大，初出茅廬的我，完全無法收斂文章內容。本文已盡量點到為止，在重要之處皆留下關鍵連結，給有興趣的人們挖了些坑，希望看倌透過這篇文章，能對前端工程紛擾的世界有所了解，也不吝指教交流！</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://nodejs.org/api/" target="_blank" rel="external">Node.js API Documentation</a></li>
