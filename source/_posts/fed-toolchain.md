@@ -2,9 +2,9 @@
 title: Front End Development Toolchain
 date: 2017-03-10 15:36:46
 tags:
-- nodejs
-- javascript
-- front-end
+  - nodejs
+  - javascript
+  - front-end
 ---
 
 ![React Tech Stack]( https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg)
