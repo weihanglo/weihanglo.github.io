@@ -1,5 +1,6 @@
 ---
 title: 用 React 實作 Modal
+draft: true
 tags:
   - react
   - javascript
@@ -8,7 +9,7 @@ tags:
 
 最近開始玩 React，有些需求要做 Dialog Modal，赫然發現，在網頁前端實作 Modal 不若 iOS 使用 `presentViewController` 方便，常見的實作都是命令式（Imperative）DOM 操作。使用 React 這種聲明式（Declarative）前端框架來實作 modal 反而顯得礙手礙腳。本文將分析一些使用 React 實現 Modal 的開源 solution，了解如何在 React 操作 DOM。
 
-_（撰於 2017-03-21，基於 React v16.0.0-alpha.3）_
+_（撰於 2017-04-10，基於 React v16.0.0-alpha.3）_
 
 ## Modal Window
 
