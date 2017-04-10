@@ -2,8 +2,8 @@
 title: HLS 串流協議二三事
 draft: true
 tags:
-  - hls
-  - streaming
+  - HLS
+  - Streaming
 ---
 
 最近開始研究很夯的直播技術，一般常見的直播方案為 [HLS][hls] 以及 [RTMP][rtmp] 等，本篇將介紹 Apple ~~強迫使用~~ 大力支持的 HLS 協議。
