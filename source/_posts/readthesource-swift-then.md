@@ -2,8 +2,8 @@
 title: 閱讀原始碼：Swift-Then
 date: 2017-01-10 12:15:34
 tags:
-  - swift
-  - source-reading
+  - Swift
+  - Source Reading
 ---
 
 本系列文視筆者心情不定期撰寫。

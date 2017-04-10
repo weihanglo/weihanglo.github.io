@@ -2,8 +2,8 @@
 title: Carthage 套件管理工具
 date: 2017-03-05 08:45:57
 tags:
-  - carthage
-  - swift
+  - Carthage
+  - Swift
 ---
 
 [Carthage][carthage] 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 [CocoaPods][cocoapods] 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。

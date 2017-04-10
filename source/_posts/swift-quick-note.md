@@ -2,7 +2,7 @@
 title: Swift Quick Note
 date: 2017-02-06 23:25:19
 tags:
-  - swift
+  - Swift
 ---
 
 簡單記錄 Apple 官方 Swift Guide 的重點與心得。
