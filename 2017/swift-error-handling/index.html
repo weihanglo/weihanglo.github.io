@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="理解 Swift 的 Error Handling"/>
+
+
+
+
+  <meta name="keywords" content="Swift,Error Handling,Exception Handling," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/swift-error-handling/"/>
+
+
+<meta name="description" content="如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
+（撰於 2017-04-10，基於 Swift 3.1）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解 Swift 的 Error Handling">
+<meta property="og:url" content="https://weihanglo.github.io/2017/swift-error-handling/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
+（撰於 2017-04-10，基於 Swift 3.1）">
+<meta property="og:image" content="http://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png">
+<meta property="og:updated_time" content="2017-04-10T08:48:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解 Swift 的 Error Handling">
+<meta name="twitter:description" content="如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
+（撰於 2017-04-10，基於 Swift 3.1）">
+<meta name="twitter:image" content="http://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> 理解 Swift 的 Error Handling · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          理解 Swift 的 Error Handling
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Apr 10, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro-of-Exception-Handling"><span class="toc-text">Intro of Exception Handling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swift-Error-Handling"><span class="toc-text">Swift Error Handling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Propagating-Errors"><span class="toc-text">Propagating Errors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-do-catch"><span class="toc-text">Using do-catch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Converting-to-Optional"><span class="toc-text">Converting to Optional</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stopping-Propagation"><span class="toc-text">Stopping Propagation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-Handling-Keywords"><span class="toc-text">Other Handling Keywords</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rethrows-your-Error"><span class="toc-text">rethrows your Error</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#defer-Your-Finally"><span class="toc-text">defer Your Finally</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customize-Your-Error"><span class="toc-text">Customize Your Error</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notices-and-Future"><span class="toc-text">Notices and Future</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><img src="http://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png" alt=""></p>
+<p>如何利用 <strong>Swift</strong> 的語言特性來處理例外？使用 <strong>Optional</strong> 是常見的做法。如果成功就返回 <strong>value</strong>，失敗則返回 <code>nil</code>，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 <code>nil</code>，調用者並無法得知是 <strong>404</strong>，抑或 <strong>500</strong>。為了解決這個問題，我們必須緊緊抱住<a href="https://en.wikipedia.org/wiki/Exception_handling" target="_blank" rel="external">錯誤／例外處理</a>的大腿。</p>
+<p><em>（撰於 2017-04-10，基於 Swift 3.1）</em></p>
+<a id="more"></a>
+<h2 id="Intro-of-Exception-Handling"><a href="#Intro-of-Exception-Handling" class="headerlink" title="Intro of Exception Handling"></a>Intro of Exception Handling</h2><p>在開始介紹 Swift 例外處理之前，先來了解什麼是例外處理。維基百科道：</p>
+<blockquote>
+<p>…is the process of responding to the occurrence, during computation, of exceptions – anomalous or exceptional conditions requiring special processing – often changing the normal flow of program execution.</p>
+</blockquote>
+<p>簡單來說，就是某些例外狀況，需要特別的處理，這個處理過程就稱為<strong>例外處理</strong>，而這個處理常伴隨程式流程轉移改變。</p>
+<p>寫習慣 C++／Objective-C 的同學，想必很排斥寫  <strong>try-catch</strong> 這種吃效能、又易出錯的例外處理，明明 <strong>if…else</strong> 就能打遍天下嘛！而喜歡 Python／Ruby 的朋友對 <code>raise</code> 和各種 Exceptions 一定不陌生，甚至 Python 底層的 iterator 都是用 <code>StopIteration</code> Exception 實作。依照各個程式語言的設計，例外處理大致分為兩類：</p>
+<ul>
+<li>融入一般的 control flow（Python、Ruby 之流）</li>
+<li>處理特殊、不正常的情況（C++、Objective-C、C# 等）</li>
+</ul>
+<p>大多數程式語言，無論屬於哪一類，只要涉及例外處理，就可能出現<a href="http://stackoverflow.com/search?tab=relevance&amp;q=exception%20performance" target="_blank" rel="external">效能上的疑慮</a>，很難避開 <a href="https://en.wikipedia.org/wiki/Call_stack#STACK-UNWINDING" target="_blank" rel="external">Call Stack Unwinding</a> 的問題。能改善的方法之一，就是明確定義哪些 function 能拋出例外，哪些必須拋出例外，哪些錯誤不需要拋出，而是 programmer 自己應該要 handle 的。</p>
+<p>要釐清這個問題，首先要定義錯誤，程式錯誤的範疇很廣，不同的狀況有不同的應對方式，大致上可以分為以下幾種類型：</p>
+<ul>
+<li><p><strong>Simple Errors</strong></p>
+<p>一些很明顯可能產生錯誤的操作，例如 type casting、parsing string to integer。這種錯誤通常很容易理解，不需要過多的描述，在 Swift 或其他語言中，一般返回 <code>nil</code>／<code>undefined</code>／<code>none</code> 等值。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> result = <span class="type">Int</span>(<span class="string">"I am not an integer, and will return an Optional"</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Logical Failures</strong></p>
+<p>由 programmer 產生的錯誤，我們給他一個可愛的暱稱「bug」。Swift 強大的編譯器會幫開發者檢查這些問題，減少 logical failures 的數量。</p>
+</li>
+<li><p><strong>Recoverable Errors</strong></p>
+<p>導致此錯誤的原因複雜，但能夠合理預料的錯誤。例如<strong>開啟檔案</strong>，可能會有 <strong>Permission Denied</strong>、<strong>File Not Found</strong> 等不同的錯誤。這類的錯誤就是 <strong>Exceptions Handling</strong> 主要的目標。</p>
+</li>
+</ul>
+<h2 id="Swift-Error-Handling"><a href="#Swift-Error-Handling" class="headerlink" title="Swift Error Handling"></a>Swift Error Handling</h2><p>Swift 不會遇到這些問題，Swift 的 Error Handling<br>Swift 在 2.0 版為了妥善處理錯誤，並避免影響效能，決定僅針對 <strong>Recoverable Error</strong>，一些系統／語言層的 Exception 並不會引入 Error Handling 機制。 截至 3.1 版，相關的關鍵字如下：</p>
+<ul>
+<li><code>do</code></li>
+<li><code>catch</code></li>
+<li><code>try</code></li>
+<li><code>throw</code></li>
+<li><code>throws</code></li>
+<li><code>rethrows</code></li>
+<li><code>defer</code></li>
+<li><code>Error</code></li>
+</ul>
+<p>Swift 的錯誤處理與主流設計大相逕庭，不幫 programmer 躲過自作孽的 <strong>Login Failure</strong>，不會 catch <strong>index out of bound</strong> 這類錯誤。實際上，Swift 的錯誤處理就只是<a href="https://andybargh.com/error-handling-in-swift/" target="_blank" rel="external">另一種 Return Type，與相關的 Syntax Sugar</a>。其<a href="https://github.com/apple/swift/blob/master/docs/ErrorHandling.rst" target="_blank" rel="external">設計理念／特色</a>整理如下：</p>
+<ul>
+<li>拋出錯誤之處需為顯式聲明。</li>
+<li>函式必須顯式宣告它會<strong>拋出錯誤</strong>，讓 programmer 明確得知哪些程式該處理錯誤。</li>
+<li>拋出錯誤的效能如同初始化並返回 <strong>Error</strong> 型別一樣簡單，不涉及 stack unwinding。</li>
+</ul>
+<p>Swift 有四種方法處理 Error：</p>
+<ol>
+<li>轉拋／傳遞錯誤（error propagation）。</li>
+<li>使用 <strong>do-catch</strong> 陳述句處理。</li>
+<li>將 Error 轉為 <strong>Optional Value</strong>（<code>try?</code>）。</li>
+<li>停止錯誤傳遞（<code>try!</code>）</li>
+</ol>
+<p>能被拋出的錯誤需繼承 <code>Error</code> protocol，在此先定義一個錯誤類型，爾後再介紹。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">DRMError</span>: <span class="title">Error</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> timeout</div><div class="line">    <span class="keyword">case</span> invalidHeader</div><div class="line">    <span class="keyword">case</span> missingParam(<span class="type">String</span>)</div><div class="line">    <span class="keyword">case</span> responseFailure(code: <span class="type">Int</span>, message: <span class="type">Data</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Propagating-Errors"><a href="#Propagating-Errors" class="headerlink" title="Propagating Errors"></a>Propagating Errors</h3><p>第一種處理方法：透過 <strong>throwing function</strong> 轉拋／傳遞錯誤。</p>
+<p>任何一個 function、method 或 initializer 若要拋出錯誤，需在參數之後，Return Type 之前加上 <code>throws</code> 來宣告一個 <strong>throwing function</strong>，顯式聲明該函式的需要錯誤處理。並利用 <code>throw</code> 來拋出錯誤。我們可以利用這個特性，將錯誤轉拋／傳遞出去給外面的作用域。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowTimeout</span><span class="params">()</span></span> <span class="keyword">throws</span> &#123; <span class="comment">// 可以拋出錯誤</span></div><div class="line">    <span class="keyword">throw</span> <span class="type">DRMError</span>.timeout</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHeaderEmpty</span><span class="params">(header: [String: Any])</span></span> <span class="keyword">throws</span> -&gt; <span class="type">Bool</span> &#123; <span class="comment">// 可以拋出錯誤</span></div><div class="line">    <span class="keyword">guard</span> header.<span class="built_in">count</span> &gt; <span class="number">0</span> <span class="keyword">else</span> &#123; <span class="keyword">throw</span> <span class="type">DRMError</span>.invalidHeader &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 這個函式會錯誤轉拋／傳遞出去，將錯誤處理責任轉移到調用它的作用域。</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">throwPropagation</span><span class="params">()</span></span> <span class="keyword">throws</span> &#123;</div><div class="line">    <span class="keyword">throw</span> <span class="type">DRMError</span>.missingParam(<span class="string">"pubkey"</span>)</div><div class="line">    <span class="keyword">try</span> canThrowTimeout()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">try</span> throwPropagation()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>調用 <strong>throwing function</strong> 時，必須在該函式前使用 <code>try</code> 顯式調用，否則編譯不會過。<br><!--  --><br>我們可以把 <code>throw</code> 視為一種特殊的 <code>return</code>，專門用來返回一個 <strong>Error</strong> 實例。</p>
+</blockquote>
+<h3 id="Using-do-catch"><a href="#Using-do-catch" class="headerlink" title="Using do-catch"></a>Using <code>do-catch</code></h3><p>第二種處理方法：使用 <strong>do-catch</strong> 來捕獲錯誤。</p>
+<p><strong>do-catch</strong> 就好比 Objective-C 的 <code>@try-@catch</code>，在 <code>do</code> 區塊內拋出的錯誤會被捕獲，並尋找對應的 <code>catch</code> 區塊來處理錯誤。用法如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">try</span> throwPropagation() <span class="comment">// 只能從用 try 標註的 throwing function 捕獲錯誤</span></div><div class="line">    <span class="comment">// 若調用 `catchFromThis()` 這樣的函式，未使用 `try` 標註，</span></div><div class="line">    <span class="comment">// 錯誤無法被捕獲（實際上也沒辦法拋出 custom error）。</span></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125; <span class="keyword">catch</span> <span class="type">DRMError</span>.timeout &#123; <span class="comment">// 使用 pattern matching 捕獲特定錯誤</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"Oh No! Timeout!"</span>)</div><div class="line">&#125; <span class="keyword">catch</span> <span class="type">DRMError</span>.missingParam(<span class="keyword">let</span> p) <span class="keyword">where</span> p == <span class="string">"pubkey"</span> &#123; <span class="comment">// pattern matching + generic where clause</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(param)</span> is missing."</span>)</div><div class="line">&#125; <span class="keyword">catch</span> &#123; <span class="comment">// 捕獲剩下的所有錯誤（類似 default），並 binding 到區域變數 `error`</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"Unexpected Error"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>範例中，看到了 <code>catch</code> 結合 Swift 強大的 <strong>pattern matching</strong> 來捕獲錯誤，並活用 <strong>value binding</strong> 獲取錯誤的詳細資訊。我們可以把 <code>catch</code> 看作 <strong>switch-case</strong> 來使用各種 Swift patterns 的奇技淫巧。唯一不同的是，<strong>do-catch</strong> 不需要枚舉所有可能拋出的錯誤，若有錯誤未被處理，它將會繼續傳遞到周遭的作用域。</p>
+<h3 id="Converting-to-Optional"><a href="#Converting-to-Optional" class="headerlink" title="Converting to Optional"></a>Converting to Optional</h3><p>第三種處理法：利用 <code>try?</code> 將錯誤轉換成 Optional。</p>
+<p>這種作法大家應該都很能理解，直接貼官方的例子：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">someThrowingFunction</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> x = <span class="keyword">try</span>? someThrowingFunction() <span class="comment">// `x` 是一個 Optional</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> y: <span class="type">Int</span>?</div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    y = <span class="keyword">try</span> someThrowingFunction() <span class="comment">// 若無拋出錯誤，則將賦值給 `y`</span></div><div class="line">&#125; <span class="keyword">catch</span> &#123;</div><div class="line">    y = <span class="literal">nil</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>透過 <code>try?</code>，將 <strong>throwing function</strong> 的錯誤轉換成 Optional 後，理所當然可以使用 Optional 的所有特性，例如 <strong>optional-binding</strong>，例如官方的範例：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetchData</span><span class="params">()</span></span> -&gt; <span class="type">Data</span>? &#123;</div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> data = <span class="keyword">try</span>? fetchDataFromDisk() &#123; <span class="keyword">return</span> data &#125;</div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> data = <span class="keyword">try</span>? fetchDataFromServer() &#123; <span class="keyword">return</span> data &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Stopping-Propagation"><a href="#Stopping-Propagation" class="headerlink" title="Stopping Propagation"></a>Stopping Propagation</h3><p>第四種作法：使用 <code>try!</code> 停止錯誤繼續傳遞。</p>
+<p>當你<strong>非常有信心</strong>錯誤不會發生，可以使用 <code>try!</code> 停止錯誤往下傳遞。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 接續前一個例子</span></div><div class="line"><span class="comment">// `x` 是一個 Int，如果 someThrowingFunction 拋出錯誤，則會得到 runtime error。</span></div><div class="line"><span class="keyword">let</span> x = <span class="keyword">try</span>! someThrowingFunction()</div></pre></td></tr></table></figure>
+<h2 id="Other-Handling-Keywords"><a href="#Other-Handling-Keywords" class="headerlink" title="Other Handling Keywords"></a>Other Handling Keywords</h2><p>到此，我們介紹了 <code>do</code>、<code>catch</code>、<code>try</code>、<code>throw</code>、<code>throws</code>，這裡接著介紹 <code>rethrows</code>、<code>defer</code> 與 <code>Error</code>。</p>
+<h3 id="rethrows-your-Error"><a href="#rethrows-your-Error" class="headerlink" title="rethrows your Error"></a><code>rethrows</code> your Error</h3><p><code>rethrows</code> 這個關鍵字乍看很詭異，但它並非會再拋出錯誤，如果一個函式宣告為 <code>rethrows</code>，意指</p>
+<blockquote>
+<p>這個 <strong>rethrowing function</strong> 只會在它的函式型別參數（function parameter）拋出錯誤時，才會拋出錯誤。</p>
+</blockquote>
+<p>要宣告為 <strong>rethrowing function</strong>，必須符合幾個要素：</p>
+<ul>
+<li>至少一個函式型別參數帶有 <strong>throwing function</strong> signature。</li>
+<li>只能在 <strong>do-catch</strong> 的 <code>catch</code> 語句中使用 <code>throw</code> 拋出錯誤。</li>
+<li><code>do</code> 語句中只能處理作為參數的 <strong>throwing function</strong> 拋出的錯誤。</li>
+</ul>
+<p>簡單的範例如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">rethrowFunction</span><span class="params">(callback: <span class="params">()</span></span></span> <span class="keyword">throws</span> -&gt; <span class="type">Void</span>) <span class="keyword">rethrows</span> &#123;</div><div class="line">    <span class="keyword">try</span> callback()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">try</span> rethrowFunction &#123;</div><div class="line">  <span class="keyword">throw</span> <span class="type">DRMError</span>.timeout</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我們可以看到，許多與函數式程式設計相關 methods，都有帶 <code>rethrows</code> 的 signatures，例如 <code>Collection</code> 的 <code>map()</code> 與 <code>index(where:)</code>，讓處理集合時，可以將錯誤傳遞到正確的作用域。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Collection</span> : <span class="title">Sequence</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">map</span>&lt;T&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> <span class="keyword">throws</span> -&gt; <span class="type">T</span>) <span class="keyword">rethrows</span> -&gt; [<span class="type">T</span>]</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">index</span><span class="params">(<span class="keyword">where</span> predicate: <span class="params">(<span class="keyword">Self</span>.Iterator.Element)</span></span></span> <span class="keyword">throws</span> -&gt; <span class="type">Bool</span>) <span class="keyword">rethrows</span> -&gt; <span class="type">Self</span>.<span class="type">Index</span>?</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="defer-Your-Finally"><a href="#defer-Your-Finally" class="headerlink" title="defer Your Finally"></a><code>defer</code> Your Finally</h3><p>相信熟悉其他語言的童鞋，一定在想「我的 <strong>try-catch-finally</strong> 的 <code>finally</code> 呢？」，先前說過，Swift 的 error handling 只是一些甜死人的語法糖，官方並沒有特別為這個 model 增添關鍵字，而是使用大家已知的 <code>defer</code>，不懂的趕快<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Statements.html#//apple_ref/doc/uid/TP40014097-CH33-ID532" target="_blank" rel="external">點這裡</a>惡補一下。</p>
+<p>這裡寫段開檔的 pseudo code 給大家瞧瞧：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handle</span><span class="params">(fileError error: FileError)</span></span> &#123;</div><div class="line">  <span class="keyword">switch</span> error &#123;</div><div class="line">  <span class="keyword">case</span> .notFound: <span class="built_in">print</span>(<span class="string">"File not found."</span>)</div><div class="line">  <span class="keyword">case</span> .permissionDenied: <span class="built_in">print</span>(<span class="string">"Permission denied"</span>)</div><div class="line">  <span class="keyword">default</span>: <span class="built_in">print</span>(<span class="string">"Unknown error occurred."</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeTo</span><span class="params">(file: File, data: Data)</span></span> &#123;</div><div class="line">    <span class="keyword">defer</span> &#123; close(file) &#125; <span class="comment">// 在這個 code block 結束之前執行</span></div><div class="line"></div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="keyword">try</span> openFile(file)</div><div class="line">    &#125; <span class="keyword">catch</span> <span class="keyword">let</span> error <span class="keyword">as</span> <span class="type">FileError</span> &#123;</div><div class="line">        handle(fileError: error)</div><div class="line">    &#125; <span class="keyword">catch</span> <span class="number">_</span> &#123; <span class="comment">// wildcard pattern without binding error value to error</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"This is not a FileError."</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Customize-Your-Error"><a href="#Customize-Your-Error" class="headerlink" title="Customize Your Error"></a>Customize Your <code>Error</code></h3><p>一開始，我們實現了一個 <code>DRMError</code> 繼承了 <code>Error</code>，讓我們自定義的錯誤能夠正確拋出。那這個 <code>Error</code> protocol 究竟葫蘆裡買啥藥？很驚人地，<code>Error</code> 是個 empty protocol，沒有任何實現，可說是名副其實的語法糖。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Error</span> </span>&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Error</span> </span>&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Error</span> <span class="title">where</span> <span class="title">Self</span>.<span class="title">RawValue</span> : <span class="title">SignedInteger</span> </span>&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Error</span> <span class="title">where</span> <span class="title">Self</span>.<span class="title">RawValue</span> : <span class="title">UnsignedInteger</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由於 <strong>do-catch</strong> 和 Swift patterns 緊密結合，官方推薦使用 <code>enum</code> 客製化我們自己的 Error Type。當有特殊需求，例如 Errors 間有共享的 state 或 data 時，也可用如 <code>struct</code> 來實現自定義 Error，舉個官方的 XML Parsing 例子：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">XMLParsingError</span>: <span class="title">Error</span> </span>&#123;</div><div class="line">   <span class="class"><span class="keyword">enum</span> <span class="title">ErrorKind</span> </span>&#123;</div><div class="line">       <span class="keyword">case</span> invalidCharacter</div><div class="line">       <span class="keyword">case</span> mismatchedTag</div><div class="line">       <span class="keyword">case</span> internalError</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="keyword">let</span> line: <span class="type">Int</span></div><div class="line">   <span class="keyword">let</span> column: <span class="type">Int</span></div><div class="line">   <span class="keyword">let</span> kind: <span class="type">ErrorKind</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">parse</span><span class="params">(<span class="number">_</span> source: String)</span></span> <span class="keyword">throws</span> -&gt; <span class="type">XMLDoc</span> &#123;</div><div class="line">   <span class="comment">// ...</span></div><div class="line">   <span class="keyword">throw</span> <span class="type">XMLParsingError</span>(line: <span class="number">19</span>, column: <span class="number">5</span>, kind: .mismatchedTag)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">   <span class="keyword">let</span> xmlDoc = <span class="keyword">try</span> parse(myXMLData)</div><div class="line">&#125; <span class="keyword">catch</span> <span class="keyword">let</span> e <span class="keyword">as</span> <span class="type">XMLParsingError</span> &#123;</div><div class="line">   <span class="built_in">print</span>(<span class="string">"Parsing error: <span class="subst">\(e.kind)</span> [<span class="subst">\(e.line)</span>:<span class="subst">\(e.column)</span>]"</span>)</div><div class="line">&#125; <span class="keyword">catch</span> &#123;</div><div class="line">   <span class="built_in">print</span>(<span class="string">"Other error: <span class="subst">\(error)</span>"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上例可清楚呈現解析 XML 時，Error 共享類似的 states。Swift Error Protocol 設計地非常有彈性。</p>
+<h2 id="Notices-and-Future"><a href="#Notices-and-Future" class="headerlink" title="Notices and Future"></a>Notices and Future</h2><p>Swift 的 Error Handling 設計得很現代很 functional，也讓錯誤處理不再只存在於醜陋的 code 或是不齊全的 document 中，而是提升至語言層面加以約束、保障。同時，仍有幾點需要注意、了解：</p>
+<ul>
+<li><code>throws</code> 關鍵字是 function type 的一部分，而 non-throwing function 是 throwing function 的 subtype，所以可以在任何宣告 throwing function 處使用 non-throwing。</li>
+<li>承上，non-throwing method 可以 override throwing method，<strong>反之則否</strong>。</li>
+<li><code>throw</code> 的功能類似 <code>return</code>，對 asynchronous operation 不夠友善，因此許多人 porting 等其他語言的 <code>Promise</code>/<code>Future</code> 的特性，來彌補異步錯誤處理的不足。比較知名的庫有 <a href="https://github.com/mxcl/PromiseKit" target="_blank" rel="external">PromiseKit</a> 等（想學習 <code>Promise</code> 概念，可參考<a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises" target="_blank" rel="external">這個連結</a>）。</li>
+</ul>
+<p>如果未來，語言層級的平行運算（並行運算）就像<a href="https://onevcat.com/2016/12/concurrency/" target="_blank" rel="external">這篇文章</a>所說的，會在 Swift 5 推出；如果之後 <code>async</code>／<code>await</code> 如同 <strong>ES7</strong> 一樣納入 Swift 標準，如果 actor system 真的導入 Swift 中，天知道兩年後 Swift 寫起來會有多舒服！</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html" target="_blank" rel="external">Swift Language Guide - Error Handling</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exception_handling" target="_blank" rel="external">Wiki - Exception Handling</a></li>
+<li><a href="https://github.com/apple/swift/blob/master/docs/ErrorHandling.rst" target="_blank" rel="external">Error Handling in Swift 2.0</a></li>
+<li><a href="https://andybargh.com/error-handling-in-swift/" target="_blank" rel="external">Andy Bargh - Error Handling in Swift</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/swift-error-handling/">https://weihanglo.github.io/2017/swift-error-handling/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/swift/">Swift</a>
+          
+            <a href="/tags/error-handling/">Error Handling</a>
+          
+            <a href="/tags/exception-handling/">Exception Handling</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/fed-toolchain/">
+        <span class="next-text nav-default">Front End Development Toolchain</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/swift-error-handling/';
+        this.page.identifier = '2017/swift-error-handling/';
+        this.page.title = '理解 Swift 的 Error Handling';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>
