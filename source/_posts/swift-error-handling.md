@@ -50,8 +50,7 @@ _（撰於 2017-04-10，基於 Swift 3.1）_
 
 ## Swift Error Handling
 
-Swift 不會遇到這些問題，Swift 的 Error Handling
-Swift 在 2.0 版為了妥善處理錯誤，並避免影響效能，決定僅針對 **Recoverable Error**，一些系統／語言層的 Exception 並不會引入 Error Handling 機制。 截至 3.1 版，相關的關鍵字如下：
+Swift 在 2.0 版為了妥善處理錯誤，並避免影響效能，決定僅針對 **Recoverable Error** 引入 Error Handling 機制，其他系統底層／語言層的錯誤還是需要 programmer 自行避免。截至 3.1 版，相關的關鍵字如下：
 
 - `do`
 - `catch`
