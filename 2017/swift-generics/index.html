@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="就只是代詞，還在那邊 Generics"/>
+
+
+
+
+  <meta name="keywords" content="Swift,Generics,Generic Programming," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/swift-generics/"/>
+
+
+<meta name="description" content="泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
+本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法，最後提出個人對泛型的看法。
+（撰於 2017-05-08，基於 Swift 3.1）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="就只是代詞，還在那邊 Generics">
+<meta property="og:url" content="https://weihanglo.github.io/2017/swift-generics/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
+本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法，最後提出個人對泛型的看法。
+（撰於 2017-05-08，基於 Swift 3.1）">
+<meta property="og:updated_time" content="2017-05-08T14:31:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="就只是代詞，還在那邊 Generics">
+<meta name="twitter:description" content="泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
+本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法，最後提出個人對泛型的看法。
+（撰於 2017-05-08，基於 Swift 3.1）">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> 就只是代詞，還在那邊 Generics · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          就只是代詞，還在那邊 Generics
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          May 8, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generic-Functions"><span class="toc-text">Generic Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generic-Types"><span class="toc-text">Generic Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Type-Constraints"><span class="toc-text">Type Constraints</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generic-Parameter-Clause"><span class="toc-text">Generic Parameter Clause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Associated-Types"><span class="toc-text">Associated Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generic-Where-Clauses"><span class="toc-text">Generic Where Clauses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-Thoughts-of-Generics"><span class="toc-text">Some Thoughts of Generics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><strong>泛型程式設計（Generic Programming）</strong> 是經典的程式設計典範之一，不論是老牌的 <strong>C++</strong>，還是潮潮的 <strong>TypeScript</strong>，都能一睹<strong>泛型</strong>的風采。近年來，程式設計吹的是 <strong>static typing</strong> 風，泛型又開始被廣泛討論。</p>
+<p>本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法，最後提出個人對泛型的看法。</p>
+<p><em>（撰於 2017-05-08，基於 Swift 3.1）</em></p>
+<a id="more"></a>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>想像一下，有個需求是要交換兩個變數儲存的值，現在欲交換的變數是 <code>int</code> type，因此實作了 <code>void swapInt(*int, *int)</code> 的函式；接下來要交換的是 <code>double</code>，又寫了 <code>void swapFloat(*double, *double)</code>，但兩個函式實作幾乎一樣（交換指標指向的值），如果還有 <code>float</code>、<code>char</code> 等其他 <em>n</em> 種 data types，就必須寫 <em>n</em> 個版本的實作。如果程式語言支援<a href="https://en.wikipedia.org/wiki/Function_overloading" target="_blank" rel="external">函式重載</a>，可以把 function name 都改成 <code>swap</code>，降低函式調用端的複雜度，但依然沒解決重複的問題。</p>
+<p>泛型程式設計（Generic Programming）目的就是「<strong>消弭因為不同資料型態，而重複實作相同的演算法</strong>」。<a href="https://en.wikipedia.org/wiki/Generic_programming" target="_blank" rel="external">維基百科</a>寫得非常清楚：</p>
+<blockquote>
+<p>… is a style of computer programming in which algorithms are written in terms of <strong>types to-be-specified-later</strong> that are then <strong>instantiated when needed for specific types</strong> provided as parameters</p>
+</blockquote>
+<p>白話一點，就是「<strong>延遲型別決定的時間點，再利用對程式碼的解析結果，到實例化該程式片段時，才決定實際的型別</strong>」。</p>
+<p>泛型本質上就是減少冗餘代碼，增加代碼重用，遵守「<a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="external">DRY</a>」的程式設計典範。有名的 C++ 的<a href="https://en.wikipedia.org/wiki/Standard_Template_Library" target="_blank" rel="external">標準模版庫（STL）</a>就是利用 C++ <code>template</code> 模版泛型，定義 <code>map</code>、<code>vector</code>、<code>sort</code>、<code>binary_search</code> 等重要的資料結構與與演算法，讓這些演算法非常「generic」，泛用於各種 data types。</p>
+<p>Swift 這個<del>四處剽竊</del>集大成的<a href="https://en.wikipedia.org/wiki/Programming_paradigm#Multi-paradigm" target="_blank" rel="external">多典範語言</a>，當然也少不了對泛型的支持。Standard Library 內的 <code>Array</code>、<code>Dictionary</code>、<code>Set</code> 等資料結構也支持不同 data types，而根據泛型化的對象不同，Swift 可分為 <strong>Generic Functions</strong> 與 <strong>Generic Types</strong>。接下來分別介紹兩者。</p>
+<h2 id="Generic-Functions"><a href="#Generic-Functions" class="headerlink" title="Generic Functions"></a>Generic Functions</h2><p>想像一下，有三種不同廠牌，功能外觀也非常不一樣的手機，隸屬不同 class，</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppleIPhone7</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SamsungNote7</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AsusZenfone</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>有一個 <code>call(_:)</code> 函式，需傳入一個 <code>phone</code> 參數，才能開始打電話，但由於各廠牌差異過大，需要定義多個實作相同的函式，每支手機才可正常 call out，</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: AppleIPhone7)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: SamsungNote7)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: AsusZenfone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>透過 Generic Functions 可以將 <code>call(_:)</code> 改成支援任何 data types 的泛型版本，</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span>&lt;Phone&gt;<span class="params">(by phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>跟在 function name 後的 <code>&lt;Phone&gt;</code> 就是 Swift 的泛型語法，角括號 <code>&lt;&gt;</code> 內的 <code>Phone</code> 是虛擬的 type，官方名稱為 <strong>Type Parameters</strong>。這個 <code>&lt;Phone&gt;</code> 泛型有幾個特性：</p>
+<ul>
+<li>只是一個「<strong>代名詞</strong>」，不代表任何實際的型別。</li>
+<li>直接寫在該宣告名稱的後面（例如 function name 之後）。</li>
+<li>在該宣告的 body 中，可自由運用該泛型型別，例如傳入其他 function，或當作 return type。</li>
+<li>在可以確定實際調用的型別後，虛擬的泛型型別將會被真實型別取代。</li>
+</ul>
+<blockquote>
+<p>泛型就是一個把<strong>代名詞換成已知名詞的概念</strong>，交由 compiler 代勞罷了。</p>
+</blockquote>
+<!--  -->
+<blockquote>
+<p>Type Parameter 可使用任意的合法 identifier，常見如 <code>&lt;T&gt;</code>、<code>&lt;U&gt;</code>，或是與上下文有關，如 generic collection protocol 就用 <code>&lt;Element&gt;</code>，慣例會用大寫開頭，表示是一個 type，而非 value。</p>
+</blockquote>
+<h2 id="Generic-Types"><a href="#Generic-Types" class="headerlink" title="Generic Types"></a>Generic Types</h2><p>除了 function 以外，Swift 的 first class citizens（struct、enum、class）、<strong>initializers</strong>，以及 <strong>typelias</strong> 都支援泛型宣告功能，這裡直接使用官方的 <code>Stack</code> 例子：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">Element</span>&gt; </span>&#123;                   <span class="comment">// 1</span></div><div class="line">  <span class="keyword">var</span> items = [<span class="type">Element</span>]()                 <span class="comment">// 2</span></div><div class="line">  <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> item: Element)</span></span> &#123;   <span class="comment">// 3</span></div><div class="line">    items.append(item)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">Element</span> &#123;        <span class="comment">// 4</span></div><div class="line">    <span class="keyword">return</span> items.removeLast()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>範例宣告了一個 <code>Stack</code> struct，帶有一個 type parameter「<strong>Element</strong>」（1），Element 這個虛擬的 type 可以在 struct 內部盡情使用。在（2）（3）（4） 就分別用來當作</p>
+<ul>
+<li>Array 儲存的資料型別</li>
+<li>函式的參數型別</li>
+<li>函式的 return type</li>
+</ul>
+<p>定義完成後，若希望使用 <code>Stack</code> 這個 generic type 時，我們必須明確告訴 compiler 這個 <code>Stack</code> instance 會儲存何種型別，寫法如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> stack0 = <span class="type">Stack</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="comment">// or</span></div><div class="line"><span class="keyword">var</span> stack1: <span class="type">Stack</span>&lt;<span class="type">String</span>&gt; = <span class="type">Stack</span>()</div></pre></td></tr></table></figure>
+<p>當 generic type 被實例化，會稱該實例的泛型宣告（如本例的 <code>&lt;String&gt;</code>）為 <strong>Type Arguments</strong>，如同一般函式帶入引數的概念，原本虛擬的 type parameter 的 placeholder，將完全被 type argument 取代。此即 Generic Types 的用法，與 Generic Functions 如出一轍。</p>
+<blockquote>
+<p>在不使用 literal 的狀況下，實例化 Generic Types 的語法與實例化 Array／Dictionary 一樣，畢竟 Array／Dictionary 也是內建的 generic types。</p>
+</blockquote>
+<h2 id="Type-Constraints"><a href="#Type-Constraints" class="headerlink" title="Type Constraints"></a>Type Constraints</h2><p>有時候，演算法可能需要傳入的型別有實作特定方法，泛型可以透過設置 <strong>Type Constraints</strong>，確保傳入型別符合需求，簡單的範例如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">myFunction</span>&lt;T: SomeClass, U: SomeProtocol&gt;<span class="params">(someT: T, someU: U)</span></span> &#123;</div><div class="line">  <span class="comment">// Here is function body</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上例中有兩處新語法：</p>
+<ul>
+<li>宣告多個 type parameters 時，parameters 間使用 <code>,</code> 分隔。</li>
+<li>泛型型別名稱後，添加 <code>: SomeClass</code>、<code>: SomeProtocol</code>，代表 <code>T</code> 的實際型別必須繼承 <code>SomeClass</code>，<code>U</code> 的實際型別則需遵循 <code>SomeProtocol</code>。</li>
+</ul>
+<p>回過頭，看最初手機廠牌的範例，我們為每個廠牌加上一點特性。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Chargeable</span> </span>&#123;&#125;          <span class="comment">// 可充電的</span></div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">HeadphoneJack</span> </span>&#123;&#125;     <span class="comment">// 有 Headphone Jack 的</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AppleIPhone7</span>: <span class="title">Chargeable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SamsungNote7</span>: <span class="title">HeadphoneJack</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AsusZenfone</span>: <span class="title">Chargeable</span>, <span class="title">HeadphoneJack</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>再定義三個 generic functions，但每個 functions 都有相對應的 type constraints，確保傳入的型別符合要求。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">charge</span>&lt;Phone: Chargeable&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is charging"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenMusic</span>&lt;Phone: HeadphoneJack&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Listen music with <span class="subst">\(type(of: phone)</span>)"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenMusicWhileCharging</span>&lt;Phone: Chargeable &amp; HeadphoneJack&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Listen music with <span class="subst">\(type(of: phone)</span>) while charging"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>listenMusicWhileCharging(_:)</code> 的 type constraint 為<code>Chargeable &amp; HeadphoneJack</code>，為 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID282" target="_blank" rel="external">protocol composition</a>，是合法的 type constraint。</p>
+</blockquote>
+<p>最後將手機實例化，並分別帶入所有 functions，</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> iphone7 = <span class="type">AppleIPhone7</span>()</div><div class="line"><span class="keyword">let</span> note7 = <span class="type">SamsungNote7</span>()</div><div class="line"><span class="keyword">let</span> zenfone = <span class="type">AsusZenfone</span>()</div><div class="line"></div><div class="line">charge(phone: zenfone)</div><div class="line">charge(phone: iphone7)</div><div class="line">charge(phone: note7)</div><div class="line"></div><div class="line">listenMusic(phone: zenfone)</div><div class="line">listenMusic(phone: iphone7)</div><div class="line">listenMusic(phone: note7)</div><div class="line"></div><div class="line">listenMusicWhileCharging(phone: zenfone)</div><div class="line">listenMusicWhileCharging(phone: iphone7)</div><div class="line">listenMusicWhileCharging(phone: note7)</div></pre></td></tr></table></figure>
+<p>最後應該會編譯失敗，因為 <code>AppleIPhone7</code> 與 <code>SamsungNote7</code> 分別沒有實作 <code>HeadphoneJack</code> 與 <code>chargeable</code>，兩者的 instances 當然無法帶入不符合 <strong>type constraints</strong> 的 functions。</p>
+<h2 id="Generic-Parameter-Clause"><a href="#Generic-Parameter-Clause" class="headerlink" title="Generic Parameter Clause"></a>Generic Parameter Clause</h2><p>到此，我們來看看泛型宣告的完整語法。</p>
+<p>依照 Swift 官方說詞，泛型的宣告叫做 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-parameter-clause" target="_blank" rel="external">Generic Parameter Clause</a>，是由角括號 <code>&lt;&gt;</code> 將 Generic Parameter 包裹起來，若有多個 parameters，則以 <code>,</code>（comma-separated）分隔。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line">&lt;<span class="type">GenericA</span>, <span class="type">GenericB</span>, <span class="type">GenericC</span>&gt;</div></pre></td></tr></table></figure>
+<p>而每個 Generic Parameters 除了虛擬 type name（官方：<strong>Type Parameter</strong>），還可有 optional 的 <strong>Type Constraints</strong>。</p>
+<p>最後，Generic Parameter Clause 語法大致會像這樣：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line">&lt;<span class="type">GenericA</span>, <span class="type">GenericB</span>: <span class="type">SomeClass</span>, <span class="type">GenericC</span>: <span class="type">SomeProtocol</span>&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Generic Parameter Clause 用在宣告型別，若對應泛型實例化，有 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-argument-clause" target="_blank" rel="external">Generic Argument Clause</a>，例如建構 Dictionary：<code>let a = Dictionary&lt;String, [Double]&gt;()</code>。將指定的實際型別帶入對應位置即可。</p>
+</blockquote>
+<h2 id="Associated-Types"><a href="#Associated-Types" class="headerlink" title="Associated Types"></a>Associated Types</h2><p>在 <strong>Generic Types</strong> 一節，我們提到 Swift 所有一等公民、<strong>typealias</strong>，以及 initializers 都可以利用 Generic Parameter Clauses 宣告泛型。那 <strong>protocols</strong> 呢？我們可以嘗試看看。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">protocol Test&lt;T&gt; &#123;&#125;</div><div class="line">// error: protocols do not allow generic parameters; use associated types instead</div></pre></td></tr></table></figure>
+<p>結果 Swift 不允許 protocol 使用我們熟悉的泛型宣告，而是引入另一個關鍵字 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID374" target="_blank" rel="external">associatedtype</a>。我們可以把 <code>associatedtype</code>，想像成 protocol 版的 generics，其有幾點特性：</p>
+<ul>
+<li>使用完整的繼承寫法，如 <code>associatedtype MyType: MyClass, MyProtocol, AnotherProtocol</code>。</li>
+<li>可透過 <code>Self</code> access <strong>associated type</strong>。</li>
+<li>承上，因此實際上是一個 <strong>nested type</strong> 的 protocol requirements。</li>
+</ul>
+<blockquote>
+<p>有關為何捨棄 type parameterization，而特別設計 <code>associatedtype</code> 作為 protocol 的泛型，可參考<a href="http://www.russbishop.net/swift-why-associated-types" target="_blank" rel="external">這篇文章</a>、<a href="https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/" target="_blank" rel="external">這個 Pokemon 範例</a>，和<a href="http://www.stackoverflow.com/a/26555177" target="_blank" rel="external">這個 stackoverflow 回答</a>。</p>
+</blockquote>
+<p>接下來，藉由幾個重要的 protocol 來理解 <code>associatedtype</code>。首先，我們來看 <a href="http://swiftdoc.org/v3.1/protocol/IteratorProtocol/" target="_blank" rel="external">IteratorProtocol</a>。<strong>IteratorProtocol</strong> 是一切集合、容器、迴圈最基礎 protocol。擷取定義如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">IteratorProtocol</span> </span>&#123;</div><div class="line"></div><div class="line">  associatedtype <span class="type">Element</span>                        <span class="comment">// 1</span></div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">next</span><span class="params">()</span></span> -&gt; <span class="type">Self</span>.<span class="type">Element</span>?  <span class="comment">// 2, 3</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>宣告一個泛型 associated type <code>Element</code>。</li>
+<li>必須實作 <code>next()</code> 方法，返回一個 <strong>Optional</strong> 的 <code>Element</code>。</li>
+<li>繼承 <code>IteratorProtocol</code> 型別，必須有 <code>Element</code> 這個 nested type，才能存取 <code>Self.Element</code>。</li>
+</ol>
+<p>再來，就可以實作一個無限迴圈的 <code>ForeverIterator</code>，並利用 Swift 的 Type Inference，自動判斷 <code>Element</code> 這個 associated type 實際的型別。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ForeverIterator</span>: <span class="title">IteratorProtocol</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">next</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span>? &#123; <span class="comment">// 從 declaration 推斷 Element 的實際型別</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我們也可以利用 <code>typealias</code> 顯式宣告 <code>Element</code> 的實際型別。讓該型別完成 nested type 的 requirement。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ForeverIterator</span>: <span class="title">IteratorProtocol</span> </span>&#123;</div><div class="line">  <span class="keyword">typealias</span> <span class="type">Element</span> = <span class="type">Bool</span> <span class="comment">// 完成 nested type `Element` 的 requirement</span></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">next</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span>? &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>這樣就完成一個無限迴圈的 Iterator 了。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"></div><div class="line"><span class="keyword">let</span> it = <span class="type">ForeverIterator</span>()</div><div class="line"></div><div class="line"><span class="keyword">while</span> <span class="keyword">let</span> flag = it.next(), flag &#123;</div><div class="line">    <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">1</span>)</div><div class="line">    <span class="built_in">print</span>(<span class="type">Date</span>())</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>associatedtype</code> 除了提供 protocol 相關的 generic type 之外，也可以直接提供 Default 的 type。簡單範例如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">GotDefaultAssociatedType</span> </span>&#123;</div><div class="line">  associatedtype <span class="type">SomeType</span> = <span class="type">Double</span>     <span class="comment">// 提供 default type `Double`</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SomeStruct</span>: <span class="title">GotDefaultAssociatedType</span> </span>&#123;   </div><div class="line">  <span class="comment">// 不需要宣告任何 typealias 或是實際的型別，就可以正確執行 `multiply(_:)`</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">multiply</span><span class="params">(x: SomeType)</span></span> &#123;</div><div class="line">    <span class="built_in">print</span>(x * x)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="type">SomeStruct</span>().multiply(<span class="number">1.5</span>)</div><div class="line"><span class="comment">// 2.25</span></div></pre></td></tr></table></figure>
+<p>看完上面的範例，可以了解 Associated Type 其實就是 protocol 版的 Generic Parameter Clause，彈性更大，可讀性更高，配合接下來的 <strong>Generic Where Clauses</strong>，更能展現 Associated Type 的強大。</p>
+<h2 id="Generic-Where-Clauses"><a href="#Generic-Where-Clauses" class="headerlink" title="Generic Where Clauses"></a>Generic Where Clauses</h2><p>在 Type Constraints  一節，提到使用 Type Constraints 限制傳入的型別，Swift 的泛型也有另外一個可讀性、彈性更高，更接近自然語言的 syntax —— <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-where-clause" target="_blank" rel="external">Generic Where Clauses</a>。以下兩種寫法等價：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">lessThan</span>&lt;T: Comparable&gt;<span class="params">(x: T, y: T)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">  <span class="keyword">return</span> x &lt; y</div><div class="line">&#125;</div><div class="line"><span class="comment">// is equivalent to</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">lessThan</span>&lt;T&gt;<span class="params">(x: T, y: T)</span></span> -&gt; <span class="type">Bool</span> <span class="keyword">where</span> <span class="type">T</span>: <span class="type">Comparable</span>  &#123;</div><div class="line">  <span class="keyword">return</span> x &lt; y</div><div class="line">&#125;</div><div class="line"></div><div class="line">lessThan(<span class="number">123</span>, <span class="number">1234</span>)</div></pre></td></tr></table></figure>
+<p>某些情境下，需確認「兩個泛型引數為相同型別」，才能進行操作，例如比較兩個 Sequence 是否完全一樣，可如下宣告：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 在兩個 Sequence 擁有相同 Element 才能執行的 function</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunc</span>&lt;S1: Sequence, S2: Sequence&gt;<span class="params">(s1: S1, s2: S2)</span></span> <span class="keyword">where</span> <span class="type">S1</span>.<span class="type">Iterator</span>.<span class="type">Element</span> == <span class="type">S2</span>.<span class="type">Iterator</span>.<span class="type">Element</span>, <span class="type">S1</span>.<span class="type">Iterator</span>.<span class="type">Element</span>: <span class="type">Comparable</span> &#123;</div><div class="line">  <span class="comment">// skip the implementation</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>從上兩例中，我們可以理解 <strong>Generic Where Clause</strong> 相關特性如下：</p>
+<ul>
+<li>必定放在 declaration body <code>{}</code> 之前。</li>
+<li>接受 requirements，多個 requirements 以 <code>,</code> 分隔。</li>
+</ul>
+<p>在前例中，我們也看到了 <code>S1.Iterator.Element</code> 這個奇怪的傢伙，這其實源自於 <code>Sequence</code> 的 <code>associatedtype</code></p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Sequence</span> </span>&#123;</div><div class="line"></div><div class="line">  associatedtype <span class="type">Iterator</span> : <span class="type">IteratorProtocol</span></div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">makeIterator</span><span class="params">()</span></span> -&gt; <span class="type">Self</span>.<span class="type">Iterator</span></div><div class="line"></div><div class="line">  <span class="comment">// other implementations ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>也是因為透過 <code>associatedtype</code> 的 nested type 特性，我們才能存取到 Sequence 的 Iterator 下的 <strong>Element</strong> <code>associatedtype</code>。再配合 <strong>Generic Where Clause</strong>，能夠更靈活運用 Swift 強大的 Generics。</p>
+<blockquote>
+<p>我們知道 Swift for-loop 可以用 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Statements.html#//apple_ref/swift/grammar/where-clause" target="_blank" rel="external">where clause</a> 做進一步的判斷來 filter elements，而本節介紹的 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-where-clause" target="_blank" rel="external">Generic Where Clauses</a> 則是針對泛型的宣告使用，別搞混了。</p>
+</blockquote>
+<h2 id="Some-Thoughts-of-Generics"><a href="#Some-Thoughts-of-Generics" class="headerlink" title="Some Thoughts of Generics"></a>Some Thoughts of Generics</h2><p>靜態定型（Static typing）與動態定型（Dynamic typing）是程式語言的兩大陣營。動態定型的語言強調彈性與可讀性，靜態定型的語言卻堅持宣告需清楚完整。而泛型程式設計的興起，讓靜態定型語言可以更靈活的設計與實作，卻讓宣告式變得又臭又長。</p>
+<p>學習泛型語法要花不少精力，讓語言支援泛型更是一大工程。Go 語言的泛型至少從 <a href="https://github.com/golang/proposal/blob/master/design/15292-generics.md" target="_blank" rel="external">2011</a> 吵到<a href="https://github.com/golang/go/issues/15292" target="_blank" rel="external">現在</a>，居然還沒個影子，大家還是趕快去學 <a href="https://www.rust-lang.org" target="_blank" rel="external">Rust</a> 吧XDD</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html" target="_blank" rel="external">Swift Language Guide - Generics</a></li>
+<li><a href="http://swiftdoc.org/" target="_blank" rel="external">SwiftDoc.org</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Generic_programming" target="_blank" rel="external">Wiki: Generic Programming</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/swift-generics/">https://weihanglo.github.io/2017/swift-generics/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/swift/">Swift</a>
+          
+            <a href="/tags/generics/">Generics</a>
+          
+            <a href="/tags/generic-programming/">Generic Programming</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/swift-error-handling/">
+        <span class="next-text nav-default">理解 Swift 的 Error Handling</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/swift-generics/';
+        this.page.identifier = '2017/swift-generics/';
+        this.page.title = '就只是代詞，還在那邊 Generics';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>
