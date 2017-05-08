@@ -36,7 +36,6 @@
 
 <meta name="description" content="泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
 本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
-
 （撰於 2017-05-08，基於 Swift 3.1）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="只是代名詞，不怕不怕 Generics">
@@ -44,15 +43,13 @@
 <meta property="og:site_name" content="Weihang Lo">
 <meta property="og:description" content="泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
 本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
-
 （撰於 2017-05-08，基於 Swift 3.1）">
 <meta property="og:image" content="http://i.imgur.com/xuMiBGM.jpg">
-<meta property="og:updated_time" content="2017-05-08T14:49:29.000Z">
+<meta property="og:updated_time" content="2017-05-08T14:50:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="只是代名詞，不怕不怕 Generics">
 <meta name="twitter:description" content="泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
 本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
-
 （撰於 2017-05-08，基於 Swift 3.1）">
 <meta name="twitter:image" content="http://i.imgur.com/xuMiBGM.jpg">
 
@@ -222,9 +219,9 @@
 
     <div class="post-content">
       
-        <p><strong>泛型程式設計（Generic Programming）</strong> 是經典的程式設計典範之一，不論是老牌的 <strong>C++</strong>，還是潮潮的 <strong>TypeScript</strong>，都能一睹<strong>泛型</strong>的風采。近年來，程式設計吹的是 <strong>static typing</strong> 風，泛型又開始被廣泛討論。</p>
+        <p><img src="http://i.imgur.com/xuMiBGM.jpg" alt=""></p>
+<p><strong>泛型程式設計（Generic Programming）</strong> 是經典的程式設計典範之一，不論是老牌的 <strong>C++</strong>，還是潮潮的 <strong>TypeScript</strong>，都能一睹<strong>泛型</strong>的風采。近年來，程式設計吹的是 <strong>static typing</strong> 風，泛型又開始被廣泛討論。</p>
 <p>本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。</p>
-<p><img src="http://i.imgur.com/xuMiBGM.jpg" alt=""></p>
 <p><em>（撰於 2017-05-08，基於 Swift 3.1）</em></p>
 <a id="more"></a>
 <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>想像一下，有個需求是要交換兩個變數儲存的值，現在欲交換的變數是 <code>int</code> type，因此實作了 <code>void swapInt(*int, *int)</code> 的函式；接下來要交換的是 <code>double</code>，又寫了 <code>void swapFloat(*double, *double)</code>，但兩個函式實作幾乎一樣（交換指標指向的值），如果還有 <code>float</code>、<code>char</code> 等其他 <em>n</em> 種 data types，就必須寫 <em>n</em> 個版本的實作。如果程式語言支援<a href="https://en.wikipedia.org/wiki/Function_overloading" target="_blank" rel="external">函式重載</a>，可以把 function name 都改成 <code>swap</code>，降低函式調用端的複雜度，但依然沒解決重複的問題。</p>
@@ -238,9 +235,9 @@
 <h2 id="Generic-Functions"><a href="#Generic-Functions" class="headerlink" title="Generic Functions"></a>Generic Functions</h2><p>想像一下，有三種不同廠牌，功能外觀也非常不一樣的手機，隸屬不同 class，</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppleIPhone7</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SamsungNote7</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AsusZenfone</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
 <p>有一個 <code>call(_:)</code> 函式，需傳入一個 <code>phone</code> 參數，才能開始打電話，但由於各廠牌差異過大，需要定義多個實作相同的函式，每支手機才可正常 call out，</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: AppleIPhone7)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: SamsungNote7)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: AsusZenfone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: AppleIPhone7)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"\(type(of: phone)) is calling"</span>)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: SamsungNote7)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"\(type(of: phone)) is calling"</span>)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span><span class="params">(by phone: AsusZenfone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"\(type(of: phone)) is calling"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>透過 Generic Functions 可以將 <code>call(_:)</code> 改成支援任何 data types 的泛型版本，</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span>&lt;Phone&gt;<span class="params">(by phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is calling"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">call</span>&lt;Phone&gt;<span class="params">(by phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"\(type(of: phone)) is calling"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>跟在 function name 後的 <code>&lt;Phone&gt;</code> 就是 Swift 的泛型語法，角括號 <code>&lt;&gt;</code> 內的 <code>Phone</code> 是虛擬的 type，官方名稱為 <strong>Type Parameters</strong>。這個 <code>&lt;Phone&gt;</code> 泛型有幾個特性：</p>
 <ul>
 <li>只是一個「<strong>代名詞</strong>」，不代表任何實際的型別。</li>
@@ -279,7 +276,7 @@
 <p>回過頭，看最初手機廠牌的範例，我們為每個廠牌加上一點特性。</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Chargeable</span> </span>&#123;&#125;          <span class="comment">// 可充電的</span></div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">HeadphoneJack</span> </span>&#123;&#125;     <span class="comment">// 有 Headphone Jack 的</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AppleIPhone7</span>: <span class="title">Chargeable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SamsungNote7</span>: <span class="title">HeadphoneJack</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AsusZenfone</span>: <span class="title">Chargeable</span>, <span class="title">HeadphoneJack</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
 <p>再定義三個 generic functions，但每個 functions 都有相對應的 type constraints，確保傳入的型別符合要求。</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">charge</span>&lt;Phone: Chargeable&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"<span class="subst">\(type(of: phone)</span>) is charging"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenMusic</span>&lt;Phone: HeadphoneJack&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Listen music with <span class="subst">\(type(of: phone)</span>)"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenMusicWhileCharging</span>&lt;Phone: Chargeable &amp; HeadphoneJack&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Listen music with <span class="subst">\(type(of: phone)</span>) while charging"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">charge</span>&lt;Phone: Chargeable&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"\(type(of: phone)) is charging"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenMusic</span>&lt;Phone: HeadphoneJack&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Listen music with \(type(of: phone))"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenMusicWhileCharging</span>&lt;Phone: Chargeable &amp; HeadphoneJack&gt;<span class="params">(phone: Phone)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Listen music with \(type(of: phone)) while charging"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p><code>listenMusicWhileCharging(_:)</code> 的 type constraint 為<code>Chargeable &amp; HeadphoneJack</code>，為 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID282" target="_blank" rel="external">protocol composition</a>，是合法的 type constraint。</p>
 </blockquote>
