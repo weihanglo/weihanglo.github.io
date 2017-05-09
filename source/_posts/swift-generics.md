@@ -1,5 +1,5 @@
 ---
-title: 只是代名詞，不怕不怕 Generics
+title: 理解 Swift Generics
 tags:
   - Swift
   - Generics
