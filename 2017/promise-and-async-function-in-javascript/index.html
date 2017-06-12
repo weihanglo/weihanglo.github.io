@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Modern Concurrency in JavaScript - Promises"/>
+
+
+
+
+  <meta name="keywords" content="JavaScript,Front-End,Concurrency,Promise," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/promise-and-async-function-in-javascript/"/>
+
+
+<meta name="description" content="要設計良好的使用者體驗，有個基本要求：「即時回饋使用者的互動」。在 Android／iOS 等領域，常利用多線程（Multi-threading）將複雜的運算轉換為非同步運算，讓 main thread 能夠即時響應使用者點擊、滑動等事件。JavaScript 身為最重要的 client-side language 之一，卻是單線程（single-threaded）語言，不過其透過 Event">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Modern Concurrency in JavaScript - Promises">
+<meta property="og:url" content="https://weihanglo.github.io/2017/promise-and-async-function-in-javascript/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="要設計良好的使用者體驗，有個基本要求：「即時回饋使用者的互動」。在 Android／iOS 等領域，常利用多線程（Multi-threading）將複雜的運算轉換為非同步運算，讓 main thread 能夠即時響應使用者點擊、滑動等事件。JavaScript 身為最重要的 client-side language 之一，卻是單線程（single-threaded）語言，不過其透過 Event">
+<meta property="og:image" content="https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/8633/promises.png">
+<meta property="og:image" content="https://weihanglo.github.io/promise-flow.png">
+<meta property="og:image" content="https://weihanglo.github.io/google-promises.png">
+<meta property="og:updated_time" content="2017-06-12T15:18:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Modern Concurrency in JavaScript - Promises">
+<meta name="twitter:description" content="要設計良好的使用者體驗，有個基本要求：「即時回饋使用者的互動」。在 Android／iOS 等領域，常利用多線程（Multi-threading）將複雜的運算轉換為非同步運算，讓 main thread 能夠即時響應使用者點擊、滑動等事件。JavaScript 身為最重要的 client-side language 之一，卻是單線程（single-threaded）語言，不過其透過 Event">
+<meta name="twitter:image" content="https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> Modern Concurrency in JavaScript - Promises · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Modern Concurrency in JavaScript - Promises
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Jun 12, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Features"><span class="toc-text">Features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminology"><span class="toc-text">Terminology</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-States"><span class="toc-text">Promise States</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Give-Me-a-Promise"><span class="toc-text">Give Me a Promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-then-method"><span class="toc-text">The then method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-Chaining"><span class="toc-text">Promise Chaining</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise-Chaining-Flow"><span class="toc-text">Promise Chaining Flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise-catch-V-S-Promise-then-null-onRejected"><span class="toc-text">Promise#catch V.S. Promise#then(null, onRejected)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-Methods"><span class="toc-text">Static Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise-reject-amp-Promise-resolve"><span class="toc-text">Promise.reject & Promise.resolve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise-all-amp-Promise-race"><span class="toc-text">Promise.all & Promise.race</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paralleling-Composition"><span class="toc-text">Paralleling Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequential-Composition"><span class="toc-text">Sequential Composition</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-Problems-of-Promise"><span class="toc-text">Some Problems of Promise</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cancelable-Promises"><span class="toc-text">Cancelable Promises</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proposals-for-Promise-finally-amp-Promise-try"><span class="toc-text">Proposals for Promise#finally & Promise#try</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difficult-to-Debug"><span class="toc-text">Difficult to Debug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Not-Synchronous-Enough"><span class="toc-text">Not Synchronous Enough</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Further-Reading"><span class="toc-text">Further Reading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><img src="https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg" alt=""></p>
+<p>要設計良好的使用者體驗，有個基本要求：「即時回饋使用者的互動」。在 Android／iOS 等領域，常利用多線程（Multi-threading）將複雜的運算轉換為非同步運算，讓 main thread 能夠即時響應使用者點擊、滑動等事件。JavaScript 身為最重要的 client-side language 之一，卻是單線程（single-threaded）語言，不過其透過 Event Loop 完成 non-blocking I／O，讓線程不至完全阻塞，這種 Concurrency model 彌補了單線程語言的不足。</p>
+<p>本文將簡單介紹 <strong>Promise</strong> 這個現代 JavaScript Concurrency Features 的特色與使用方法，徹底解放你的 JavaScript。</p>
+<p>（撰於 2017-06-12，基於 ECMAScript 6+）</p>
+<a id="more"></a>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Promise 是一個非同步操作的代理物件（proxy object），表示這個非同步操作在未來終將實現（或產生錯誤），並同時取得該操作的結果值。Promise 並不侷限在 JavaScript 中，它是一個概念，有時候又稱為 Deferred、Future，<a href="https://en.wikipedia.org/wiki/Futures_and_promises" target="_blank" rel="external">維基百科</a>有詳盡的介紹。</p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><p>Promise 是 ES6 引入的眾多標準之一，主要實踐了 <a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a> 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得非同步操作終於有了與同步操作類似的 API。以下是個人認為 ES6 Promise 的幾個重要特色：</p>
+<ul>
+<li>截止當前（2017.6），Promise 在瀏覽器的支援程度<a href="http://caniuse.com/#search=promise" target="_blank" rel="external">已接近 90%</a>。（主流瀏覽器僅 IE 11 不支援）</li>
+<li>統一、可預期的 callback 調用與 error handling 流程。</li>
+<li>callback 定義清楚完善，沒有重複調用或改變狀態的疑慮。</li>
+<li>將有序的 promises 串連起來（promise chaining），解除 callback hell 問題。</li>
+<li>可自由組合多個 promises（promise composition)，實作 sequential 或 paralleling 的 promise chain。</li>
+</ul>
+<h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><p>開始之前，先了解 Promise 相關的術語：</p>
+<ul>
+<li><strong>promise</strong>：一個 object 或 function，帶有符合 <a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a> 規範中的 <code>then</code> method。</li>
+<li><strong>thenable</strong>：有 <code>then</code> method 的 object 或 function。</li>
+<li><strong>value</strong>：任何合法的 JavaScript 值（<code>undefined</code>, <strong>thenable</strong>, <strong>promise</strong> 皆為合法的 value）。</li>
+<li><strong>reason</strong>：指出 promise 被 reject 的理由的 value。</li>
+</ul>
+<h2 id="Promise-States"><a href="#Promise-States" class="headerlink" title="Promise States"></a>Promise States</h2><p>Promise 字面上的意思為「承諾」。透過統一的規範標準，給予開發者承諾，任何一個 promise 建構玩成後，必為下列三種狀態之一：</p>
+<ul>
+<li><strong>pending</strong><ul>
+<li>狀態未定，之後狀態會轉移至 <strong>fulfilled</strong> 或 <strong>rejected</strong>。</li>
+</ul>
+</li>
+<li><strong>fulfilled</strong><ul>
+<li>狀態已定，無法再轉移至其他狀態。</li>
+<li>必須帶有一個 identity immutable 的 value（<code>===</code> 相等）。</li>
+</ul>
+</li>
+<li><strong>rejected</strong><ul>
+<li>狀態已定，無法再轉移至其他狀態。</li>
+<li>必須帶有一個 identity immutable 的 reason。</li>
+</ul>
+</li>
+</ul>
+<p>另外有一個常提及的狀態，其實是個集合名詞：</p>
+<ul>
+<li><strong>settled</strong>/<strong>resolved</strong><ul>
+<li>狀態已定，可能是 <strong>rejected</strong> 或是 <strong>fulfillled</strong>。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Promise 的 state 一旦 resolved／settled，就無法再次改變狀態，這是 promise 非常重要的核心概念，也是給開發者安心的一個承諾。</p>
+</blockquote>
+<h2 id="Give-Me-a-Promise"><a href="#Give-Me-a-Promise" class="headerlink" title="Give Me a Promise"></a>Give Me a Promise</h2><p>了解 Promise 物件有什麼 state 之後，我們來學習如何建構一個 Promise。一個標準的 Promise 結構大致如下。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// if success</span></div><div class="line">  resolve(value)</div><div class="line">  <span class="comment">// if failure</span></div><div class="line">  reject(someReason)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Promise 的建構式僅需一個 function parameter，而這個 function param 則帶有兩個 callback 性質的 function param（<code>resolve</code>、<code>reject</code>），調用時機如下：</p>
+<ul>
+<li>當操作成功執行…<ul>
+<li>調用 <code>resolve</code> 並傳入合法的 value。</li>
+<li>該 promise 狀態轉移至 <strong>fulfilled</strong>。</li>
+</ul>
+</li>
+<li>若失敗或出現例外…<ul>
+<li>調用 <code>reject</code> 並傳入失敗的 reason。</li>
+<li>該 promise 狀態轉移至 <strong>rejected</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>我們可以很容易將傳統的 callback XHR 改寫成 promise 版本。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// Old way</span></div><div class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XmlHttpRequest()</div><div class="line">  xhr.open(<span class="string">'GET'</span>, someURL)</div><div class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> response(xhr.responseText)</div><div class="line">  xhr.onerror =  <span class="function"><span class="params">()</span> =&gt;</span> error(<span class="keyword">new</span> <span class="built_in">Error</span> (xhr.statusText))</div><div class="line">  xhr.send()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Promise version</span></div><div class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XmlHttpRequest()</div><div class="line">  xhr.open(<span class="string">'GET'</span>, someURL)</div><div class="line">  xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> resolve(xhr.responseText)</div><div class="line">  xhr.onerror =  <span class="function"><span class="params">()</span> =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span> (xhr.statusText))</div><div class="line">  xhr.send()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>慣例會將 promise 包在一個 function 中，方便調用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span> (<span class="params">url</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> XmlHttpRequest()</div><div class="line">    xhr.open(<span class="string">'GET'</span>, url)</div><div class="line">    xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> resolve(xhr.responseText)</div><div class="line">    xhr.onerror =  <span class="function"><span class="params">()</span> =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span> (xhr.statusText))</div><div class="line">    xhr.send()</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>乍看之下，Promise 似乎比較複雜，但經過這些包裝後，promise 對調用者來說，利用接下來將介紹的有 <code>then</code> method ，產生可預期的結果，比起傳統 callback 更為穩健。</p>
+<h2 id="The-then-method"><a href="#The-then-method" class="headerlink" title="The then method"></a>The <code>then</code> method</h2><p>Promise 的 <code>then</code> 是 promise 最核心的元素，大大降低調用者的腦力負擔。其 method signature 如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">promise.then(onFulfilled, onRejected)</div></pre></td></tr></table></figure>
+<p>其中 <code>onFulfilled</code>、<code>onRejected</code> 為兩個 callback，執行時機為：</p>
+<ul>
+<li><strong>pending -&gt; fulfilled</strong>: <code>onFulfilled</code></li>
+<li><strong>pending -&gt; rejected</strong>: <code>onRejected</code></li>
+</ul>
+<p>利用上一節經 promise 包裝後的 XHR，實際看看 <code>then</code> 該如何用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">get(<span class="string">'http://httpbin.org/get'</span>).then(</div><div class="line">  <span class="comment">// promise state 轉換為 fulfilled 時，執行 onFulfilled callback</span></div><div class="line">  value =&gt; &#123; <span class="comment">// value 為 promise 建構時，由 resolve(value) callback 傳入</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'I am resolved :)'</span>, value)</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// promise state 轉換為 rejected 時，執行 onRejected callback</span></div><div class="line">  error =&gt; &#123; <span class="comment">// error 為 promise 建構時，由 reject(error) callback 傳入</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'I am rejected :('</span>, error)</div><div class="line">  &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><code>onFulfilled</code> 與 <code>onRejected</code> 兩個 callback 皆為 optional，我們可以只處理 success 的 case，也可以單純 handle errors。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 忽略 error</span></div><div class="line">get(<span class="string">'http://httpbin.org/get'</span>)</div><div class="line">  .then(<span class="built_in">console</span>.log)</div><div class="line"></div><div class="line"><span class="comment">// 只處理 error</span></div><div class="line">get(<span class="string">'http://httpbin.org/get'</span>)</div><div class="line">  .then(<span class="literal">null</span>, <span class="built_in">console</span>.error)</div><div class="line"></div><div class="line"><span class="comment">// 也利用 `.catch` syntax sugar 這樣寫</span></div><div class="line">get(<span class="string">'http://httpbin.org/get'</span>)</div><div class="line">  .catch(<span class="built_in">console</span>.error)</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Promise#catch</code> 同義於 <code>then</code> 的第一個參數傳入 <code>null</code> -&gt; <code>Promise#then(null, onRejected)</code></p>
+</blockquote>
+<h2 id="Promise-Chaining"><a href="#Promise-Chaining" class="headerlink" title="Promise Chaining"></a>Promise Chaining</h2><p><a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a> 規範中，明確定義 <code>then</code> method 必須回傳一個 <strong>promise</strong> instance，使得 promise 可透過類似 functional programming 的鏈式操作，減少不必要的變數，讓程式碼一氣呵成，增加可讀性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123; <span class="comment">// 1</span></div><div class="line">  <span class="comment">// heavy computation...</span></div><div class="line"></div><div class="line">  resolve(<span class="number">1</span>)</div><div class="line">  <span class="comment">// reject(new Error())</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">const</span> promise2 = promise <span class="comment">// 2</span></div><div class="line">  .then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`newValue === <span class="subst">$&#123;value&#125;</span>`</span>)</div><div class="line">    <span class="comment">// newValue === 1</span></div><div class="line">    <span class="keyword">return</span> newValue + <span class="number">1</span></div><div class="line">  &#125;)</div><div class="line"></div><div class="line">promise2.then(<span class="function"><span class="params">newValue</span> =&gt;</span> &#123; <span class="comment">// 3</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`newValue === <span class="subst">$&#123;newValue&#125;</span>`</span>)</div><div class="line">  <span class="comment">// newValue === 2</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>上例（1）中，我們創建了一個 promise instance，經過負責運算，value <code>resolve</code> 為 1，狀態變為 fulfilled。</li>
+<li>在（2），我們調用該 promise 的 <code>then</code> method，將 <code>newValue</code> + 1 並回傳，這個 <code>newValue + 1</code> 將成為下一個 chained promise 在 <code>onFulfilled</code> callback 會取得的 value。</li>
+<li>在（3）又串連一個（2）回傳的 <code>promise2</code>，並將取得的 <code>newValue</code> log 出來，得到 <code>2</code>。</li>
+</ul>
+</blockquote>
+<p>我們可以看見，promise chaining 的 value 是透過 <code>return</code> keyword 來傳遞。以下講解不同的情況：</p>
+<p><strong>當 promise 執行成功</strong></p>
+<ul>
+<li>若 <code>onFulfilled</code> 回傳一個 value，<ul>
+<li><code>then</code> 回傳由該 value fulfilled 的 promise。</li>
+</ul>
+</li>
+<li>若 <code>onFulfilled</code> 回傳一個 <code>thenable</code> 或 <code>promise</code>，<ul>
+<li>將嘗試 resolve 該 <code>thenable</code> 或 <code>promise</code>，取得其 result 並回傳由該 value fulfilled 的 promise。</li>
+</ul>
+</li>
+<li>若 <code>onFulfilled</code> 執行發生錯誤，<ul>
+<li><code>then</code> 回傳的 promise 會被該 error reason rejected。</li>
+</ul>
+</li>
+</ul>
+<p><strong>當 promise 執行失敗</strong></p>
+<ul>
+<li>若 <code>onRejected</code> 回傳一個 value，<ul>
+<li><code>then</code> 回傳由該 value fulfilled 的 promise，<strong>錯誤不繼續傳遞</strong>，也稱為 promise  recovery。</li>
+</ul>
+</li>
+<li>若 <code>onRejected</code> 回傳一個 <code>thenable</code> 或 <code>promise</code>，<ul>
+<li>將嘗試 resolve 該 <code>thenable</code> 或 <code>promise</code>，取得其 result 並回傳由該 value fulfilled 的 promise。</li>
+</ul>
+</li>
+<li>若 <code>onRejected</code> 執行發生錯誤，<ul>
+<li><code>then</code> 回傳的 promise 會被該 error reason rejected。</li>
+</ul>
+</li>
+</ul>
+<p>在這附上 MDN 的流程圖示：</p>
+<p><img src="https://mdn.mozillademos.org/files/8633/promises.png" alt=""></p>
+<blockquote>
+<p>簡之，<code>onFulfilled</code>、<code>onRejected</code> 這兩個 callback 若有 return value，皆回傳帶有該 value 的 fulfilled promise。</p>
+<p>若執行過程中有 Exception，無論是否為自行拋出，皆回傳的 rejected promise，並帶有該 Exception。</p>
+</blockquote>
+<p>我們再看一個複雜一點的例子，利用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="external">MDN fetch API</a> 來解釋</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">fetch(<span class="string">'flowers.jpg'</span>) <span class="comment">// 0 (first async)</span></div><div class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123; <span class="comment">// second async</span></div><div class="line">    <span class="keyword">if</span>(response.ok) &#123; <span class="comment">// 1</span></div><div class="line">      <span class="keyword">return</span> response.blob() <span class="comment">// 2</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Network response was not ok.'</span>) <span class="comment">// 3</span></div><div class="line">  &#125;)</div><div class="line">  .then(<span class="function"><span class="params">blob</span> =&gt;</span> &#123; <span class="comment">// third async</span></div><div class="line">    <span class="keyword">var</span> objectURL = URL.createObjectURL(blob) <span class="comment">// 4</span></div><div class="line">    myImage.src = objectURL</div><div class="line">  &#125;)</div><div class="line">  .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123; <span class="comment">// first catch</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`Your fetch operation failed: <span class="subst">$&#123;error.message&#125;</span>`</span>) <span class="comment">// 5</span></div><div class="line">  &#125;)</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="comment">// final async</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'All done!'</span>) <span class="comment">// 6</span></div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<p>（0）<code>fetch</code> 這個 function 傳入 URI，回傳一個 promise</p>
+<p>（1）若執行成功，<code>then</code> 接受到 fulfilled 的 value（response），並檢驗 response 的 status。</p>
+<p>（2）若 status 為 ok，嘗試透過 <code>blob</code> method 將 response 轉換為 blob（回傳一個 promise resolved with blob）。</p>
+<p>（3）如果 status 檢驗不成功，則直接拋出錯誤，該 <code>then</code> 回傳一個被該錯誤 rejected 的 promise 。</p>
+<p>（4）若第一個 <code>then</code> fulfilled，執行這個 then 的 <code>onFulfilled</code> callback，並將 blob 轉換為 url。</p>
+<p>（5）若上述任一步驟出錯，error 會繼續往下傳遞，直到被實作 <code>onRejected</code> callback 的 handler 捕捉。（本例為（5）的 <code>catch</code>)。</p>
+<p>（6）若沒有錯誤，最終將執行這個 callback；由於（5）的 catch 回傳了一個 recoverable promise（回傳 <code>undefined</code>，無 throw error），因此就算（5）的 catch 有捕捉到 error ，,，仍然會執行（6）的 callback。</p>
+<p><img src="promise-flow.png" height="300px"></p>
+<h3 id="Promise-Chaining-Flow"><a href="#Promise-Chaining-Flow" class="headerlink" title="Promise Chaining Flow"></a>Promise Chaining Flow</h3><p>這裡參考 <a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises" target="_blank" rel="external">Google Web Fundamentals - Promises</a> 一章的範例，作為 Promise Chaining 的總結，圖中的紅色箭頭代表 rejected，藍色代表 fulfilled（recovery），碼配圖和著看，非常清楚。</p>
+<p>有幾點再次提醒：</p>
+<ul>
+<li>return 一個 <code>thenable</code> 或 <code>promise</code>，就會等待該 <code>thenable</code> 被 resolve（等於一種 promise composition）。</li>
+<li>只要沒有 handler 實作 <code>onRejected</code> callback，promise 就會不斷往後傳遞 error。</li>
+<li>任何 code block 拋出例外，都會造成該 promise 被 reject。</li>
+<li>任何 code block return 一個 value，都會使得該 promise 被 fulfill。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">asyncThing1().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> asyncThing2()</div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> asyncThing3()</div><div class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> asyncRecovery1()</div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> asyncThing4()</div><div class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> asyncRecovery2()</div><div class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"Don't worry about it"</span>);</div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"All done!"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><img src="google-promises.png" height="600px"></p>
+<h3 id="Promise-catch-V-S-Promise-then-null-onRejected"><a href="#Promise-catch-V-S-Promise-then-null-onRejected" class="headerlink" title="Promise#catch V.S. Promise#then(null, onRejected)"></a><code>Promise#catch</code> V.S. <code>Promise#then(null, onRejected)</code></h3><p>還記得 <code>then</code> method 第二個參數是 <code>onRejected</code> callback 嗎？這個參數其實比較少用，大部分都會透過 <code>.catch</code> 這個 syntax sugar 做 error handling。因為 <code>onRejected</code> 僅在當該 promise 被 reject 時，才能捕捉到錯誤，並無法捕捉到同一個 <code>.then</code> 的 <code>onFulfilled</code> 拋出的錯誤。</p>
+<p>此外，讓 <code>then</code>、<code>catch</code> 分別對應 <code>fulfilled</code> 與 <code>rejected</code>，可以提高程式碼的可讀性，更接近 synchronous 的 <code>try...catch</code> 寫法。本人建議使用 <code>catch</code> 取代 <code>onRejected</code> callback。</p>
+<h2 id="Static-Methods"><a href="#Static-Methods" class="headerlink" title="Static Methods"></a>Static Methods</h2><p>標準規範中，Promise 共有四個 static method：</p>
+<ul>
+<li><code>Promise.resolve(value)</code></li>
+<li><code>Promise.reject(reason)</code></li>
+<li><code>Promise.all(iterable)</code></li>
+<li><code>Promise.race(iterable)</code></li>
+</ul>
+<h3 id="Promise-reject-amp-Promise-resolve"><a href="#Promise-reject-amp-Promise-resolve" class="headerlink" title="Promise.reject &amp; Promise.resolve"></a><code>Promise.reject</code> &amp; <code>Promise.resolve</code></h3><p>其中，<code>Promise.reject</code> 與 <code>Promise.resolve</code> 相對單純，就是產生一個直接 rejected 或 fulfilled 的 promise。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Promise</span>.resolve()</div><div class="line">  .then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'Immediate resolved!'</span>))</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Error!!!'</span>)).</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="comment">/* will not go here */</span> &#125;)</div><div class="line">  .catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`Error shows up here <span class="subst">$&#123;err&#125;</span>`</span>))</div></pre></td></tr></table></figure>
+<h3 id="Promise-all-amp-Promise-race"><a href="#Promise-all-amp-Promise-race" class="headerlink" title="Promise.all &amp; Promise.race"></a><code>Promise.all</code> &amp; <code>Promise.race</code></h3><p>而 <code>Promise.all</code> 與 <code>Promise.race</code> ，屬於 high order 的 method ，參數為 promise instances array（iterable），回傳一個 promise，其 fulfill 與 reject 的條件如下</p>
+<ul>
+<li><code>Promise.all</code><ul>
+<li>fulfill：所有傳入的 promises 皆 fulfill。Resolved value 為與傳入的 promises 相同順序 value array。</li>
+<li>reject：任一個 promise 被 reject 即 reject。Error reason 為與第一個被 reject 的 promise 相同。</li>
+</ul>
+</li>
+<li><code>Promise.race</code><ul>
+<li>任何一個 promise 被 resolve，無論是 fulfill 或 reject，皆回傳該 resolved promise。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Paralleling-Composition"><a href="#Paralleling-Composition" class="headerlink" title="Paralleling Composition"></a>Paralleling Composition</h3><p>利用 <code>Promise.all</code>，配合 function programming 的 <code>map</code> 技巧，我們可以達到 paralleling 的 promise 操作，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> getImageURL = <span class="function"><span class="params">category</span> =&gt;</span> (</div><div class="line">  fetch(<span class="string">`http://lorempixel.com/400/200/<span class="subst">$&#123;category&#125;</span>/`</span>)</div><div class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> response.blob())</div><div class="line">    .then(URL.createObjectURL)</div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">const</span> imgElements = <span class="built_in">document</span>.querySelectorAll(<span class="string">'img'</span>)</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.all(</div><div class="line">  <span class="comment">// 利用 map 建構 Promises Array</span></div><div class="line">  [<span class="string">'cats'</span>, <span class="string">'sports'</span>, <span class="string">'food'</span>].map(getImageURL)</div><div class="line">).then(<span class="function"><span class="params">imageUrls</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// 將 urls 添加到 img element 上</span></div><div class="line">  imageUrls.forEach(<span class="function">(<span class="params">url, i</span>) =&gt;</span> &#123;</div><div class="line">    imgElements[i].src = url</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>為什麼 <code>[&#39;cats&#39;, &#39;sports&#39;, &#39;food&#39;].map(getImageURL)</code> 會是 parallelism 呢？</p>
+<p>因為 <code>Array#map</code> 之中的 每個 element 皆為獨立建構，<code>Promise</code> 一旦建構了（調用 fetch 會建構 promise），就會嘗試 resolve，也就達到發送 paralleling requests 的目的了。</p>
+<h3 id="Sequential-Composition"><a href="#Sequential-Composition" class="headerlink" title="Sequential Composition"></a>Sequential Composition</h3><p>有時候我們需要的並不是 parallelism 的方法，而是 sequential 的 promise 操作，例如，facebook 讀取動態時，希望動態依照時間順序讀取，既然無法使用 <code>Array#map</code>，那可不可以用 <code>Array#forEach</code>？</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStatus</span> (<span class="params">statusId</span>) </span>&#123;</div><div class="line"><span class="comment">/* async load status, return a Promise */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addStatusToPage</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">/* add status to page */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> sequence = <span class="built_in">Promise</span>.resolve()</div><div class="line"><span class="keyword">const</span> statusIds = [<span class="number">1234</span>, <span class="number">5678</span>, <span class="number">2468</span>]</div><div class="line"></div><div class="line"><span class="comment">// forEach 版本的 sequential promise chain</span></div><div class="line">statusIds.forEach(<span class="function"><span class="params">id</span> =&gt;</span> &#123; <span class="comment">// iterate 所有 id</span></div><div class="line">  sequence = sequence.then(<span class="function"><span class="params">()</span> =&gt;</span> ( <span class="comment">// 1, 3</span></div><div class="line">    loadStatus(id)</div><div class="line">  )).then(addStatusToPage) <span class="comment">// 2</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>上例比較複雜，以下一一說明：</p>
+<p>（1）從 sequence 調用 <code>then</code>，chain 一個新的 promise，</p>
+<p>（2）再 chain 一個 promise，</p>
+<p>（3）最後將 sequence 變數，指向這個 新 chained 的 promise sequence。</p>
+<p>最後，這個 sequence chained 起來會像這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Promise</span>.resolve()</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(<span class="number">1234</span>))</div><div class="line">  .then(addStatusToPage)</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(<span class="number">5678</span>))</div><div class="line">  .then(addStatusToPage)</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(<span class="number">2468</span>))</div><div class="line">  .then(addStatusToPage)</div></pre></td></tr></table></figure>
+<p>不過，比起 imperative 的 <code>Array#forEach</code> ，近來崇尚 declarative 的寫法，這裡使用 <code>Array#reduce</code> 取代。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// reduce 版本的 sequential promise chain</span></div><div class="line">statusIds.reduce(<span class="function"><span class="params">id</span> =&gt;</span> (</div><div class="line">  loadStatus(id)</div><div class="line">    .then(addStatusToPage)</div><div class="line">), <span class="built_in">Promise</span>.resolve())</div></pre></td></tr></table></figure>
+<p>程式碼又更簡潔明瞭一些了，也免去宣告額外的變數來保存 promises，很棒！</p>
+<h2 id="Some-Problems-of-Promise"><a href="#Some-Problems-of-Promise" class="headerlink" title="Some Problems of Promise"></a>Some Problems of Promise</h2><p>我們現在看到的 Promise 是經過百家爭鳴、戰國時代，各方不斷磨合下的產物，雖說 Promise 已是 Modern Front-end 必須理解的基本概念，但其仍有許多改進與討論的空間，以下舉幾個例子：</p>
+<h3 id="Cancelable-Promises"><a href="#Cancelable-Promises" class="headerlink" title="Cancelable Promises"></a>Cancelable Promises</h3><p>傳統 XHR 可以透過 <code>XmlHttpRequest#abort</code> 達到 cancel 取消的操作，Promise 也有此意實作 <strong>Cancelable Promises</strong>，不過很可惜的是，<a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="external">這個提案</a> 沒能到達 Stage 2 就被撤銷了，也引起<a href="https://news.ycombinator.com/item?id=13210849" target="_blank" rel="external">諸多討論</a>，不論是否無法達成共識，或是有更好的方案，總之，短期之內是看不到這個 feature 納入標準了。不過 <a href="https://github.com/ReactiveX/rxjs" target="_blank" rel="external">RxJS</a> 的大頭 Ben Lesh 也提出一些<a href="https://medium.com/@benlesh/promise-cancellation-is-dead-long-live-promise-cancellation-c6601f1f5082" target="_blank" rel="external">實作與解決 promises cancellation 的方法</a>，最後當然少不了推崇一下強大的 Rx Library 啦。</p>
+<h3 id="Proposals-for-Promise-finally-amp-Promise-try"><a href="#Proposals-for-Promise-finally-amp-Promise-try" class="headerlink" title="Proposals for Promise#finally &amp; Promise#try"></a>Proposals for <code>Promise#finally</code> &amp; <code>Promise#try</code></h3><p>雖然 cancelable promise 已經 withdrawn 了，仍有許多人希望原生的 Promise 能夠有更多實用的 API，<a href="https://github.com/tc39/proposal-promise-finally" target="_blank" rel="external"><code>Promise#finally</code></a> 與 <a href="https://github.com/tc39/proposal-promise-try" target="_blank" rel="external"><code>Promise#try</code></a> 便是一例，<code>Promise#finally</code> 是希望替 promise 提供類似 try-catch-finally 的 finally block，實作一些 cleanup，目前已在 Stage 2，很有希望成為標準；而 <code>Promise#try</code> 則是希望將 promise 起始的 function 也包含進 promise 的 error handling 機制，統整同步與非同步的例外處理，目前在 Stage 1，<a href="http://cryto.net/~joepie91/blog/2016/05/11/what-is-promise-try-and-why-does-it-matter/" target="_blank" rel="external">詳細解釋在此</a>。</p>
+<h3 id="Difficult-to-Debug"><a href="#Difficult-to-Debug" class="headerlink" title="Difficult to Debug"></a>Difficult to Debug</h3><p>由於 Promise 是由許多 closure combine 而成，會產生許多 call stack，一旦發生 error，stack trace 會非常混亂，也不易設置 breakpoint 來 debug。有一個解法是給 anonymous function 一個 function name。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Promise</span>.resolve()</div><div class="line">  .then(<span class="function"><span class="keyword">function</span> <span class="title">doAsyncThing1</span> (<span class="params"></span>) </span>&#123;&#125;)</div><div class="line">  .then(<span class="function"><span class="keyword">function</span> <span class="title">doAsyncThing2</span> (<span class="params"></span>) </span>&#123;&#125;)</div><div class="line">  .then(<span class="function"><span class="keyword">function</span> <span class="title">doAsyncThing3</span> (<span class="params"></span>) </span>&#123;&#125;)</div></pre></td></tr></table></figure>
+<p>但這樣就無法使用 ES6 的 Arrow function 了，也失去 promise 的簡潔特性，也是一種 tradeoff。</p>
+<p>此外，Promise 由 <code>then</code> 第二個參數 <code>onRejected</code> callback 全權接管 Error Handling，傳統的 try-catch 在此完全不管用，同步／非同步的例外處理距離變遠，可能造成邏輯較為複雜。而且，若無顯式處理被 reject 的 promise，該 Exception 就不會 propagation 到 promise 外部，過於 silent 也是一件壞事（We should let it crash！）。</p>
+<h3 id="Not-Synchronous-Enough"><a href="#Not-Synchronous-Enough" class="headerlink" title="Not Synchronous Enough"></a>Not Synchronous Enough</h3><p>Concurrency 一直是程式設計最難的議題之一，很多人期盼有一天，我們能夠用最直觀最 synchronous 的 syntax 書寫 asynchronous code。<strong>C#</strong> 的 <code>async/await</code> 是主流語言中，算是第一個成功使用 synchronous syntax 的範例。看那優美的書寫方式，<br><figure class="highlight csharp"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">AsyncFunction</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">await</span> AsyncTask();</div><div class="line">  <span class="keyword">await</span> AnotherAsyncTask();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>JavaScript 的 Promise 立馬被擊潰。（本人一行 <strong>ㄈ井</strong> 都不懂）</p>
+<p>不過 JS 社群近年來蓬勃發展，ES7 已經導入了 <code>async/await</code> 關鍵字，又替非同步程式設計帶來新變革，語法堪稱小清新。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">async</span> <span class="title">request</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">const</span> json = <span class="keyword">await</span> getJSON()</div><div class="line">    <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(json)</div><div class="line">    <span class="built_in">console</span>.log(data)</div><div class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</div><div class="line">    <span class="built_in">console</span>.log(err)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至今，已有<a href="http://caniuse.com/#search=await" target="_blank" rel="external">七成六</a>的瀏覽器實作 Async function，Node.js 在 7.6 解除 async function 的 harmony flag，成為 default 的關鍵字了。</p>
+<h2 id="Further-Reading"><a href="#Further-Reading" class="headerlink" title="Further Reading"></a>Further Reading</h2><p>Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同步前端工程的開發門檻，也成為前端工程師必備技能之一。本篇僅淺淺帶過 Promise 的概念，如果要完全了解 Promise 的概念，一定要將 <a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a> 的規範通讀一遍，非常精練，不到半小時便能讀完，絕對豁然開朗，其他 promise 文都可以跳過了呢！</p>
+<p><a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises" target="_blank" rel="external">Google 的 Promises 入門</a>也很有意思，從人們想像中的 promise 講起，一步步深入了解 promise 的核心理念，最後甚至比較了 callback、promise、generator、async function 四種非同步程式設計的寫法，值得一看。</p>
+<p>知名的 Database Solution <a href="https://pouchdb.com/" target="_blank" rel="external">PouchDB</a> 的部落格也有一篇文章，點出<a href="https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html" target="_blank" rel="external">使用 promises 常見的錯誤</a>，雖然是 2015 年的舊文，範例也是用自家 PouchDB 的 API，但概念都相同，可以瞧瞧別人究竟踩過什麼坑，順便 review 一下自己的 code。</p>
+<p>如果覺得外國的月亮沒有比較圓，想要看一些中文的 References，這本「<a href="https://www.gitbook.com/book/eyesofkids/javascript-start-es6-promise/details" target="_blank" rel="external">從Promise開始的JavaScript異步生活</a>」（中英文中間是不會留空白逆= =）寫得非常詳細；另外，阮老師的 「<a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="external">ECMAScript 6 入门：Promise 对象</a>」份量也很足，兩者都十分值得一讀。基本上，挑其一，就可以完全忽略本人的文章了。</p>
+<p>前端技術日新月異，發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。</p>
+<blockquote>
+<p>眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD</p>
+</blockquote>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises" target="_blank" rel="external">MDN - Using promises</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises" target="_blank" rel="external">Google - JavaScript Promises: an Introduction</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/promise-and-async-function-in-javascript/">https://weihanglo.github.io/2017/promise-and-async-function-in-javascript/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/">JavaScript</a>
+          
+            <a href="/tags/front-end/">Front-End</a>
+          
+            <a href="/tags/concurrency/">Concurrency</a>
+          
+            <a href="/tags/promise/">Promise</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/swift-generics/">
+        <span class="next-text nav-default">理解 Swift Generics</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/promise-and-async-function-in-javascript/';
+        this.page.identifier = '2017/promise-and-async-function-in-javascript/';
+        this.page.title = 'Modern Concurrency in JavaScript - Promises';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>
