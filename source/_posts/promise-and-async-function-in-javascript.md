@@ -10,14 +10,13 @@ date: 2017-06-12 23:02:43
 
 ![](https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg)
 
-要設計良好的使用者體驗，有個基本要求：「即時回饋使用者的互動」。在 Android／iOS 等領域，常利用多線程（Multi-threading）將複雜的運算轉換為非同步運算，讓 main thread 能夠即時響應使用者點擊、滑動等事件。JavaScript 身為最重要的 client-side language 之一，卻是單線程（single-threaded）語言，不過其透過 Event Loop 完成 non-blocking I／O，讓線程不至完全阻塞，這種 Concurrency model 彌補了單線程語言的不足。
+所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
 
-本文將簡單介紹 **Promise** 這個現代 JavaScript Concurrency Features 的特色與使用方法，徹底解放你的 JavaScript。
+眾所周知，[Concurrency is hard！][concurrency-joke]設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 **Promise** 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到~~另一個煉獄~~人間。
 
 （撰於 2017-06-12，基於 ECMAScript 6+）
 
 <!-- more -->
-
 
 ## Definition
 
@@ -25,7 +24,7 @@ Promise 是一個非同步操作的代理物件（proxy object），表示這個
 
 ## Features
 
-Promise 是 ES6 引入的眾多標準之一，主要實踐了 [Promise/A+][promisesaplus] 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得非同步操作終於有了與同步操作類似的 API。以下是個人認為 ES6 Promise 的幾個重要特色：
+Promise 是 ES6 引入的標準之一，主要實踐了 [Promise/A+][promisesaplus] 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得各家的非同步操作終於有了相同的 API。以下是個人認為 ES6 Promise 的幾個重要特色：
 
 - 截止當前（2017.6），Promise 在瀏覽器的支援程度[已接近 90%][caniuse-promise]。（主流瀏覽器僅 IE 11 不支援）
 - 統一、可預期的 callback 調用與 error handling 流程。
@@ -40,11 +39,11 @@ Promise 是 ES6 引入的眾多標準之一，主要實踐了 [Promise/A+][promi
 - **promise**：一個 object 或 function，帶有符合 [Promise/A+][promisesaplus] 規範中的 `then` method。
 - **thenable**：有 `then` method 的 object 或 function。
 - **value**：任何合法的 JavaScript 值（`undefined`, **thenable**, **promise** 皆為合法的 value）。
-- **reason**：指出 promise 被 reject 的理由的 value。
+- **reason**： promise 被 reject 的理由所包含 value，通常是 `Error` object。
 
 ## Promise States
 
-Promise 字面上的意思為「承諾」。透過統一的規範標準，給予開發者承諾，任何一個 promise 建構玩成後，必為下列三種狀態之一：
+Promise 字面上的意思為「承諾」，實際上就是一種「保存非同步操作結果」的 object。一個 Promise 建構完成後，必為下列三種狀態之一：
 
 - **pending**
   - 狀態未定，之後狀態會轉移至 **fulfilled** 或 **rejected**。
@@ -55,7 +54,7 @@ Promise 字面上的意思為「承諾」。透過統一的規範標準，給予
   - 狀態已定，無法再轉移至其他狀態。
   - 必須帶有一個 identity immutable 的 reason。
 
-另外有一個常提及的狀態，其實是個集合名詞：
+另外有個常提及的狀態，其實是個集合名詞：
 
 - **settled**/**resolved**
   - 狀態已定，可能是 **rejected** 或是 **fulfillled**。
@@ -70,24 +69,24 @@ Promise 字面上的意思為「承諾」。透過統一的規範標準，給予
 const promise = new Promise((resolve, reject) => {
   // if success
   resolve(value)
-  // if failure
+  // else failure
   reject(someReason)
 })
 ```
 
-Promise 的建構式僅需一個 function parameter，而這個 function param 則帶有兩個 callback 性質的 function param（`resolve`、`reject`），調用時機如下：
+Promise 的建構式僅需一個 function parameter，而這個 function param 則帶有兩個 callback 性質的 function params（`resolve`、`reject`），這兩個 function params 的作用是「將 Promise 的 state 從 pending 轉移至 resolved／rejected」，主動調用時機如下：
 
 - 當操作成功執行...
-  - 調用 `resolve` 並傳入合法的 value。
+  - 主動調用 `resolve` 並傳入合法的 value。
   - 該 promise 狀態轉移至 **fulfilled**。
 - 若失敗或出現例外...
-  - 調用 `reject` 並傳入失敗的 reason。
+  - 主動調用 `reject` 並傳入失敗的 reason。
   - 該 promise 狀態轉移至 **rejected**。
 
-我們可以很容易將傳統的 callback XHR 改寫成 promise 版本。
+於是，可以很容易將傳統的 callback XHR 改寫成 promise 版本。
 
 ```javascript
-// Old way
+// The old way
   const xhr = new XmlHttpRequest()
   xhr.open('GET', someURL)
   xhr.onload = () => response(xhr.responseText)
@@ -99,15 +98,16 @@ Promise 的建構式僅需一個 function parameter，而這個 function param �
 const promise = new Promise((resolve, reject) => {
   const xhr = new XmlHttpRequest()
   xhr.open('GET', someURL)
-  xhr.onload = () => resolve(xhr.responseText)
-  xhr.onerror =  () => reject(new Error (xhr.statusText))
+  xhr.onload = () => resolve(xhr.responseText) // 調用 resolve，狀態變為 resolved
+  xhr.onerror =  () => reject(new Error (xhr.statusText)) // 狀態變為 rejected
   xhr.send()
 })
 ```
 
-慣例會將 promise 包在一個 function 中，方便調用。
+慣例上，會將 promise 包在一個 factory function 中，方便建構新的 promise。
 
 ```javascript
+// 簡單的 http GET request promise version
 function get (url) {
   return new Promise((resolve, reject) => {
     const xhr = new XmlHttpRequest()
@@ -119,22 +119,23 @@ function get (url) {
 }
 ```
 
-乍看之下，Promise 似乎比較複雜，但經過這些包裝後，promise 對調用者來說，利用接下來將介紹的有 `then` method ，產生可預期的結果，比起傳統 callback 更為穩健。
+乍看之下，Promise 似乎比較複雜，但經過這些包裝後，再利用即將介紹的 `then` method ，產生可預期的非同步結果，promise 對調用者來說 ，絕對比起傳統 callback 更為穩健。
 
 ## The `then` method
 
-Promise 的 `then` 是 promise 最核心的元素，大大降低調用者的腦力負擔。其 method signature 如下
+Promise 的 `then` 是 promise 最核心的元素，本質上就是「替 promise instancestate 添加 state 改變時的 callback function」。 method signature 如下
 
 ```javascript
+// return a Promise instance
 promise.then(onFulfilled, onRejected)
 ```
 
-其中 `onFulfilled`、`onRejected` 為兩個 callback，執行時機為：
+其中 `onFulfilled`、`onRejected` 為兩個 callback，執行時機為 state 轉移：
 
 - **pending -> fulfilled**: `onFulfilled`
 - **pending -> rejected**: `onRejected`
 
-利用上一節經 promise 包裝後的 XHR，實際看看 `then` 該如何用
+利用上一節透過 promise 包裝後的 XHR，實際看看 `then` 該如何用
 
 ```javascript
 get('http://httpbin.org/get').then(
@@ -149,7 +150,7 @@ get('http://httpbin.org/get').then(
 )
 ```
 
-`onFulfilled` 與 `onRejected` 兩個 callback 皆為 optional，我們可以只處理 success 的 case，也可以單純 handle errors。
+另外，`onFulfilled` 與 `onRejected` 兩個 callback 皆為 optional，我們可以只處理 success 的 case，也可以單純 handle errors。
 
 ```javascript
 // 忽略 error
@@ -160,9 +161,9 @@ get('http://httpbin.org/get')
 get('http://httpbin.org/get')
   .then(null, console.error)
 
-// 也利用 `.catch` syntax sugar 這樣寫
+// 只處理 error 也利用 `.catch` syntax sugar
 get('http://httpbin.org/get')
-  .catch(console.error)
+  .catch(console.error) // === .then(null, console.error)
 ```
 
 > `Promise#catch` 同義於 `then` 的第一個參數傳入 `null` -> `Promise#then(null, onRejected)`
@@ -258,20 +259,20 @@ fetch('flowers.jpg') // 0 (first async)
 
 （5）若上述任一步驟出錯，error 會繼續往下傳遞，直到被實作 `onRejected` callback 的 handler 捕捉。（本例為（5）的 `catch`)。
 
-（6）若沒有錯誤，最終將執行這個 callback；由於（5）的 catch 回傳了一個 recoverable promise（回傳 `undefined`，無 throw error），因此就算（5）的 catch 有捕捉到 error ，,，仍然會執行（6）的 callback。
+（6）若沒有錯誤，最終將執行這個 callback；由於（5）的 catch 回傳了一個 recoverable promise（回傳 `undefined`，無 throw error），因此就算（5）的 catch 有捕捉到 error ，仍然會執行（6）的 callback。
 
 <img src="promise-flow.png" height="300px" />
 
 ### Promise Chaining Flow
 
-這裡參考 [Google Web Fundamentals - Promises][google-promises] 一章的範例，作為 Promise Chaining 的總結，圖中的紅色箭頭代表 rejected，藍色代表 fulfilled（recovery），碼配圖和著看，非常清楚。
+這裡參考 [Google Web Fundamentals - Promises][google-promises] 一章的範例，作為 Promise Chaining 的總結，圖中的紅色箭頭代表 rejected，藍色代表 fulfilled（recovery），碼、圖和著看，非常清楚。
 
 有幾點再次提醒：
 
-- return 一個 `thenable` 或 `promise`，就會等待該 `thenable` 被 resolve（等於一種 promise composition）。
+- 若 return 一個 `thenable` 或 `promise`，則等待該 value 被 resolve（類似 sequential promise composition）。
 - 只要沒有 handler 實作 `onRejected` callback，promise 就會不斷往後傳遞 error。
-- 任何 code block 拋出例外，都會造成該 promise 被 reject。
-- 任何 code block return 一個 value，都會使得該 promise 被 fulfill。
+- 任何 code block 拋出 Exception 例外，都會造成該 promise 被 reject。
+- 任何 code block 成功 return 一個 value，都會使得該 promise 被 fulfill。
 
 ```javascript
 asyncThing1().then(function() {
@@ -293,12 +294,13 @@ asyncThing1().then(function() {
 
 <img src="google-promises.png" height="600px" />
 
-### `Promise#catch` V.S. `Promise#then(null, onRejected)`
+> `Promise#catch` V.S. `Promise#then(null, onRejected)`
+> 
+> 還記得 `then` method 第二個參數是 `onRejected` callback 嗎？這個參數其實比較少用，大部分都會透過 `.catch` 這個 syntax sugar 做 error handling。因為 `onRejected` 僅在當該 promise 被 reject 時，才能捕捉到錯誤，並無法捕捉到同一個 `.then` 的 `onFulfilled` 拋出的錯誤。
 
+<!-- -->
 
-還記得 `then` method 第二個參數是 `onRejected` callback 嗎？這個參數其實比較少用，大部分都會透過 `.catch` 這個 syntax sugar 做 error handling。因為 `onRejected` 僅在當該 promise 被 reject 時，才能捕捉到錯誤，並無法捕捉到同一個 `.then` 的 `onFulfilled` 拋出的錯誤。
-
-此外，讓 `then`、`catch` 分別對應 `fulfilled` 與 `rejected`，可以提高程式碼的可讀性，更接近 synchronous 的 `try...catch` 寫法。本人建議使用 `catch` 取代 `onRejected` callback。
+> 此外，讓 `then`、`catch` 分別對應處理 `fulfilled` 與 `rejected` 兩個不同的 state 的 promise，可以提高程式碼的可讀性，更接近 synchronous 的 `try...catch` 寫法。本人建議使用 `catch` 取代 `onRejected` callback。
 
 ## Static Methods
 
@@ -309,7 +311,7 @@ asyncThing1().then(function() {
 - `Promise.all(iterable)`
 - `Promise.race(iterable)`
 
-### `Promise.reject` & `Promise.resolve`
+### `reject` & `resolve`
 
 其中，`Promise.reject` 與 `Promise.resolve` 相對單純，就是產生一個直接 rejected 或 fulfilled 的 promise。
 
@@ -322,7 +324,7 @@ Promise.reject(new Error('Error!!!')).
   .catch(err => console.log(`Error shows up here ${err}`))
 ```
 
-### `Promise.all` & `Promise.race`
+### `all` & `race`
 
 而 `Promise.all` 與 `Promise.race` ，屬於 high order 的 method ，參數為 promise instances array（iterable），回傳一個 promise，其 fulfill 與 reject 的條件如下
 
@@ -358,11 +360,11 @@ Promise.all(
 
 為什麼 `['cats', 'sports', 'food'].map(getImageURL)` 會是 parallelism 呢？
 
-因為 `Array#map` 之中的 每個 element 皆為獨立建構，`Promise` 一旦建構了（調用 fetch 會建構 promise），就會嘗試 resolve，也就達到發送 paralleling requests 的目的了。
+因為 `Array#map` 之中的 每個 element 皆為獨立建構，`Promise` 一旦建構了（調用 fetch 會建構 promise），就會嘗試 resolve，也就達到發送 paralleling requests 的目的。
 
 ### Sequential Composition
 
-有時候我們需要的並不是 parallelism 的方法，而是 sequential 的 promise 操作，例如，facebook 讀取動態時，希望動態依照時間順序讀取，既然無法使用 `Array#map`，那可不可以用 `Array#forEach`？
+有時候，我們並不需要 parallelism，而是 sequential 的 promise 操作，例如，facebook 讀取動態時，希望動態依照時間順序讀取，既然無法使用 `Array#map`，用 `Array#forEach` 總行了吧？
 
 ```javascript
 function loadStatus (statusId) {
@@ -416,21 +418,21 @@ statusIds.reduce(id => (
 
 程式碼又更簡潔明瞭一些了，也免去宣告額外的變數來保存 promises，很棒！
 
-## Some Problems of Promise
+## Some Issues
 
 我們現在看到的 Promise 是經過百家爭鳴、戰國時代，各方不斷磨合下的產物，雖說 Promise 已是 Modern Front-end 必須理解的基本概念，但其仍有許多改進與討論的空間，以下舉幾個例子：
 
 ### Cancelable Promises
 
-傳統 XHR 可以透過 `XmlHttpRequest#abort` 達到 cancel 取消的操作，Promise 也有此意實作 **Cancelable Promises**，不過很可惜的是，[這個提案][proposal-cancelable-promises] 沒能到達 Stage 2 就被撤銷了，也引起[諸多討論][hackernews-cancelable-promises-withdrawn]，不論是否無法達成共識，或是有更好的方案，總之，短期之內是看不到這個 feature 納入標準了。不過 [RxJS][rxjs] 的大頭 Ben Lesh 也提出一些[實作與解決 promises cancellation 的方法][benlesh-promise-cancallation]，最後當然少不了推崇一下強大的 Rx Library 啦。
+傳統 XHR 可以透過 `XmlHttpRequest#abort` 達到 cancel 取消的操作，Promise 也有此意實作 **Cancelable Promises**，不過很可惜的是，[這個提案][proposal-cancelable-promises] 沒能到達 Stage 2 就被撤銷了，也引起[諸多討論][hackernews-cancelable-promises-withdrawn]，不論是否無法達成共識，或有更好的方案，短期內應該看不到此 feature 納入標準了。倒是可參考 [RxJS][rxjs] 的大頭 Ben Lesh 提出[實作與解決 promises cancellation 的方法][benlesh-promise-cancallation]，當然，少不了推崇一下強大的 Rx Library 啦。
 
 ### Proposals for `Promise#finally` & `Promise#try`
 
-雖然 cancelable promise 已經 withdrawn 了，仍有許多人希望原生的 Promise 能夠有更多實用的 API，[`Promise#finally`][proposal-promise-finally] 與 [`Promise#try`][proposal-promise-try] 便是一例，`Promise#finally` 是希望替 promise 提供類似 try-catch-finally 的 finally block，實作一些 cleanup，目前已在 Stage 2，很有希望成為標準；而 `Promise#try` 則是希望將 promise 起始的 function 也包含進 promise 的 error handling 機制，統整同步與非同步的例外處理，目前在 Stage 1，[詳細解釋在此][joepie-promise-try]。
+雖然 cancelable promise 已 withdrawn，仍有人希望原生的 Promise 能有更多實用的 API，[`Promise#finally`][proposal-promise-finally] 與 [`Promise#try`][proposal-promise-try] 便是一例，`Promise#finally` 是希望替 promise 提供類似 try-catch-finally 的 finally block，實作一些 cleanup，目前已在 Stage 2，很有希望成為標準；而 `Promise#try` 則是希望將 promise 起始的 function 也包含進 promise 的 error handling 機制，統整同步與非同步的例外處理，類似 try block，目前在 Stage 1 等著，[詳細解釋在此][joepie-promise-try]。
 
 ### Difficult to Debug
 
-由於 Promise 是由許多 closure combine 而成，會產生許多 call stack，一旦發生 error，stack trace 會非常混亂，也不易設置 breakpoint 來 debug。有一個解法是給 anonymous function 一個 function name。
+由於 Promise 是由許多 closure combine 而成，會產生不少 call stacks，一旦發生 error，stack trace 會夭壽混亂，也不易設置 breakpoint 動態 debug。有一解法是給 anonymous function 一個 name。
 
 ```javascript
 Promise.resolve()
@@ -439,14 +441,16 @@ Promise.resolve()
   .then(function doAsyncThing3 () {})
 ```
 
-但這樣就無法使用 ES6 的 Arrow function 了，也失去 promise 的簡潔特性，也是一種 tradeoff。
+但這樣就無法使用 ES6 的 Arrow function 了，也失去 promise 的簡潔特性，算是一種 tradeoff。
 
 此外，Promise 由 `then` 第二個參數 `onRejected` callback 全權接管 Error Handling，傳統的 try-catch 在此完全不管用，同步／非同步的例外處理距離變遠，可能造成邏輯較為複雜。而且，若無顯式處理被 reject 的 promise，該 Exception 就不會 propagation 到 promise 外部，過於 silent 也是一件壞事（We should let it crash！）。
 
 ### Not Synchronous Enough
 
 Concurrency 一直是程式設計最難的議題之一，很多人期盼有一天，我們能夠用最直觀最 synchronous 的 syntax 書寫 asynchronous code。**C#** 的 `async/await` 是主流語言中，算是第一個成功使用 synchronous syntax 的範例。看那優美的書寫方式，
+
 ```csharp
+// 亂寫的 C# code
 public async Task AsyncFunction()
 {
   await AsyncTask();
@@ -459,6 +463,7 @@ JavaScript 的 Promise 立馬被擊潰。（本人一行 **ㄈ井** 都不懂）
 不過 JS 社群近年來蓬勃發展，ES7 已經導入了 `async/await` 關鍵字，又替非同步程式設計帶來新變革，語法堪稱小清新。
 
 ```javascript
+// async function
 function async request () {
   try {
     const json = await getJSON()
@@ -470,8 +475,7 @@ function async request () {
 }
 ```
 
-至今，已有[七成六][caniuse-await]的瀏覽器實作 Async function，Node.js 在 7.6 解除 async function 的 harmony flag，成為 default 的關鍵字了。
-
+至今，已有[七成六][caniuse-await]的瀏覽器實作 Async function，Node.js 也在 7.6 解除 async function 的 harmony flag，成為 default 的關鍵字，拭目以待吧！
 
 ## Further Reading
 
@@ -483,16 +487,21 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 
 如果覺得外國的月亮沒有比較圓，想要看一些中文的 References，這本「[從Promise開始的JavaScript異步生活][eyesofkids-javascript-start-es6-promise]」（中英文中間是不會留空白逆= =）寫得非常詳細；另外，阮老師的 「[ECMAScript 6 入门：Promise 对象][ruanyifeng-es6-promise]」份量也很足，兩者都十分值得一讀。基本上，挑其一，就可以完全忽略本人的文章了。
 
-前端技術日新月異，發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。
+前端技術日新月異，非同步程式設計發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。
 
-> 眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD
+![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](http://i.imgur.com/G3X0H78.jpg) 
+
+> 後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD
 
 ## References
 
 - [Promise/A+][promisesaplus]
 - [MDN - Using promises][mdn-using-promises]
 - [Google - JavaScript Promises: an Introduction][google-promises]
+- [從Promise開始的JavaScript異步生活][eyesofkids-javascript-start-es6-promise]
+- [ECMAScript 6 入门：Promise 对象][ruanyifeng-es6-promise]
 
+[concurrency-joke]: https://twitter.com/davidlohr/status/288786300067270656
 [wiki-promises]: https://en.wikipedia.org/wiki/Futures_and_promises
 [caniuse-promise]: http://caniuse.com/#search=promise
 [promisesaplus]: https://promisesaplus.com/
