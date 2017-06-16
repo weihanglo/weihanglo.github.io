@@ -14,7 +14,7 @@ date: 2017-06-12 23:02:43
 
 眾所周知，[Concurrency is hard！][concurrency-joke]設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 **Promise** 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到~~另一個煉獄~~人間。
 
-（撰於 2017-06-12，基於 ECMAScript 6+）
+_（撰於 2017-06-12，基於 ECMAScript 6+）_
 
 <!-- more -->
 
