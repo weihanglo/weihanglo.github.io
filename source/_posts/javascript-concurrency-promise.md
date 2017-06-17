@@ -491,7 +491,7 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 
 ![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](http://i.imgur.com/G3X0H78.jpg) 
 
-> 後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD
+> 後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD（不過，利用 generator 實作 async function 又是另一回事了）
 
 ## References
 
