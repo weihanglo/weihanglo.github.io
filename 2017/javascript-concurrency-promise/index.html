@@ -17,7 +17,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Concurrency,Front-End,Promise," />
+  <meta name="keywords" content="JavaScript,Front-End,Concurrency,Promise," />
 
 
 
@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://weihanglo.github.io/promise-flow.png">
 <meta property="og:image" content="https://weihanglo.github.io/google-promises.png">
 <meta property="og:image" content="http://i.imgur.com/G3X0H78.jpg">
-<meta property="og:updated_time" content="2017-06-17T03:35:08.000Z">
+<meta property="og:updated_time" content="2017-06-18T03:14:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Modern Concurrency in JavaScript - Promises">
 <meta name="twitter:description" content="所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻">
@@ -210,7 +210,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Features"><span class="toc-text">Features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminology"><span class="toc-text">Terminology</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-States"><span class="toc-text">Promise States</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Give-Me-a-Promise"><span class="toc-text">Give Me a Promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-then-method"><span class="toc-text">The then method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-Chaining"><span class="toc-text">Promise Chaining</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise-Chaining-Flow"><span class="toc-text">Promise Chaining Flow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-Methods"><span class="toc-text">Static Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reject-amp-resolve"><span class="toc-text">reject & resolve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#all-amp-race"><span class="toc-text">all & race</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paralleling-Composition"><span class="toc-text">Paralleling Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequential-Composition"><span class="toc-text">Sequential Composition</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-Issues"><span class="toc-text">Some Issues</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cancelable-Promises"><span class="toc-text">Cancelable Promises</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proposals-for-Promise-finally-amp-Promise-try"><span class="toc-text">Proposals for Promise#finally & Promise#try</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difficult-to-Debug"><span class="toc-text">Difficult to Debug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Not-Synchronous-Enough"><span class="toc-text">Not Synchronous Enough</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Further-Reading"><span class="toc-text">Further Reading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Features"><span class="toc-text">Features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminology"><span class="toc-text">Terminology</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-States"><span class="toc-text">Promise States</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Give-Me-a-Promise"><span class="toc-text">Give Me a Promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-then-method"><span class="toc-text">The then method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-Chaining"><span class="toc-text">Promise Chaining</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise-Chaining-Flow"><span class="toc-text">Promise Chaining Flow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-Methods"><span class="toc-text">Static Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reject-amp-resolve"><span class="toc-text">reject & resolve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#all-amp-race"><span class="toc-text">all & race</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paralleling-Composition"><span class="toc-text">Paralleling Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequential-Composition"><span class="toc-text">Sequential Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Fullfillment"><span class="toc-text">First Fullfillment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-Issues"><span class="toc-text">Some Issues</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cancelable-Promises"><span class="toc-text">Cancelable Promises</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proposals-for-Promise-finally-amp-Promise-try"><span class="toc-text">Proposals for Promise#finally & Promise#try</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difficult-to-Debug"><span class="toc-text">Difficult to Debug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Not-Synchronous-Enough"><span class="toc-text">Not Synchronous Enough</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Further-Reading"><span class="toc-text">Further Reading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
     </div>
   </div>
 
@@ -409,6 +409,10 @@
 <p>不過，比起 imperative 的 <code>Array#forEach</code> ，近來崇尚 declarative 的寫法，這裡使用 <code>Array#reduce</code> 取代。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// reduce 版本的 sequential promise chain</span></div><div class="line">statusIds.reduce(<span class="function"><span class="params">id</span> =&gt;</span> (</div><div class="line">  loadStatus(id)</div><div class="line">    .then(addStatusToPage)</div><div class="line">), <span class="built_in">Promise</span>.resolve())</div></pre></td></tr></table></figure>
 <p>程式碼又更簡潔明瞭一些了，也免去宣告額外的變數來保存 promises，很棒！</p>
+<h3 id="First-Fullfillment"><a href="#First-Fullfillment" class="headerlink" title="First Fullfillment"></a>First Fullfillment</h3><p><code>Promise.race</code> 提供開發者取得首個 resolved promise 的 result，但有時候，我們只想取得第一個 fulfillment，不想理會其他 rejection，該如何實作呢？</p>
+<p>許多 Promise library 提供 <a href="http://bluebirdjs.com/docs/api/promise.any.html" target="_blank" rel="external"><code>Promise.any</code></a> 這樣的 API，當然也可以自己實作，<a href="https://stackoverflow.com/a/39941616" target="_blank" rel="external">Stackoverflow 的答案非常簡潔</a>，直接附上程式碼。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// from Stackoverflow https://stackoverflow.com/a/39941616</span></div><div class="line"><span class="keyword">const</span> invert = <span class="function"><span class="params">p</span>  =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">res, rej</span>) =&gt;</span> p.then(rej, res))</div><div class="line"><span class="keyword">const</span> firstOf = <span class="function"><span class="params">ps</span> =&gt;</span> invert(<span class="built_in">Promise</span>.all(ps.map(invert)))</div><div class="line"><span class="comment">// ...</span></div></pre></td></tr></table></figure>
+<p>說明：利用 Promise.all 會因為任一個 promise rejected 而被 reject 的特性，調換 onRejected 與 onFulfilled 這兩個 callback。達成「取得首個 fullfilled promise」的任務。</p>
 <h2 id="Some-Issues"><a href="#Some-Issues" class="headerlink" title="Some Issues"></a>Some Issues</h2><p>我們現在看到的 Promise 是經過百家爭鳴、戰國時代，各方不斷磨合下的產物，雖說 Promise 已是 Modern Front-end 必須理解的基本概念，但其仍有許多改進與討論的空間，以下舉幾個例子：</p>
 <h3 id="Cancelable-Promises"><a href="#Cancelable-Promises" class="headerlink" title="Cancelable Promises"></a>Cancelable Promises</h3><p>傳統 XHR 可以透過 <code>XmlHttpRequest#abort</code> 達到 cancel 取消的操作，Promise 也有此意實作 <strong>Cancelable Promises</strong>，不過很可惜的是，<a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="external">這個提案</a> 沒能到達 Stage 2 就被撤銷了，也引起<a href="https://news.ycombinator.com/item?id=13210849" target="_blank" rel="external">諸多討論</a>，不論是否無法達成共識，或有更好的方案，短期內應該看不到此 feature 納入標準了。倒是可參考 <a href="https://github.com/ReactiveX/rxjs" target="_blank" rel="external">RxJS</a> 的大頭 Ben Lesh 提出<a href="https://medium.com/@benlesh/promise-cancellation-is-dead-long-live-promise-cancellation-c6601f1f5082" target="_blank" rel="external">實作與解決 promises cancellation 的方法</a>，當然，少不了推崇一下強大的 Rx Library 啦。</p>
 <h3 id="Proposals-for-Promise-finally-amp-Promise-try"><a href="#Proposals-for-Promise-finally-amp-Promise-try" class="headerlink" title="Proposals for Promise#finally &amp; Promise#try"></a>Proposals for <code>Promise#finally</code> &amp; <code>Promise#try</code></h3><p>雖然 cancelable promise 已 withdrawn，仍有人希望原生的 Promise 能有更多實用的 API，<a href="https://github.com/tc39/proposal-promise-finally" target="_blank" rel="external"><code>Promise#finally</code></a> 與 <a href="https://github.com/tc39/proposal-promise-try" target="_blank" rel="external"><code>Promise#try</code></a> 便是一例，<code>Promise#finally</code> 是希望替 promise 提供類似 try-catch-finally 的 finally block，實作一些 cleanup，目前已在 Stage 2，很有希望成為標準；而 <code>Promise#try</code> 則是希望將 promise 起始的 function 也包含進 promise 的 error handling 機制，統整同步與非同步的例外處理，類似 try block，目前在 Stage 1 等著，<a href="http://cryto.net/~joepie91/blog/2016/05/11/what-is-promise-try-and-why-does-it-matter/" target="_blank" rel="external">詳細解釋在此</a>。</p>
@@ -478,9 +482,9 @@
           
             <a href="/tags/javascript/">JavaScript</a>
           
-            <a href="/tags/concurrency/">Concurrency</a>
-          
             <a href="/tags/front-end/">Front-End</a>
+          
+            <a href="/tags/concurrency/">Concurrency</a>
           
             <a href="/tags/promise/">Promise</a>
           
@@ -489,6 +493,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2017/javascript-concurrency-async-function/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Modern Concurrency in JavaScript - Async Functions</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
     
       <a class="next" href="/2017/swift-generics/">
