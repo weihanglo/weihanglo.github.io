@@ -418,6 +418,21 @@ statusIds.reduce(id => (
 
 程式碼又更簡潔明瞭一些了，也免去宣告額外的變數來保存 promises，很棒！
 
+### First Fullfillment
+
+`Promise.race` 提供開發者取得首個 resolved promise 的 result，但有時候，我們只想取得第一個 fulfillment，不想理會其他 rejection，該如何實作呢？
+
+許多 Promise library 提供 [`Promise.any`][bluebird-promise-any] 這樣的 API，當然也可以自己實作，[Stackoverflow 的答案非常簡潔][stackoverflow-promise-any]，直接附上程式碼。
+
+```javascript
+// from Stackoverflow https://stackoverflow.com/a/39941616
+const invert = p  => new Promise((res, rej) => p.then(rej, res))
+const firstOf = ps => invert(Promise.all(ps.map(invert)))
+// ...
+```
+
+說明：利用 Promise.all 會因為任一個 promise rejected 而被 reject 的特性，調換 onRejected 與 onFulfilled 這兩個 callback。達成「取得首個 fullfilled promise」的任務。
+
 ## Some Issues
 
 我們現在看到的 Promise 是經過百家爭鳴、戰國時代，各方不斷磨合下的產物，雖說 Promise 已是 Modern Front-end 必須理解的基本概念，但其仍有許多改進與討論的空間，以下舉幾個例子：
@@ -508,10 +523,16 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 [mdn-using-promises]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [mdn-using-fetch]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 [google-promises]: https://developers.google.com/web/fundamentals/getting-started/primers/promises
+
+[stackoverflow-promise-any]: https://stackoverflow.com/a/39941616
+[bluebird-promise-any]: http://bluebirdjs.com/docs/api/promise.any.html
+
 [proposal-cancelable-promises]: https://github.com/tc39/proposal-cancelable-promises
 [hackernews-cancelable-promises-withdrawn]: https://news.ycombinator.com/item?id=13210849
 [rxjs]: https://github.com/ReactiveX/rxjs
 [benlesh-promise-cancallation]: https://medium.com/@benlesh/promise-cancellation-is-dead-long-live-promise-cancellation-c6601f1f5082
+
+
 
 [proposal-promise-finally]: https://github.com/tc39/proposal-promise-finally
 [proposal-promise-try]: https://github.com/tc39/proposal-promise-try
