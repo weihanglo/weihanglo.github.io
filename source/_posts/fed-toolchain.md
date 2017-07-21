@@ -4,7 +4,7 @@ date: 2017-03-10 15:36:46
 tags:
   - NodeJS
   - JavaScript
-  - Front-End
+  - Front-end
 ---
 
 ![React Tech Stack]( https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg)

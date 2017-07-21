@@ -4,7 +4,7 @@ tags:
   - JavaScript
   - Concurrency
   - Promise
-  - Front-End
+  - Front-end
 date: 2017-06-12 23:02:43
 ---
 
@@ -295,7 +295,7 @@ asyncThing1().then(function() {
 <img src="google-promises.png" height="600px" />
 
 > `Promise#catch` V.S. `Promise#then(null, onRejected)`
-> 
+>
 > 還記得 `then` method 第二個參數是 `onRejected` callback 嗎？這個參數其實比較少用，大部分都會透過 `.catch` 這個 syntax sugar 做 error handling。因為 `onRejected` 僅在當該 promise 被 reject 時，才能捕捉到錯誤，並無法捕捉到同一個 `.then` 的 `onFulfilled` 拋出的錯誤。
 
 <!-- -->
@@ -504,7 +504,7 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 
 前端技術日新月異，非同步程式設計發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。
 
-![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](http://i.imgur.com/G3X0H78.jpg) 
+![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](http://i.imgur.com/G3X0H78.jpg)
 
 > 後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD（不過，利用 generator 實作 async function 又是另一回事了）
 
