@@ -5,7 +5,7 @@ tags:
   - Concurrency
   - Async Function
   - Generator
-  - Front-End
+  - Front-end
 date: 2017-06-18 12:45:34
 ---
 
