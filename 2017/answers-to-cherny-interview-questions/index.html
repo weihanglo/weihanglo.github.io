@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Answers to Cherny's Interview Questions"/>
+
+
+
+
+  <meta name="keywords" content="JavaScript,Front-end,Interview Questions," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/answers-to-cherny-interview-questions/"/>
+
+
+<meta name="description" content="這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答。結果寫完基礎概念篇，才發現這份題目在 reddit 上被慘烈地批評，與現代前端技術棧相差頗大，不過，一些核心概念還是挺重要的。在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
+（撰於 2017-07-26）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Answers to Cherny's Interview Questions">
+<meta property="og:url" content="https://weihanglo.github.io/2017/answers-to-cherny-interview-questions/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答。結果寫完基礎概念篇，才發現這份題目在 reddit 上被慘烈地批評，與現代前端技術棧相差頗大，不過，一些核心概念還是挺重要的。在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
+（撰於 2017-07-26）">
+<meta property="og:updated_time" content="2017-07-26T13:29:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Answers to Cherny's Interview Questions">
+<meta name="twitter:description" content="這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答。結果寫完基礎概念篇，才發現這份題目在 reddit 上被慘烈地批評，與現代前端技術棧相差頗大，不過，一些核心概念還是挺重要的。在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
+（撰於 2017-07-26）">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> Answers to Cherny's Interview Questions · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Answers to Cherny's Interview Questions
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Jul 26, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Concepts"><span class="toc-text">Concepts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-Big-O-notation-and-why-is-it-useful"><span class="toc-text">What is Big O notation, and why is it useful?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-the-DOM"><span class="toc-text">What is the DOM?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-the-event-loop"><span class="toc-text">What is the event loop?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-a-closure"><span class="toc-text">What is a closure?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-does-prototypal-inheritance-work-and-how-is-it-different-from-classical-inheritance"><span class="toc-text">How does prototypal inheritance work, and how is it different from classical inheritance?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-does-this-work"><span class="toc-text">How does this work?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-event-bubbling-and-how-does-it-work"><span class="toc-text">What is event bubbling and how does it work?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe-a-few-ways-to-communicate-between-a-server-and-a-client-Describe-how-a-few-network-protocols-work-at-a-high-level"><span class="toc-text">Describe a few ways to communicate between a server and a client. Describe how a few network protocols work at a high level.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP"><span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Network-Socket-amp-WebSocket"><span class="toc-text">Network Socket & WebSocket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebRTC"><span class="toc-text">WebRTC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-IP"><span class="toc-text">TCP/IP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-REST-and-why-do-people-use-it"><span class="toc-text">What is REST, and why do people use it?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-website-is-slow-Walk-me-through-diagnosing-and-fixing-it-What-are-some-performance-optimizations-people-use-and-when-should-they-be-used"><span class="toc-text">My website is slow. Walk me through diagnosing and fixing it. What are some performance optimizations people use, and when should they be used?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#動畫掉幀"><span class="toc-text">動畫掉幀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#網路請求"><span class="toc-text">網路請求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-frameworks-have-you-used-What-are-the-pros-and-cons-of-each-Why-do-people-use-frameworks-What-kinds-of-problems-do-frameworks-solve"><span class="toc-text">What frameworks have you used? What are the pros and cons of each? Why do people use frameworks? What kinds of problems do frameworks solve?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pros"><span class="toc-text">Pros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cons"><span class="toc-text">Cons</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Thoughts-after-completion"><span class="toc-text">Thoughts after completion</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>這份面試題出自<a href="https://performancejs.com/post/hde6d32/The-Best-Frontend-JavaScript-Interview-Questions-(written-by-a-Frontend-Engineer)" target="_blank" rel="external">於此</a>，是從 <a href="https://www.reddit.com/r/Frontend/comments/6knex6/the_best_frontend_javascript_interview_questions/" target="_blank" rel="external">/r/Frontend/</a> 連結過去的，看到如此自豪的標題和簡介，便手癢來作答。結果寫完基礎概念篇，才發現這份題目在 reddit 上被慘烈地批評，與現代前端技術棧相差頗大，不過，一些核心概念還是挺重要的。在此分享小弟的答案，有任何錯誤，請各位不吝賜教。</p>
+<p><em>（撰於 2017-07-26）</em></p>
+<a id="more"></a>
+<h2 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h2><p>Be able to clearly explain these in words (no coding):</p>
+<h2 id="What-is-Big-O-notation-and-why-is-it-useful"><a href="#What-is-Big-O-notation-and-why-is-it-useful" class="headerlink" title="What is Big O notation, and why is it useful?"></a>What is Big O notation, and why is it useful?</h2><p>Big O notation 是用來分析演算法複雜度的漸近符號，可以簡單視為<strong>運算成本（時間、空間）與輸入資料量的趨勢函數</strong>，例如 f(x) = x^2 + 3x + 6。當輸入資料量增大時，函數的「最高次項」最具有決定性，因此可以之表示演算法在資料量夠大時，「最多」達到怎樣的趨勢（趨勢上界），例如上例的複雜度會是 f(n) = O(n^2)。（另有 Big-Theta、Big-Omega 分別描述「趨勢區間」與「趨勢下界」）</p>
+<p>Big O 以宏觀的角度來分析演算法，並利用簡單的數學式表示，令演算法效率分析有簡明、客觀的基準。</p>
+<h2 id="What-is-the-DOM"><a href="#What-is-the-DOM" class="headerlink" title="What is the DOM?"></a>What is the DOM?</h2><p>全名為「Document Object Model」，是 W3C 的標準之一，定義如何將文件（XML／HTML document 等）映射至一樹狀結構中，每個節點都是一個物件，並帶有操作此 DOM node 的 API。</p>
+<h2 id="What-is-the-event-loop"><a href="#What-is-the-event-loop" class="headerlink" title="What is the event loop?"></a>What is the event loop?</h2><p>JavaScript 是單執行緒（單線程）的程式語言，任何龐大運算都可能阻塞整個程式，因此 JavaScript 設計了 <strong>message queue</strong> 配合一個不間斷的 <strong>event loop</strong> 來管理任務，當 call stack 沒有執行任何 task 時（程式閒置時），loop 便從 queue 中取第一個 message 至 call stack 調用。開發者可將 callback 加入 message queue 等待 loop 輪詢（polling），實現非同步程式，這就是 JavaScript event loop 的機制。</p>
+<p>實際上 event loop 的概念並不僅限於 JavaScript，其他語言的 main loop 或像 iOS／macOS 的 <code>NSRunLoop</code> 都是建立在此概念之上。</p>
+<h2 id="What-is-a-closure"><a href="#What-is-a-closure" class="headerlink" title="What is a closure?"></a>What is a closure?</h2><p>在某些函式（function）為一等公民（可來傳遞、當作引數）的程式語言中，<strong>閉包（closure）是「一種特殊的函式，會儲存／綁定該<a href="https://en.wikipedia.org/wiki/Scope_(computer_science)#Lexical_scoping" target="_blank" rel="external">詞法作用域（lexical scope）</a>下被引用的變數資訊」</strong>，如綁定閉包內被引用的外部變數，讓 closure 可以使用這些變數，這種儲綁定外部變數的行為稱為 capture，被儲存的變數一般稱 <a href="https://en.wikipedia.org/wiki/Free_variables_and_bound_variables" target="_blank" rel="external">captured／free／bound variable</a>。</p>
+<p>由於這些外部變數被 closure 綁定，因此可以在這些變數宣告的作用域外執行 closure 並使用這些 variables，，所以 closure 廣泛應用於程式區塊間互相傳值／通訊，例如非同步常使用的 callback function，經常會是一個 closure。近幾年函數式程式設計（functional programming）當紅，高階函式（higher-order function）的函式參數（function parameter）也是一種常見的 closure。Functional programming 另一個技法 <strong>currying</strong>（將多參函式轉換為單參函式），同樣利用了 closure 捕獲 variables 的特性。當然，最常見的 <code>setTimeout</code>、<code>setInterval</code> 就是 closure 的最佳範例。</p>
+<p>需注意的是，由於不同語言的記憶體管理方式有差異，binding free variable 的實作也不盡相同，目前記憶體管理方式，大致上分為 <a href="https://en.wikipedia.org/wiki/Reference_counting" target="_blank" rel="external">Reference Counting（RC）</a>與 <a href="https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)" target="_blank" rel="external">garbage collection（GC）</a>，若是以 RC 管理記憶體的語言（如 Swift、Objective-C），需注意 reference count 在 closure 內部可能會增加，部分語言需要手動 release reference。</p>
+<h2 id="How-does-prototypal-inheritance-work-and-how-is-it-different-from-classical-inheritance"><a href="#How-does-prototypal-inheritance-work-and-how-is-it-different-from-classical-inheritance" class="headerlink" title="How does prototypal inheritance work, and how is it different from classical inheritance?"></a>How does prototypal inheritance work, and how is it different from classical inheritance?</h2><p>JavaScript 的物件導向概念是基於「原型（prototype）」而設計，有別於其他基於類別（class）的語言，其中最大的差異就是 prototype-based 的物件導向並無 class 概念。我們可將傳統的 class-based 的 class 想像成藍圖，實例（instance）是依照此藍圖創造出來（實例化，instantiation）；而 prototype 則較接近桃莉羊，概念類似於從已知實例創造出新的實例，共享（或複製）原始來源的特性。</p>
+<p>Prototype-based 的語言雖沒有真正的 class，但會有類似建構子（constructor）的方法／函式，創建實例是，同時將原型物件的屬性／方法（property／method）複製或引用一份。例如 JavaScript 中每個物件皆有 <code>prototype</code> 這個原型物件，<strong>所有透過建構子實例化的實例，都可以從自身的屬性，取得該原型物件的同名的屬性</strong>。要注意的是，有些實例的屬性可能是一個引用（reference），直接指向原型物件對應的屬性，修改可能會使其他實例受影響。比較常見的做法是<strong>繼承建構子</strong>，或是<strong>複製整個原型物件</strong>。</p>
+<blockquote>
+<p>ES2015 提供以傳統物件導向語法 <code>class extends</code> 完成繼承的語法糖，本質上仍是 prototypal inheritance，但相對門檻較低，程式碼也比較直觀。</p>
+</blockquote>
+<h2 id="How-does-this-work"><a href="#How-does-this-work" class="headerlink" title="How does this work?"></a>How does <code>this</code> work?</h2><p>當一段 code 被 JavaScript 執行時，會創建新的執行上下文（execution context），在創建之初就會綁定 <code>this</code> 的值（還有變數與作用域鍊），接下來才執行程式碼。要知道 function 的 <code>this</code> 指向何者，就要了解創建 context 時是 function 如何被調用。一般來說，以下幾種狀況便可涵蓋大多數的情境。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">情境</th>
+<th style="text-align:left"><code>this</code> 指向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">在全域直接調用一個 function</td>
+<td style="text-align:left"><code>window</code> 或 <code>global</code>（node）</td>
+</tr>
+<tr>
+<td style="text-align:left">調用物件的方法 <code>obj.method</code></td>
+<td style="text-align:left">該物件</td>
+</tr>
+<tr>
+<td style="text-align:left">function.call／bind／apply</td>
+<td style="text-align:left">被綁定的物件</td>
+</tr>
+<tr>
+<td style="text-align:left">透過 <code>new</code> 調用 constructor</td>
+<td style="text-align:left">新創建的物件</td>
+</tr>
+<tr>
+<td style="text-align:left">ES6 arrow function</td>
+<td style="text-align:left">該詞法作用域下的 <code>this</code>（較直觀）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="What-is-event-bubbling-and-how-does-it-work"><a href="#What-is-event-bubbling-and-how-does-it-work" class="headerlink" title="What is event bubbling and how does it work?"></a>What is event bubbling and how does it work?</h2><p>JavaScript DOM Event 的傳遞會經過三個階段：</p>
+<ul>
+<li><strong>capture phase</strong></li>
+<li><strong>target phase</strong></li>
+<li><strong>bubbling phase</strong></li>
+</ul>
+<p>當一個事件觸發時，會從 <code>window</code> 往 DOM tree 傳遞，從 tree root（document）往下找，直到監聽該事件的 Event target，這個階段就是 <strong>capture phase</strong>，到達 Event target 則稱之 <strong>target phase</strong>。在這之後，event 會像冒泡泡板開始往上傳遞，傳遞到 <code>window</code> 為止，這就是 <strong>bubbling phase</strong>。JavaScript 的 Event listener 預設是在 bubbling phase 捕捉事件，所以當 Event Listener 沒有終止事件傳遞（<code>Event#stopPropagation</code>），其父元素若有監聽事件，就有機會捕捉到該事件。</p>
+<h2 id="Describe-a-few-ways-to-communicate-between-a-server-and-a-client-Describe-how-a-few-network-protocols-work-at-a-high-level"><a href="#Describe-a-few-ways-to-communicate-between-a-server-and-a-client-Describe-how-a-few-network-protocols-work-at-a-high-level" class="headerlink" title="Describe a few ways to communicate between a server and a client. Describe how a few network protocols work at a high level."></a>Describe a few ways to communicate between a server and a client. Describe how a few network protocols work at a high level.</h2><p><em>（這問題有點太廣，要怎麼回答⋯⋯）</em></p>
+<p>伺服器與客戶端之間的通訊，有許多大大小小的概念與方法，以下介紹幾個前端常見的：</p>
+<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>HTTP 網路上最常見的 protocol 之一，屬 OSI 第七層 Application layer。概念是<strong>用戶端發起請求（request），伺服器端根據請求，回應（response）對應的狀態與資源</strong>。用戶端可發送不同的 request method（GET、POST 等），以不同的方式操作資源。伺服器端則可根據 request method、body、headers、session 等資訊，決定該回應什麼狀態（例如 302 Temporarily Moved）以及 response message、headers 等。</p>
+<h3 id="Network-Socket-amp-WebSocket"><a href="#Network-Socket-amp-WebSocket" class="headerlink" title="Network Socket &amp; WebSocket"></a>Network Socket &amp; WebSocket</h3><p><strong>Network Socket</strong> 為一個提供程式（更精確的說是 process）間雙向溝通的網路通訊接口，通常會綁定（bind）在一個 port 上，讓 Transport Layer（TCP／UDP）與 Application Layer 得以互相辨識溝通，其他程式則透過 TCP 層，再經由 socket 實例與該 process 交換資料。也可以視 socket 為 TCP 層的封裝。<br>受 Unix「一切皆檔案」的哲學影響，socket 通常會提供 <code>open</code>、<code>write</code>、<code>close</code> 等 API，甚至實作上就是一個實際檔案，因此，通常將 socket 視為 OSI 第五層 Session Layer，負責管理每個 session 對話。</p>
+<blockquote>
+<p>可比喻成「給予 process 專屬信箱（socket），讓其他 process 透過地址（IP）傳信給它」。</p>
+</blockquote>
+<p><a href="https://www.websocket.org/" target="_blank" rel="external">WebSocket</a> 則是一個全雙工（full duplex）的通訊協議，目前已是 W3C 與 IETF 的標準之一，主要提供但不限於 web browser 與 web server 間的通訊。由於傳統的 HTTP 協議只能利用 polling 的方法模擬雙工，效能不佳，透過將 HTTP 協議升級（Upgrade）為 WebSocket，讓許多實時（realtime）的需求得以實現。<br>目前各大主流瀏覽器皆已實作 WebSocket API，也有許多函式庫（如 <a href="https://socket.io/" target="_blank" rel="external">Socket.io</a>）可以選用。</p>
+<p><strong>WebSocket</strong> 與 <strong>Network Socket</strong> 雖然都稱作 socket，但差距不小，Network Socket 如前所述，是封裝 TCP 層，讓 process 有專屬接口，與 TCP 溝通，屬 Session Layer，並非一種協議，而是類似於 API 的存在； WebSocket 則是從 HTTP 協議升級的一個完整全雙工協議，有標準的 API，屬 Application Layer。</p>
+<h3 id="WebRTC"><a href="#WebRTC" class="headerlink" title="WebRTC"></a>WebRTC</h3><p><em>（先聲明，這不是 client-server 的通訊方法，但卻是近年很重要的一個 Web 標準。）</em></p>
+<p><a href="https://webrtc.org/" target="_blank" rel="external"><strong>WebRTC</strong></a> 是一些 API 與協議的集合，提供瀏覽器透過 plugin-free 的 P2P 連線（browser-to-browser），達成 Real-Time Communications（RTC）的功能，也就是說，瀏覽器間可不透過伺服器，直接穿透 firewall 交換訊息。WebRTC 推行多年，直到今年 Apple 才在 2017 WWDC 宣告下一版本的 Safari／iOS Safari 將全面支援 WebRTC，因此，可大膽預測 WebRTC 會逐漸取代傳統 P2P 視訊底層的技術，甚至<a href="https://www.zhihu.com/question/25497090" target="_blank" rel="external">有望成為直播技術選擇</a>之一。</p>
+<p>WebRTC 除了傳送音訊與視訊，也可傳送<strong>任意資料</strong>，場景看似與 WebSocket 重複，實際上仍有差異。從傳輸協議來看，WebSocket 封裝 TCP，丟失封包會重傳；WebRTC 底層為 RTP，可接受封包丟失。從對話架構來看，WebSocket 為 client-server 主從式的通訊架構；WebRTC 則是 P2P、client-to-client 的實時通訊。</p>
+<h3 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h3><p>TCP 與 IP 是兩個不同的通訊協議，TCP 為 OSI Transport Layer 的協議，主要負責<strong>提供可靠、錯誤校正的傳輸資料，封包若丟失，TCP 會嘗試重傳</strong>；IP 則是位於 Network Layer 的協議，主要功能為<strong>尋找主機位置，封裝資料，再從來源路由（routing）到目標主機</strong>。  </p>
+<p>由 TCP／IP 等網際網路協議組成的網路架構通常稱為 <strong>Internet protocol suite</strong>，被視為簡化版的 OSI 模型，也是目前最主流的網路架構。</p>
+<h2 id="What-is-REST-and-why-do-people-use-it"><a href="#What-is-REST-and-why-do-people-use-it" class="headerlink" title="What is REST, and why do people use it?"></a>What is REST, and why do people use it?</h2><p><em>（聲明：本人錯過 SOAP 的年代，實務上只使用過 RESTful 架構）</em></p>
+<p><strong>REST</strong>，全名為 <strong>REpresentational State Transfer</strong>，是眾多網路軟體架構中的一種，以結構清晰簡潔著稱，目前主流的網路服務都以此風格架設，大致實作概念為：</p>
+<ul>
+<li>所有資源以 URI 表示。（resource-oriented）</li>
+<li>資源可以不同的形式表現（例如 XML 或 JSON），取決於客戶端環境、headers 設定等。</li>
+<li>使用標準 HTTP request method（GET、POST、PUT、DELETE 等）對資源進行不同的操作。</li>
+</ul>
+<p>由於透過標準 HTTP protocol 實現 RESTful 架構，一切 request 都是無狀態（stateless），因此有許多優點：</p>
+<ul>
+<li>stateless，可以利用 cache 機制。</li>
+<li>stateless，容易用各種工具調試（如 <a href="https://curl.haxx.se/" target="_blank" rel="external">cURL</a>、<a href="https://httpie.org/" target="_blank" rel="external">httpie</a>）。</li>
+<li>每個 request 都獨立，耦合性低。</li>
+<li>利用 URI，統一 API 接口定義。</li>
+</ul>
+<blockquote>
+<p>因為 RESTful 以資源為導向的風格，後端常會為了日益增長的需求，開發了許多大同小異的 API，新興的 <a href="graphql.org">GraphQL</a> 就是為了對付這類問題，日益發展起來。</p>
+</blockquote>
+<h2 id="My-website-is-slow-Walk-me-through-diagnosing-and-fixing-it-What-are-some-performance-optimizations-people-use-and-when-should-they-be-used"><a href="#My-website-is-slow-Walk-me-through-diagnosing-and-fixing-it-What-are-some-performance-optimizations-people-use-and-when-should-they-be-used" class="headerlink" title="My website is slow. Walk me through diagnosing and fixing it. What are some performance optimizations people use, and when should they be used?"></a>My website is slow. Walk me through diagnosing and fixing it. What are some performance optimizations people use, and when should they be used?</h2><p><em>（講一個 slow 是能看出什麼毛喔⋯⋯）</em></p>
+<p>所謂網頁很慢，有兩大類別，一是 client 端效能的問題，最容易觀察到的現象就是<strong>動畫掉幀</strong>；另一個則是<strong>網路請求太久</strong>。我們先談動畫掉幀。</p>
+<h3 id="動畫掉幀"><a href="#動畫掉幀" class="headerlink" title="動畫掉幀"></a>動畫掉幀</h3><p><strong>動畫掉幀</strong> 就是指動畫 FPS 未達到人眼視覺暫留的時間間隔，一般以 60 FPS 為分水嶺，低於 60 FPS 就會產生卡頓的感覺。究其原因，不外乎運算量過大，擠壓到動畫觸發的時間點，瀏覽器自動 skip 到下一個 frame。一般有兩個思考方向：</p>
+<ol>
+<li>是否觸發過多的 reflow（layout）？</li>
+<li>動畫相關的的 JavaScript code 效能是否低落，太多複雜運算？</li>
+</ol>
+<p>關於 <strong>減少 reflow（layout）</strong>，這裡有幾個關於 CSS 的小撇步：</p>
+<ul>
+<li>儘量使用 <code>transform</code> 替代操作 <code>width</code>、<code>top</code> 等 style，減少 reflow。</li>
+<li>若必需更改到 <code>width</code> 等 style，可嘗試使用絕對座標 <code>position: absolute</code>。</li>
+<li>適量使用 <code>will-change</code> 通知瀏覽器準備動畫所需資源</li>
+<li>觸發 GPU 運算加速渲染（通常添加 <code>transform: translateZ(0)</code> 來觸發）。</li>
+<li>不要任意更改 flex item 的寬高與座標，會增添非常多額外的運算。</li>
+<li>善用瀏覽器開發者工具檢視動畫在哪裡掉幀，並即時更改 styles，預覽修正結果，降低迭代成本。</li>
+</ul>
+<p>很多時候，reflow，和 <strong>JavaScript code performance</strong> 脫離不了干係，我們仍有許多法門提升程式碼效能。</p>
+<ul>
+<li>首先，當然是檢視演算法本身有沒有優化空間，能不能降低複雜度，是否允許以空間換時間。</li>
+<li>經常觸發的動畫或運算（例如 window resizing），是否可以設置 throttle／debounce。</li>
+<li>承上，善用 <code>requestAnimationFrame</code> 讓與動畫直接相關的程式碼之觸發間隔與動畫同步。</li>
+<li>合併 DOM 操作（batch），降低 DOM tree 改變次數（例如 React 的 Virtual DOM）。</li>
+<li>將 synchronous 的運算改為 asynchronous（需注意架構與維護性）。</li>
+<li>若是必要的龐大運算（如加解密），可放置到 web worker，將 main thread 留給 UI。</li>
+<li>一定要了解<a href="https://gist.github.com/paulirish/5d52fb081b3570c81e3a" target="_blank" rel="external">哪些行為會造成 reflow</a>。</li>
+</ul>
+<h3 id="網路請求"><a href="#網路請求" class="headerlink" title="網路請求"></a>網路請求</h3><p>上述動畫掉幀的「慢」，較屬使用者互動的 UI 層，Web App 另一個瓶頸是網路請求（request），舉凡下載圖片，請求 CSS JavaScript 等等與 request 相關的操作，很容易因為資源取得過慢，造成使用者觀感欠佳。解決的方法不少，重點大多在減少 request 數量，以及善用快取，以下舉一些常見作法。</p>
+<ul>
+<li>JavaScript CSS 最小化與打包。（已有許多構建工具可用，例如 <code>gulp</code>、<code>webpack</code> 或 <code>rollup</code>）</li>
+<li>按需加載（on-demand loading），例如滾動到 visible area 才下載圖片，或需要時再載入 script。</li>
+<li>以 sprite 的方式組合 assets，減少 request 數量。</li>
+<li>善用 browser cache、local storage 等技術，讓資料可即時取得。</li>
+<li>開啟 <a href="https://en.wikipedia.org/wiki/HTTP/2_Server_Push" target="_blank" rel="external">HTTP/2 server push</a> 等機制。</li>
+<li>多利用 placeholder／thumbnail 等 UI 設計，降低要求資源的等待感。</li>
+</ul>
+<p>其實還有非常多優化效能的作法與手段，這裡暫時打住。</p>
+<h2 id="What-frameworks-have-you-used-What-are-the-pros-and-cons-of-each-Why-do-people-use-frameworks-What-kinds-of-problems-do-frameworks-solve"><a href="#What-frameworks-have-you-used-What-are-the-pros-and-cons-of-each-Why-do-people-use-frameworks-What-kinds-of-problems-do-frameworks-solve" class="headerlink" title="What frameworks have you used? What are the pros and cons of each? Why do people use frameworks? What kinds of problems do frameworks solve?"></a>What frameworks have you used? What are the pros and cons of each? Why do people use frameworks? What kinds of problems do frameworks solve?</h2><p>很抱歉，本人的前端資歷沒這麼深厚，backbone、Angular 1／2／4 都沒深入研究，只用過 Facebook 出品的 React。以下針對 React 簡單分析。</p>
+<h3 id="Pros"><a href="#Pros" class="headerlink" title="Pros"></a>Pros</h3><ul>
+<li><strong>生態</strong><ul>
+<li>大公司出品，該公司主要的產品皆採用之（Facebook、Instagram），不易突然終止。</li>
+<li>廣受業界泛用，是近幾年新產品的主流框架。</li>
+<li>社群蓬勃，生態豐富，文檔甚多，甚至有不少 Conference 專門討論 React。</li>
+</ul>
+</li>
+<li><strong>程式</strong><ul>
+<li>組件化開發，讓不同專案的元素複用變可能。</li>
+<li>Virtual DOM 架構，減少不必要的 DOM manipulation。</li>
+<li>One-way binding 的資料流，容易設計架構清楚的 app。</li>
+<li>利用 JSX 與 ES6，釋放 JavaScript 最大能量，不必與蹩足的模板引擎溝通。</li>
+<li>Renderer 與 React Core 分離，<strong>Learn once, write any where</strong> 不再是夢（例如 React Native）。</li>
+<li>有完整豐富的生命週期函式供調用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cons"><a href="#Cons" class="headerlink" title="Cons"></a>Cons</h3><ul>
+<li>開發環境建構複雜，不易上手。（社群有許多 configure-free 的 starter kit／boilerplate 可選用）</li>
+<li>Component-based 的概念顛覆傳統 template 的思維，需要較多學習成本。</li>
+<li>One-way binding 也非傳統前端開發人員熟悉的架構。</li>
+<li>偏向函數式程式設計的理念讓 OOP 開發者較吃不消。</li>
+<li>組件化的架構造成某些 data source 需層層傳遞，才能到達實際呈現資料的 component，距離過遙。</li>
+<li>承上，社群提供許多 State management 供選擇（Redux、Flux、MobX 等），但都是額外的學習成本。</li>
+</ul>
+<p>人們使用框架的理由很多，可能是習慣這個開發流程、覺得很潮，或是真的能提升生產力。但在導入框架之前，真的完全理解「框架」是什麼嘛？所謂框架（Framework），和函式庫（Library）的差異可一言以蔽之：</p>
+<blockquote>
+<p><strong>With great power comes great responsibility.</strong><br><!-- --><br>- <em>Ben Parker</em></p>
+</blockquote>
+<p>一個強大的函式庫如 jQuery、RxJS，不會有太多限制，如同一間圖書館，靜待人們去了解、學習，而後應用。而框架就好比設計完善的課程，按部就班即可有不錯的成果，倘若欲突破框架限制，仍要自己去發掘知識。本人認為兩者思維上的差異就是 <strong>Responsibility</strong>，以 React 來說，設計者不希望開發者直接操作太多 DOM tree ，所以 access DOM tree 便須透過麻煩的 <code>ref</code>，降低開發者濫用 DOM tree 的機會，React 因此可好整以暇地管理 DOM tree，權責分明。</p>
+<p>引入一個框架，最大的好處就是<strong>開發會遵循明確的規範</strong>，雖然可操作空間被限制了，但也相對責任也輕許多，只要了解該框架，大致上就能理解專案的邏輯，可讀性提昇不少。對我來說，成功的框架，必定有明確清楚的規範，同時也釋放權力給勇於自己負擔責任的開發者，這就是框架最核心的價值之一（當然，效能、延伸性、發展性等等也很重要），也是我們期許臺灣教育能達到的高度。</p>
+<h2 id="Thoughts-after-completion"><a href="#Thoughts-after-completion" class="headerlink" title="Thoughts after completion"></a>Thoughts after completion</h2><p>這份面試題花了不少時間撰寫，著實問到許多基礎觀念，但並沒有完全切中前端工程的核心或是趨勢，畢竟前端學習點太多了，每個專案碰到的技術可能大相逕庭，例如做 Web Game 的 很懂WebGL，但 CSS 可能不熟。因此，我認為好的題目不僅要能檢核面試者的實力，更要能體現其對前端領域的熱情，例如下列題目：</p>
+<ul>
+<li>如何實現 SPA 的 router？（理解瀏覽器如何處理 URL，或是有熱情去理解開源的 router library）</li>
+<li>什麼是 Critical rendering path？HTML 文件如何被解析渲染？（熟悉瀏覽器解析渲染的途徑，並知道如何優化）</li>
+<li>Webpack、Rollup 這些構建工具如何影響前端工程？和 Gulp、Grunt 有啥差異？（知道如何選擇工具，而非追流行）</li>
+<li>如何管理維護 CSS 命名，並相容不同瀏覽器？（知道目前各大主流管理 CSS 的方式，畢竟 CSS 很容易變成一坨屎）</li>
+<li>何謂 CORS？何謂 CSRF？（對網路資安至少有點基礎知識）</li>
+<li>什麼是 Web Components？為什它沒有像 Vue 或 React 一樣火熱？（理解 Web 技術動態，並瞭解流行框架的優勢）</li>
+<li>如何實現簡單的 Offline web app？介紹一下相關的技術？（知道並能應用 localStorage 等相關知識）</li>
+</ul>
+<p>其實上述題目小弟我有些也是一知半解，但我認為面試就是要找<strong>未來</strong>能合作的夥伴，工作熱忱、對未來的洞察力，是否能愉快合作，遠比當下的實力來得重要。感謝讀完這篇文章，希望能對各位有幫助，如果有什麼錯誤，歡迎寄信或<del>開炮</del>直接留言！</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/answers-to-cherny-interview-questions/">https://weihanglo.github.io/2017/answers-to-cherny-interview-questions/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/">JavaScript</a>
+          
+            <a href="/tags/front-end/">Front-end</a>
+          
+            <a href="/tags/interview-questions/">Interview Questions</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/days-with-internet-explorer/">
+        <span class="next-text nav-default">與 IE 相處的日子</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/answers-to-cherny-interview-questions/';
+        this.page.identifier = '2017/answers-to-cherny-interview-questions/';
+        this.page.title = 'Answers to Cherny's Interview Questions';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>
