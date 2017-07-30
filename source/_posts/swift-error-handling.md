@@ -4,7 +4,6 @@ date: 2017-04-10 16:36:33
 tags:
   - Swift
   - Error Handling
-  - Exception Handling
 ---
 
 ![](http://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png)
