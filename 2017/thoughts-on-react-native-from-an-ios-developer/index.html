@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Thoughts on React Native From an iOS Developer"/>
+
+
+
+
+  <meta name="keywords" content="React,React Native,Mobile App Development," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/thoughts-on-react-native-from-an-ios-developer/"/>
+
+
+<meta name="description" content="About two month ago, I started making a React Native app “PyConTW 17” for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quiet simple, but still took some efforts for me to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thoughts on React Native From an iOS Developer">
+<meta property="og:url" content="https://weihanglo.github.io/2017/thoughts-on-react-native-from-an-ios-developer/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="About two month ago, I started making a React Native app “PyConTW 17” for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quiet simple, but still took some efforts for me to">
+<meta property="og:image" content="http://i.imgur.com/Ya2NnLz.png">
+<meta property="og:updated_time" content="2017-07-30T12:33:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thoughts on React Native From an iOS Developer">
+<meta name="twitter:description" content="About two month ago, I started making a React Native app “PyConTW 17” for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quiet simple, but still took some efforts for me to">
+<meta name="twitter:image" content="http://i.imgur.com/Ya2NnLz.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> Thoughts on React Native From an iOS Developer · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Thoughts on React Native From an iOS Developer
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Jul 30, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-I’ve-done"><span class="toc-text">What I’ve done</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-good-part"><span class="toc-text">The good part</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Shared-codebase"><span class="toc-text">Shared codebase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Faster-development-iteration"><span class="toc-text">Faster development iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clever-devtools"><span class="toc-text">Clever devtools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Modern-JavaScript"><span class="toc-text">Modern JavaScript</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dependency-management"><span class="toc-text">Dependency management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Community"><span class="toc-text">Community</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-pain-points"><span class="toc-text">The pain points</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#One-codebase-cannot-rule-them-all"><span class="toc-text">One codebase cannot rule them all</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Steep-learing-curve"><span class="toc-text">Steep learing curve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concurrency"><span class="toc-text">Concurrency</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Is-React-Native-worth-learning"><span class="toc-text">Is React Native worth learning?</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><img src="http://i.imgur.com/Ya2NnLz.png" alt="React Native"></p>
+<p>About two month ago, I started making a React Native app <a href="https://github.com/weihanglo/pycontw-mobile" target="_blank" rel="external">“PyConTW 17”</a> for the biggest annual Python conference in Taiwan (<a href="https://tw.pycon.org" target="_blank" rel="external">PyCon Taiwan</a>). The app is quiet simple, but still took some efforts for me to build. As a complete React newbie, I would like to share some of my thoughts about React Native.</p>
+<p><em>(written on 2017-07-30, based on React Native 0.44.2)</em></p>
+<a id="more"></a>
+<blockquote>
+<p><strong>Disclaimer</strong>: I am a junior iOS developer (about 1 year experience) without any computer science degree. This article is based on my 2 weeks React Native experience developing “PyConTW 17” and React knowledge gained from my job recently.</p>
+</blockquote>
+<h2 id="What-I’ve-done"><a href="#What-I’ve-done" class="headerlink" title="What I’ve done"></a>What I’ve done</h2><p>Before sharing my point of view, let’s learn what i have implemented in this conference app. The features of this app is really straightforward: </p>
+<ul>
+<li>A user could view all event information of the whole conference.</li>
+<li>A user could save his favorite events for quick access (save locally).</li>
+<li>A user could filter events by pre-defined tags of category.</li>
+<li>Events would update automatically if any data in database changes.</li>
+</ul>
+<p>As an iOS developer, you may feel familiar with these requirements. The app is just a tabbar-based app with some customized table view to display contents. No database. No synchorozation for user-generated data. Our React Native version app share with this basic anatomy mentioned above. Therefore, the UI architecture only contains some views such as list views, detail views of event/speaker, and the main app container. That’s all in this app.</p>
+<h2 id="The-good-part"><a href="#The-good-part" class="headerlink" title="The good part"></a>The good part</h2><h3 id="Shared-codebase"><a href="#Shared-codebase" class="headerlink" title="Shared codebase"></a>Shared codebase</h3><p>This project seems to only contain trivial implementation details from an veteran iOS developer’s perspective. What if you need to target at both Android and iOS in one week? Learning Android development from scratch may not be suitable with an approaching deadline, and the separation of codebase may be prone to maintaince issues in the long run. To achieve our goal, we could choose React Native in order to <strong>wrap the core logic into one codebase</strong>. No more switches between Android Studio and Xcode. React Native would give us a truly native app. That’s why React Native hypes.</p>
+<h3 id="Faster-development-iteration"><a href="#Faster-development-iteration" class="headerlink" title="Faster development iteration"></a>Faster development iteration</h3><p>We are all tired of write-compile-debug iteration for our daily mobile app development. With the growth of the bundle size, it would take more time to build our app (especially in Swift). React Native uses some tricks like <a href="http://facebook.github.io/react-native/releases/next/docs/debugging.html#reloading-javascript" target="_blank" rel="external">Hot and Live Reloading</a> to refresh your simulator/emulator instantly without recompilation. That’s really an incredible time saver.</p>
+<p>Moreover, if you choose <a href="https://github.com/react-community/create-react-native-app" target="_blank" rel="external">Create React Native App</a> as the scaffolding tool, you can gain benefits from <a href="https://expo.io/" target="_blank" rel="external">Expo</a> platform to test your app in real devices without any wired connection. What you need to do is scanning the QR code and coding. This is a huge leap from traditional mobile native development cycle.</p>
+<h3 id="Clever-devtools"><a href="#Clever-devtools" class="headerlink" title="Clever devtools"></a>Clever devtools</h3><p>Did you remember the last time you use the <strong>View Hierarchy Debugger</strong>? This tool is very awesome for visually debugging, but sometime it’s quite laggy with complicated views hierarchy (improved in Xcode 8), and that makes my frustrated. The solution React Native providing is a web-browser-like <code>inspector</code> for us to inspect elements on simulators. With the inspector, you can even see box model, styles and inheritance hierarchy of the selected component, no need to wait for the rainbow ball rotating. Additional, React Native also has a performance panel to help you achieve 60 FPS animations.</p>
+<p>If you need more advanced debug tools, there is also a <a href="https://github.com/facebook/react-devtools" target="_blank" rel="external">remote debugging plugin</a> available. You can download it from <strong>Chrome Web Store</strong> or <strong>Firefox Add-ons</strong>. This debugger allows inspection of React component instances, and you can also see logs in browser console. </p>
+<p>There are still lots of tools that did not cover in this article. Either tools offered by Facebook or contribute by communities (like <a href="https://github.com/gaearon/redux-devtools" target="_blank" rel="external">Redux Devtools</a>) are convenient for daily use. Feel free from escaping Xcode!</p>
+<blockquote>
+<p>To be honest, Xcode provides plenty of excellent debugging and profiling tools which are greater than those browsers have. However, they are not easy to start with, and every  iOS developer I met seldom uses them.</p>
+</blockquote>
+<h3 id="Modern-JavaScript"><a href="#Modern-JavaScript" class="headerlink" title="Modern JavaScript"></a>Modern JavaScript</h3><p>JavaScript is very promising these years. ES2015 introduced lots of anticipating modern feature such as <code>Promise</code> and <code>Generator</code>. However, due to the diversity of browser ecosystem, if one wants to use new features to support most browser vendors, it will need to add some polyfills or transpile all code to the target version. The setup procedure of build environment for transpilation is annoying to some extent.</p>
+<p>In React Native development, this is no longer a problem. All we need is done by a scaffolding tool called <code>react-native-cli</code>. This tool will setup an modern JavaScript environment with all new JavaScript features. We can joyfully use <code>async/await</code> syntax to avoid callback hell, and even use the new <code>fetch</code> Web API for HTTP requests. In comparison of old web-based hybrid technology such as Cordova, React Native eliminates the scary setup process and brings all pleasant stuff to live!</p>
+<h2 id="Dependency-management"><a href="#Dependency-management" class="headerlink" title="Dependency management"></a>Dependency management</h2><p>Another sweet point of React Native is the dependency management. <strong>CocoaPods</strong> is de facto dependency manager for Cocoa development, yet it is written in Ruby that increase costs to learn. Nowadays we get <strong>Carthage</strong> which is written in pure Swift, though it still has <a href="https://github.com/Carthage/Carthage#nested-dependencies" target="_blank" rel="external">some issues</a> as dependencies being more complex and nested. No one want drag all dependencies of 3rd module manually.</p>
+<p>As for React Native, we can use <strong>Npm</strong> (or <a href="https://yarnpkg.com" target="_blank" rel="external">Yarn</a> I recommended), one the best dependency management and ecosystem in the world. Npm reduces the painful <strong>workspace</strong> regeneration and sharing issue with CocoaPods, as well as manages dependencies with nested resolution to avoid incorrect versioning. Though the whole packages may be a little bit large, it may not be a problem for a mobile app. After all, the connection status on the internet is more strict than native app. We should be content that we do not need to download all resources on every single launch.</p>
+<h3 id="Community"><a href="#Community" class="headerlink" title="Community"></a>Community</h3><p>There are always a strong community behind a successful open source project. So does React Native. The community of React Native is one of the most active open source communities. Developers proficient in Android or iOS create lots of useful native modules to break down the barrier between native code and JavaScript. A famous example is <a href="https://github.com/react-native-community/react-native-svg" target="_blank" rel="external">React Native SVG</a> which implements SVG rendition with native rendering API (on iOS, it use <code>CoreGraphics</code> to accomplish).</p>
+ <!-- such as   -->
+<p>Other developers coming from React community bring more new web development concepts to mobile land. For instance, unidirectional data flow, state manangement, component-based architecture, router patterns and many others. These concepts also have influenced back on pure native development, and invoke the reconsideration of traditional MVC/MVP/MVVM architecture. More and more talks discuss about view purification and state centralization. Some enthusiasts even started to develop <a href="https://github.com/ReSwift/ReSwift" target="_blank" rel="external">ReSwift</a> which is inspired by Redux. </p>
+<p>The benefit of these abstractions is not only full of cool jargons but predictable, making views become testable. The most important impact on native development in my opinion is the concept of predictable unit tests, which is absent in traditional MVC architecture.</p>
+<h2 id="The-pain-points"><a href="#The-pain-points" class="headerlink" title="The pain points"></a>The pain points</h2><h3 id="One-codebase-cannot-rule-them-all"><a href="#One-codebase-cannot-rule-them-all" class="headerlink" title="One codebase cannot rule them all"></a>One codebase cannot rule them all</h3><p>If you have read the official React Native website thoroughly, you will notice that the slogan of React Native is <em>“Learn once, <strong>write</strong> anywhere”</em> instead of <em>“<strong>run</strong> anywhere”</em>. One can realize that <strong>React Native does not aim to be shareable between different platforms</strong>. Actually, Facebook suggests that developers should <a href="http://makeitopen.com/tutorials/building-the-f8-app/design/" target="_blank" rel="external">design different components for different platforms to match platform-specified user experience</a>. For example, an Andoird app may not need an back button for navigations because each Android device has a physical back button.</p>
+<p>Another issue is related to platform differences. Not all API on iOS could meet a compatible API on Android. For examples, <code>shadowProps</code> have no effect on Android yet Android has another <code>elevation</code> style to generate a shadow-like visual effect. We may also face on some bug in old buggy webview of iOS like not calling <code>WebView#onLoadEnd</code> after loaded. When it comes to build system, you may overwhelm by diverse toolsets for each platform. For me, I must learn groovy to write gradle scripts for only reading <code>keystore</code> for app signing. How painful!</p>
+<p>As far as you dive into mobile app development, you will find that the basic API of React Native are always not enough to use. Instead, you would aware yourself that is stackoverflowing aroud and looking for other out-of-the-box libraries to use immediately. Although there are hundreds of open source libraries for cross platform React Native development, every single library is written in at least two different programming language to accomplish its purpose, and that means double knowledge and cost is included. You shall not treat those libaries as normal JavaScript modules. From build system to rendering API, each platform needs its specific approaches to optimize all things. Native development is that hard. </p>
+<blockquote>
+<p>As an iOS developer, if there is no library that meets your needs, you need to tell your boss to recruit a real Android man for help, or pay you double to learn the whole new Android development stack.</p>
+</blockquote>
+<h3 id="Steep-learing-curve"><a href="#Steep-learing-curve" class="headerlink" title="Steep learing curve"></a>Steep learing curve</h3><p>As a traditional mobile app developer, you are familiar with object-oriented programming. Factory pattern, adapter pattern appear all of your daily life. What if someone told you that your function is <strong>not pure</strong> enough and suggest to use <strong>monad</strong> to wrap your API? These are all functional programming buzz words. Despite of flexibility of React Native, the <a href="https://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Thinking in React</a> concept makes React fit for functional programming. Most of the open source libraries built around React ecosystem conform to functional programming. If you determine to adopt React Native into your development stack, it may spend additional efforts to learn with <a href="http://git.io/fp-jargons" target="_blank" rel="external">all those jargons</a>. From a manager’s perspective, it is hard to recruit a well trained programmer equipped with functional programming skills.</p>
+<h3 id="Concurrency"><a href="#Concurrency" class="headerlink" title="Concurrency"></a>Concurrency</h3><p>React Native uses <code>JavaScriptCore</code> to handle all JavaScript code, request for resources, and communicate with native code. Under the hood, all JavaScript code run in JS thread. This JS thread is a real system-level thread which would work asynchorously with the main thread (UI thread). Here is one thing you must know: <strong>UI thread and JS thread are the only two threads developers will get in an pure React Native app</strong>. That’s where the problem begins.</p>
+<p>When we wants to do some heavy computation like encryption or data transformation, all user interactions will be stuck without any feedback because all JavaScript code is run under a single-threaded JavaScript engine. That’s not acceptable for an app concerned with user experience. Though we can <a href="https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive" target="_blank" rel="external">do some tricks</a> with the help of JavaScript message queue, the heavy computation still awaits there and gets ready for blocking the main thread.</p>
+<p>On Cocoa, we have the wonderful <a href="https://en.wikipedia.org/wiki/Grand_Central_Dispatch" target="_blank" rel="external">Grand Central Dispatch</a> (<code>Dispatch</code> framework in Swift 3), which abstracts thread management for us to do concurrent jobs. In React Native, if we want to manage real threads on our own, the only way is leaking abstractions.We need to write a native module creating another <code>JSVirtualMachine</code> and exposes API to React Native. Sounds great, but also like an terrifying obstacle to those not familiar with native. Performance should always be considered in comparison between JavaScript and native code solutions (hi Electron, I am talking to you).</p>
+<h2 id="Is-React-Native-worth-learning"><a href="#Is-React-Native-worth-learning" class="headerlink" title="Is React Native worth learning?"></a>Is React Native worth learning?</h2><p>The short answer is: <strong>yes</strong>.</p>
+<p>The long answer is: <strong>definitely yes for your next application</strong>. Learning React Native can leverage your knowledge to another level. Those impressive, promising concepts will sharpen your skills and bring great ideas to your software development knowledge. If you are still concerning about the cost of switch to React Native, here are some scenarios for you to choose React over native platform:</p>
+<ul>
+<li>Need to build this app within a short period of time.</li>
+<li>Single purpose app like “PyConTW 17” is most suitable.</li>
+<li>Not heavily rely on native API (sorry to HealthKit, ARKit and SiriKit).</li>
+<li>User interface is relative simple.</li>
+<li>Have teammate with strong native experience (we need both Android and iOS).</li>
+<li>Your team applies <a href="https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22" target="_blank" rel="external">Hype Driven Development</a>.</li>
+</ul>
+<p>After all, <em>everything in life is a trade off.</em> Just ship your code and enjoy the evolving mobile app development world!</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/thoughts-on-react-native-from-an-ios-developer/">https://weihanglo.github.io/2017/thoughts-on-react-native-from-an-ios-developer/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/react/">React</a>
+          
+            <a href="/tags/react-native/">React Native</a>
+          
+            <a href="/tags/mobile-app-development/">Mobile App Development</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/answers-to-cherny-interview-questions/">
+        <span class="next-text nav-default">Answers to Cherny's Interview Questions</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/thoughts-on-react-native-from-an-ios-developer/';
+        this.page.identifier = '2017/thoughts-on-react-native-from-an-ios-developer/';
+        this.page.title = 'Thoughts on React Native From an iOS Developer';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>
