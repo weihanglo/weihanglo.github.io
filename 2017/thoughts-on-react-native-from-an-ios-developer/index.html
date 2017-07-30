@@ -42,7 +42,7 @@
 <meta property="og:description" content="About two month ago, I started making a React Native app “PyConTW 17” for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quite simple, but still took some efforts for me to">
 <meta property="og:image" content="http://i.imgur.com/Ya2NnLz.png">
 <meta property="og:image" content="https://images.pexels.com/photos/34667/person-human-male-man.jpg">
-<meta property="og:updated_time" content="2017-07-30T14:26:33.000Z">
+<meta property="og:updated_time" content="2017-07-30T15:41:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Thoughts on React Native From an iOS Developer">
 <meta name="twitter:description" content="About two month ago, I started making a React Native app “PyConTW 17” for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quite simple, but still took some efforts for me to">
@@ -258,7 +258,7 @@
 <p>When we wants to do some heavy computation like encryption or data transformation, all user interactions will be stuck without any feedback because all JavaScript code is run under a single-threaded JavaScript engine. That’s not acceptable for an app concerned with user experience. Though we can <a href="https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive" target="_blank" rel="external">do some tricks</a> with the help of JavaScript message queue, the heavy computation still awaits there and gets ready for blocking the main thread.</p>
 <p>On Cocoa, we have the wonderful <a href="https://en.wikipedia.org/wiki/Grand_Central_Dispatch" target="_blank" rel="external">Grand Central Dispatch</a> (<code>Dispatch</code> framework in Swift 3), which abstracts thread management for us to do concurrent jobs. In React Native, if we want to manage real threads on our own, the only way is leaking abstractions. We need to write a native module creating another <code>JSVirtualMachine</code> and exposes API to React Native. Sounds great, but also like an terrifying obstacle to those not familiar with native. You should always consider performance issue in comparison between JavaScript and native solutions (Hi Electron, I am talking to you).</p>
 <h2 id="Is-React-Native-worth-learning"><a href="#Is-React-Native-worth-learning" class="headerlink" title="Is React Native worth learning?"></a>Is React Native worth learning?</h2><p>The short answer is: <strong>yes</strong>.</p>
-<p>The long answer is: <strong>definitely yes for your next application</strong>. Learning React Native can leverage your knowledge to another level. Those impressive, promising concepts will sharpen your skills and bring great ideas to your software development knowledge. If you are still concerning about the cost of switch to React Native, here are some scenarios for you to choose React over native platform:</p>
+<p>The long answer is: <strong>definitely yes for your next application</strong>. Learning React Native can leverage your knowledge to another level. Those impressive, promising concepts will sharpen your skills and bring great ideas to your software development knowledge. If you are still concerning about the cost of switch to React Native, here are some scenarios for you to choose React Native over native platform:</p>
 <ul>
 <li>Need to build this app within a short period of time.</li>
 <li>Single purpose app like “PyConTW 17” is most suitable.</li>
