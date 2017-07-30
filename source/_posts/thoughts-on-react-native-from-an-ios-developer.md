@@ -125,7 +125,7 @@ On Cocoa, we have the wonderful [Grand Central Dispatch][gcd] (`Dispatch` framew
 
 The short answer is: **yes**.
 
-The long answer is: **definitely yes for your next application**. Learning React Native can leverage your knowledge to another level. Those impressive, promising concepts will sharpen your skills and bring great ideas to your software development knowledge. If you are still concerning about the cost of switch to React Native, here are some scenarios for you to choose React over native platform:
+The long answer is: **definitely yes for your next application**. Learning React Native can leverage your knowledge to another level. Those impressive, promising concepts will sharpen your skills and bring great ideas to your software development knowledge. If you are still concerning about the cost of switch to React Native, here are some scenarios for you to choose React Native over native platform:
 
 - Need to build this app within a short period of time.
 - Single purpose app like "PyConTW 17" is most suitable.
