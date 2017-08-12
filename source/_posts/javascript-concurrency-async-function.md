@@ -490,7 +490,7 @@ Medium 上也有許多作者在評論 async functions，[Hacker Noon 這篇推�
 
 當然，沒有任何 unit tests，就算程式碼可讀性再高，仍然非常脆弱，所以，別花太多時間看這些新技術，乖乖地補上缺漏的 tests 比較實在 XD。
 
-## References
+## Reference
 
 - [Mozilla Developer Network](https://developer.mozilla.org/)
 - [Google Web Fundamentals: Async functions - making promises friendly][google-async-functions]
