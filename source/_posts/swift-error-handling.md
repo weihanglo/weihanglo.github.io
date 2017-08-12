@@ -304,7 +304,7 @@ Swift 的 Error Handling 設計得很現代很 functional，也讓錯誤處理�
 
 如果未來，語言層級的平行運算（並行運算）就像[這篇文章][swift-concurrency]所說的，會在 Swift 5 推出；如果之後 `async`／`await` 如同 **ES7** 一樣納入 Swift 標準，如果 actor system 真的導入 Swift 中，天知道兩年後 Swift 寫起來會有多舒服！
 
-## References
+## Reference
 
 - [Swift Language Guide - Error Handling][swift-error-handling]
 - [Wiki - Exception Handling][wiki-exception-handling]
