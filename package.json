@@ -6,7 +6,7 @@
     "deploy": "hexo deploy -g && git push"
   },
   "hexo": {
-    "version": "3.2.2"
+    "version": "3.3.8"
   },
   "dependencies": {
     "hexo": "^3.2.0",
@@ -18,7 +18,8 @@
     "hexo-renderer-marked": "^0.2.10",
     "hexo-renderer-pug": "^0.0.5",
     "hexo-renderer-scss": "^1.0.2",
-    "hexo-server": "^0.2.0"
+    "hexo-server": "^0.2.0",
+    "node-sass": "^4.5.3"
   },
   "devDependencies": {}
 }
