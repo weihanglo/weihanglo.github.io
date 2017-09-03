@@ -8,10 +8,6 @@ tags:
 date: 2017-08-15 13:06:59
 ---
 
-# Intro Rx - 1. Iterator Pattern
-
-聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-
 本篇介紹 Rx 的重要基礎概念 **Iterator pattern**。
 
 _（撰於 2017-08-15，基於 Swift 3.1）_
