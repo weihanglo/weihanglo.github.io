@@ -34,22 +34,18 @@
 <link rel="canonical" href="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/"/>
 
 
-<meta name="description" content="Intro Rx - 1. Iterator Pattern聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-本篇介紹 Rx 的重要基礎概念 Iterator pattern。
-（撰於 2017-">
+<meta name="description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
+<meta name="keywords" content="Swift,ReactiveX,Design Patterns,Iterator Pattern">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Intro Rx - 1. Iterator Pattern">
 <meta property="og:url" content="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/index.html">
 <meta property="og:site_name" content="Weihang Lo">
-<meta property="og:description" content="Intro Rx - 1. Iterator Pattern聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-本篇介紹 Rx 的重要基礎概念 Iterator pattern。
-（撰於 2017-">
-<meta property="og:updated_time" content="2017-08-15T08:38:09.000Z">
+<meta property="og:description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-09-03T17:38:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Intro Rx - 1. Iterator Pattern">
-<meta name="twitter:description" content="Intro Rx - 1. Iterator Pattern聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-本篇介紹 Rx 的重要基礎概念 Iterator pattern。
-（撰於 2017-">
+<meta name="twitter:description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
@@ -210,15 +206,14 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Intro-Rx-1-Iterator-Pattern"><span class="toc-text">Intro Rx - 1. Iterator Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application"><span class="toc-text">Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requirements"><span class="toc-text">Requirements</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IteratorProtocol-amp-Sequence"><span class="toc-text">IteratorProtocol & Sequence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection-protocols"><span class="toc-text">Collection protocols</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application"><span class="toc-text">Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requirements"><span class="toc-text">Requirements</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IteratorProtocol-amp-Sequence"><span class="toc-text">IteratorProtocol & Sequence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection-protocols"><span class="toc-text">Collection protocols</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
     </div>
   </div>
 
 
     <div class="post-content">
       
-        <h1 id="Intro-Rx-1-Iterator-Pattern"><a href="#Intro-Rx-1-Iterator-Pattern" class="headerlink" title="Intro Rx - 1. Iterator Pattern"></a>Intro Rx - 1. Iterator Pattern</h1><p>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！</p>
-<p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>。</p>
+        <p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>。</p>
 <p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
 <a id="more"></a>
 <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><a href="https://en.wikipedia.org/wiki/Iterator_pattern" target="_blank" rel="external">迭代器模式（Iterator pattern）</a> 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。</p>

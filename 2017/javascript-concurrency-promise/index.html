@@ -35,15 +35,17 @@
 
 
 <meta name="description" content="所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻">
+<meta name="keywords" content="JavaScript,Front-end,Concurrency,Promise">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Modern Concurrency in JavaScript - Promises">
 <meta property="og:url" content="https://weihanglo.github.io/2017/javascript-concurrency-promise/index.html">
 <meta property="og:site_name" content="Weihang Lo">
 <meta property="og:description" content="所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8633/promises.png">
-<meta property="og:image" content="https://weihanglo.github.io/promise-flow.png">
-<meta property="og:image" content="https://weihanglo.github.io/google-promises.png">
+<meta property="og:image" content="https://weihanglo.github.io/2017/javascript-concurrency-promise/promise-flow.png">
+<meta property="og:image" content="https://weihanglo.github.io/2017/javascript-concurrency-promise/google-promises.png">
 <meta property="og:image" content="http://i.imgur.com/G3X0H78.jpg">
 <meta property="og:updated_time" content="2017-08-12T12:25:54.000Z">
 <meta name="twitter:card" content="summary">
@@ -421,7 +423,7 @@
 <p>但這樣就無法使用 ES6 的 Arrow function 了，也失去 promise 的簡潔特性，算是一種 tradeoff。</p>
 <p>此外，Promise 由 <code>then</code> 第二個參數 <code>onRejected</code> callback 全權接管 Error Handling，傳統的 try-catch 在此完全不管用，同步／非同步的例外處理距離變遠，可能造成邏輯較為複雜。而且，若無顯式處理被 reject 的 promise，該 Exception 就不會 propagation 到 promise 外部，過於 silent 也是一件壞事（We should let it crash！）。</p>
 <h3 id="Not-Synchronous-Enough"><a href="#Not-Synchronous-Enough" class="headerlink" title="Not Synchronous Enough"></a>Not Synchronous Enough</h3><p>Concurrency 一直是程式設計最難的議題之一，很多人期盼有一天，我們能夠用最直觀最 synchronous 的 syntax 書寫 asynchronous code。<strong>C#</strong> 的 <code>async/await</code> 是主流語言中，算是第一個成功使用 synchronous syntax 的範例。看那優美的書寫方式，</p>
-<figure class="highlight csharp"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 亂寫的 C# code</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">AsyncFunction</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">await</span> AsyncTask();</div><div class="line">  <span class="keyword">await</span> AnotherAsyncTask();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 亂寫的 C# code</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">AsyncFunction</span>(<span class="params"></span>)</span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">  <span class="keyword">await</span> AsyncTask();</div><div class="line">  <span class="keyword">await</span> AnotherAsyncTask();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>JavaScript 的 Promise 立馬被擊潰。（本人一行 <strong>ㄈ井</strong> 都不懂）</p>
 <p>不過 JS 社群近年來蓬勃發展，ES7 已經導入了 <code>async/await</code> 關鍵字，又替非同步程式設計帶來新變革，語法堪稱小清新。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// async function</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">async</span> <span class="title">request</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">const</span> json = <span class="keyword">await</span> getJSON()</div><div class="line">    <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(json)</div><div class="line">    <span class="built_in">console</span>.log(data)</div><div class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</div><div class="line">    <span class="built_in">console</span>.log(err)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>

@@ -34,22 +34,18 @@
 <link rel="canonical" href="https://weihanglo.github.io/2017/intro-rx-2-observer-pattern/"/>
 
 
-<meta name="description" content="聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
-（撰於 2017-08-15，基於 Swift 3.1）">
+<meta name="description" content="本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
+<meta name="keywords" content="Swift,ReactiveX,Design Patterns,Observer Pattern">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Intro Rx - 2. Observer Pattern">
 <meta property="og:url" content="https://weihanglo.github.io/2017/intro-rx-2-observer-pattern/index.html">
 <meta property="og:site_name" content="Weihang Lo">
-<meta property="og:description" content="聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
-（撰於 2017-08-15，基於 Swift 3.1）">
-<meta property="og:updated_time" content="2017-08-15T08:38:05.000Z">
+<meta property="og:description" content="本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-09-03T17:38:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Intro Rx - 2. Observer Pattern">
-<meta name="twitter:description" content="聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
-本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
-（撰於 2017-08-15，基於 Swift 3.1）">
+<meta name="twitter:description" content="本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
@@ -217,8 +213,7 @@
 
     <div class="post-content">
       
-        <p>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！</p>
-<p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>。</p>
+        <p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>。</p>
 <p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
 <a id="more"></a>
 <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="external">觀察者模式（Observer pattern）</a>定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。</p>
@@ -339,6 +334,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2017/binary-data-manipulations-in-javascript/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Binary Data Manipulations in JavaScript</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
     
       <a class="next" href="/2017/intro-rx-1-iterator-pattern/">

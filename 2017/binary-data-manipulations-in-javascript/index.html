@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Binary Data Manipulations in JavaScript"/>
+
+
+
+
+  <meta name="keywords" content="JavaScript,Endianness,Binary Data," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+
+
+
+<link rel="canonical" href="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/"/>
+
+
+<meta name="description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
+<meta name="keywords" content="JavaScript,Endianness,Binary Data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Binary Data Manipulations in JavaScript">
+<meta property="og:url" content="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/index.html">
+<meta property="og:site_name" content="Weihang Lo">
+<meta property="og:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
+<meta property="og:updated_time" content="2017-09-03T17:42:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
+<meta name="twitter:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
+<meta name="twitter:image" content="https://i.imgur.com/Mx1Rbus.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90000579-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+
+    <title> Binary Data Manipulations in JavaScript · Weihang Lo </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Weihang Lo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Weihang Lo</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Binary Data Manipulations in JavaScript
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Sep 3, 2017
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-v-s-View"><span class="toc-text">Buffer v.s View</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayBuffer"><span class="toc-text">ArrayBuffer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypedArray"><span class="toc-text">TypedArray</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-TypedArray"><span class="toc-text">Types of TypedArray</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-like-Methods"><span class="toc-text">Array-like Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Consturct-a-TypedArray"><span class="toc-text">Consturct a TypedArray</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Overflow"><span class="toc-text">Overflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Uint8ClampedArray"><span class="toc-text">What is Uint8ClampedArray</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composite-Data-Structure"><span class="toc-text">Composite Data Structure</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataView"><span class="toc-text">DataView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Precautions"><span class="toc-text">Precautions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Endianness-Byte-order"><span class="toc-text">Endianness (Byte order)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Structure-Alignment"><span class="toc-text">Data Structure Alignment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Others"><span class="toc-text">Others</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js-Buffer"><span class="toc-text">Node.js Buffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-API-Blob"><span class="toc-text">Web API Blob</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wrap-up"><span class="toc-text">Wrap-up</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><img src="https://i.imgur.com/Mx1Rbus.png" alt=""></p>
+<p>本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！</p>
+<p><em>（撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）</em></p>
+<a id="more"></a>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 像 C 指標般操作 binary data 變得至關重要。</p>
+<p>存在許久但最近才變為 ES6 標準 <strong>Typed Array</strong> 就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！</p>
+<h2 id="Buffer-v-s-View"><a href="#Buffer-v-s-View" class="headerlink" title="Buffer v.s View"></a>Buffer v.s View</h2><p>ES6 引入的 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" target="_blank" rel="external">Typed Array 家族</a>，可以分為兩大類 <strong>Buffer</strong> 與 <strong>View</strong>。</p>
+<p>所謂 <strong>Buffer</strong> 是一個指向儲資料的記憶體區塊之物件，類似於 <code>malloc</code> 配置出來的空間，無法直接存取或修改 buffer 內部的資料，在 JavaScript 中 Buffer 的實作就是 <code>ArrayBuffer</code>。</p>
+<p>如果我們想存取某些 buffer 底下的內容，我們需要 <strong>View</strong>（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取，抑或 unsigned integer 來操作。</p>
+<p>ES6 規範了三個 Typed Array 相關物件，對應類別如下：</p>
+<ul>
+<li><code>ArrayBuffer</code>：Buffer，代表一段記憶體區塊，僅能透過 View 操作其內容。</li>
+<li><code>TypedArray</code>：View，儲存固定型別資料的 Array，例如 <code>Uint8Array</code>（8-bit unsigned integer）、<code>Float64Array</code>（64-bit IEEE floating point number)。</li>
+<li><code>DataView</code>：View，不限制型別，可自定義從哪個 byte，以什麼型別，用哪種 byte order（endian）存取。</li>
+</ul>
+<h2 id="ArrayBuffer"><a href="#ArrayBuffer" class="headerlink" title="ArrayBuffer"></a><code>ArrayBuffer</code></h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer" target="_blank" rel="external">ArrayBuffer</a> 代表一段固定大小的記憶體區塊，也稱為 byte-array。主要的功能就是配置實體記憶體來儲存 raw binary data。一般很少直接操作 ArrayBuffer，實際上也只能將其 reference 傳給其他物件，讓其他物件來處理／使用資料。</p>
+<p>建立一個 ArrayBuffer 有非常多種方法，可以直接配置，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 直接配置 8 bytes，初始值為 0 的記憶體區塊</span></div><div class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">8</span>)</div><div class="line"></div><div class="line"><span class="comment">// 利用 `slice` 將某些 bytes 複製到另一個 ArrayBuffer</span></div><div class="line"><span class="comment">// 這裡複製 `buffer` 倒數四個 bytes 到 bufferCopied 中</span></div><div class="line"><span class="keyword">const</span> bufferCopied = buffer.slice(<span class="number">-4</span>)</div></pre></td></tr></table></figure>
+<p>或是最常使用的，HTTP response 選擇接收 buffer，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// XMLHttpRequest 指定 resopnseType (XMLHttpRequest v2)</span></div><div class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</div><div class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'/path/to/黑人問號.jpg'</span>, <span class="literal">true</span>)</div><div class="line">xhr.responseType = <span class="string">'arraybuffer'</span> <span class="comment">// 將 reponse 型別設定為 arraybuffer</span></div><div class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.response) <span class="comment">// this.response 為 ArrayBuffer</span></div><div class="line">&#125;</div><div class="line">xhr.send()</div><div class="line"></div><div class="line"><span class="comment">// Fetch API 也提供 Body#arrayBuffer 的方法轉換 Request／Response stream body</span></div><div class="line"><span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">'/path/to/柯P火影.gif'</span>)</div><div class="line"><span class="keyword">const</span> buffer = <span class="keyword">await</span> response.arrayBuffer() <span class="comment">// 取得 ArrayBuffer 實例</span></div><div class="line"><span class="built_in">console</span>.log(buffer.byteLength) <span class="comment">// 查看當前這個 ArrayBuffer 有多少 bytes。</span></div></pre></td></tr></table></figure>
+<p>當然，也可以透過 <code>File</code> 與 <code>FileReader</code> API，讀取使用者上傳的資料。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> input = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>)</div><div class="line">input.addEventListener(<span class="string">'change'</span>, handleFiles, <span class="literal">false</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleFiles</span> (<span class="params">files</span>) </span>&#123; <span class="comment">// files -&gt; FileList 物件，裡面有 File 實例</span></div><div class="line">  <span class="keyword">if</span> (files[<span class="number">0</span>]) &#123;</div><div class="line">    <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader()</div><div class="line">    reader.onload = <span class="function"><span class="keyword">function</span> (<span class="params">&#123; target: &#123; result &#125; &#125;</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(result.byteLength) <span class="comment">// result 是一個 ArrayBuffer</span></div><div class="line">    &#125;</div><div class="line">    reader.readAsArrayBuffer = files[<span class="number">0</span>] <span class="comment">// File 是特殊的 Blob 型別</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="TypedArray"><a href="#TypedArray" class="headerlink" title="TypedArray"></a><code>TypedArray</code></h2><p>TypedArray 並非任何一個型別，也非全域可取得的建構函數，而是一個抽象概念，對應到許多不同型別的 Array。老實說，TypedArray 這兩個字的命名其實已說明一切，我們說文解字，先從 Typed 講起。</p>
+<h3 id="Types-of-TypedArray"><a href="#Types-of-TypedArray" class="headerlink" title="Types of TypedArray"></a>Types of TypedArray</h3><p>所謂的 Typed，意指「<strong>限定型別</strong>」，Array 中的元素都是同一種型別。有哪些型別呢？TypedArray 是為了操作 binary 而生，當然只有最底層的型別，我們可以根據需求決定每個元素該從 raw data 讀取多少與如何讀取 bytes。</p>
+<p>目前 ES6 定義以下幾種 typed array types：</p>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th style="text-align:center">bytes／元素</th>
+<th style="text-align:center">對應 C 語言</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Int8Array</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">int8_t</td>
+</tr>
+<tr>
+<td><code>Uint8Array</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">uint8_t</td>
+</tr>
+<tr>
+<td><code>Uint8ClampedArray</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">uint8_t</td>
+</tr>
+<tr>
+<td><code>Int16Array</code></td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">int16_t</td>
+</tr>
+<tr>
+<td><code>Uint16Array</code></td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">uint16_t</td>
+</tr>
+<tr>
+<td><code>Int32Array</code></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">int32_t</td>
+</tr>
+<tr>
+<td><code>Uint32Array</code></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">uint32_t</td>
+</tr>
+<tr>
+<td><code>Float32Array</code></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">float</td>
+</tr>
+<tr>
+<td><code>Float64Array</code></td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">double</td>
+</tr>
+</tbody>
+</table>
+<p>實際上，TypedArray 本身並並不儲存任何 buffer 資料，只保存該 buffer 的 reference，我們可以透過 <code>TypedArray#buffer</code> 獲取原始的 ArrayBuffer。也因此，同一個 ArrayBuffer 可以建構出多個不同的 TypedArray。可視為「<strong>從不同視角解讀 ArrayBuffer 中的 binary data</strong>」。</p>
+<p>例如下圖是一個 16 bytes 的 ArrayBuffer，我們可以透過它，建立多個不同型別的 TypedArray。</p>
+<p><img src="https://mdn.mozillademos.org/files/8629/typed_arrays.png" alt=""></p>
+<p>不同型別的 TypedArray 的元素對應到不同的 byte 數量，這項資訊會記錄在 <code>TypedArray#BYTES_PER_ELEMENT</code> property 上。例如：Uint8Array 一個元素對應到一個 byte，Float64Array 則對應到 8 bytes。</p>
+<p>如果還是無法理解，其實可以將 TypedArray 想像為 C 語言的 <code>void *ptr</code>，在存取、遍歷不同 data type 的 Array 時，轉型（cast）成不同的型別，讓指標根據不同 data type 的 size 做對應 offset。</p>
+<h3 id="Array-like-Methods"><a href="#Array-like-Methods" class="headerlink" title="Array-like Methods"></a>Array-like Methods</h3><p>而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「<strong>在 ArrayBuffer 的資料之上，架一層可存取 Array API</strong>」。你想得到的 method <code>map</code>、<code>filter</code>、<code>reduce</code> 幾乎應有盡有，而 <code>push</code>、<code>shift</code>、<code>unshift</code>、<code>splice</code> 這類會改變 Array 長度的 <strong>Mutator methods</strong> 沒有實作（就只是 buffer 的 reference，<code>pop</code> 後資料還是在那裡啊 XD）。</p>
+<p>比較好玩的是 <code>TypedArray#subarray</code>，和 <code>slice</code> 同樣是回傳陣列切片，<code>slice</code> 是回傳一個淺拷貝（shallow-copy））的新 Array，而 <code>subarray</code> 則是在同一個 buffer 繼續切片，<code>TypedArray#buffer</code> 會取得相同的 buffer，<code>TypedArray#byteOffset</code> 也是根據原始 buffer 計算 offset。</p>
+<h3 id="Consturct-a-TypedArray"><a href="#Consturct-a-TypedArray" class="headerlink" title="Consturct a TypedArray"></a>Consturct a TypedArray</h3><p>建構 TypedArray 非常簡單，選擇好 data type 之後，<code>new</code> 一個就完成了！</p>
+<p><strong>直接初始化</strong></p>
+<p>建立一個 4 * 2 bytes 初始值為 0 的 Uint16Array</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> u16 = <span class="keyword">new</span> <span class="built_in">Uint16Array</span>(<span class="number">4</span>)</div></pre></td></tr></table></figure>
+<p><strong>從 TypedArray 建立</strong></p>
+<p>我們也可以從其他 TypedArray 建立相同長度的 TypedArray，會指向同一個 buffer。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> u8 = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(u16) <span class="comment">// length of u8 is 4</span></div></pre></td></tr></table></figure>
+<p>這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 [endianness][endianness] 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。</p>
+<p><strong>從 ArrayBuffer 建立</strong></p>
+<p>不過，也可以透過 <code>TypedArray#buffer</code> 取得並共享當前的 buffer，該 array 的記憶體區間就會是連續的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 因為 buffer 總共有 4 * 2 = 8 bytes，所以 u8_continuous 長度為 8</span></div><div class="line"><span class="keyword">const</span> u8_continuous = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(u16.buffer)</div></pre></td></tr></table></figure>
+<p>當然，ArrayBuffer 可直接配置一塊記憶體區塊，並使用它建構 TypedArray，甚至透過 <code>length</code> 和 <code>byteOffset</code> 指定該 buffer 不同的區間來建構。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">16</span>)</div><div class="line"><span class="keyword">const</span> i32 = <span class="keyword">new</span> <span class="built_in">Int32Array</span>(buffer) <span class="comment">// 32 * 2 bytes</span></div><div class="line"></div><div class="line"><span class="comment">// 從 4 bytes offset 的位址開始，切一個長度為 7 bytes 的 array。</span></div><div class="line"><span class="keyword">const</span> i8 = <span class="keyword">new</span> Iint8Array(buffer, <span class="number">4</span>, <span class="number">7</span>)</div></pre></td></tr></table></figure>
+<h3 id="Overflow"><a href="#Overflow" class="headerlink" title="Overflow"></a>Overflow</h3><p>如同 C 語言，不同類型的 TypedArray 可以容納的 bytes 範圍是固定的，超過此一範圍，就會出現<a href="https://en.wikipedia.org/wiki/Integer_overflow" target="_blank" rel="external">「溢位（Overflow）」</a>，例如 Uint8Array 中僅能放入 1 byte = 8 bits 的資料，如果放入 <code>0x100</code>（256，9 bits），就會溢位。</p>
+<p>那溢位後，資料會怎麼呈現呢？</p>
+<p>每個語言實作不盡相同，TypedArray 的溢位處理規則和多數語言相同：<strong>捨棄溢出的 high bits。</strong> 我們來看簡單的例子。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Uint8Array</span>.of(<span class="number">0xff</span>, <span class="number">0x100</span>)</div><div class="line"><span class="comment">// Unit8Array [255, 0]</span></div></pre></td></tr></table></figure>
+<p>第一個例子中，我們選用 Uint8Array，一個元素最多儲存 8 bits 的資料，第二個元素是 256，需要第 9 bit 來儲存，因此溢位。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 255，至少需要 8 bits 儲存</span></div><div class="line"><span class="number">0b11111111</span></div><div class="line"></div><div class="line"><span class="comment">// 256，至少需要 9 bits 儲存</span></div><div class="line"><span class="number">0b100000000</span></div><div class="line"><span class="comment">//└── 這個 1 溢位，將被捨棄，僅保留最低有效的 8 bits，計算結果為 `0`</span></div><div class="line"><span class="comment">// 捨棄的方式同於 bitwise or `&amp; 0xFF`</span></div><div class="line"><span class="number">0x100</span> &amp; <span class="number">0xFF</span></div><div class="line"><span class="comment">// 0</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note：underflow，處理方式也相同。</p>
+</blockquote>
+<h3 id="What-is-Uint8ClampedArray"><a href="#What-is-Uint8ClampedArray" class="headerlink" title="What is Uint8ClampedArray"></a>What is <code>Uint8ClampedArray</code></h3><p>Clamp 的本意是鉗子，在計算機科學中，通常意味將資料值限制在特定範圍間。而 <code>Uint8ClampedArray</code> 中，就是將元素值限制在 0 - 255。換句話說，就是處理溢位的規則與 <code>Uint8Array</code> 不同。<strong>當 overflow 時，該值會等於最大值 255；當 underflow 時，該值會等於 0</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Uint8Array</span>.of(<span class="number">0xff</span>, <span class="number">0x100</span>, <span class="number">-100</span>)</div><div class="line"><span class="comment">// Unit8Array [255, 0, 156]</span></div><div class="line"><span class="built_in">Uint8ClampedArray</span>.of(<span class="number">0xff</span>, <span class="number">0x100</span>, <span class="number">-100</span>)</div><div class="line"><span class="comment">// Uint8ClampedArray [255, 255, 0]</span></div></pre></td></tr></table></figure>
+<p>這有什麼好處呢？在影像處理上非常方便。有個很常舉的例子，有 3 bytes 的 Uint8Array 存放 RGB 色碼，我們想要增加他的 gamma factor，如果使用 Uint8Array 儲存：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 必須自行限制大小，防止 ooverflow／underflow。</span></div><div class="line">u8[i] = <span class="built_in">Math</span>.max(<span class="number">0</span>, <span class="built_in">Math</span>.min(<span class="number">255</span>, u8[i] * gamma)) <span class="comment">// u8 是一個 Uint8Array</span></div></pre></td></tr></table></figure>
+<p>如果是 <code>Uint8ClampedArray</code>，只需要直接乘上 gammer factor，非常方便。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">pixels[i] *= gamma <span class="comment">// pixels 是一個 Uint8ClampedArray</span></div></pre></td></tr></table></figure>
+<h3 id="Composite-Data-Structure"><a href="#Composite-Data-Structure" class="headerlink" title="Composite Data Structure"></a>Composite Data Structure</h3><p>當需處理類似 C struct 的複合資料結構，如下所示</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">employee</span> &#123;</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> id;               <span class="comment">// 4 * 1 bytes</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> department[<span class="number">4</span>];   <span class="comment">// 1 * 4 bytes</span></div><div class="line">  <span class="keyword">float</span> salary;         <span class="comment">// 4 * 1 bytes</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我們可以宣告對應的 TypedArray 來處理。模擬出如果 C struct 的資料結構。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">12</span>)</div><div class="line"><span class="keyword">const</span> idView = <span class="keyword">new</span> <span class="built_in">Uint32Array</span>(buffer, <span class="number">0</span>, <span class="number">1</span>)</div><div class="line"><span class="keyword">const</span> deptView = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(buffer, <span class="number">4</span>, <span class="number">4</span>)</div><div class="line"><span class="keyword">const</span> salaryView = <span class="keyword">new</span> <span class="built_in">Float32Array</span>(buffer, <span class="number">8</span>)</div><div class="line">idView[<span class="number">0</span>] = <span class="number">123</span></div><div class="line">deptView.forEach(<span class="function">(<span class="params">_, i</span>) =&gt;</span> &#123; deptView[i] = i * i &#125;)</div><div class="line">salaryView[<span class="number">0</span>] = <span class="number">10000</span></div></pre></td></tr></table></figure>
+<h2 id="DataView"><a href="#DataView" class="headerlink" title="DataView"></a>DataView</h2><p>顧名思義，<strong>DataView</strong> 是一種建構在 buffer 之上的 view。與一般 TypedArray 不同的是，建構 DataView 時並不會固定的資料型別，取而代之的是存取 data 時，必須明確的指定從哪個 byte offset 取哪一種 data type 出來。</p>
+<p>我們借用前例的複合資料來示範，<code>DataView</code> 如何針對每個 bytes 處理自定義的資料。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(buffer)</div><div class="line"><span class="comment">// 從 byte offset 0 的位址開始取 Uint32 的資料</span></div><div class="line"><span class="comment">// 取得 ID -&gt; 123</span></div><div class="line">dv.getUint32(<span class="number">0</span>, <span class="literal">true</span>)</div><div class="line"></div><div class="line"><span class="comment">// 從 byte offset 8 的位址開始寫入 Float32 的資料</span></div><div class="line">dv.setFloat32(<span class="number">8</span>, <span class="number">200000</span>, <span class="literal">true</span>)</div><div class="line">dv.getFloat32(<span class="number">8</span>, <span class="literal">true</span>) <span class="comment">// 加薪囉！！</span></div></pre></td></tr></table></figure>
+<p>各位有沒有注意到 DataView 的 bytes getter／setter 最後面都多帶了一個 boolean 參數？這個參數是指定使用 Little-endian 讀取資料，預設為 <code>false</code> 也就是以 Big-endian 讀取。可控制 endian 是 DataView 蠻重要但也頗惱人的特性，在下一節會介紹 Endianness。</p>
+<p>DataView 另一個重要特性就是不會 <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="external">buffer overflow</a>，所謂的 buffer overflow 是當寫入一筆資料到指定 buffer 中，萬一寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個的 byte。buffer overflow 同時是許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間。</p>
+<h2 id="Precautions"><a href="#Precautions" class="headerlink" title="Precautions"></a>Precautions</h2><p>Typed Arrays 幾乎可以做到如同 C 語言般的記憶體操作，十分強大。不過越是自由的 API，就代表要學習更多知識，注意更多細節，以下是操作 TypedArray 該銘記在心的事情：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Endianess (Byte order)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" rel="external">Data Structure Alignment</a></li>
+</ul>
+<h3 id="Endianness-Byte-order"><a href="#Endianness-Byte-order" class="headerlink" title="Endianness (Byte order)"></a>Endianness (Byte order)</h3><p>在計算機科學領域下，Data 是一個物理概念，指儲存在電腦記憶體上的一個 bits／bytes 序列。Data 本身並沒有任何意義，想使用它，必須自行解讀出抽象的意義，例如將 Data 讀取為字串或數字。</p>
+<p>我們知道記憶體是基於位址（address）依序儲存 Data，每個位址可以存上 1 byte data。如果使用 <code>Uint8Array</code> 這種一次存取一個 byte 的格式，那麼完全不會有任何問題，怎麼存取，都是依連續的記憶體位址順序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">--- 資料讀取順序 --&gt;</div><div class="line">| Offset | 0    | 1    | 2    | 3    |</div><div class="line">| ------ | ---- | ---- | ---- | ---- |</div><div class="line">| Data   | 0x11 | 0x22 | 0x33 | 0x44 |</div></pre></td></tr></table></figure>
+<p>我們會得到 <code>[17, 34, 51, 68]</code> 的 Array。</p>
+<p>當我們需要一次存取多 bytes，例如這個範例的記憶體區塊其實是一個 32 bit 的整數，那實際代表的數字會是多大？是 <code>0x11223344</code>（十進位：287454020) 嗎？</p>
+<p>這其實牽扯到 CPU 的設計，目前市面上的多數 CPU 處理 multi-bytes 的資料時，大多從「最低有效位（LSB，least significant byte）」，也就是從權重最小的位數開始寫入。所以讀取這筆資料時，最前面的記憶體 offset 就是最權重最小的 bytes，所以最後會得到 <code>0x44332211</code>（十進位：1144201745）。這種存取排序，我們稱之為 <strong>Little-endian</strong>。</p>
+<p>有最低，當然就有最高，<strong>Big-endian</strong> 則是從「最高有效位（MSB，most significant byte）」開始存取。因此照著記憶體位址依序讀取，會得到跟記憶體 offset 順序相同的 <code>0x11223344</code>。Big-endian 雖然在個人電腦中不常見，但許多網路協議和設備都是採用 Big-endian 存取資料，佔有一定的重要性。</p>
+<p>Little-endian 和 Big-endian 可以視為不同的電腦（CPU）講不同的語言，一個從右到左，另一個從左到右。其實在人類日常生活中也可以看到相同的現象，例如歐洲常用的日期格式為 day-month-year，ISO 國際標準則反之 year-month-day，所以，當你看到一個 17-09-07 的日期時，必須先判斷是否為 ISO 的標準，才能知道這場約會是在下禮拜的九月七日，抑或你需要一台時光機回到過去。</p>
+<p><strong>Q：那在 JavaScipt 要如何處理 endian？</strong></p>
+<p>如果不碰底層的記憶體操作，寫 JavaScript 是不用理會 endianness 的，但當你要操作 TypedArray 時，了解 data 的 endian 就至關重要了。<code>TypedArray</code> 預設是使用系統的 endianness，所以如果你接受一筆資料和系統的 endianness，TypedArray 便使不上力。而前面介紹到 DataView 的 byte getter／setter 最後一個參數就是用來決定以哪種 byte order 存取資料，預設是 Big-endian（<code>false</code>），透過切換這個 flag，任何 binary data 都橫看成嶺側成峰了。</p>
+<p><strong>Q：那我們要如何得知資料的 byte order？</strong></p>
+<p>如果資料是自己內部系統使用，其實溝通好就好，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，有時候我們可以透過 <a href="https://en.wikipedia.org/wiki/Byte_order_mark#UTF-16" target="_blank" rel="external">BOM（byte order mark）</a>來判斷資料屬於那種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過並不是每一個資料都會加上這個 header，有時候必須先 <a href="https://www.npmjs.com/package/strip-bom" target="_blank" rel="external">strip bom</a>，說實話挺麻煩的。</p>
+<h3 id="Data-Structure-Alignment"><a href="#Data-Structure-Alignment" class="headerlink" title="Data Structure Alignment"></a>Data Structure Alignment</h3><p>要接觸底層的記憶體，免不了瞭解 CPU 如何從記憶體中讀取資料，記憶體底層到底如何配置。</p>
+<p>一般來說，現代的 CPU 通常設計以 word 為單位（例如 4 bytes）讀寫記憶體裡的資料，而資料對齊（data aligment）則是將資料放置在 word-size * n 倍的記憶體位址上，使 CPU 以最為有效率的方式讀寫。那為什麼對齊 word-size 會最有效率呢？先假設有一個 C struct 如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AlignDemo</span> &#123;</span></div><div class="line">  <span class="keyword">char</span> c;     <span class="comment">// 1 byte</span></div><div class="line">  <span class="keyword">int</span> i;      <span class="comment">// 4 bytes</span></div><div class="line">  shor s;      <span class="comment">// 2 bytes</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>理論上的記憶體配置如下，總共需要 7 bytes 的記憶體空間。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">c = char 所佔的 byte</div><div class="line">s = short 所佔的 byte</div><div class="line">i = int 所佔的 byte</div><div class="line"></div><div class="line">| 0x000           | 0x020           |</div><div class="line">| [c] [i] [i] [i] | [i] [s] [s] [ ] |</div></pre></td></tr></table></figure>
+<p>前面提到 CPU 是以 word-size 存取記憶體上的資料，當我們嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需要取一次 word chunk 就可以。然而，當我想要取得 int 時，CPU 需先取第一個 data chunk 以獲取前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得最後一個 bytes。多餘的記憶體存取 會造成 CPU 額外的負擔。</p>
+<p>解決方法是 <strong>Data Structure Padding</strong>，也就是在資料無法對齊 word-size 時，加上一些填充用的成員。</p>
+<p>在我們的例子中，可以這樣做：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AlignDemo</span> &#123;</span></div><div class="line">  <span class="keyword">char</span> c;</div><div class="line">  <span class="keyword">char</span> padding_0[<span class="number">3</span>]; <span class="comment">// 填充用成員</span></div><div class="line">  <span class="keyword">int</span> i;</div><div class="line">  shor s;</div><div class="line">  <span class="keyword">char</span> padding_1[<span class="number">2</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>記憶體配置則如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">p = padding 所佔的 byte</div><div class="line"></div><div class="line">| 0x000           | 0x020           | 0x040           |</div><div class="line">| [c] [p] [p] [p] | [i] [i] [i] [i] | [s] [s] [p] [p] |</div></pre></td></tr></table></figure>
+<p>本來只需要 7 bytes，對個齊後，反而用掉這麼多額外的 bytes，你玩我嗎？</p>
+<p>我們可以試著改變一下 struct member 的順序：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AlignDemo</span> &#123;</span></div><div class="line">  <span class="keyword">int</span> i;</div><div class="line">  <span class="keyword">char</span> c;</div><div class="line">  shor s;</div><div class="line">  <span class="keyword">char</span> padding[<span class="number">0</span>]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>記憶體配置對應改變，只佔用 8 bytes。Brilliant！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">| 0x000           | 0x020           |</div><div class="line">| [i] [i] [i] [i] | [c] [s] [s] [p] |</div></pre></td></tr></table></figure>
+<p>結構對齊（struct alignment）在 C 語言中是一門不小學問，除了結構內的成員本身要對齊，結構本身也要對齊。</p>
+<p>回到 JavaScript，當你在創建不同的 view 時，JavaScript engine 其實會進行簡單的 <a href="https://stackoverflow.com/a/25658188" target="_blank" rel="external">natural alignment</a> 檢查。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">6</span>)</div><div class="line"><span class="keyword">new</span> <span class="built_in">Uint16Array</span>(buffer, <span class="number">1</span>)</div><div class="line"><span class="comment">// RangeError: start offset of Uint16Array should be a multiple of 2</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Uint32Array</span>(buffer, <span class="number">0</span>)</div><div class="line"><span class="comment">// RangeError: byte length of Uint32Array should be a multiple of 4</span></div></pre></td></tr></table></figure>
+<p>所以囉，當我們在設計複合資料時，想想對應的 C struct alignment，多考量記憶體底層，才不會讓操作 binary data 產生效能低落的反效果。</p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>最後，讓我們來認識除了 Typed Array 家族以外，JavaScript 的生態圈其他與記憶體息息相關的成員吧！</p>
+<h3 id="Node-js-Buffer"><a href="#Node-js-Buffer" class="headerlink" title="Node.js Buffer"></a>Node.js <code>Buffer</code></h3><p>早在 ES6 引入 TypedArray 之前，Node.js 為了處理 binary data，就實作 <a href="https://nodejs.org/dist/latest-v8.x/docs/api/buffer.html" target="_blank" rel="external">Buffer class</a>，也針對 V8 引擎做最佳化。Buffer 在 Node.js 的環境中是 Global object，其功能可視為 ArrayBuffer + TypedArray + DataView 的複合體，甚至可以配置 non-zero-filled 的 unsafe buffer，好危險啊。</p>
+<p>在使用上，Buffer 可從 ArrayBuffer 建構，也可從自身建構 TypedArray。事實上，Node.js v3+ 之後，Buffer 就繼承自 <code>Uint8Array</code> 了，不過有些 memory share／copy 的實作與 spec 有出入，在與 TypedArray<br> ArrayBuffer 轉換時，<a href="https://nodejs.org/dist/latest-v8.x/docs/api/buffer.html#buffer_buffers_and_typedarray" target="_blank" rel="external">需注意這些小細節</a>。</p>
+<h3 id="Web-API-Blob"><a href="#Web-API-Blob" class="headerlink" title="Web API Blob"></a>Web API <code>Blob</code></h3><p><a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">Blob</a> 是一個不可變（immutable）的 raw binary sequence，只有兩個 attribute 和一個 method。</p>
+<ul>
+<li><code>size</code>：blob 實例的 byte 大小。</li>
+<li><code>type</code>：blob 實例的 <a href="https://en.wikipedia.org/wiki/MIME" target="_blank" rel="external">MIME type</a>。</li>
+<li><code>slice</code>：切割一部分的 blob 實例，返回新的 blob。</li>
+</ul>
+<p>Blob 寫在 <a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">W3C File API draft</a> 中，時 <code>File</code> class 的父類別。主要目的是為了代表與儲存 JavaScript native 以外的格式，例如圖檔。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。除了 File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！</p>
+<p>而 Blob 最強大的地方就是配合 <code>URL.createObjectURL</code> 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 <code>Image</code>、<code>ImageData</code>、<code>MediaSource</code>，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。</p>
+<p>當我們建立 Blob URL 之後，若之後不需要用到該 URL，就該使用 <code>URL.revokeObjectURL</code> 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！</p>
+<h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些 binary data API，現代的 JavaScript 環境的效能以非同小可，若在考慮 web workers 等技術，配合多數瀏覽器尚未實作的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code>，多線程高效能的 web app 指日可待，更別提逐漸普及，甚至<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，使用 Rust 寫網頁的世代即將來臨。</p>
+<p>前端工程師們，活到老，學到死吧！</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer" target="_blank" rel="external">MDN: ArrayBuffer</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" target="_blank" rel="external">MDN: TypedArray</a></li>
+<li><a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">W3C: File API - Blob</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" rel="external">Wiki: Data structure alignment</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Wiki: Endianness</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Integer_overflow" target="_blank" rel="external">Wiki: Integer overflow</a></li>
+<li><a href="https://www.html5rocks.com/en/tutorials/webgl/typed_arrays/" target="_blank" rel="external">HTML5 Rocks: Typed Arrays</a></li>
+<li><a href="https://nodejs.org/dist/latest-v8.x/docs/api/buffer.html" target="_blank" rel="external">Node.js: Buffer</a></li>
+<li><a href="http://opass.logdown.com/posts/743054-about-memory-alignment" target="_blank" rel="external">OPass：關於記憶體對齊(Alignment) </a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/arraybuffer" target="_blank" rel="external">阮一峰：ECMAScript 6 入门</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <span>Weihang Lo</span>
+    </p>
+    <p class="copyright-item">
+      <span>Origin: </span>
+      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/">https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/">JavaScript</a>
+          
+            <a href="/tags/endianness/">Endianness</a>
+          
+            <a href="/tags/binary-data/">Binary Data</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/intro-rx-2-observer-pattern/">
+        <span class="next-text nav-default">Intro Rx - 2. Observer Pattern</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Weihang Lo</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/';
+        this.page.identifier = '2017/binary-data-manipulations-in-javascript/';
+        this.page.title = 'Binary Data Manipulations in JavaScript';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//weihang-lo.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+
+  </body>
+</html>

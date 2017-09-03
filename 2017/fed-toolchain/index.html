@@ -34,20 +34,19 @@
 <link rel="canonical" href="https://weihanglo.github.io/2017/fed-toolchain/"/>
 
 
-<meta name="description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
-（撰於 2017-03-10）">
+<meta name="description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。 （撰於 2017-03-10）">
+<meta name="keywords" content="JavaScript,Front-end,NodeJS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Front End Development Toolchain">
 <meta property="og:url" content="https://weihanglo.github.io/2017/fed-toolchain/index.html">
 <meta property="og:site_name" content="Weihang Lo">
-<meta property="og:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
-（撰於 2017-03-10）">
+<meta property="og:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。 （撰於 2017-03-10）">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg">
 <meta property="og:updated_time" content="2017-07-21T02:03:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Front End Development Toolchain">
-<meta name="twitter:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
-（撰於 2017-03-10）">
+<meta name="twitter:description" content="在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。 （撰於 2017-03-10）">
 <meta name="twitter:image" content="https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg">
 
 
@@ -413,7 +412,7 @@
 <li>運用不同的 Plugins，組合出適合自己的 Webpack 流程與設定。</li>
 </ul>
 <p>Webpack 最簡單的設定，就是在 project root 新增一個 <code>webpack.config.js</code> 檔案，以下範例取自 <a href="https://webpack.js.org/concepts/" target="_blank" rel="external">Webpack 的核心觀念</a>（使用 Webpack 2）：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// in `webpack.config.js`</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>); <span class="comment">//to access built-in plugins</span></div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./path/to/my/entry/file.js'</span>,      <span class="comment">// 1. 程式進入點設定</span></div><div class="line">  output: &#123;                                 <span class="comment">// 2. 打包輸出設定</span></div><div class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</div><div class="line">    <span class="attr">filename</span>: <span class="string">'bundle.js'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">module</span>: &#123;                                 <span class="comment">// 3. loaders（轉換檔案 -&gt; Javascript）</span></div><div class="line">    rules: [</div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>, <span class="attr">use</span>: <span class="string">'babel-loader'</span> &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">plugins</span>: [                                <span class="comment">// 4. 其他有用的 plugins</span></div><div class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(),</div><div class="line">  ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// in `webpack.config.js`</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>); <span class="comment">//to access built-in plugins</span></div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  entry: <span class="string">'./path/to/my/entry/file.js'</span>,      <span class="comment">// 1. 程式進入點設定</span></div><div class="line">  output: &#123;                                 <span class="comment">// 2. 打包輸出設定</span></div><div class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</div><div class="line">    filename: <span class="string">'bundle.js'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="built_in">module</span>: &#123;                                 <span class="comment">// 3. loaders（轉換檔案 -&gt; Javascript）</span></div><div class="line">    rules: [</div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>, <span class="attr">use</span>: <span class="string">'babel-loader'</span> &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  plugins: [                                <span class="comment">// 4. 其他有用的 plugins</span></div><div class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(),</div><div class="line">  ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>Webpack 的簡易運作流程如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">找到 entry file</div><div class="line">-&gt; 解析相依模組</div><div class="line">-&gt; 符合 test rules 的模組由 loaders 轉換處理</div><div class="line">-&gt; 將所有處理完成的檔案打包成 output 的 js 檔</div></pre></td></tr></table></figure></p>
 <p>其中，在 <code>webpack.config.js</code> 設定檔中，最核心四個概念如下：</p>
 <p><strong><code>entry</code></strong></p>
