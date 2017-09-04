@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -12,9 +25,58 @@
 
 
 
-  <meta name="description" content="Binary Data Manipulations in JavaScript"/>
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="JavaScript,Endianness,Binary Data," />
@@ -22,16 +84,15 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
-<link rel="canonical" href="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/"/>
+
 
 
 <meta name="description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
@@ -44,177 +105,209 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-03T17:42:39.000Z">
+<meta property="og:updated_time" content="2017-09-04T01:05:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
 <meta name="twitter:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
 <meta name="twitter:image" content="https://i.imgur.com/Mx1Rbus.png">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
 
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-
-<script>
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
   var CONFIG = {
-    search: true,
-    searchPath: "/search.xml",
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    toc: true,
-  }
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
 
 
+  <link rel="canonical" href="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/"/>
 
+
+
+
+
+  <title>Binary Data Manipulations in JavaScript | Weihang Lo</title>
   
 
-  <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-90000579-1', 'auto');
-        ga('send', 'pageview');
-  </script>
 
 
 
-    <title> Binary Data Manipulations in JavaScript · Weihang Lo </title>
-  </head>
 
-  <body><div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/." class="logo">Weihang Lo</a>
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Weihang Lo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">/dev/Weihang</p>
+      
   </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
 </div>
 
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-  </ul>
-</nav>
+<nav class="site-nav">
+  
 
-    <div class="container" id="mobile-panel">
-      <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">Weihang Lo</a>
-</div>
-
-<nav class="site-navbar">
   
     <ul id="menu" class="menu">
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/">
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-              Home
-            
+            Home
           </a>
         </li>
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
-        </li>
-      
-      
-        <li class="menu-search">
-          <form>
-            <i class="iconfont icon-search" id="open-search"></i>
-            <input type="text" class="search-input" id="search-input" />
-            <i class="iconfont icon-close" id="close-search"></i>
-          </form>
-        </li>
+
       
     </ul>
   
-</nav>
-      </header>
 
-      <main id="main" class="main">
-        <div class="content-wrapper">
-          <div id="content" class="content">
-            
   
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          Binary Data Manipulations in JavaScript
-        
-      </h1>
+</nav>
 
-      <div class="post-meta">
-        <span class="post-time">
-          Sep 3, 2017
-        </span>
-      </div>
+
+
+ </div>
     </header>
 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weihang Lo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Weihang Lo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Binary Data Manipulations in JavaScript</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T23:35:55+08:00">
+                2017-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
     
     
-  <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-v-s-View"><span class="toc-text">Buffer v.s View</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayBuffer"><span class="toc-text">ArrayBuffer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypedArray"><span class="toc-text">TypedArray</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-TypedArray"><span class="toc-text">Types of TypedArray</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-like-Methods"><span class="toc-text">Array-like Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Consturct-a-TypedArray"><span class="toc-text">Consturct a TypedArray</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Overflow"><span class="toc-text">Overflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Uint8ClampedArray"><span class="toc-text">What is Uint8ClampedArray</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composite-Data-Structure"><span class="toc-text">Composite Data Structure</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataView"><span class="toc-text">DataView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Precautions"><span class="toc-text">Precautions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Endianness-Byte-order"><span class="toc-text">Endianness (Byte order)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Structure-Alignment"><span class="toc-text">Data Structure Alignment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Others"><span class="toc-text">Others</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js-Buffer"><span class="toc-text">Node.js Buffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-API-Blob"><span class="toc-text">Web API Blob</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wrap-up"><span class="toc-text">Wrap-up</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
-    </div>
-  </div>
+    
+    <div class="post-body" itemprop="articleBody">
 
+      
+      
 
-    <div class="post-content">
       
         <p><img src="https://i.imgur.com/Mx1Rbus.png" alt=""></p>
 <p>本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！</p>
@@ -390,7 +483,7 @@
 <p>Blob 寫在 <a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">W3C File API draft</a> 中，時 <code>File</code> class 的父類別。主要目的是為了代表與儲存 JavaScript native 以外的格式，例如圖檔。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。除了 File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！</p>
 <p>而 Blob 最強大的地方就是配合 <code>URL.createObjectURL</code> 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 <code>Image</code>、<code>ImageData</code>、<code>MediaSource</code>，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。</p>
 <p>當我們建立 Blob URL 之後，若之後不需要用到該 URL，就該使用 <code>URL.revokeObjectURL</code> 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！</p>
-<h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些 binary data API，現代的 JavaScript 環境的效能以非同小可，若在考慮 web workers 等技術，配合多數瀏覽器尚未實作的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code>，多線程高效能的 web app 指日可待，更別提逐漸普及，甚至<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，使用 Rust 寫網頁的世代即將來臨。</p>
+<h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code> API，高效能的 web app 指日可待。如果再加上逐漸普及，<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，JavaScript／Web 的世界更是不可限量啊，使用 Rust 寫網頁的世代即將來臨 XD。</p>
 <p>前端工程師們，活到老，學到死吧！</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer" target="_blank" rel="external">MDN: ArrayBuffer</a></li>
@@ -407,230 +500,353 @@
 
       
     </div>
-
     
-      
-      
-
-  <div class="post-copyright">
-    <p class="copyright-item">
-      <span>Author: </span>
-      <span>Weihang Lo</span>
-    </p>
-    <p class="copyright-item">
-      <span>Origin: </span>
-      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
-    </p>
-    <p class="copyright-item">
-      <span>Link: </span>
-      <a href="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/">https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/</a>
-    </p>
-
-    <p class="copyright-item lincese">
-      
-      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
-    </p>
-  </div>
-
-
-
-      
-      
+    
     
 
     
-      <footer class="post-footer">
+
+    
+
+    
+
+    <footer class="post-footer">
+      
         <div class="post-tags">
           
-            <a href="/tags/javascript/">JavaScript</a>
+            <a href="/tags/javascript/" rel="tag"># JavaScript</a>
           
-            <a href="/tags/endianness/">Endianness</a>
+            <a href="/tags/endianness/" rel="tag"># Endianness</a>
           
-            <a href="/tags/binary-data/">Binary Data</a>
+            <a href="/tags/binary-data/" rel="tag"># Binary Data</a>
           
         </div>
+      
 
-        
-        
-  <nav class="post-nav">
-    
-    
-      <a class="next" href="/2017/intro-rx-2-observer-pattern/">
-        <span class="next-text nav-default">Intro Rx - 2. Observer Pattern</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    
-  </nav>
+      
+      
+      
 
-      </footer>
-    
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/intro-rx-2-observer-pattern/" rel="next" title="Intro Rx - 2. Observer Pattern">
+                <i class="fa fa-chevron-left"></i> Intro Rx - 2. Observer Pattern
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+
+          
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
-        </div>  
-      </main>
-
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
-        
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-    
-    
   </div>
 
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
-  </span>
-  
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
-  </span>
-
-  <span class="copyright-year">
-    
-    &copy; 
-    
-    2017
-
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Weihang Lo</span>
-  </span>
-</div>
-      </footer>
-
-      <div class="back-to-top" id="back-to-top">
-        <i class="iconfont icon-up"></i>
-      </div>
-    </div>
-
-    
-  
-  
-  <script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/';
-        this.page.identifier = '2017/binary-data-manipulations-in-javascript/';
-        this.page.title = 'Binary Data Manipulations in JavaScript';
-    };
-    (function() {
-    var d = document, s = d.createElement('script');
-
-    s.src = '//weihang-lo.disqus.com/embed.js';
-
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();  
-  </script>
-
-
-
-
-    
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
-
-    
-  <script type="text/html" id="search-result">
-    <article class="post">
-      <header class="post-header">
-        <h1 class="post-title">
-          <a href="$url$" class="post-link">
-            $title$
-          </a>
-        </h1>
-      </header>
-      <div class="post-content">
-        $content$
-        <div class="read-more">
-          <a href="$url$" class="read-more-link">
-            Read more..
-          </a>
         </div>
-      </div>
-    </article>
-  </script>
-  <script type="text/html" id="no-search-result">
-    <div class="no-result">
-      <h2>No result found!</h2>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-  </script>
-  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+  </div>
 
-  </body>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">Weihang Lo</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer-v-s-View"><span class="nav-number">2.</span> <span class="nav-text">Buffer v.s View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayBuffer"><span class="nav-number">3.</span> <span class="nav-text">ArrayBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypedArray"><span class="nav-number">4.</span> <span class="nav-text">TypedArray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-TypedArray"><span class="nav-number">4.1.</span> <span class="nav-text">Types of TypedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-like-Methods"><span class="nav-number">4.2.</span> <span class="nav-text">Array-like Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consturct-a-TypedArray"><span class="nav-number">4.3.</span> <span class="nav-text">Consturct a TypedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overflow"><span class="nav-number">4.4.</span> <span class="nav-text">Overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Uint8ClampedArray"><span class="nav-number">4.5.</span> <span class="nav-text">What is Uint8ClampedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Composite-Data-Structure"><span class="nav-number">4.6.</span> <span class="nav-text">Composite Data Structure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataView"><span class="nav-number">5.</span> <span class="nav-text">DataView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Precautions"><span class="nav-number">6.</span> <span class="nav-text">Precautions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Endianness-Byte-order"><span class="nav-number">6.1.</span> <span class="nav-text">Endianness (Byte order)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Structure-Alignment"><span class="nav-number">6.2.</span> <span class="nav-text">Data Structure Alignment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">7.</span> <span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-Buffer"><span class="nav-number">7.1.</span> <span class="nav-text">Node.js Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-API-Blob"><span class="nav-number">7.2.</span> <span class="nav-text">Web API Blob</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrap-up"><span class="nav-number">8.</span> <span class="nav-text">Wrap-up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">9.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weihang Lo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="https://hexo.io">Hexo</a></div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>

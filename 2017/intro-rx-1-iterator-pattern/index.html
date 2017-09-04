@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -12,9 +25,58 @@
 
 
 
-  <meta name="description" content="Intro Rx - 1. Iterator Pattern"/>
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Swift,ReactiveX,Design Patterns,Iterator Pattern," />
@@ -22,16 +84,15 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Weihang Lo">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.2.x" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
-<link rel="canonical" href="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/"/>
+
 
 
 <meta name="description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
@@ -48,170 +109,202 @@
 <meta name="twitter:description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.2.x" />
 
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-
-<script>
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
   var CONFIG = {
-    search: true,
-    searchPath: "/search.xml",
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    toc: true,
-  }
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
 
 
+  <link rel="canonical" href="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/"/>
 
+
+
+
+
+  <title>Intro Rx - 1. Iterator Pattern | Weihang Lo</title>
   
 
-  <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-90000579-1', 'auto');
-        ga('send', 'pageview');
-  </script>
 
 
 
-    <title> Intro Rx - 1. Iterator Pattern · Weihang Lo </title>
-  </head>
 
-  <body><div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/." class="logo">Weihang Lo</a>
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Weihang Lo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">/dev/Weihang</p>
+      
   </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
 </div>
 
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-  </ul>
-</nav>
+<nav class="site-nav">
+  
 
-    <div class="container" id="mobile-panel">
-      <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">Weihang Lo</a>
-</div>
-
-<nav class="site-navbar">
   
     <ul id="menu" class="menu">
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/">
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-              Home
-            
+            Home
           </a>
         </li>
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
-        </li>
-      
-      
-        <li class="menu-search">
-          <form>
-            <i class="iconfont icon-search" id="open-search"></i>
-            <input type="text" class="search-input" id="search-input" />
-            <i class="iconfont icon-close" id="close-search"></i>
-          </form>
-        </li>
+
       
     </ul>
   
-</nav>
-      </header>
 
-      <main id="main" class="main">
-        <div class="content-wrapper">
-          <div id="content" class="content">
-            
   
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          Intro Rx - 1. Iterator Pattern
-        
-      </h1>
+</nav>
 
-      <div class="post-meta">
-        <span class="post-time">
-          Aug 15, 2017
-        </span>
-      </div>
+
+
+ </div>
     </header>
 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weihang Lo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Weihang Lo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Intro Rx - 1. Iterator Pattern</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-15T13:06:59+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
     
     
-  <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Definition"><span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application"><span class="toc-text">Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requirements"><span class="toc-text">Requirements</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IteratorProtocol-amp-Sequence"><span class="toc-text">IteratorProtocol & Sequence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection-protocols"><span class="toc-text">Collection protocols</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
-    </div>
-  </div>
+    
+    <div class="post-body" itemprop="articleBody">
 
+      
+      
 
-    <div class="post-content">
       
         <p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>。</p>
 <p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
@@ -251,238 +344,359 @@
 
       
     </div>
-
     
-      
-      
-
-  <div class="post-copyright">
-    <p class="copyright-item">
-      <span>Author: </span>
-      <span>Weihang Lo</span>
-    </p>
-    <p class="copyright-item">
-      <span>Origin: </span>
-      <a href="https://weihanglo.github.io">https://weihanglo.github.io</a>
-    </p>
-    <p class="copyright-item">
-      <span>Link: </span>
-      <a href="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/">https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/</a>
-    </p>
-
-    <p class="copyright-item lincese">
-      
-      Text is available under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International</a>
-    </p>
-  </div>
-
-
-
-      
-      
+    
     
 
     
-      <footer class="post-footer">
+
+    
+
+    
+
+    <footer class="post-footer">
+      
         <div class="post-tags">
           
-            <a href="/tags/swift/">Swift</a>
+            <a href="/tags/swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/reactivex/">ReactiveX</a>
+            <a href="/tags/reactivex/" rel="tag"># ReactiveX</a>
           
-            <a href="/tags/design-patterns/">Design Patterns</a>
+            <a href="/tags/design-patterns/" rel="tag"># Design Patterns</a>
           
-            <a href="/tags/iterator-pattern/">Iterator Pattern</a>
+            <a href="/tags/iterator-pattern/" rel="tag"># Iterator Pattern</a>
           
         </div>
+      
 
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2017/intro-rx-2-observer-pattern/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Intro Rx - 2. Observer Pattern</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a class="next" href="/2017/intro-rx-0-reactivex/">
-        <span class="next-text nav-default">Intro Rx - 0. ReactiveX</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    
-  </nav>
+      
+      
+      
 
-      </footer>
-    
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/intro-rx-0-reactivex/" rel="next" title="Intro Rx - 0. ReactiveX">
+                <i class="fa fa-chevron-left"></i> Intro Rx - 0. ReactiveX
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/intro-rx-2-observer-pattern/" rel="prev" title="Intro Rx - 2. Observer Pattern">
+                Intro Rx - 2. Observer Pattern <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+
+          
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
-        </div>  
-      </main>
-
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:weihanglotw@gmail.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://twitter.com/weihanglo" class="iconfont icon-twitter" title="twitter"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.facebook.com/weihanglo" class="iconfont icon-facebook" title="facebook"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/weihanglo" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://getpocket.com/@weihanglo" class="iconfont icon-pocket" title="pocket"></a>
-        
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-    
-    
   </div>
 
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
-  </span>
-  
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
-  </span>
-
-  <span class="copyright-year">
-    
-    &copy; 
-    
-    2017
-
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Weihang Lo</span>
-  </span>
-</div>
-      </footer>
-
-      <div class="back-to-top" id="back-to-top">
-        <i class="iconfont icon-up"></i>
-      </div>
-    </div>
-
-    
-  
-  
-  <script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/';
-        this.page.identifier = '2017/intro-rx-1-iterator-pattern/';
-        this.page.title = 'Intro Rx - 1. Iterator Pattern';
-    };
-    (function() {
-    var d = document, s = d.createElement('script');
-
-    s.src = '//weihang-lo.disqus.com/embed.js';
-
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();  
-  </script>
-
-
-
-
-    
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.2.x"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.2.x"></script>
-
-    
-  <script type="text/html" id="search-result">
-    <article class="post">
-      <header class="post-header">
-        <h1 class="post-title">
-          <a href="$url$" class="post-link">
-            $title$
-          </a>
-        </h1>
-      </header>
-      <div class="post-content">
-        $content$
-        <div class="read-more">
-          <a href="$url$" class="read-more-link">
-            Read more..
-          </a>
         </div>
-      </div>
-    </article>
-  </script>
-  <script type="text/html" id="no-search-result">
-    <div class="no-result">
-      <h2>No result found!</h2>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-  </script>
-  <script type="text/javascript" src="/js/src/search.js?v=2.2.x"></script>
+  </div>
 
-  </body>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">Weihang Lo</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">1.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application"><span class="nav-number">2.</span> <span class="nav-text">Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">3.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IteratorProtocol-amp-Sequence"><span class="nav-number">4.</span> <span class="nav-text">IteratorProtocol & Sequence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection-protocols"><span class="nav-number">5.</span> <span class="nav-text">Collection protocols</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weihang Lo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="https://hexo.io">Hexo</a></div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>
