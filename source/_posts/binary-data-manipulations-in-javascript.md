@@ -412,7 +412,7 @@ Blob 寫在 [W3C File API draft][w3c-blob] 中，時 `File` class 的父類別�
 
 ## Wrap-up
 
-藉由這些 binary data API，現代的 JavaScript 環境的效能以非同小可，若在考慮 web workers 等技術，配合多數瀏覽器尚未實作的 `ShareArrayBuffer` 與 `Atomic`，多線程高效能的 web app 指日可待，更別提逐漸普及，甚至[即將成為 Webpack 一等公民][medium-webpack-awarded] 的 [WebAssembly][wasm]，使用 Rust 寫網頁的世代即將來臨。
+藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 `ShareArrayBuffer` 與 `Atomic` API，高效能的 web app 指日可待。如果再加上逐漸普及，[即將成為 Webpack 一等公民][medium-webpack-awarded] 的 [WebAssembly][wasm]，JavaScript／Web 的世界更是不可限量啊，使用 Rust 寫網頁的世代即將來臨 XD。
 
 前端工程師們，活到老，學到死吧！
 
