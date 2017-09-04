@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Swift,ReactiveX,Design Patterns,Iterator Pattern," />
+  <meta name="keywords" content="Swift,Design Patterns,Iterator Pattern,ReactiveX," />
 
 
 
@@ -96,7 +96,7 @@
 
 
 <meta name="description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern。 （撰於 2017-08-15，基於 Swift 3.1）">
-<meta name="keywords" content="Swift,ReactiveX,Design Patterns,Iterator Pattern">
+<meta name="keywords" content="Swift,Design Patterns,Iterator Pattern,ReactiveX">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Intro Rx - 1. Iterator Pattern">
 <meta property="og:url" content="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/index.html">
@@ -114,7 +114,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.2',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -148,6 +148,15 @@
 
 
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-90000579-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
 
 
 
@@ -177,7 +186,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">/dev/Weihang</p>
+        <h1 class="site-subtitle" itemprop="description">/dev/Weihang</h1>
       
   </div>
 
@@ -200,9 +209,15 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            Archives
           </a>
         </li>
       
@@ -256,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Intro Rx - 1. Iterator Pattern</h1>
+          <h2 class="post-title" itemprop="name headline">Intro Rx - 1. Iterator Pattern</h2>
         
 
         <div class="post-meta">
@@ -282,6 +297,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/intro-rx-1-iterator-pattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/intro-rx-1-iterator-pattern/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -289,6 +315,24 @@
 
           
 
+          
+            <div class="post-wordcount">
+              
+
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  4
+                </span>
+              
+            </div>
           
 
           
@@ -353,6 +397,24 @@
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Weihang Lo
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/" title="Intro Rx - 1. Iterator Pattern">https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -360,11 +422,11 @@
           
             <a href="/tags/swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/reactivex/" rel="tag"># ReactiveX</a>
-          
             <a href="/tags/design-patterns/" rel="tag"># Design Patterns</a>
           
             <a href="/tags/iterator-pattern/" rel="tag"># Iterator Pattern</a>
+          
+            <a href="/tags/reactivex/" rel="tag"># ReactiveX</a>
           
         </div>
       
@@ -419,6 +481,13 @@
           
   <div class="comments" id="comments">
     
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
   </div>
 
 
@@ -463,7 +532,7 @@
           
             <div class="site-state-item site-state-posts">
             
-              <a href="/archives">
+              <a href="/archives/">
             
                 <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">posts</span>
@@ -490,9 +559,50 @@
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weihanglo" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/weihanglo" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                    
+                      FB Page
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/weihanglo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                    
+                      Twitter
+                    
+                </a>
+              </span>
+            
+          
         </div>
 
         
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
         
 
         
@@ -513,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">1.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application"><span class="nav-number">2.</span> <span class="nav-text">Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">3.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IteratorProtocol-amp-Sequence"><span class="nav-number">4.</span> <span class="nav-text">IteratorProtocol & Sequence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection-protocols"><span class="nav-number">5.</span> <span class="nav-text">Collection protocols</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application"><span class="nav-text">Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IteratorProtocol-amp-Sequence"><span class="nav-text">IteratorProtocol & Sequence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection-protocols"><span class="nav-text">Collection protocols</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
@@ -550,7 +660,7 @@
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
 
 
         
@@ -656,6 +766,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://weihang-lo.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://weihanglo.github.io/2017/intro-rx-1-iterator-pattern/';
+          this.page.identifier = '2017/intro-rx-1-iterator-pattern/';
+          this.page.title = 'Intro Rx - 1. Iterator Pattern';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://weihang-lo.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -668,10 +798,6 @@
   
 
 
-
-
-
-  
 
 
 

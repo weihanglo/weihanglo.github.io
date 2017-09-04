@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -116,7 +116,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.2',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -150,6 +150,15 @@
 
 
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-90000579-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
 
 
 
@@ -179,7 +188,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">/dev/Weihang</p>
+        <h1 class="site-subtitle" itemprop="description">/dev/Weihang</h1>
       
   </div>
 
@@ -202,9 +211,15 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            Archives
           </a>
         </li>
       
@@ -258,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">與 IE 相處的日子</h1>
+          <h2 class="post-title" itemprop="name headline">與 IE 相處的日子</h2>
         
 
         <div class="post-meta">
@@ -284,6 +299,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/days-with-internet-explorer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/days-with-internet-explorer/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -291,6 +317,24 @@
 
           
 
+          
+            <div class="post-wordcount">
+              
+
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  10
+                </span>
+              
+            </div>
           
 
           
@@ -431,6 +475,24 @@
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Weihang Lo
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://weihanglo.github.io/2017/days-with-internet-explorer/" title="與 IE 相處的日子">https://weihanglo.github.io/2017/days-with-internet-explorer/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -499,6 +561,13 @@
           
   <div class="comments" id="comments">
     
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
   </div>
 
 
@@ -543,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
             
-              <a href="/archives">
+              <a href="/archives/">
             
                 <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">posts</span>
@@ -570,9 +639,50 @@
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weihanglo" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/weihanglo" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                    
+                      FB Page
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/weihanglo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                    
+                      Twitter
+                    
+                </a>
+              </span>
+            
+          
         </div>
 
         
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
         
 
         
@@ -593,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Contents"><span class="nav-number">1.</span> <span class="nav-text">Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Issues"><span class="nav-number">2.</span> <span class="nav-text">Issues</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fullscreen-breaks-my-layout"><span class="nav-number">2.1.</span> <span class="nav-text">Fullscreen breaks my layout!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Can-an-image-fit-its-container-with-aspect-ratio"><span class="nav-number">2.2.</span> <span class="nav-text">Can an image fit its container with aspect ratio?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Do-you-know-your-id"><span class="nav-number">2.3.</span> <span class="nav-text">Do you know your id?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Where-are-my-children"><span class="nav-number">2.4.</span> <span class="nav-text">Where are my children?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Give-me-some-animated-SVG"><span class="nav-number">2.5.</span> <span class="nav-text">Give me some animated SVG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-an-element-removes-itself"><span class="nav-number">2.6.</span> <span class="nav-text">How an element removes itself?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Same-CSS-weird-flexbox-behavior"><span class="nav-number">2.7.</span> <span class="nav-text">Same CSS, weird flexbox behavior</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXTRA-Read-the-fxxking-standard-before-using-custom-elements"><span class="nav-number">2.8.</span> <span class="nav-text">(EXTRA) Read the fxxking standard before using custom elements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools-for-dealing-with-compatible-issues"><span class="nav-number">3.</span> <span class="nav-text">Tools for dealing with compatible issues</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Compatible-tables"><span class="nav-number">3.1.</span> <span class="nav-text">Compatible tables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cross-browser-testing-services"><span class="nav-number">3.2.</span> <span class="nav-text">Cross browser testing services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-machines"><span class="nav-number">3.3.</span> <span class="nav-text">Virtual machines</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Contents"><span class="nav-text">Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Issues"><span class="nav-text">Issues</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fullscreen-breaks-my-layout"><span class="nav-text">Fullscreen breaks my layout!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Can-an-image-fit-its-container-with-aspect-ratio"><span class="nav-text">Can an image fit its container with aspect ratio?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Do-you-know-your-id"><span class="nav-text">Do you know your id?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Where-are-my-children"><span class="nav-text">Where are my children?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Give-me-some-animated-SVG"><span class="nav-text">Give me some animated SVG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-an-element-removes-itself"><span class="nav-text">How an element removes itself?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Same-CSS-weird-flexbox-behavior"><span class="nav-text">Same CSS, weird flexbox behavior</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXTRA-Read-the-fxxking-standard-before-using-custom-elements"><span class="nav-text">(EXTRA) Read the fxxking standard before using custom elements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools-for-dealing-with-compatible-issues"><span class="nav-text">Tools for dealing with compatible issues</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Compatible-tables"><span class="nav-text">Compatible tables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cross-browser-testing-services"><span class="nav-text">Cross browser testing services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-machines"><span class="nav-text">Virtual machines</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-text">Conclusion</span></a></li></ol></div>
             
 
           </div>
@@ -630,7 +740,7 @@
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
 
 
         
@@ -736,6 +846,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://weihang-lo.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://weihanglo.github.io/2017/days-with-internet-explorer/';
+          this.page.identifier = '2017/days-with-internet-explorer/';
+          this.page.title = '與 IE 相處的日子';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://weihang-lo.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -748,10 +878,6 @@
   
 
 
-
-
-
-  
 
 
 

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -116,7 +116,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.2',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -150,6 +150,15 @@
 
 
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-90000579-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
 
 
 
@@ -179,7 +188,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">/dev/Weihang</p>
+        <h1 class="site-subtitle" itemprop="description">/dev/Weihang</h1>
       
   </div>
 
@@ -202,9 +211,15 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            Archives
           </a>
         </li>
       
@@ -258,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">理解 Swift Generics</h1>
+          <h2 class="post-title" itemprop="name headline">理解 Swift Generics</h2>
         
 
         <div class="post-meta">
@@ -284,6 +299,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/swift-generics/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/swift-generics/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -291,6 +317,24 @@
 
           
 
+          
+            <div class="post-wordcount">
+              
+
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11
+                </span>
+              
+            </div>
           
 
           
@@ -442,6 +486,24 @@
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Weihang Lo
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://weihanglo.github.io/2017/swift-generics/" title="理解 Swift Generics">https://weihanglo.github.io/2017/swift-generics/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -506,6 +568,13 @@
           
   <div class="comments" id="comments">
     
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
   </div>
 
 
@@ -550,7 +619,7 @@
           
             <div class="site-state-item site-state-posts">
             
-              <a href="/archives">
+              <a href="/archives/">
             
                 <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">posts</span>
@@ -577,9 +646,50 @@
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weihanglo" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/weihanglo" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                    
+                      FB Page
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/weihanglo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                    
+                      Twitter
+                    
+                </a>
+              </span>
+            
+          
         </div>
 
         
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
         
 
         
@@ -600,7 +710,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">1.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Functions"><span class="nav-number">2.</span> <span class="nav-text">Generic Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Types"><span class="nav-number">3.</span> <span class="nav-text">Generic Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-Constraints"><span class="nav-number">4.</span> <span class="nav-text">Type Constraints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Parameter-Clause"><span class="nav-number">5.</span> <span class="nav-text">Generic Parameter Clause</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Associated-Types"><span class="nav-number">6.</span> <span class="nav-text">Associated Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Where-Clauses"><span class="nav-number">7.</span> <span class="nav-text">Generic Where Clauses</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-Thoughts-of-Generics"><span class="nav-number">8.</span> <span class="nav-text">Some Thoughts of Generics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">9.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Functions"><span class="nav-text">Generic Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Types"><span class="nav-text">Generic Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-Constraints"><span class="nav-text">Type Constraints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Parameter-Clause"><span class="nav-text">Generic Parameter Clause</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Associated-Types"><span class="nav-text">Associated Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Where-Clauses"><span class="nav-text">Generic Where Clauses</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-Thoughts-of-Generics"><span class="nav-text">Some Thoughts of Generics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
@@ -637,7 +747,7 @@
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
 
 
         
@@ -743,6 +853,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://weihang-lo.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://weihanglo.github.io/2017/swift-generics/';
+          this.page.identifier = '2017/swift-generics/';
+          this.page.title = '理解 Swift Generics';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://weihang-lo.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -755,10 +885,6 @@
   
 
 
-
-
-
-  
 
 
 
