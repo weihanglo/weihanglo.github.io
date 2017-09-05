@@ -105,7 +105,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-05T15:16:48.000Z">
+<meta property="og:updated_time" content="2017-09-05T15:45:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
 <meta name="twitter:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
@@ -492,7 +492,7 @@
 <p>有最低，當然就有最高，<strong>Big-endian</strong> 則是從「最高有效位（MSB，most significant byte）」開始存取。因此照著記憶體位址依序讀取，會得到跟記憶體 offset 順序相同的 <code>0x11223344</code>。Big-endian 雖然在個人電腦中不常見，但許多網路協議和設備都是採用 Big-endian 存取資料，佔有一定的重要性。</p>
 <p>Little-endian 和 Big-endian 可以視為不同的電腦（CPU）講不同的語言，一個從右到左，另一個從左到右。其實在人類日常生活中也可以看到相同的現象，例如歐洲常用的日期格式為 day-month-year，ISO 國際標準則反之 year-month-day，所以，當你看到一個 17-09-07 的日期時，必須先判斷是否為 ISO 的標準，才能知道這場約會是在下禮拜的九月七日，抑或你需要一台時光機回到過去。</p>
 <p><strong>Q：那在 JavaScipt 要如何處理 endian？</strong></p>
-<p>如果不碰底層的記憶體操作，寫 JavaScript 是不用理會 endianness 的，但當你要操作 TypedArray 時，了解 data 的 endian 就至關重要了。<code>TypedArray</code> 預設是使用系統的 endianness，所以如果你接受一筆資料和系統的 endianness，TypedArray 便使不上力。而前面介紹到 DataView 的 byte getter／setter 最後一個參數就是用來決定以哪種 byte order 存取資料，預設是 Big-endian（<code>false</code>），透過切換這個 flag，任何 binary data 都橫看成嶺側成峰了。</p>
+<p>如果不碰底層的記憶體操作，寫 JavaScript 是不用理會 endianness 的，但當你要操作 TypedArray 時，了解 data 的 endian 就至關重要了。<code>TypedArray</code> 預設是使用系統的 endianness，所以如果你接收一筆資料，與你的系統的 endianness 不一致，TypedArray 便使不上力。而前面介紹到 DataView 的 byte getter／setter 最後一個參數就是用來決定以哪種 byte order 存取資料，預設是 Big-endian（<code>false</code>），透過切換這個 flag，任何 binary data 都橫看成嶺側成峰了。</p>
 <p><strong>Q：那我們要如何得知資料的 byte order？</strong></p>
 <p>如果資料是自己家內部系統使用，其實溝通好就 OK，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，我們可以透過 <a href="https://en.wikipedia.org/wiki/Byte_order_mark#UTF-16" target="_blank" rel="external">BOM（byte order mark）</a>來判斷資料屬於那種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過，並不是每個資料都會加上這個 header，而且有時候我們不需要 BOM 資訊，使用資料前還必須先 <a href="https://www.npmjs.com/package/strip-bom" target="_blank" rel="external">strip bom</a>，說實話挺麻煩的。</p>
 <h3 id="Data-Structure-Alignment"><a href="#Data-Structure-Alignment" class="headerlink" title="Data Structure Alignment"></a>Data Structure Alignment</h3><p>要接觸底層的記憶體，免不了瞭解 CPU 如何從記憶體中讀取資料，記憶體底層到底如何配置。</p>
