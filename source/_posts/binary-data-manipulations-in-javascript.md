@@ -144,7 +144,7 @@ const u16 = new Uint16Array(4)
 const u8 = new Uint8Array(u16) // length of u8 is 4
 ```
 
-這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 [wiki-endianness][wiki-endianness] 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。
+這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 [endianness][wiki-endianness] 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。
 
 **從 ArrayBuffer 建立**
 
@@ -295,7 +295,7 @@ Little-endian 和 Big-endian 可以視為不同的電腦（CPU）講不同的語
 
 **Q：那在 JavaScipt 要如何處理 endian？**
 
-如果不碰底層的記憶體操作，寫 JavaScript 是不用理會 endianness 的，但當你要操作 TypedArray 時，了解 data 的 endian 就至關重要了。`TypedArray` 預設是使用系統的 endianness，所以如果你接受一筆資料和系統的 endianness，TypedArray 便使不上力。而前面介紹到 DataView 的 byte getter／setter 最後一個參數就是用來決定以哪種 byte order 存取資料，預設是 Big-endian（`false`），透過切換這個 flag，任何 binary data 都橫看成嶺側成峰了。
+如果不碰底層的記憶體操作，寫 JavaScript 是不用理會 endianness 的，但當你要操作 TypedArray 時，了解 data 的 endian 就至關重要了。`TypedArray` 預設是使用系統的 endianness，所以如果你接收一筆資料，與你的系統的 endianness 不一致，TypedArray 便使不上力。而前面介紹到 DataView 的 byte getter／setter 最後一個參數就是用來決定以哪種 byte order 存取資料，預設是 Big-endian（`false`），透過切換這個 flag，任何 binary data 都橫看成嶺側成峰了。
 
 **Q：那我們要如何得知資料的 byte order？**
 
@@ -311,7 +311,7 @@ Little-endian 和 Big-endian 可以視為不同的電腦（CPU）講不同的語
 struct AlignDemo {
   char c;     // 1 byte
   int i;      // 4 bytes
-  shor s;      // 2 bytes
+  short s;      // 2 bytes
 };
 ```
 
@@ -337,7 +337,7 @@ struct AlignDemo {
   char c;
   char padding_0[3]; // 填充用成員
   int i;
-  shor s;
+  short s;
   char padding_1[2];
 };
 
@@ -360,7 +360,7 @@ p = padding 所佔的 byte
 struct AlignDemo {
   int i;
   char c;
-  shor s;
+  short s;
   char padding[0]
 };
 ```
@@ -405,7 +405,7 @@ new Uint32Array(buffer, 0)
 - `type`：blob 實例的 [MIME type][wiki-mime]。
 - `slice`：切割一部分的 blob 實例，返回新的 blob。
 
-Blob 寫在 [W3C File API draft][w3c-blob] 中，時 `File` class 的父類別。主要目的是為了代表與儲存 JavaScript native 以外的格式，例如圖檔。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。除了 File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！
+Blob 的 spec 寫在 [W3C File API draft][w3c-blob] 中，為 `File` class 的父類別。主要目的是提供可代表與儲存 JavaScript native 以外的格式，例如以 blob 儲存 **死肥宅.jpg**。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。此外，File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！
 
 而 Blob 最強大的地方就是配合 `URL.createObjectURL` 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 `Image`、`ImageData`、`MediaSource`，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。
 

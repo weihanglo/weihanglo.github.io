@@ -99,7 +99,7 @@ Another issue is related to platform differences. Not all API on iOS could meet 
 
 As far as you dive into mobile app development, you will find that the basic API of React Native are always not enough to use. Instead, you would aware yourself stackoverflowing around and looking for other out-of-the-box libraries to use immediately. Although there are hundreds of open source libraries for cross platform React Native development, every single library is written in at least two different programming language to accomplish its purpose, and that means double knowledge and cost are included. From build system to rendering API, each platform needs specific approaches to optimize all aspects. Therefore, you shall not treat those libraries as normal JavaScript modules. Native development is that hard.
 
-> As an iOS developer, if there is no library that meets your needs, you need to tell your boss to recruit a real Android man for help, or pay you double to learn the whole new Android development stack.
+> As an iOS developer, if there is no any React Native module that meets your needs, you need to tell your boss to recruit a real Android man for help, or pay you double to learn the whole new Android development stack.
 
 [f8app-design]: http://makeitopen.com/tutorials/building-the-f8-app/design/
 
@@ -116,7 +116,7 @@ React Native uses `JavaScriptCore` to handle all JavaScript code, request for re
 
 When we wants to do some heavy computation like encryption or data transformation, all user interactions will be stuck without any feedback because all JavaScript code is run under a single-threaded JavaScript engine. That's not acceptable for an app concerned with user experience. Though we can [do some tricks][perf-responsive] with the help of JavaScript message queue, the heavy computation still awaits there and gets ready for blocking the main thread.
 
-On Cocoa, we have the wonderful [Grand Central Dispatch][gcd] (`Dispatch` framework in Swift 3), which abstracts thread management for us to do concurrent jobs. In React Native, if we want to manage real threads on our own, the only way is leaking abstractions. We need to write a native module creating another `JSVirtualMachine` and exposes API to React Native. Sounds great, but also like an terrifying obstacle to those not familiar with native. You should always consider performance issue in comparison between JavaScript and native solutions (Hi Electron, I am talking to you).
+On Cocoa, we have the wonderful [Grand Central Dispatch][gcd] (`Dispatch` framework in Swift 3), which abstracts thread management for us to do concurrent jobs. In React Native, if we want to manage real threads on our own, the only way is leaking abstractions. We need to write a native module creating another `JSVirtualMachine` and expose API to React Native. Sounds great, but also like an terrifying obstacle to those not familiar with native. You should always consider performance issue in comparison between JavaScript and native solutions (Hi Electron, I am talking to you).
 
 [perf-responsive]: https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive
 [gcd]: https://en.wikipedia.org/wiki/Grand_Central_Dispatch
