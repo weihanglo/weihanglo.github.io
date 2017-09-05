@@ -105,7 +105,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-05T15:13:43.000Z">
+<meta property="og:updated_time" content="2017-09-05T15:16:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
 <meta name="twitter:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
@@ -448,7 +448,7 @@
 <p><strong>從 TypedArray 建立</strong></p>
 <p>我們也可以從其他 TypedArray 建立相同長度的 TypedArray，會指向同一個 buffer。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> u8 = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(u16) <span class="comment">// length of u8 is 4</span></div></pre></td></tr></table></figure>
-<p>這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 <a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">wiki-endianness</a> 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。</p>
+<p>這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 <a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">endianness</a> 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。</p>
 <p><strong>從 ArrayBuffer 建立</strong></p>
 <p>不過，也可以透過 <code>TypedArray#buffer</code> 取得並共享當前的 buffer，該 array 的記憶體區間就會是連續的。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 因為 buffer 總共有 4 * 2 = 8 bytes，所以 u8_continuous 長度為 8</span></div><div class="line"><span class="keyword">const</span> u8_continuous = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(u16.buffer)</div></pre></td></tr></table></figure>
