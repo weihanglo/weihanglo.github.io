@@ -4,6 +4,7 @@ tags:
   - JavaScript
   - Endianness
   - Binary Data
+  - Memory Alignment
 date: 2017-09-03 23:35:55
 ---
 
@@ -17,17 +18,17 @@ _（撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）_
 
 ## Introduction
 
-由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 像 C 指標般操作 binary data 變得至關重要。
+由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
 
-存在許久但最近才變為 ES6 標準 **Typed Array** 就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
+存在許久但最近才變為 ES6 標準「**Typed Array**」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 
 ## Buffer v.s View
 
-ES6 引入的 [Typed Array 家族][mdn-typedarrays]，可以分為兩大類 **Buffer** 與 **View**。
+ES6 引入的 [Typed Array 家族][mdn-typedarrays]，可以分為兩大類：**Buffer** 與 **View**。
 
-所謂 **Buffer** 是一個指向儲資料的記憶體區塊之物件，類似於 `malloc` 配置出來的空間，無法直接存取或修改 buffer 內部的資料，在 JavaScript 中 Buffer 的實作就是 `ArrayBuffer`。
+所謂 **Buffer** 是一個指向儲存資料的記憶體區塊之物件，類似於 `malloc` 配置出來的空間，無法直接存取或修改 buffer 內部的資料，在 JavaScript 中 Buffer 的實作就是 `ArrayBuffer`。
 
-如果我們想存取某些 buffer 底下的內容，我們需要 **View**（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取，抑或 unsigned integer 來操作。
+如果我們想存取某些 buffer 底下的內容，我們需要 **View**（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取呢？抑或以 unsigned integer 來操作。
 
 ES6 規範了三個 Typed Array 相關物件，對應類別如下：
 
@@ -35,7 +36,7 @@ ES6 規範了三個 Typed Array 相關物件，對應類別如下：
 - `TypedArray`：View，儲存固定型別資料的 Array，例如 `Uint8Array`（8-bit unsigned integer）、`Float64Array`（64-bit IEEE floating point number)。
 - `DataView`：View，不限制型別，可自定義從哪個 byte，以什麼型別，用哪種 byte order（endian）存取。
 
-## `ArrayBuffer`
+## ArrayBuffer
 
 [ArrayBuffer][mdn-arraybuffer] 代表一段固定大小的記憶體區塊，也稱為 byte-array。主要的功能就是配置實體記憶體來儲存 raw binary data。一般很少直接操作 ArrayBuffer，實際上也只能將其 reference 傳給其他物件，讓其他物件來處理／使用資料。
 
@@ -85,13 +86,13 @@ function handleFiles (files) { // files -> FileList 物件，裡面有 File 實�
 }
 ```
 
-## `TypedArray`
+## TypedArray
 
-TypedArray 並非任何一個型別，也非全域可取得的建構函數，而是一個抽象概念，對應到許多不同型別的 Array。老實說，TypedArray 這兩個字的命名其實已說明一切，我們說文解字，先從 Typed 講起。
+TypedArray 並非任何一個型別，也非全域可取得的建構函數，而是一個抽象概念，對應到許多不同型別的 Array 罷了。老實說，TypedArray 這個的命名已說明一切，讓我來說文解字，先從 Typed 講起。
 
 ### Types of TypedArray
 
-所謂的 Typed，意指「**限定型別**」，Array 中的元素都是同一種型別。有哪些型別呢？TypedArray 是為了操作 binary 而生，當然只有最底層的型別，我們可以根據需求決定每個元素該從 raw data 讀取多少與如何讀取 bytes。
+所謂的 Typed，意指「**限定型別**」，Array 中的元素都是同一種型別。有哪些型別呢？TypedArray 是為了操作 binary 而生，當然只有最底層以 bytes 為基礎，幾乎沒有什麼抽象概念的型別。我們可根據需求，決定每個元素該從 raw data 讀取多少與如何讀取 bytes。
 
 目前 ES6 定義以下幾種 typed array types：
 
@@ -119,7 +120,7 @@ TypedArray 並非任何一個型別，也非全域可取得的建構函數，而
 
 ### Array-like Methods
 
-而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「**在 ArrayBuffer 的資料之上，架一層可存取 Array API**」。你想得到的 method `map`、`filter`、`reduce` 幾乎應有盡有，而 `push`、`shift`、`unshift`、`splice` 這類會改變 Array 長度的 **Mutator methods** 沒有實作（就只是 buffer 的 reference，`pop` 後資料還是在那裡啊 XD）。
+而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「**在 ArrayBuffer 的資料之上，架一層可存取資料的 Array API**」。你想得到的 method `map`、`filter`、`reduce` 幾乎應有盡有，而 `push`、`shift`、`unshift`、`splice` 這類會改變 Array 長度的 **Mutator methods** 沒有實作（就只是 buffer 的 reference，`pop` 後資料還是在那裡啊 XD）。
 
 比較好玩的是 `TypedArray#subarray`，和 `slice` 同樣是回傳陣列切片，`slice` 是回傳一個淺拷貝（shallow-copy））的新 Array，而 `subarray` 則是在同一個 buffer 繼續切片，`TypedArray#buffer` 會取得相同的 buffer，`TypedArray#byteOffset` 也是根據原始 buffer 計算 offset。
 
@@ -143,7 +144,7 @@ const u16 = new Uint16Array(4)
 const u8 = new Uint8Array(u16) // length of u8 is 4
 ```
 
-這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 [endianness][endianness] 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。
+這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 [wiki-endianness][wiki-endianness] 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。
 
 **從 ArrayBuffer 建立**
 
@@ -191,9 +192,9 @@ Uint8Array.of(0xff, 0x100)
 // 0
 ```
 
-> Note：underflow，處理方式也相同。
+> Note：underflow 的處理方式與 overflow 相同。
 
-### What is `Uint8ClampedArray`
+### What is Uint8ClampedArray
 
 Clamp 的本意是鉗子，在計算機科學中，通常意味將資料值限制在特定範圍間。而 `Uint8ClampedArray` 中，就是將元素值限制在 0 - 255。換句話說，就是處理溢位的規則與 `Uint8Array` 不同。**當 overflow 時，該值會等於最大值 255；當 underflow 時，該值會等於 0**。
 
@@ -245,7 +246,7 @@ salaryView[0] = 10000
 
 顧名思義，**DataView** 是一種建構在 buffer 之上的 view。與一般 TypedArray 不同的是，建構 DataView 時並不會固定的資料型別，取而代之的是存取 data 時，必須明確的指定從哪個 byte offset 取哪一種 data type 出來。
 
-我們借用前例的複合資料來示範，`DataView` 如何針對每個 bytes 處理自定義的資料。
+借用前例的複合資料來示範，`DataView` 如何針對每個 bytes 處理自定義的資料。
 
 ```javascript
 const dv = new DataView(buffer)
@@ -258,7 +259,7 @@ dv.setFloat32(8, 200000, true)
 dv.getFloat32(8, true) // 加薪囉！！
 ```
 
-各位有沒有注意到 DataView 的 bytes getter／setter 最後面都多帶了一個 boolean 參數？這個參數是指定使用 Little-endian 讀取資料，預設為 `false` 也就是以 Big-endian 讀取。可控制 endian 是 DataView 蠻重要但也頗惱人的特性，在下一節會介紹 Endianness。
+各位有沒有注意到，DataView 的 bytes getter／setter 最後面都多帶了一個 boolean 參數？這個參數是指定使用 Little-endian 讀取資料，預設為 `false` 也就是以 Big-endian 讀取。可控制 endian 是 DataView 蠻重要但也頗惱人的特性，在下一節會介紹 Endianness。
 
 DataView 另一個重要特性就是不會 [buffer overflow][wiki-buffer-overflow]，所謂的 buffer overflow 是當寫入一筆資料到指定 buffer 中，萬一寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個的 byte。buffer overflow 同時是許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間。
 
@@ -266,7 +267,7 @@ DataView 另一個重要特性就是不會 [buffer overflow][wiki-buffer-overflo
 
 Typed Arrays 幾乎可以做到如同 C 語言般的記憶體操作，十分強大。不過越是自由的 API，就代表要學習更多知識，注意更多細節，以下是操作 TypedArray 該銘記在心的事情：
 
-- [Endianess (Byte order)][wiki-endianness]
+- [Endianness (Byte order)][wiki-endianness]
 - [Data Structure Alignment][wiki-alignment]
 
 ### Endianness (Byte order)
@@ -298,7 +299,7 @@ Little-endian 和 Big-endian 可以視為不同的電腦（CPU）講不同的語
 
 **Q：那我們要如何得知資料的 byte order？**
 
-如果資料是自己內部系統使用，其實溝通好就好，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，有時候我們可以透過 [BOM（byte order mark）][wiki-bom]來判斷資料屬於那種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過並不是每一個資料都會加上這個 header，有時候必須先 [strip bom][npm-strip-bom]，說實話挺麻煩的。
+如果資料是自己家內部系統使用，其實溝通好就 OK，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，我們可以透過 [BOM（byte order mark）][wiki-bom]來判斷資料屬於那種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過，並不是每個資料都會加上這個 header，而且有時候我們不需要 BOM 資訊，使用資料前還必須先 [strip bom][npm-strip-bom]，說實話挺麻煩的。
 
 ### Data Structure Alignment
 
@@ -325,7 +326,7 @@ i = int 所佔的 byte
 | [c] [i] [i] [i] | [i] [s] [s] [ ] |
 ```
 
-前面提到 CPU 是以 word-size 存取記憶體上的資料，當我們嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需要取一次 word chunk 就可以。然而，當我想要取得 int 時，CPU 需先取第一個 data chunk 以獲取前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得最後一個 bytes。多餘的記憶體存取 會造成 CPU 額外的負擔。
+前面提到 CPU 是以 word-size 存取記憶體上的資料，當我們嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需要取一次 word chunk 就可以。然而，當我想要取得 int 時，CPU 需先取第一個 data chunk 以獲取前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得最後一個 bytes。多餘的記憶體存取會造成 CPU 額外的負擔。
 
 解決方法是 **Data Structure Padding**，也就是在資料無法對齊 word-size 時，加上一些填充用的成員。
 
@@ -408,7 +409,7 @@ Blob 寫在 [W3C File API draft][w3c-blob] 中，時 `File` class 的父類別�
 
 而 Blob 最強大的地方就是配合 `URL.createObjectURL` 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 `Image`、`ImageData`、`MediaSource`，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。
 
-當我們建立 Blob URL 之後，若之後不需要用到該 URL，就該使用 `URL.revokeObjectURL` 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！
+當我們建立 Blob URL 後，若可預期的未來內不需要用到該 URL，就使用 `URL.revokeObjectURL` 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！
 
 ## Wrap-up
 

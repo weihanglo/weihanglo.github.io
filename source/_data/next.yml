@@ -6,7 +6,7 @@
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "javascript, swift, ios"
+keywords: "javascript, swift, ios, software"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -86,20 +86,15 @@ scheme: Mist
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/weihanglo || github
-  FB Page: https://www.facebook.com/weihanglo || facebook
+  Facebook: https://www.facebook.com/weihanglo || facebook
   Twitter: https://twitter.com/weihanglo || twitter
+  Pocket: https://getpocket.com/@weihanglo || get-pocket 
   #E-Mail: mailto:yourname@gmail.com || envelope
-  #Google: https://plus.google.com/yourname || google
-  #VK Group: https://vk.com/yourname || vk
-  #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
-  #YouTube: https://youtube.com/yourname || youtube
-  #Instagram: https://instagram.com/yourname || instagram
-  #Skype: skype:yourname?call|chat || skype
 
 social_icons:
   enable: true
-  icons_only: false
-  transition: false
+  icons_only: true
+  transition: true
 
 # Blog rolls
 #links_title: Links
@@ -152,7 +147,7 @@ sidebar:
   b2t: false
 
   # Scroll percent label in b2t button
-  scrollpercent: false
+  scrollpercent: true
   
   # Enable sidebar on narrow view
   onmobile: false
@@ -163,7 +158,7 @@ sidebar:
 # ---------------------------------------------------------------
 
 # Automatically scroll page to section which is under <!-- more --> mark.
-scroll_to_more: true
+scroll_to_more: false
 
 # Automatically saving scroll position on each post/page in cookies.
 save_scroll: false
@@ -217,7 +212,7 @@ post_copyright:
 # ---------------------------------------------------------------
 
 # Reduce padding / margin indents on devices with narrow width.
-mobile_layout_economy: true
+mobile_layout_economy: false
 
 # Android Chrome header panel color ($black-deep).
 android_chrome_color: "#222"
