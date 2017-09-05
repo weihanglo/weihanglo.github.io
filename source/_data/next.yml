@@ -85,7 +85,7 @@ scheme: Mist
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
-  GitHub: https://github.com/weihanglo || github
+  Github: https://github.com/weihanglo || github
   Facebook: https://www.facebook.com/weihanglo || facebook
   Twitter: https://twitter.com/weihanglo || twitter
   Pocket: https://getpocket.com/@weihanglo || get-pocket 
@@ -106,7 +106,7 @@ social_icons:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-#avatar: /images/avatar.gif
+avatar: https://secure.gravatar.com/avatar/67644641ead7ae60a795a14b7e102973
 
 # Table Of Contents in the Sidebar
 toc:
@@ -148,7 +148,7 @@ sidebar:
 
   # Scroll percent label in b2t button
   scrollpercent: true
-  
+
   # Enable sidebar on narrow view
   onmobile: false
 
@@ -230,7 +230,7 @@ custom_logo:
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 
 # ---------------------------------------------------------------
@@ -251,7 +251,7 @@ font:
   global:
     # external: true will load this font family from host.
     external: true
-    family: Lato
+    family: Fira Sans
 
   # Font settings for Headlines (h1, h2, h3, h4, h5, h6)
   # Fallback to `global` font settings.
