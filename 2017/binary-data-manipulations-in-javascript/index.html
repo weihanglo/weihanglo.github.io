@@ -105,7 +105,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-05T15:45:25.000Z">
+<meta property="og:updated_time" content="2017-09-09T09:13:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
 <meta name="twitter:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
@@ -524,7 +524,7 @@
 <li><code>type</code>：blob 實例的 <a href="https://en.wikipedia.org/wiki/MIME" target="_blank" rel="external">MIME type</a>。</li>
 <li><code>slice</code>：切割一部分的 blob 實例，返回新的 blob。</li>
 </ul>
-<p>Blob 寫在 <a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">W3C File API draft</a> 中，時 <code>File</code> class 的父類別。主要目的是為了代表與儲存 JavaScript native 以外的格式，例如圖檔。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。除了 File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！</p>
+<p>Blob 的 spec 寫在 <a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">W3C File API draft</a> 中，為 <code>File</code> class 的父類別。主要目的是提供可代表與儲存 JavaScript native 以外的格式，例如以 blob 儲存 <strong>死肥宅.jpg</strong>。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。此外，File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！</p>
 <p>而 Blob 最強大的地方就是配合 <code>URL.createObjectURL</code> 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 <code>Image</code>、<code>ImageData</code>、<code>MediaSource</code>，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。</p>
 <p>當我們建立 Blob URL 後，若可預期的未來內不需要用到該 URL，就使用 <code>URL.revokeObjectURL</code> 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！</p>
 <h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code> API，高效能的 web app 指日可待。如果再加上逐漸普及，<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，JavaScript／Web 的世界更是不可限量啊，使用 Rust 寫網頁的世代即將來臨 XD。</p>
