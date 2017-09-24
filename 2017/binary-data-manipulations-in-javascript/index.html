@@ -105,7 +105,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-24T01:54:55.000Z">
+<meta property="og:updated_time" content="2017-09-24T02:27:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
 <meta name="twitter:description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
@@ -527,7 +527,7 @@
 <p>而 Blob 最強大的地方就是配合 <code>URL.createObjectURL</code> 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 <code>Image</code>、<code>ImageData</code>、<code>MediaSource</code>，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。</p>
 <p>當我們建立 Blob URL 後，若可預期的未來內不需要用到該 URL，就使用 <code>URL.revokeObjectURL</code> 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！</p>
 <h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code> API，高效能的 web app 指日可待。如果再加上逐漸普及，<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，JavaScript／Web 的世界更是不可限量啊，使用 Rust 寫網頁的世代即將來臨 XD。</p>
-<p>前端工程師們，活到老，學到死吧！</p>
+<p>前端工程師們，活到老，學到掛吧！</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer" target="_blank" rel="external">MDN: ArrayBuffer</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" target="_blank" rel="external">MDN: TypedArray</a></li>
