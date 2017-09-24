@@ -95,20 +95,20 @@
 
 
 
-<meta name="description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
+<meta name="description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
 <meta name="keywords" content="JavaScript,Endianness,Binary Data,Memory Alignment">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Binary Data Manipulations in JavaScript">
 <meta property="og:url" content="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/index.html">
 <meta property="og:site_name" content="Weihang Lo">
-<meta property="og:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
+<meta property="og:description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-09T09:13:46.000Z">
+<meta property="og:updated_time" content="2017-09-24T01:54:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
-<meta name="twitter:description" content="本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！ （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）">
+<meta name="twitter:description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
 <meta name="twitter:image" content="https://i.imgur.com/Mx1Rbus.png">
 
 
@@ -354,11 +354,10 @@
 
       
         <p><img src="https://i.imgur.com/Mx1Rbus.png" alt=""></p>
-<p>本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！</p>
+<p>由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。</p>
+<p>存在許久但最近才變為 ES6 標準「<strong>Typed Array</strong>」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！</p>
 <p><em>（撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）</em></p>
 <a id="more"></a>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。</p>
-<p>存在許久但最近才變為 ES6 標準「<strong>Typed Array</strong>」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！</p>
 <h2 id="Buffer-v-s-View"><a href="#Buffer-v-s-View" class="headerlink" title="Buffer v.s View"></a>Buffer v.s View</h2><p>ES6 引入的 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" target="_blank" rel="external">Typed Array 家族</a>，可以分為兩大類：<strong>Buffer</strong> 與 <strong>View</strong>。</p>
 <p>所謂 <strong>Buffer</strong> 是一個指向儲存資料的記憶體區塊之物件，類似於 <code>malloc</code> 配置出來的空間，無法直接存取或修改 buffer 內部的資料，在 JavaScript 中 Buffer 的實作就是 <code>ArrayBuffer</code>。</p>
 <p>如果我們想存取某些 buffer 底下的內容，我們需要 <strong>View</strong>（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取呢？抑或以 unsigned integer 來操作。</p>
@@ -782,7 +781,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer-v-s-View"><span class="nav-text">Buffer v.s View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayBuffer"><span class="nav-text">ArrayBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypedArray"><span class="nav-text">TypedArray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-TypedArray"><span class="nav-text">Types of TypedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-like-Methods"><span class="nav-text">Array-like Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consturct-a-TypedArray"><span class="nav-text">Consturct a TypedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overflow"><span class="nav-text">Overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Uint8ClampedArray"><span class="nav-text">What is Uint8ClampedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Composite-Data-Structure"><span class="nav-text">Composite Data Structure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataView"><span class="nav-text">DataView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Precautions"><span class="nav-text">Precautions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Endianness-Byte-order"><span class="nav-text">Endianness (Byte order)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Structure-Alignment"><span class="nav-text">Data Structure Alignment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-Buffer"><span class="nav-text">Node.js Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-API-Blob"><span class="nav-text">Web API Blob</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrap-up"><span class="nav-text">Wrap-up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer-v-s-View"><span class="nav-text">Buffer v.s View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayBuffer"><span class="nav-text">ArrayBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypedArray"><span class="nav-text">TypedArray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-TypedArray"><span class="nav-text">Types of TypedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-like-Methods"><span class="nav-text">Array-like Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consturct-a-TypedArray"><span class="nav-text">Consturct a TypedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overflow"><span class="nav-text">Overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Uint8ClampedArray"><span class="nav-text">What is Uint8ClampedArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Composite-Data-Structure"><span class="nav-text">Composite Data Structure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataView"><span class="nav-text">DataView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Precautions"><span class="nav-text">Precautions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Endianness-Byte-order"><span class="nav-text">Endianness (Byte order)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Structure-Alignment"><span class="nav-text">Data Structure Alignment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-Buffer"><span class="nav-text">Node.js Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-API-Blob"><span class="nav-text">Web API Blob</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrap-up"><span class="nav-text">Wrap-up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
