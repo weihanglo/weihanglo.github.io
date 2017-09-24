@@ -10,17 +10,13 @@ date: 2017-09-03 23:35:55
 
 ![](https://i.imgur.com/Mx1Rbus.png)
 
-本文介紹 JavaScript 開發者不可不知，操作 binary data 的靈魂，Typed Array 們！
+由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
+
+存在許久但最近才變為 ES6 標準「**Typed Array**」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 
 _（撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）_
 
 <!-- more -->
-
-## Introduction
-
-由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
-
-存在許久但最近才變為 ES6 標準「**Typed Array**」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 
 ## Buffer v.s View
 
@@ -120,9 +116,11 @@ TypedArray 並非任何一個型別，也非全域可取得的建構函數，而
 
 ### Array-like Methods
 
-而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「**在 ArrayBuffer 的資料之上，架一層可存取資料的 Array API**」。你想得到的 method `map`、`filter`、`reduce` 幾乎應有盡有，而 `push`、`shift`、`unshift`、`splice` 這類會改變 Array 長度的 **Mutator methods** 沒有實作（就只是 buffer 的 reference，`pop` 後資料還是在那裡啊 XD）。
+而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「**在 ArrayBuffer 的資料之上，架一層可存取資料的 Array API**」。你想得到的 method `map`、`filter`、`reduce` 幾乎應有盡有，而 `push`、`shift`、`unshift`、`splice` 這類會改變 Array 長度的 **Mutator methods** 沒有實作，畢竟 TypedArray 就只是 buffer 的 reference，`pop` 後原始資料依然存在。
 
-比較好玩的是 `TypedArray#subarray`，和 `slice` 同樣是回傳陣列切片，`slice` 是回傳一個淺拷貝（shallow-copy））的新 Array，而 `subarray` 則是在同一個 buffer 繼續切片，`TypedArray#buffer` 會取得相同的 buffer，`TypedArray#byteOffset` 也是根據原始 buffer 計算 offset。
+比較好玩的是，`TypedArray#subarray` 和 `TypedArray#slice` 同樣是回傳陣列切片，`slice` 是回傳一個淺拷貝（shallow-copy）的**新 Array**，新 array 的 `buffer` property 指向新切出來的 buffer，`byteOffset` 也是依據新的 buffer，所以會是 **0**。
+
+而 `subarray` 則是在同個 buffer 繼續切片，調用 subarray 的 `buffer` 會取得相同的原始 buffer，`byteOffset` 也是根據原始 buffer 計算 offset。
 
 ### Consturct a TypedArray
 
@@ -130,7 +128,7 @@ TypedArray 並非任何一個型別，也非全域可取得的建構函數，而
 
 **直接初始化**
 
-建立一個 4 * 2 bytes 初始值為 0 的 Uint16Array
+建立一個 4 * 2 bytes 初始值為 0 的 Uint16Array。
 
 ```javascript
 const u16 = new Uint16Array(4)
@@ -261,11 +259,11 @@ dv.getFloat32(8, true) // 加薪囉！！
 
 各位有沒有注意到，DataView 的 bytes getter／setter 最後面都多帶了一個 boolean 參數？這個參數是指定使用 Little-endian 讀取資料，預設為 `false` 也就是以 Big-endian 讀取。可控制 endian 是 DataView 蠻重要但也頗惱人的特性，在下一節會介紹 Endianness。
 
-DataView 另一個重要特性就是不會 [buffer overflow][wiki-buffer-overflow]，所謂的 buffer overflow 是當寫入一筆資料到指定 buffer 中，萬一寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個的 byte。buffer overflow 同時是許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間。
+DataView 另一個重要特性就是不會 [buffer overflow][wiki-buffer-overflow]，所謂的 buffer overflow 是「**當寫入一筆資料到指定 buffer 中，若寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個 byte**」。這種不安全的性質，也讓 buffer overflow 成為許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間，彌補了 buffer overflow 的漏洞。
 
 ## Precautions
 
-Typed Arrays 幾乎可以做到如同 C 語言般的記憶體操作，十分強大。不過越是自由的 API，就代表要學習更多知識，注意更多細節，以下是操作 TypedArray 該銘記在心的事情：
+Typed Arrays 幾乎可以做到如同 C 語言般細膩的記憶體操作。不過越是自由的 API，就代表要學習更多知識，注意更多細節，以下是操作 TypedArray 該銘記在心的事情：
 
 - [Endianness (Byte order)][wiki-endianness]
 - [Data Structure Alignment][wiki-alignment]
@@ -299,13 +297,13 @@ Little-endian 和 Big-endian 可以視為不同的電腦（CPU）講不同的語
 
 **Q：那我們要如何得知資料的 byte order？**
 
-如果資料是自己家內部系統使用，其實溝通好就 OK，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，我們可以透過 [BOM（byte order mark）][wiki-bom]來判斷資料屬於那種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過，並不是每個資料都會加上這個 header，而且有時候我們不需要 BOM 資訊，使用資料前還必須先 [strip bom][npm-strip-bom]，說實話挺麻煩的。
+如果資料是自己家內部系統使用，其實溝通好就 OK，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，我們可以透過「[BOM（byte order mark）][wiki-bom]」來判斷資料屬於哪種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過，並不是每個資料都會加上這個 header，而且有時候我們不需要 BOM 資訊，使用資料前還必須先 [strip bom][npm-strip-bom]，說實話挺麻煩的。
 
 ### Data Structure Alignment
 
 要接觸底層的記憶體，免不了瞭解 CPU 如何從記憶體中讀取資料，記憶體底層到底如何配置。
 
-一般來說，現代的 CPU 通常設計以 word 為單位（例如 4 bytes）讀寫記憶體裡的資料，而資料對齊（data aligment）則是將資料放置在 word-size * n 倍的記憶體位址上，使 CPU 以最為有效率的方式讀寫。那為什麼對齊 word-size 會最有效率呢？先假設有一個 C struct 如下：
+一般來說，現代的 CPU 通常設計以 word 為單位（例如 4 bytes）讀寫記憶體裡的資料，而資料對齊（data aligment）則是將資料放置在 word-size * n 倍的記憶體位址上，使 CPU 以最為有效率的方式讀寫。那為什麼對齊 word-size 會最有效率呢？假設有個 C struct 如下：
 
 ```c
 struct AlignDemo {
@@ -326,7 +324,7 @@ i = int 所佔的 byte
 | [c] [i] [i] [i] | [i] [s] [s] [ ] |
 ```
 
-前面提到 CPU 是以 word-size 存取記憶體上的資料，當我們嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需要取一次 word chunk 就可以。然而，當我想要取得 int 時，CPU 需先取第一個 data chunk 以獲取前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得最後一個 bytes。多餘的記憶體存取會造成 CPU 額外的負擔。
+前面提到 CPU 是以 word-size 存取記憶體上的資料，當嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需取一次 word chunk 再 offset 就可取得正確的值。然而，當欲讀取 int 時，CPU 需先取第一個 data chunk 以獲取 int 前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得 int 最後一個 byte。如此多餘的記憶體存取會造成 CPU 額外的負擔。
 
 解決方法是 **Data Structure Padding**，也就是在資料無法對齊 word-size 時，加上一些填充用的成員。
 
@@ -413,9 +411,9 @@ Blob 的 spec 寫在 [W3C File API draft][w3c-blob] 中，為 `File` class 的�
 
 ## Wrap-up
 
-藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 `ShareArrayBuffer` 與 `Atomic` API，高效能的 web app 指日可待。如果再加上逐漸普及，[即將成為 Webpack 一等公民][medium-webpack-awarded] 的 [WebAssembly][wasm]，JavaScript／Web 的世界更是不可限量啊，使用 Rust 寫網頁的世代即將來臨 XD。
+藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 `ShareArrayBuffer` 與 `Atomic` API，高效能的 web app 指日可待。如果再加上逐漸普及，[即將成為 Webpack 一等公民][medium-webpack-awarded] 的 [WebAssembly][wasm]，JavaScript／Web 的世界更是不可限量啊！或許，使用 Rust 寫網頁的世代即將來臨 XD。
 
-前端工程師們，活到老，學到死吧！
+前端工程師們，活到老，學到掛吧！
 
 ## Reference
 
@@ -448,4 +446,3 @@ Blob 的 spec 寫在 [W3C File API draft][w3c-blob] 中，為 `File` class 的�
 [wiki-endianness]: https://en.wikipedia.org/wiki/Endianness
 [wiki-integer-overflow]: https://en.wikipedia.org/wiki/Integer_overflow
 [wiki-mime]: https://en.wikipedia.org/wiki/MIME
-
