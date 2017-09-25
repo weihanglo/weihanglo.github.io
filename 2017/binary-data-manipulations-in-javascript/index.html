@@ -95,20 +95,20 @@
 
 
 
-<meta name="description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
+<meta name="description" content="由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。">
 <meta name="keywords" content="JavaScript,Endianness,Binary Data,Memory Alignment">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Binary Data Manipulations in JavaScript">
 <meta property="og:url" content="https://weihanglo.github.io/2017/binary-data-manipulations-in-javascript/index.html">
 <meta property="og:site_name" content="Weihang Lo">
-<meta property="og:description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
+<meta property="og:description" content="由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/Mx1Rbus.png">
 <meta property="og:image" content="https://mdn.mozillademos.org/files/8629/typed_arrays.png">
-<meta property="og:updated_time" content="2017-09-24T02:27:12.000Z">
+<meta property="og:updated_time" content="2017-09-25T00:26:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Data Manipulations in JavaScript">
-<meta name="twitter:description" content="由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要">
+<meta name="twitter:description" content="由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。">
 <meta name="twitter:image" content="https://i.imgur.com/Mx1Rbus.png">
 
 
@@ -354,7 +354,7 @@
 
       
         <p><img src="https://i.imgur.com/Mx1Rbus.png" alt=""></p>
-<p>由於高度封裝與抽象， JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。</p>
+<p>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。</p>
 <p>存在許久但最近才變為 ES6 標準「<strong>Typed Array</strong>」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！</p>
 <p><em>（撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）</em></p>
 <a id="more"></a>
@@ -438,11 +438,12 @@
 <p><img src="https://mdn.mozillademos.org/files/8629/typed_arrays.png" alt=""></p>
 <p>不同型別的 TypedArray 的元素對應到不同的 byte 數量，這項資訊會記錄在 <code>TypedArray#BYTES_PER_ELEMENT</code> property 上。例如：Uint8Array 一個元素對應到一個 byte，Float64Array 則對應到 8 bytes。</p>
 <p>如果還是無法理解，其實可以將 TypedArray 想像為 C 語言的 <code>void *ptr</code>，在存取、遍歷不同 data type 的 Array 時，轉型（cast）成不同的型別，讓指標根據不同 data type 的 size 做對應 offset。</p>
-<h3 id="Array-like-Methods"><a href="#Array-like-Methods" class="headerlink" title="Array-like Methods"></a>Array-like Methods</h3><p>而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「<strong>在 ArrayBuffer 的資料之上，架一層可存取資料的 Array API</strong>」。你想得到的 method <code>map</code>、<code>filter</code>、<code>reduce</code> 幾乎應有盡有，而 <code>push</code>、<code>shift</code>、<code>unshift</code>、<code>splice</code> 這類會改變 Array 長度的 <strong>Mutator methods</strong> 沒有實作（就只是 buffer 的 reference，<code>pop</code> 後資料還是在那裡啊 XD）。</p>
-<p>比較好玩的是 <code>TypedArray#subarray</code>，和 <code>slice</code> 同樣是回傳陣列切片，<code>slice</code> 是回傳一個淺拷貝（shallow-copy））的新 Array，而 <code>subarray</code> 則是在同一個 buffer 繼續切片，<code>TypedArray#buffer</code> 會取得相同的 buffer，<code>TypedArray#byteOffset</code> 也是根據原始 buffer 計算 offset。</p>
+<h3 id="Array-like-Methods"><a href="#Array-like-Methods" class="headerlink" title="Array-like Methods"></a>Array-like Methods</h3><p>而 TypedArray 中的 Array，其實就是我們熟悉的 JavaScript Array，可視為「<strong>在 ArrayBuffer 的資料之上，架一層可存取資料的 Array API</strong>」。你想得到的 method <code>map</code>、<code>filter</code>、<code>reduce</code> 幾乎應有盡有，而 <code>push</code>、<code>shift</code>、<code>unshift</code>、<code>splice</code> 這類會改變 Array 長度的 <strong>Mutator methods</strong> 沒有實作，畢竟 TypedArray 就只是 buffer 的 reference，<code>pop</code> 後原始資料依然存在。</p>
+<p>比較好玩的是，<code>TypedArray#subarray</code> 和 <code>TypedArray#slice</code> 同樣是回傳陣列切片，<code>slice</code> 是回傳一個淺拷貝（shallow-copy）的<strong>新 Array</strong>，新 array 的 <code>buffer</code> property 指向新切出來的 buffer，<code>byteOffset</code> 也是依據新的 buffer，所以會是 <strong>0</strong>。</p>
+<p>而 <code>subarray</code> 則是在同個 buffer 繼續切片，調用 subarray 的 <code>buffer</code> 會取得相同的原始 buffer，<code>byteOffset</code> 也是根據原始 buffer 計算 offset。</p>
 <h3 id="Consturct-a-TypedArray"><a href="#Consturct-a-TypedArray" class="headerlink" title="Consturct a TypedArray"></a>Consturct a TypedArray</h3><p>建構 TypedArray 非常簡單，選擇好 data type 之後，<code>new</code> 一個就完成了！</p>
 <p><strong>直接初始化</strong></p>
-<p>建立一個 4 * 2 bytes 初始值為 0 的 Uint16Array</p>
+<p>建立一個 4 * 2 bytes 初始值為 0 的 Uint16Array。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> u16 = <span class="keyword">new</span> <span class="built_in">Uint16Array</span>(<span class="number">4</span>)</div></pre></td></tr></table></figure>
 <p><strong>從 TypedArray 建立</strong></p>
 <p>我們也可以從其他 TypedArray 建立相同長度的 TypedArray，會指向同一個 buffer。</p>
@@ -476,8 +477,8 @@
 <p>借用前例的複合資料來示範，<code>DataView</code> 如何針對每個 bytes 處理自定義的資料。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(buffer)</div><div class="line"><span class="comment">// 從 byte offset 0 的位址開始取 Uint32 的資料</span></div><div class="line"><span class="comment">// 取得 ID -&gt; 123</span></div><div class="line">dv.getUint32(<span class="number">0</span>, <span class="literal">true</span>)</div><div class="line"></div><div class="line"><span class="comment">// 從 byte offset 8 的位址開始寫入 Float32 的資料</span></div><div class="line">dv.setFloat32(<span class="number">8</span>, <span class="number">200000</span>, <span class="literal">true</span>)</div><div class="line">dv.getFloat32(<span class="number">8</span>, <span class="literal">true</span>) <span class="comment">// 加薪囉！！</span></div></pre></td></tr></table></figure>
 <p>各位有沒有注意到，DataView 的 bytes getter／setter 最後面都多帶了一個 boolean 參數？這個參數是指定使用 Little-endian 讀取資料，預設為 <code>false</code> 也就是以 Big-endian 讀取。可控制 endian 是 DataView 蠻重要但也頗惱人的特性，在下一節會介紹 Endianness。</p>
-<p>DataView 另一個重要特性就是不會 <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="external">buffer overflow</a>，所謂的 buffer overflow 是當寫入一筆資料到指定 buffer 中，萬一寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個的 byte。buffer overflow 同時是許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間。</p>
-<h2 id="Precautions"><a href="#Precautions" class="headerlink" title="Precautions"></a>Precautions</h2><p>Typed Arrays 幾乎可以做到如同 C 語言般的記憶體操作，十分強大。不過越是自由的 API，就代表要學習更多知識，注意更多細節，以下是操作 TypedArray 該銘記在心的事情：</p>
+<p>DataView 另一個重要特性就是不會 <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="external">buffer overflow</a>，所謂的 buffer overflow 是「<strong>當寫入一筆資料到指定 buffer 中，若寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個 byte</strong>」。這種不安全的性質，也讓 buffer overflow 成為許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間，彌補了 buffer overflow 的漏洞。</p>
+<h2 id="Precautions"><a href="#Precautions" class="headerlink" title="Precautions"></a>Precautions</h2><p>Typed Arrays 幾乎可以做到如同 C 語言般細膩的記憶體操作。不過越是自由的 API，就代表要學習更多知識，注意更多細節，以下是操作 TypedArray 該銘記在心的事情：</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Endianness (Byte order)</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Data_structure_alignment" target="_blank" rel="external">Data Structure Alignment</a></li>
@@ -493,13 +494,13 @@
 <p><strong>Q：那在 JavaScipt 要如何處理 endian？</strong></p>
 <p>如果不碰底層的記憶體操作，寫 JavaScript 是不用理會 endianness 的，但當你要操作 TypedArray 時，了解 data 的 endian 就至關重要了。<code>TypedArray</code> 預設是使用系統的 endianness，所以如果你接收一筆資料，與你的系統的 endianness 不一致，TypedArray 便使不上力。而前面介紹到 DataView 的 byte getter／setter 最後一個參數就是用來決定以哪種 byte order 存取資料，預設是 Big-endian（<code>false</code>），透過切換這個 flag，任何 binary data 都橫看成嶺側成峰了。</p>
 <p><strong>Q：那我們要如何得知資料的 byte order？</strong></p>
-<p>如果資料是自己家內部系統使用，其實溝通好就 OK，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，我們可以透過 <a href="https://en.wikipedia.org/wiki/Byte_order_mark#UTF-16" target="_blank" rel="external">BOM（byte order mark）</a>來判斷資料屬於那種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過，並不是每個資料都會加上這個 header，而且有時候我們不需要 BOM 資訊，使用資料前還必須先 <a href="https://www.npmjs.com/package/strip-bom" target="_blank" rel="external">strip bom</a>，說實話挺麻煩的。</p>
+<p>如果資料是自己家內部系統使用，其實溝通好就 OK，用 Mixed-endian 也不會有人管你。但如果是外界得來的任意資料，我們可以透過「<a href="https://en.wikipedia.org/wiki/Byte_order_mark#UTF-16" target="_blank" rel="external">BOM（byte order mark）</a>」來判斷資料屬於哪種 endianness。BOM 是一個 Unicode  magic number，通常放置在 text stream 的最前端。不過，並不是每個資料都會加上這個 header，而且有時候我們不需要 BOM 資訊，使用資料前還必須先 <a href="https://www.npmjs.com/package/strip-bom" target="_blank" rel="external">strip bom</a>，說實話挺麻煩的。</p>
 <h3 id="Data-Structure-Alignment"><a href="#Data-Structure-Alignment" class="headerlink" title="Data Structure Alignment"></a>Data Structure Alignment</h3><p>要接觸底層的記憶體，免不了瞭解 CPU 如何從記憶體中讀取資料，記憶體底層到底如何配置。</p>
-<p>一般來說，現代的 CPU 通常設計以 word 為單位（例如 4 bytes）讀寫記憶體裡的資料，而資料對齊（data aligment）則是將資料放置在 word-size * n 倍的記憶體位址上，使 CPU 以最為有效率的方式讀寫。那為什麼對齊 word-size 會最有效率呢？先假設有一個 C struct 如下：</p>
+<p>一般來說，現代的 CPU 通常設計以 word 為單位（例如 4 bytes）讀寫記憶體裡的資料，而資料對齊（data aligment）則是將資料放置在 word-size * n 倍的記憶體位址上，使 CPU 以最為有效率的方式讀寫。那為什麼對齊 word-size 會最有效率呢？假設有個 C struct 如下：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AlignDemo</span> &#123;</span></div><div class="line">  <span class="keyword">char</span> c;     <span class="comment">// 1 byte</span></div><div class="line">  <span class="keyword">int</span> i;      <span class="comment">// 4 bytes</span></div><div class="line">  <span class="keyword">short</span> s;      <span class="comment">// 2 bytes</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>理論上的記憶體配置如下，總共需要 7 bytes 的記憶體空間。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">c = char 所佔的 byte</div><div class="line">s = short 所佔的 byte</div><div class="line">i = int 所佔的 byte</div><div class="line"></div><div class="line">| 0x000           | 0x020           |</div><div class="line">| [c] [i] [i] [i] | [i] [s] [s] [ ] |</div></pre></td></tr></table></figure>
-<p>前面提到 CPU 是以 word-size 存取記憶體上的資料，當我們嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需要取一次 word chunk 就可以。然而，當我想要取得 int 時，CPU 需先取第一個 data chunk 以獲取前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得最後一個 bytes。多餘的記憶體存取會造成 CPU 額外的負擔。</p>
+<p>前面提到 CPU 是以 word-size 存取記憶體上的資料，當嘗試讀取 char 和 short 時並沒有什麼問題，CPU 只需取一次 word chunk 再 offset 就可取得正確的值。然而，當欲讀取 int 時，CPU 需先取第一個 data chunk 以獲取 int 前三個 bytes，再取第二個 word chunk 並 shift 資料，以取得 int 最後一個 byte。如此多餘的記憶體存取會造成 CPU 額外的負擔。</p>
 <p>解決方法是 <strong>Data Structure Padding</strong>，也就是在資料無法對齊 word-size 時，加上一些填充用的成員。</p>
 <p>在我們的例子中，可以這樣做：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AlignDemo</span> &#123;</span></div><div class="line">  <span class="keyword">char</span> c;</div><div class="line">  <span class="keyword">char</span> padding_0[<span class="number">3</span>]; <span class="comment">// 填充用成員</span></div><div class="line">  <span class="keyword">int</span> i;</div><div class="line">  <span class="keyword">short</span> s;</div><div class="line">  <span class="keyword">char</span> padding_1[<span class="number">2</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
@@ -526,7 +527,7 @@
 <p>Blob 的 spec 寫在 <a href="https://w3c.github.io/FileAPI/#blob" target="_blank" rel="external">W3C File API draft</a> 中，為 <code>File</code> class 的父類別。主要目的是提供可代表與儲存 JavaScript native 以外的格式，例如以 blob 儲存 <strong>死肥宅.jpg</strong>。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。此外，File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！</p>
 <p>而 Blob 最強大的地方就是配合 <code>URL.createObjectURL</code> 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 <code>Image</code>、<code>ImageData</code>、<code>MediaSource</code>，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。</p>
 <p>當我們建立 Blob URL 後，若可預期的未來內不需要用到該 URL，就使用 <code>URL.revokeObjectURL</code> 取消註冊，否則該 URL 指向的 Blob 會持續留存，佔用你的儲存空間，直到瀏覽器執行 unload document cleanup 的步驟（如關閉分頁），才會將所有 Blob URL 清除。所以說，如需管理 Blob URL，還是老老實實把這些 URL 記錄起來吧！</p>
-<h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code> API，高效能的 web app 指日可待。如果再加上逐漸普及，<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，JavaScript／Web 的世界更是不可限量啊，使用 Rust 寫網頁的世代即將來臨 XD。</p>
+<h2 id="Wrap-up"><a href="#Wrap-up" class="headerlink" title="Wrap-up"></a>Wrap-up</h2><p>藉由這些直接操作 binary data 的 API，現代的 JavaScript 環境的效能提升到另一個層次，若再配合 Web worker  Service worker 等多線程技術，加上線程共享的 <code>ShareArrayBuffer</code> 與 <code>Atomic</code> API，高效能的 web app 指日可待。如果再加上逐漸普及，<a href="https://medium.com/webpack/webpack-awarded-125-000-from-moss-program-f63eeaaf4e15" target="_blank" rel="external">即將成為 Webpack 一等公民</a> 的 <a href="http://webassembly.org/" target="_blank" rel="external">WebAssembly</a>，JavaScript／Web 的世界更是不可限量啊！或許，使用 Rust 寫網頁的世代即將來臨 XD。</p>
 <p>前端工程師們，活到老，學到掛吧！</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer" target="_blank" rel="external">MDN: ArrayBuffer</a></li>
