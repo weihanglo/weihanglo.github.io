@@ -88,7 +88,7 @@ social:
   Github: https://github.com/weihanglo || github
   Facebook: https://www.facebook.com/weihanglo || facebook
   Twitter: https://twitter.com/weihanglo || twitter
-  Pocket: https://getpocket.com/@weihanglo || get-pocket 
+  Pocket: https://getpocket.com/@weihanglo || get-pocket
   #E-Mail: mailto:yourname@gmail.com || envelope
 
 social_icons:
@@ -317,8 +317,8 @@ changyan:
   appid:
   appkey:
 
-    
-# Valine. 
+
+# Valine.
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://github.com/xCss/Valine
 valine:
