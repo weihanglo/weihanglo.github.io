@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://weihanglo.github.io/2017/javascript-concurrency-promise/promise-flow.png">
 <meta property="og:image" content="https://weihanglo.github.io/2017/javascript-concurrency-promise/google-promises.png">
 <meta property="og:image" content="http://i.imgur.com/G3X0H78.jpg">
-<meta property="og:updated_time" content="2017-08-12T12:25:54.000Z">
+<meta property="og:updated_time" content="2017-10-11T03:39:55.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Modern Concurrency in JavaScript - Promises">
 <meta name="twitter:description" content="所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻">
@@ -546,7 +546,7 @@
 <p>最後，這個 sequence chained 起來會像這樣：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Promise</span>.resolve()</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(<span class="number">1234</span>))</div><div class="line">  .then(addStatusToPage)</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(<span class="number">5678</span>))</div><div class="line">  .then(addStatusToPage)</div><div class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(<span class="number">2468</span>))</div><div class="line">  .then(addStatusToPage)</div></pre></td></tr></table></figure>
 <p>不過，比起 imperative 的 <code>Array#forEach</code> ，近來崇尚 declarative 的寫法，這裡使用 <code>Array#reduce</code> 取代。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// reduce 版本的 sequential promise chain</span></div><div class="line">statusIds.reduce(<span class="function"><span class="params">id</span> =&gt;</span> (</div><div class="line">  loadStatus(id)</div><div class="line">    .then(addStatusToPage)</div><div class="line">), <span class="built_in">Promise</span>.resolve())</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// reduce 版本的 sequential promise chain</span></div><div class="line">statusIds.reduce(<span class="function">(<span class="params">sequence, id</span>) =&gt;</span> (</div><div class="line">  sequence.then(<span class="function"><span class="params">()</span> =&gt;</span> loadStatus(id))</div><div class="line">    .then(addStatusToPage)</div><div class="line">), <span class="built_in">Promise</span>.resolve())</div></pre></td></tr></table></figure>
 <p>程式碼又更簡潔明瞭一些了，也免去宣告額外的變數來保存 promises，很棒！</p>
 <h3 id="First-Fullfillment"><a href="#First-Fullfillment" class="headerlink" title="First Fullfillment"></a>First Fullfillment</h3><p><code>Promise.race</code> 提供開發者取得首個 resolved promise 的 result，但有時候，我們只想取得第一個 fulfillment，不想理會其他 rejection，該如何實作呢？</p>
 <p>許多 Promise library 提供 <a href="http://bluebirdjs.com/docs/api/promise.any.html" target="_blank" rel="external"><code>Promise.any</code></a> 這樣的 API，當然也可以自己實作，<a href="https://stackoverflow.com/a/39941616" target="_blank" rel="external">Stackoverflow 的答案非常簡潔</a>，直接附上程式碼。</p>
