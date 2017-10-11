@@ -410,8 +410,8 @@ Promise.resolve()
 
 ```javascript
 // reduce 版本的 sequential promise chain
-statusIds.reduce(id => (
-  loadStatus(id)
+statusIds.reduce((sequence, id) => (
+  sequence.then(() => loadStatus(id))
     .then(addStatusToPage)
 ), Promise.resolve())
 ```
