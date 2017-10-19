@@ -103,16 +103,16 @@
 <meta property="og:site_name" content="Weihang Lo">
 <meta property="og:description" content="Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is “Integrated Terminal performa">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://code.visualstudio.com/opengraphimg/opengraph-blog.png">
+<meta property="og:image" content="https://weihanglo.github.io/2017/source-reading-how-is-new-terminal-in-vs-code-so-fast/vscodeim.png">
 <meta property="og:image" content="https://weihanglo.github.io/2017/source-reading-how-is-new-terminal-in-vs-code-so-fast/gecko-rendering-process.png">
 <meta property="og:image" content="https://weihanglo.github.io/2017/source-reading-how-is-new-terminal-in-vs-code-so-fast/imagebitmap.png">
 <meta property="og:image" content="https://weihanglo.github.io/2017/source-reading-how-is-new-terminal-in-vs-code-so-fast/real-true-color-image.png">
 <meta property="og:image" content="https://weihanglo.github.io/2017/source-reading-how-is-new-terminal-in-vs-code-so-fast/fake-true-color-image.png">
-<meta property="og:updated_time" content="2017-10-19T15:11:08.959Z">
+<meta property="og:updated_time" content="2017-10-19T15:57:05.692Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Source Reading - How Is New Terminal In VS Code So Fast?">
 <meta name="twitter:description" content="Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is “Integrated Terminal performa">
-<meta name="twitter:image" content="https://code.visualstudio.com/opengraphimg/opengraph-blog.png">
+<meta name="twitter:image" content="https://weihanglo.github.io/2017/source-reading-how-is-new-terminal-in-vs-code-so-fast/vscodeim.png">
 
 
 
@@ -289,8 +289,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-19T22:05:03+08:00">
-                2017-10-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-12T22:05:03+08:00">
+                2017-10-12
               </time>
             
 
@@ -356,9 +356,9 @@
       
 
       
-        <p><img src="https://code.visualstudio.com/opengraphimg/opengraph-blog.png" alt=""></p>
+        <p><img src="vscodeim.png" alt=""></p>
 <p>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is “Integrated Terminal performance” section. Let’s check out what they’ve done!</p>
-<p><em>(written on 2017-10-19, based on Xterm.js v3, VS Code 1.17)</em></p>
+<p><em>(written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)</em></p>
 <a id="more"></a>
 <h2 id="Old-Performance-Issue"><a href="#Old-Performance-Issue" class="headerlink" title="Old Performance Issue"></a>Old Performance Issue</h2><p>The integrated terminal in VS Code is powered by another popular open-source project <a href="https://github.com/sourcelair/xterm.js" target="_blank" rel="external">“Xterm.js”</a>, which is currently maintained by <a href="https://www.sourcelair.com" target="_blank" rel="external">SourceLair</a> and community contributors. There are many real-world use cases of Xterm.js, such as <a href="https://www.rstudio.com/products/RStudio/" target="_blank" rel="external">RStudio</a> and <a href="https://github.com/jupyterlab/jupyterlab" target="_blank" rel="external">JupyterLab</a> (Ah ha! Data scientist!), not to mention SourceLair itself. One can say that Xterm.js dominates web-based terminal world as React does within front-end frameworks.</p>
 <p>As same as other web-based HTML terminal emulators, old versions of Xterm.js are powered by old fashion. Rendering from <code>HTMLElement</code>s, selecting text via <code>document.getSelection</code>, receiving DOM <code>MouseEvent</code>s. All these works were done by a sequence of DOM manipulations.</p>
