@@ -8,14 +8,14 @@ tags:
   - Source Reading
   - Xterm.js
 draft: true
-date: 2017-10-19 22:05:03
+date: 2017-10-12 22:05:03
 ---
 
-![](https://code.visualstudio.com/opengraphimg/opengraph-blog.png)
+![](https://i.imgur.com/KGfkJxn.png)
 
 Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is "Integrated Terminal performance" section. Let's check out what they've done!
 
-_(written on 2017-10-19, based on Xterm.js v3, VS Code 1.17)_
+_(written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)_
 
 <!-- more -->
 
