@@ -1,5 +1,5 @@
 ---
-title: Source Reading - How Is New Terminal In VS Code So Fast?
+title: How Is New Terminal In VS Code So Fast?
 tags:
   - Canvas
   - Front-end
@@ -41,11 +41,11 @@ When a web page is initialized, the render engine calculates dimensions and posi
 
 ### Repaint
 
-A **repaint** occurs when changes are made to an element's visibility, background color, or other styles not relevant to layout. Repaints are less expensive than reflows, but also have some impact on browser reponsive time.
+A **repaint** occurs when changes are made to an element's visibility, background color, or other styles not relevant to layout. Repaints are less expensive than reflows, but also have some impact on browser responsive time.
 
 ### DOM manipulations are slow
 
-Poor performance is not web techs or JavaScript's faults. It always counts on implementaion details. [Hyper][hyper] and [Upterm][upterm] are two delightful terminal emulators based on Electron. They add many convenient features to improve our boring daily terminal lives. The pain points are their performance issues due to DOM rendering. Both rendering implementations depend on DOM manipulations.
+Poor performance is not web techs or JavaScript's faults. It always counts on implementation details. [Hyper][hyper] and [Upterm][upterm] are two delightful terminal emulators based on Electron. They add many convenient features to improve our boring daily terminal lives. The pain points are their performance issues due to DOM rendering. Both rendering implementations depend on DOM manipulations.
 
 Imagine you are running a `yes`-like command that writes output at [full 10.2GiB/s speed][how-is-gnu-yes-so-fast]. You will find that your web-based terminal emulator stuck and cannot response to any mouse event anymore. The high speed `yes` triggers trigger a tremendous amount of synchronous **reflows** and **repaints**. Soon, the browser becomes irresponsive.
 
@@ -72,7 +72,7 @@ Despite that these methods made performance much better (at least better than ot
 
 - Modification of `<span>`s in `<div>` rows still trigger some unnecessary reflows.
 - The old rendering process will always remove entire line from DOM, and then append new element to DOM, even when only a single character changed. 
-- Though the skip-frame mechanism can free CPU from endless `requestAnimationFrame` events, the skip-frame itself means dropping frame from 60 FPS animaition.
+- Though the skip-frame mechanism can free CPU from endless `requestAnimationFrame` events, the skip-frame itself means dropping frame from 60 FPS animation.
 - Most characters used in terminal can represent in ASCII code, but a browser always use UTF-16 `DOMString` to store the information, which may be seen as a waste of memory usage.
 
 ## Simple Intro of Canvas
@@ -94,7 +94,7 @@ As you can see, learning 2D canvas rendering needs only a small amount (around 7
 
 ### Resource Saver
 
-Another selling points is that 2D Canvas rendering provides a plenty of **pixel-awared** drawing commands. Instead of updating the whole canvas element, these drawing methods let you decide your region of interset to be re-render in [per-pixel level][pixel-manipulation-canvas]. Almost all drawing API provide optional coordinates and size parameters for devs to tweak what they really desire. The process of updating only changed elements is called **invalidation**, and that preserves much precious CPU and GPU time.
+Another selling points is that 2D Canvas rendering provides a plenty of **pixel-awared** drawing commands. Instead of updating the whole canvas element, these drawing methods let you decide your region of interest to be re-render in [per-pixel level][pixel-manipulation-canvas]. Almost all drawing API provide optional coordinates and size parameters for devs to tweak what they really desire. The process of updating only changed elements is called **invalidation**, and that preserves much precious CPU and GPU time.
 
 As opposed to DOM elements, styles in 2D canvas are shared between each path belongs to the canvas. No need to store inline-styling information for every elements. If you want to temporarily store your style state, you can use the standard `context.save()` and `context.restore()` methods to push/pop your styles from a stack-like context state container. That's why I call canvas a **memory saver**!
 
@@ -110,10 +110,10 @@ Another way is creating a texture atlas. A [texture atlas][texture-atlas] a.k.a.
 
 ## Canvas to the Rescue
 
-After understand big concepts in 2D canvas. Let's dive into [the pull request][canvas-pull-request] that made canvas renderder. First, recap what they've done:
+After understand big concepts in 2D canvas. Let's dive into [the pull request][canvas-pull-request] that made canvas renderer. First, recap what they've done:
 
 1. Texture atlas (use `ImageBitmap`) for ASCII codes and ANSI 256 colors. Unicode characters and true-colored text would be drawn on the fly.
-2. Only render changes. To determine state changes, use custom `GridCache` to stoer previous state for comparisons with incoming changes.
+2. Only render changes. To determine state changes, use custom `GridCache` to store previous state for comparisons with incoming changes.
 3. Use four different render layers to separate concerns and reduce the whole canvas re-rendering. 
 4. Remove skip-frame mechanism because new rendering performance is extremely fast.
 
@@ -121,7 +121,7 @@ After understand big concepts in 2D canvas. Let's dive into [the pull request][c
 
 First, we look into the texture atlas.
 
-Xterm.js constructs a global atlas generator shared between terminals with the same configuration (defined in `ICharAtlasConfig` and `ICharAtlasCacheEntry`). This can reduces some duplicated construction if an app gets a multiple terminal instances such as VS Code. The actual time that a atlas generated is terminal being opened by calling `acquireCharAtlas`. Interally, `acquireCharAtlas` would compare between configurations (font size, char width, color, etc.) to avoid overhead works.
+Xterm.js constructs a global atlas generator shared between terminals with the same configuration (defined in `ICharAtlasConfig` and `ICharAtlasCacheEntry`). This can reduces some duplicated construction if an app gets a multiple terminal instances such as VS Code. The actual time that a atlas generated is terminal being opened by calling `acquireCharAtlas`. Internally, `acquireCharAtlas` would compare between configurations (font size, char width, color, etc.) to avoid overhead works.
 
 The private class `CharAtlasGenerator` does the real stuff. It sets attribute `alpha` to `false` to reduce redundant transparent compositions. Though this config seen like a limit of flexibility, the texture atlas is enough to provides frequently used colors for most text-based programs in the world. Moreover, the generator draws all ASCII code with 8 ANSI color (3 bit) in normal and bold styles onto an detached canvas in advance. That would be nearly 256 * 16 = 4096 characters pre-rendered (though some char is invisible and not printable). 
 
@@ -157,21 +157,21 @@ Let me introduce some interesting issues after the switch of render engine.
 
 ### Rendering Unicode Characters Wrong
 
-When it comes to strings and texts. This may be a big nightmare to all developers. One feature Xterms.js always promoting is handling CJK fonts well. Actually, before introduing canvas renderer, most of this works done by browsers' DOM render engine internally to handle various widths of Unicode characters. When the team chose to render character on our own renderer, the burden fell on Xterm.js itself. To render texts properly, Xterm.js needs to manually track width of all characters. Explicitly set width of render region is a must. 2D Canvas API is always that imperative and there is no way to stay away from it. 
+When it comes to strings and texts. This may be a big nightmare to all developers. One feature Xterms.js always promoting is handling CJK fonts well. Actually, before introducing canvas renderer, most of this works done by browsers' DOM render engine internally to handle various widths of Unicode characters. When the team chose to render character on our own renderer, the burden fell on Xterm.js itself. To render texts properly, Xterm.js needs to manually track width of all characters. Explicitly set width of render region is a must. 2D Canvas API is always that imperative and there is no way to stay away from it. 
 
-Surprisely, Xterm.js has alreadly done it before canvas render landed! It used a custom data structure to track width of a character for some resizing calculations. The only task after renderer changed is passing the character width into `canvas.fillText`.
+Surprisingly, Xterm.js has already done it before canvas render landed! It used a custom data structure to track width of a character for some resizing calculations. The only task after renderer changed is passing the character width into `canvas.fillText`.
 
-Actually, character width received from terminal input are not always correct. Some characters [consume more space than expected][emoji-issue].The truth is Xterm.js extracted some concepts from [this `wcwidth.c` implementation][wcwidth]. Although the implementation covered almost all CJK and other Unicode chacters with various width, it have not been modified time since 2007. During these 10 years, Emoji become prosperous. Suddenly, oudated `wcwidth` implementation cannot support arriving crazy overflowing characters.
+Actually, character width received from terminal input are not always correct. Some characters [consume more space than expected][emoji-issue].The truth is Xterm.js extracted some concepts from [this `wcwidth.c` implementation][wcwidth]. Although the implementation covered almost all CJK and other Unicode characters with various width, it have not been modified time since 2007. During these 10 years, Emoji become prosperous. Suddenly, outdated `wcwidth` implementation cannot support arriving crazy overflowing characters.
 
-But Xterm.js team did not feel contented with the situation, and later they [resolved the issue][emoji-issue-resolve] blazing fast. If you want to know about what they did, there was nothing but [delegating up the responsibility of width calculation][measure-text] to web browsers' render engine. When calling `ctx.measureText`, the render engine measures the target text in specific canvas context, then returns a `TextMatrix` that stores information abount how the text would be rendered, such as `width`, `actualBoundingBoxLeft`, and `alphabeticBaseline`. This implmenetation need not to aquire any Unicode code point mapping beforehand. Just believe that all browsers do it right.
+But Xterm.js team did not feel contented with the situation, and later they [resolved the issue][emoji-issue-resolve] blazing fast. If you want to know about what they did, there was nothing but [delegating up the responsibility of width calculation][measure-text] to web browsers' render engine. When calling `ctx.measureText`, the render engine measures the target text in specific canvas context, then returns a `TextMatrix` that stores information abount how the text would be rendered, such as `width`, `actualBoundingBoxLeft`, and `alphabeticBaseline`. This implementation need not to acquire any Unicode code point mapping beforehand. Just believe that all browsers do it right.
 
 ### Lack of True Color Support
 
-As hardware advanced, true color terminal programs are more common nowadays. The lack of real true color support become a major problems of Xterm.js. I haven't trace to intent why the original Xterm.js supported only ANSI 256 color, but it makes sense that canvas renderder does not support true color. 
+As hardware advanced, true color terminal programs are more common nowadays. The lack of real true color support become a major problems of Xterm.js. I haven't trace to intent why the original Xterm.js supported only ANSI 256 color, but it makes sense that canvas renderer does not support true color. 
 
 There is a class `ColorManager` which constructs ANSI 256 color to hex color mapping table beforehand in Xterm.js v3. This eliminates dupe computations of each hex color. However, If we want to store all the true color palette, that would be combinations of 3 color channels (RGB) mutiplying alpha channel, which approximately equal to 16 million of combinations! It's impossible to store that huge `CharAtlas` in memory simultaneously.
 
-Thus, they use a hacky way (in [Terminal.ts][xtermjs-pre-color]) to make colors look like true color. The goal of this algorithm is to find the nearest color in ANSI 256 color palette. While we try [some real tests][gist-true-color] on it, wes still can tell the differences without doubt. Some matching results are even so worse that they almost look like inverted colors. Many open-source projects depended on Xterm.js are eager for true color supports, including famous terminal app [Hyper][hyper-true-color]. However, it seems that supports for true color is not the primary goal and has been remove from v3 milestons, but [the related discussion on Github][true-color-issue] is still valuable to take a look.
+Thus, they use a hacky way (in [Terminal.ts][xtermjs-pre-color]) to make colors look like true color. The goal of this algorithm is to find the nearest color in ANSI 256 color palette. While we try [some real tests][gist-true-color] on it, we still can tell the differences without doubt. Some matching results are even so worse that they almost look like inverted colors. Many open-source projects depended on Xterm.js are eager for true color supports, including famous terminal app [Hyper][hyper-true-color]. However, it seems that supports for true color is not the primary goal and has been remove from v3 milestones, but [the related discussion on Github][true-color-issue] is still valuable to take a look.
 
 ![Real True Color Image](real-true-color-image.png)
 > The **REAL** true color in [Alacritty][alacritty].
@@ -181,7 +181,7 @@ Thus, they use a hacky way (in [Terminal.ts][xtermjs-pre-color]) to make colors 
 
 ## Summary
 
-It is very lucky see that a widely used library is brave enough to make breaking changes. When I followed up the PR to read source code of Xterm.js, I almost believed that I were working with those brilliant contributors. The experience of tracing a well documented refactor process is awesome. You can learn from some surprsing solutions you have never thought before. You can also learn many communicating skills in open source world. Although canvas API is not the latest web standard and Xterm.js is not a well-known project compared with React and Vue, the success of Xterm.js's renderer refactor is worthy for learning!
+It is very lucky see that a widely used library is brave enough to make breaking changes. When I followed up the PR to read source code of Xterm.js, I almost believed that I were working with those brilliant contributors. The experience of tracing a well documented refactor process is awesome. You can learn from some surprising solutions you have never thought before. You can also learn many communicating skills in open source world. Although canvas API is not the latest web standard and Xterm.js is not a well-known project compared with React and Vue, the success of Xterm.js's renderer refactor is worthy for learning!
 
 [2d-getcontext]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext#Parameters
 [canvas-prototype-commit]: https://github.com/sourcelair/xterm.js/commit/c6d4c73c
