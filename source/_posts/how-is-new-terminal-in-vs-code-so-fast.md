@@ -21,7 +21,7 @@ _(written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)_
 
 ## Old Performance Issue 
 
-The integrated terminal in VS Code is powered by another popular open-source project ["Xterm.js"][xtermjs], which is currently maintained by [SourceLair][sourcelair] and community contributors. There are many real-world use cases of Xterm.js, such as [RStudio][rstudio] and [JupyterLab][jupyterlab] (Ah ha! Data scientist!), not to mention SourceLair itself. One can say that Xterm.js dominates web-based terminal world as React does within front-end frameworks.
+The integrated terminal in VS Code is powered by another popular open-source project ["Xterm.js"][xtermjs], which is currently maintained by [SourceLair][sourcelair] and community contributors. There are many real-world use cases of Xterm.js, such as [RStudio][rstudio] and [JupyterLab][jupyterlab] (Ah ha! Data scientist!), not to mention SourceLair itself. One can say that Xterm.js dominates web-based terminal world as React does in front-end development.
 
 As same as other web-based HTML terminal emulators, old versions of Xterm.js are powered by old fashion. Rendering from `HTMLElement`s, selecting text via `document.getSelection`, receiving DOM `MouseEvent`s. All these works were done by a sequence of DOM manipulations.
 
@@ -43,11 +43,11 @@ When a web page is initialized, the render engine calculates dimensions and posi
 
 A **repaint** occurs when changes are made to an element's visibility, background color, or other styles not relevant to layout. Repaints are less expensive than reflows, but also have some impact on browser responsive time.
 
-### DOM manipulations are slow
+### DOM manipulations
 
-Poor performance is not web techs or JavaScript's faults. It always counts on implementation details. [Hyper][hyper] and [Upterm][upterm] are two delightful terminal emulators based on Electron. They add many convenient features to improve our boring daily terminal lives. The pain points are their performance issues due to DOM rendering. Both rendering implementations depend on DOM manipulations.
+Poor performance is not web techs or JavaScript's faults. It always counts on implementation details. [Hyper][hyper] and [Upterm][upterm] are two delightful terminal emulators based on Electron. They add many convenient features to improve our boring daily terminal lives. The pain points are their performance issues due to DOM rendering. Both rendering implementations depend on heavy DOM manipulations.
 
-Imagine you are running a `yes`-like command that writes output at [full 10.2GiB/s speed][how-is-gnu-yes-so-fast]. You will find that your web-based terminal emulator stuck and cannot response to any mouse event anymore. The high speed `yes` triggers trigger a tremendous amount of synchronous **reflows** and **repaints**. Soon, the browser becomes irresponsive.
+Imagine you are running a `yes`-like command that writes output at [full 10.2GiB/s speed][how-is-gnu-yes-so-fast]. You will find that your web-based terminal emulator stuck and cannot response to any mouse event anymore. The high speed `yes` triggers a tremendous amount of synchronous **reflows** and **repaints**. Soon, the browser becomes irresponsive.
 
 ## Optimization in Dark DOM Era
 
