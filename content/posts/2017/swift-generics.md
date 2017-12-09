@@ -3,8 +3,7 @@ title: 理解 Swift Generics
 tags:
   - Swift
   - Generics
-  - Generic Programming
-date: 2017-05-08 22:28:09
+date: 2017-05-08T22:28:09+08:00
 ---
 
 ![](http://i.imgur.com/xuMiBGM.jpg)

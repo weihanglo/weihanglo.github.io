@@ -5,7 +5,7 @@ tags:
   - Endianness
   - Binary Data
   - Memory Alignment
-date: 2017-09-03 23:35:55
+date: 2017-09-03T23:35:55+08:00
 ---
 
 ![](https://i.imgur.com/Mx1Rbus.png)

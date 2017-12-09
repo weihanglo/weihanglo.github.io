@@ -5,7 +5,7 @@ tags:
   - Observer Pattern
   - Swift
   - ReactiveX
-date: 2017-08-15 16:32:39
+date: 2017-08-15T16:32:39+08:00
 ---
 
 本篇介紹 Rx 另一個重要的基礎概念 **Observer pattern**。

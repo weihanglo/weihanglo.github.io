@@ -5,7 +5,7 @@ tags:
   - Concurrency
   - Promise
   - Front-end
-date: 2017-06-12 23:02:43
+date: 2017-06-12T23:02:43+08:00
 ---
 
 ![](https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg)

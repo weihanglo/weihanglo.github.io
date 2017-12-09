@@ -4,7 +4,7 @@ tags:
   - Interview Questions
   - JavaScript
   - Front-end
-date: 2017-07-26 20:48:30
+date: 2017-07-26T20:48:30+08:00
 ---
 
 這份面試題出自[於此][questions-source]，是從 [/r/Frontend/][reddit-frontend] 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現代前端技術棧相差頗大。不過，一些核心概念還是挺重要的，在此分享小弟的答案，有任何錯誤，請各位不吝賜教。

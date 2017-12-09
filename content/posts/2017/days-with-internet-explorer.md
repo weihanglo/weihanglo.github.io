@@ -2,11 +2,11 @@
 title: 與 IE 相處的日子
 tags:
   - Internet Explorer
-  - Edge
   - Front-end
   - JavaScript
+  - Web Compatibility
   - Browser Testing
-date: 2017-07-15 11:36:04
+date: 2017-07-15T11:36:04+08:00
 ---
 
 ![](http://i.imgur.com/VEgmWpv.jpg)

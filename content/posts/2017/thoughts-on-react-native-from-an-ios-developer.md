@@ -1,10 +1,9 @@
 ---
 title: Thoughts on React Native from an iOS developer
 tags:
-  - React
   - React Native
   - Mobile App Development
-date: 2017-07-30 18:16:45
+date: 2017-07-30T18:16:45+08:00
 ---
 
 ![React Native](http://i.imgur.com/Ya2NnLz.png)

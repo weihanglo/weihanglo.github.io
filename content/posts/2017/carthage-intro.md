@@ -1,6 +1,6 @@
 ---
 title: Carthage 套件管理工具
-date: 2017-03-05 08:45:57
+date: 2017-03-05T08:45:57+08:00
 tags:
   - Carthage
   - Swift
