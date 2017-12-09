@@ -7,8 +7,7 @@ tags:
   - Visual Studio Code
   - Source Reading
   - Xterm.js
-draft: true
-date: 2017-10-12 22:05:03
+date: 2017-10-12T22:05:03+08:00
 ---
 
 ![](https://i.imgur.com/KGfkJxn.png)

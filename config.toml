@@ -1,0 +1,108 @@
+baseURL = "https://weihanglo.github.io"
+title = "Weihang Lo"
+# for smart copyright line, leave this blank and check [params.copyright]
+copyright = ""
+
+theme = "minimo"
+
+disqusShortname = "wehang-lo"
+googleAnalytics = ""
+Paginate = 10
+preserveTaxonomyNames = true
+enableRobotsTXT = true # generate robots.txt
+# Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
+pygmentsCodefences = true
+# Missing translations will default to this content language
+defaultContentLanguage = "en-us"
+
+[params.info]
+description = "Our online life is real life"
+title404 = "Nothing's here!"
+
+[params.assets]
+favicon = "favicon.ico"
+customCSS = ["css/custom.css"]
+customJS = ["js/custom.js"]
+# used in 404 template ( Generator: https://gopherize.me )
+gopher = "assets/gopher.png"
+
+[params.copyright]
+prefix = ""
+holder = "Weihang Lo"
+startYear = "2017"
+suffix = ""
+
+[params.settings]
+# date & time format: https://golang.org/pkg/time/
+dateFormat = "2006, Jan 02"
+listDateFormat = "2006, Jan 02"
+hideEntryNavigation = ["page"] # boolean / array of sections
+recentPostsLength = 5
+hideSocialMenu = false
+showReadingTime = true
+noTermCloudShuffle = false
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter page username
+
+[params.seo]
+# Title Separator: - – — · • * ⋆ | ~ « » < >
+titleSeparator = "•"
+
+[params.social]
+email = "weihanglotw@gmail.com"
+facebook = "weihanglo"
+github = "weihanglo"
+linkedin = "weihanglo"
+twitter = "weihanglo"
+
+[params.social.config]
+platforms = ["github","facebook","twitter","email","linkedin"]
+
+[taxonomies]
+author = "authors"
+category = "categories"
+tag = "tags"
+
+[permalinks]
+page = "/:slug/"
+posts = "/posts/:year/:filename/"
+
+[[menu.main]]
+name = "Home"
+weight = 10
+identifier = "home"
+url = "/"
+
+[[menu.main]]
+name = "Posts"
+weight = 20
+identifier = "posts"
+url = "/posts"
+
+[[menu.main]]
+name = "Tags"
+weight = 30
+identifier = "tags"
+url = "/tags"
+
+[[menu.main]]
+name = "About"
+weight = 40
+identifier = "abount"
+url = "/about"
+
+[blackfriday]
+hrefTargetBlank = true
+
+[languages]
+# edit this block for your own language
+[languages.en]
+lang = "en"
+languageName = "English"
+weight = 1

@@ -1,6 +1,6 @@
 ---
 title: Swift Quick Note
-date: 2017-02-06 23:25:19
+date: 2017-02-06T23:25:19+08:00
 tags:
   - Swift
 ---

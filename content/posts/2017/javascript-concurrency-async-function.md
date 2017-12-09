@@ -6,7 +6,7 @@ tags:
   - Async Function
   - Generator
   - Front-end
-date: 2017-06-18 12:45:34
+date: 2017-06-18T12:45:34+08:00
 ---
 
 
@@ -508,7 +508,7 @@ Medium 上也有許多作者在評論 async functions，[Hacker Noon 這篇推�
 [danielbrain-understand-promises]: https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 [danielbrain-promises-are-keys]: https://medium.com/@bluepnume/even-with-async-await-you-probably-still-need-promises-9b259854c161
 
-[weihanglo-promise]: https://weihanglo.github.io/2017/javascript-concurrency-promise/
+[weihanglo-promise]: https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/
 
 [mdn-async-funciton]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 

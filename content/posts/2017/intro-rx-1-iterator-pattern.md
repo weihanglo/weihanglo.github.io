@@ -5,7 +5,7 @@ tags:
   - Iterator Pattern
   - Swift
   - ReactiveX
-date: 2017-08-15 13:06:59
+date: 2017-08-15T13:06:59+08:00
 ---
 
 本篇介紹 Rx 的重要基礎概念 **Iterator pattern**。

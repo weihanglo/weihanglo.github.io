@@ -1,6 +1,6 @@
 ---
 title: 閱讀原始碼：Swift-Then
-date: 2017-01-10 12:15:34
+date: 2017-01-10T12:15:34+08:00
 tags:
   - Swift
   - Source Reading

@@ -1,3 +1,11 @@
-# Weihang Lo's Blog.
+# Weihang Lo's Blog
 
-I write about programming. Currently focus on front-end engineering.
+My Personal Blog. Powered by Hugo.
+
+## Deploy to Github Pages (master branch)
+
+```bash
+./publish.sh
+```
+
+## Deploy to Netlify

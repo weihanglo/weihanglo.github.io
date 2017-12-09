@@ -1,8 +1,8 @@
 ---
 title: Front End Development Toolchain
-date: 2017-03-10 15:36:46
+date: 2017-03-10T15:36:46+08:00
 tags:
-  - NodeJS
+  - Node.js
   - JavaScript
   - Front-end
 ---
@@ -17,25 +17,25 @@ _（撰於 2017-03-10）_
 
 ## Contents
 
-- [Node.js](#Node-js)
-  - [安裝 Node.js](#安裝-Node-js)
-  - [Node.js 內建模組、變數](#Node-js-內建模組、變數)
-  - [Node.js 版本管理工具](#Node-js-版本管理工具)
-- [NPM 套件模組管理工具](#NPM-套件模組管理工具)
+- [Node.js](#node-js)
+  - [安裝 Node.js](#安裝-node-js)
+  - [Node.js 內建模組與變數](#node-js-內建模組-變數)
+  - [Node.js 版本管理工具](#node-js-版本管理工具)
+- [NPM 套件模組管理工具](#npm-套件模組管理工具)
   - [package.json](#package-json)
-  - [NPM 常用指令](#NPM-常用指令)
+  - [NPM 常用指令](#npm-常用指令)
 - [預處理器／轉譯器](#預處理器／轉譯器)
-  - [CSS 預處理器](#CSS-預處理器)
-  - [CSS 後處理器](#CSS-後處理器)
-  - [ES6+／Babel](#ES6-／Babel)
-- [自動化工具／打包工具](#自動化工具／打包工具)
-  - [Gulp](#Gulp)
-  - [Webpack](#Webpack)
+  - [CSS 預處理器](#css-預處理器)
+  - [CSS 後處理器](#css-後處理器)
+  - [ES6+／Babel](#es6-babel)
+- [自動化工具／打包工具](#自動化工具-打包工具)
+  - [Gulp](#gulp)
+  - [Webpack](#webpack)
 - [程式碼品質](#程式碼品質)
   - [測試](#測試)
   - [靜態程式語法檢查](#靜態程式語法檢查)
 - [小結](#小結)
-- [Reference](#Reference)
+- [Reference](#reference)
 
 （以下環境皆以 macOS 為例）
 
@@ -70,7 +70,7 @@ node
 ### [ 'cat', 'mouse', 'dog' ]
 ```
 
-### Node.js 內建模組、變數
+### Node.js 內建模組與變數
 
 Node.js 提供豐富的原生模組，可以操作 filesystem、socket、os 等系統層的 API，讓 Javascript 躋身至與 Python、Ruby 之流同樣地位，成為流行的腳本語言（[scripting language][scripting-language]）。這裡列出前端開發者較常使用的幾個模組：
 
