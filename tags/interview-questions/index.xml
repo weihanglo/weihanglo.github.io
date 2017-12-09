@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interview Questions on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/interview-questions/</link>
+    <description>Recent content in Interview Questions on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 26 Jul 2017 20:48:30 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.github.io/tags/interview-questions/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Answers to Cherny&#39;s Interview Questions</title>
+      <link>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</link>
+      <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</guid>
+      <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現代前端技術棧相差頗大。不過，一些核心概念還是挺重要的，在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
+（撰於 2017-07-26）
+Concepts Be able to clearly explain these in words (no coding):
+What is Big O notation, and why is it useful? Big O notation 是用來分析演算法複雜度的漸近符號，可以簡單視為運算成本（時間、空間）與輸入資料量的趨勢函數，例如 f(x) = x^2 + 3x + 6。當輸入資料量增大時，函數的「最高次項」最具有決定性，因此可以之表示演算法在資料量夠大時，「最多」達到怎樣的趨勢（趨勢上界），例如上例的複雜度會是 f(n) = O(n^2)。（另有 Big-Theta、Big-Omega 分別描述「趨勢區間」與「趨勢下界」）
+Big O 以宏觀的角度來分析演算法，並利用簡單的數學式表示，令演算法效率分析有簡明、客觀的基準。
+What is the DOM? 全名為「Document Object Model」，是 W3C 的標準之一，定義如何將文件（XML／HTML document 等）映射至一樹狀結構中，每個節點都是一個物件，並帶有操作此 DOM node 的 API。
+What is the event loop? JavaScript 是單執行緒（單線程）的程式語言，任何龐大運算都可能阻塞整個程式，因此 JavaScript 設計了 message queue 配合一個不間斷的 event loop 來管理任務，當 call stack 沒有執行任何 task 時（程式閒置時），loop 便從 queue 中取第一個 message 至 call stack 調用。開發者可將 callback 加入 message queue 等待 loop 輪詢（polling），實現非同步程式，這就是 JavaScript event loop 的機制。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Swift on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/swift/</link>
+    <description>Recent content in Swift on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.github.io/tags/swift/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Intro Rx - 2. Observer Pattern</title>
+      <link>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</guid>
+      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
+（撰於 2017-08-15，基於 Swift 3.1）
+Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
+Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
+    </item>
+    
+    <item>
+      <title>Intro Rx - 1. Iterator Pattern</title>
+      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
+（撰於 2017-08-15，基於 Swift 3.1）
+Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
+Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
+相反地， C 的 for (int i = 0; i &amp;lt; n; i++) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
+透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。</description>
+    </item>
+    
+    <item>
+      <title>理解 Swift Generics</title>
+      <link>https://weihanglo.github.io/posts/2017/swift-generics/</link>
+      <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/swift-generics/</guid>
+      <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
+本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
+（撰於 2017-05-08，基於 Swift 3.1）
+Definition 想像一下，有個需求是要交換兩個變數儲存的值，現在欲交換的變數是 int type，因此實作了 void swapInt(*int, *int) 的函式；接下來要交換的是 double，又寫了 void swapFloat(*double, *double)，但兩個函式實作幾乎一樣（交換指標指向的值），如果還有 float、char 等其他 n 種 data types，就必須寫 n 個版本的實作。如果程式語言支援函式重載，可以把 function name 都改成 swap，降低函式調用端的複雜度，但依然沒解決重複的問題。
+泛型程式設計（Generic Programming）目的就是「消弭因為不同資料型態，而重複實作相同的演算法」。維基百科寫得非常清楚：
+ &amp;hellip; is a style of computer programming in which algorithms are written in terms of types to-be-specified-later that are then instantiated when needed for specific types provided as parameters</description>
+    </item>
+    
+    <item>
+      <title>理解 Swift 的 Error Handling</title>
+      <link>https://weihanglo.github.io/posts/2017/swift-error-handling/</link>
+      <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/swift-error-handling/</guid>
+      <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
+（撰於 2017-04-10，基於 Swift 3.1）
+Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了解什麼是例外處理。維基百科道：
+ &amp;hellip;is the process of responding to the occurrence, during computation, of exceptions – anomalous or exceptional conditions requiring special processing – often changing the normal flow of program execution.
+ 簡單來說，就是某些例外狀況，需要特別的處理，這個處理過程就稱為例外處理，而這個處理常伴隨程式流程轉移改變。
+寫習慣 C++／Objective-C 的同學，想必很排斥寫 try-catch 這種吃效能、又易出錯的例外處理，明明 if&amp;hellip;else 就能打遍天下嘛！而喜歡 Python／Ruby 的朋友對 raise 和各種 Exceptions 一定不陌生，甚至 Python 底層的 iterator 都是用 StopIteration Exception 實作。依照各個程式語言的設計，例外處理大致分為兩類：</description>
+    </item>
+    
+    <item>
+      <title>Carthage 套件管理工具</title>
+      <link>https://weihanglo.github.io/posts/2017/carthage-intro/</link>
+      <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/carthage-intro/</guid>
+      <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
+（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
+特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
+brew install carthage  如果還沒有裝 homebrew，請來這下載
+ 建立一個 Carfile，列出欲使用的模組，例如：
+  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
+    </item>
+    
+    <item>
+      <title>Swift Quick Note</title>
+      <link>https://weihanglo.github.io/posts/2017/swift-quick-note/</link>
+      <pubDate>Mon, 06 Feb 2017 23:25:19 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/swift-quick-note/</guid>
+      <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。
+（撰於 2017-02-06，基於 Swift 3.1）
+Declaration 宣告變數使用 var，宣告常數使用 let
+ 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable  let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678  慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
+ Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
+let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&amp;#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
+ 宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。  Fundamental data type Swift Standard Library 定義了許多基本型別：</description>
+    </item>
+    
+    <item>
+      <title>閱讀原始碼：Swift-Then</title>
+      <link>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</link>
+      <pubDate>Tue, 10 Jan 2017 12:15:34 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</guid>
+      <description>本系列文視筆者心情不定期撰寫。
+提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
+ Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
+Weihang Lo &amp;ndash; Daily Trash Talk
+ 厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，
+第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。
+（撰於 2017-01-10，基於 Swift 3.0、 Then 2.1.0）
+Problem to Solve 我們知道，Block 的引入為古老的 Objective-C 增添了 lambda／closure 的現代感，Swift 則繼續將其發揚光大。有了 closure，我們不必將所有 UI 元件的設置全擠在 viewDidLoad 裡面。我們只需要：
+let label: UILabel = { let label = UILabel() label.textAlignment = .center label.textColor = .black label.text = &amp;#34;Hello, World!&amp;#34; return label }() 可是對懶惰的 programmer 來說，這段程式碼太多地方重複，必定還有偷懶的空間。Then 這個迷你的語法糖 library 就是專為偷懶而生，目的就是將上面冗長的初始化設置簡寫如下：</description>
+    </item>
+    
+  </channel>
+</rss>

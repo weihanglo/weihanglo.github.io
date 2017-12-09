@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</loc>
+    <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/binary-data-manipulations-in-javascript/</loc>
+    <lastmod>2017-09-03T23:35:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</loc>
+    <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</loc>
+    <lastmod>2017-08-15T13:06:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</loc>
+    <lastmod>2017-08-15T09:22:37+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/thoughts-on-react-native-from-an-ios-developer/</loc>
+    <lastmod>2017-07-30T18:16:45+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</loc>
+    <lastmod>2017-07-26T20:48:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/days-with-internet-explorer/</loc>
+    <lastmod>2017-07-15T11:36:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/javascript-concurrency-async-function/</loc>
+    <lastmod>2017-06-18T12:45:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/</loc>
+    <lastmod>2017-06-12T23:02:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/swift-generics/</loc>
+    <lastmod>2017-05-08T22:28:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/swift-error-handling/</loc>
+    <lastmod>2017-04-10T16:36:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/fed-toolchain/</loc>
+    <lastmod>2017-03-10T15:36:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/carthage-intro/</loc>
+    <lastmod>2017-03-05T08:45:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/swift-quick-note/</loc>
+    <lastmod>2017-02-06T23:25:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</loc>
+    <lastmod>2017-01-10T12:15:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/async-function/</loc>
+    <lastmod>2017-06-18T12:45:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/authors/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/binary-data/</loc>
+    <lastmod>2017-09-03T23:35:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/browser-testing/</loc>
+    <lastmod>2017-07-15T11:36:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/canvas/</loc>
+    <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/carthage/</loc>
+    <lastmod>2017-03-05T08:45:57+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/concurrency/</loc>
+    <lastmod>2017-06-18T12:45:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/design-patterns/</loc>
+    <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/endianness/</loc>
+    <lastmod>2017-09-03T23:35:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/error-handling/</loc>
+    <lastmod>2017-04-10T16:36:33+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/front-end/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/generator/</loc>
+    <lastmod>2017-06-18T12:45:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/generics/</loc>
+    <lastmod>2017-05-08T22:28:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/internet-explorer/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/interview-questions/</loc>
+    <lastmod>2017-07-26T20:48:30+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/iterator-pattern/</loc>
+    <lastmod>2017-08-15T13:06:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/javascript/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/memory-alignment/</loc>
+    <lastmod>2017-09-03T23:35:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/mobile-app-development/</loc>
+    <lastmod>2017-07-30T18:16:45+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/node.js/</loc>
+    <lastmod>2017-03-10T15:36:46+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/observer-pattern/</loc>
+    <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/posts/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/promise/</loc>
+    <lastmod>2017-06-12T23:02:43+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/react-native/</loc>
+    <lastmod>2017-07-30T18:16:45+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/reactivex/</loc>
+    <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/source-reading/</loc>
+    <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/swift/</loc>
+    <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/</loc>
+    <lastmod>2017-06-18T12:45:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/terminal/</loc>
+    <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/visual-studio-code/</loc>
+    <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/web-access-right/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/webcompat.com/</loc>
+    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.github.io/tags/xterm.js/</loc>
+    <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

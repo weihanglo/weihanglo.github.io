@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Node.js on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/node.js/</link>
+    <description>Recent content in Node.js on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 10 Mar 2017 15:36:46 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Front End Development Toolchain</title>
+      <link>https://weihanglo.github.io/posts/2017/fed-toolchain/</link>
+      <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/fed-toolchain/</guid>
+      <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
+（撰於 2017-03-10）
+Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具  NPM 套件模組管理工具  package.json NPM 常用指令  預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel  自動化工具／打包工具  Gulp Webpack  程式碼品質  測試 靜態程式語法檢查  小結 Reference  （以下環境皆以 macOS 為例）
+Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.js 推出後，Javascript 程式碼可以在伺服器端運行，模組（module）和套件（package）的觀念和生態圈也隨之建立。程式碼的交流／複用更為便利。</description>
+    </item>
+    
+  </channel>
+</rss>

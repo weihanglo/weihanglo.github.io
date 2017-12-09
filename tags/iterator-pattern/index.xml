@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Iterator Pattern on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/iterator-pattern/</link>
+    <description>Recent content in Iterator Pattern on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 15 Aug 2017 13:06:59 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.github.io/tags/iterator-pattern/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Intro Rx - 1. Iterator Pattern</title>
+      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
+（撰於 2017-08-15，基於 Swift 3.1）
+Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
+Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
+相反地， C 的 for (int i = 0; i &amp;lt; n; i++) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
+透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='簡單記錄 Apple 官方 Swift Guide 的重點與心得。
+（撰於 2017-02-06，基於 Swift 3.1）
+Declaration 宣告變數使用 var，宣告常數使用 let
+ 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable  let myConst = &#34;constant&#34; var myVar = 1234 myVar = 5678  慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
+ Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
+let doubleValue = 70.0 // Double type let myStr: String myStr = &#34;1234&#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
+ 宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。  Fundamental data type Swift Standard Library 定義了許多基本型別：'>
+
+<meta property='og:title' content='Swift Quick Note • Weihang Lo'>
+<meta property='og:description' content='簡單記錄 Apple 官方 Swift Guide 的重點與心得。
+（撰於 2017-02-06，基於 Swift 3.1）
+Declaration 宣告變數使用 var，宣告常數使用 let
+ 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable  let myConst = &#34;constant&#34; var myVar = 1234 myVar = 5678  慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
+ Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
+let doubleValue = 70.0 // Double type let myStr: String myStr = &#34;1234&#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
+ 宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。  Fundamental data type Swift Standard Library 定義了許多基本型別：'>
+<meta property='og:url' content='https://weihanglo.github.io/posts/2017/swift-quick-note/'>
+<meta property='og:site_name' content='Weihang Lo'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Swift'><meta property='article:published_time' content='2017-02-06T23:25:19&#43;08:00'/><meta property='article:modified_time' content='2017-02-06T23:25:19&#43;08:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.31.1" />
+
+  <title>Swift Quick Note • Weihang Lo</title>
+  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/swift-quick-note/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700&subset=latin'>
+<link rel='stylesheet' href='/assets/css/main.77da63e1.css'><link rel='stylesheet' href='/css/custom.css'>
+</head>
+
+
+<body class='page type-posts'>
+  <div class='site'>
+
+    <a class='screen-reader' href='#main'>Skip to Content</a>
+
+    <header id='header' class='header-container'>
+      <div class='header site-header'>
+        <nav id='main-menu' class='main-menu-container' aria-label='Main Menu'>
+  <ul class='main-menu'>
+  <li>
+      <a href='/'>Home</a>
+    </li>
+  <li>
+      <a href='/posts'>Posts</a>
+    </li>
+  <li>
+      <a href='/tags'>Tags</a>
+    </li>
+  
+  </ul>
+</nav>
+
+        <div class='header-info'>
+          
+          <p class='site-title title'>Weihang Lo</p>
+          
+          <p class='site-description subtitle'>Our online life is real life</p>
+        </div>
+      </div>
+    </header>
+
+
+<main id='main' class='main'>
+  <article lang='en-us' class='entry'>
+    <header class='header-container'>
+  <div class='header entry-header'>
+    <div class='header-info'>
+      <h1 class='title'>Swift Quick Note</h1>
+      
+
+    </div>
+    
+<div class='meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader'>Posted on </span>
+  <time class='date' datetime='2017-02-06T23:25:19&#43;08:00'>2017, Feb 06</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+10 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+    
+    
+
+    <div class='entry-content'>
+  
+
+<p>簡單記錄 Apple 官方 Swift Guide 的重點與心得。</p>
+
+<p><em>（撰於 2017-02-06，基於 Swift 3.1）</em></p>
+
+<!-- more -->
+
+<hr />
+
+<h1 id="declaration">Declaration</h1>
+
+<p>宣告變數使用 <code>var</code>，宣告常數使用 <code>let</code></p>
+
+<ul>
+<li>使用 <code>var</code> 宣告，該值為 mutable</li>
+<li>使用 <code>let</code> 宣告，該值為 immutable</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> myConst = <span style="color:#e6db74">&#34;constant&#34;</span>
+<span style="color:#66d9ef">var</span> myVar = <span style="color:#ae81ff">1234</span>
+myVar = <span style="color:#ae81ff">5678</span></code></pre></div>
+<blockquote>
+<p>慣例是都先使用 <code>let</code> 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 <code>var</code></p>
+</blockquote>
+
+<h2 id="type-inference">Type Inference</h2>
+
+<p>自動透過賦予的值推斷型別，也可以顯式聲明型別。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> doubleValue = <span style="color:#ae81ff">70.0</span> <span style="color:#75715e">// Double type</span>
+<span style="color:#66d9ef">let</span> myStr: String
+myStr = <span style="color:#e6db74">&#34;1234&#34;</span></code></pre></div>
+<h2 id="type-safety">Type Safety</h2>
+
+<p>Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）</p>
+
+<ul>
+<li>宣告常數、變數時必須賦值或聲明顯示型別</li>
+<li>常數、變數使用前必須給定初始值</li>
+<li>型別無法任意轉換，必須顯式指定型別轉換。</li>
+</ul>
+
+<h1 id="fundamental-data-type">Fundamental data type</h1>
+
+<p>Swift Standard Library 定義了許多基本型別：</p>
+
+<h2 id="integer-unsigned-integer-double-float">Integer/Unsigned Integer, Double, Float</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> myInt = <span style="color:#ae81ff">1234</span> <span style="color:#75715e">// integer</span>
+<span style="color:#66d9ef">let</span> myInt8: Int8 = <span style="color:#ae81ff">1234</span> <span style="color:#75715e">// 8-bit integer</span>
+<span style="color:#66d9ef">let</span> myUInt: UInt = <span style="color:#ae81ff">1234</span> <span style="color:#75715e">// unsigned integer</span>
+
+<span style="color:#66d9ef">let</span> myDouble = <span style="color:#ae81ff">1234.0</span> <span style="color:#75715e">// double</span>
+<span style="color:#66d9ef">let</span> anotherDouble: Double = <span style="color:#ae81ff">123</span> <span style="color:#75715e">// double</span>
+<span style="color:#66d9ef">let</span> myFloat: Float = <span style="color:#ae81ff">123.0</span></code></pre></div>
+<h2 id="boolean">Boolean</h2>
+
+<p>布林值不再用 <code>YES</code> <code>NO</code>，改為 <code>true</code> <code>false</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> myBoolean = <span style="color:#66d9ef">true</span>
+<span style="color:#66d9ef">let</span> myFalse: Bool = <span style="color:#66d9ef">false</span></code></pre></div>
+<h2 id="string">String</h2>
+
+<p>是字元集合（但非 Array 這種 collection type）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> myStr = <span style="color:#e6db74">&#34;hello, world&#34;</span>
+<span style="color:#66d9ef">let</span> anotherStr: String = <span style="color:#e6db74">&#34;hello, swift&#34;</span>
+
+print(myStr.hasPrefix(<span style="color:#960050;background-color:#1e0010">&#39;</span>hello<span style="color:#960050;background-color:#1e0010">&#39;</span>))
+<span style="color:#75715e">// true</span></code></pre></div>
+<blockquote>
+<p>Swift 字串不僅是簡單的字元集合，有許多針對 Unicode support 與 橋接 NSString 的設計，但由於不太方便調用，預計 <a href="https://github.com/apple/swift/blob/master/docs/StringManifesto.md" target="_blank">Swift 4 會大幅修正</a></p>
+</blockquote>
+
+<h2 id="array-dictionary">Array/Dictionary</h2>
+
+<p>最常用的兩種 collection type，字面量使用 <code>[]</code> 將值包裹，<code>Dictionary</code> 使用 <code>key: value</code> 表示。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> array = [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+print(array[<span style="color:#ae81ff">2</span>]) <span style="color:#75715e">// 2</span>
+array[<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">3</span>
+print(array[<span style="color:#ae81ff">2</span>]) <span style="color:#75715e">// 3</span>
+
+<span style="color:#66d9ef">var</span> dict = [<span style="color:#e6db74">&#34;A&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;B&#34;</span>: <span style="color:#ae81ff">2</span>]
+print(dict[<span style="color:#e6db74">&#34;A&#34;</span>]) <span style="color:#75715e">// 1</span>
+dict[<span style="color:#e6db74">&#34;A&#34;</span>] = <span style="color:#ae81ff">5</span>
+print(dict[<span style="color:#e6db74">&#34;A&#34;</span>]) <span style="color:#75715e">// 5</span></code></pre></div>
+<blockquote>
+<p>除了這些基本型別，<code>import Foundation</code> 後也可以使用諸如 <code>NSString</code>、<code>NSArray</code> 這類 Foundation Object。不過 Swift 與 Objective-C 橋接做得很好，建議能用 Stdlib 解決就不要用 Foundation Object。</p>
+</blockquote>
+
+<h1 id="operator">Operator</h1>
+
+<p>Swift 的 運算子大多都與 C/Objective-C 雷同。
+值得一提的是，所有運算子都是在 standard library 中以 function 的形式宣告。</p>
+
+<blockquote>
+<p><code>i++</code> <code>++i</code> 這種 prefix/postfix increment 在 Swift 3 之後完全移除了</p>
+</blockquote>
+
+<h2 id="operator-1"><code>===</code> operator</h2>
+
+<p>Swift 中新增的運算子，用來比較 reference type 指向的實例（比較 memory address）是否相同。功能等同 Objective-C 的 <code>[NSObject isEqual:]</code>。</p>
+
+<h2 id="type-checking-casting">Type checking/casting</h2>
+
+<ul>
+<li>is：檢查實例是否為特定子類別</li>
+<li>as：將實例轉型為其他相關子類別
+
+<ul>
+<li>as?：轉型失敗回傳 nil</li>
+<li>as!：強迫轉型（不建議使用）</li>
+</ul></li>
+<li>as 也可以和 value-binding 搭配服用</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> myInt: Int = <span style="color:#ae81ff">10</span>
+
+myInt <span style="color:#66d9ef">is</span> Int <span style="color:#75715e">// true</span>
+myInt <span style="color:#66d9ef">as</span>? String <span style="color:#75715e">// nil</span>
+
+<span style="color:#75715e">// value-binding 搶先看 -----------</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">testType</span>(<span style="color:#66d9ef">_</span> variable: Any) {
+    <span style="color:#66d9ef">switch</span> variable {
+    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">let</span> variable <span style="color:#66d9ef">as</span> Double:
+        print(<span style="color:#e6db74">&#34;Double </span><span style="color:#e6db74">\(</span>variable<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">let</span> variable <span style="color:#66d9ef">as</span> Int:
+        print(<span style="color:#e6db74">&#34;Int </span><span style="color:#e6db74">\(</span>variable<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">let</span> variable <span style="color:#66d9ef">as</span> String:
+        print(<span style="color:#e6db74">&#34;String </span><span style="color:#e6db74">\(</span>variable<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">default</span>:
+        print(<span style="color:#e6db74">&#34;Unknown Type&#34;</span>)
+    }
+}
+
+<span style="color:#66d9ef">let</span> a: Any = <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">let</span> b: Any = String(<span style="color:#ae81ff">10</span>)
+<span style="color:#66d9ef">let</span> c: Array = [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+
+testType(a)
+testType(b)
+testType(c)
+
+<span style="color:#75715e">// Int 10</span>
+<span style="color:#75715e">// String 10</span>
+<span style="color:#75715e">// Unknown Type</span></code></pre></div>
+<h1 id="control-flow">Control Flow</h1>
+
+<p>與 C/Objective-C 的共通點：</p>
+
+<ul>
+<li>大多數寫法類似</li>
+<li>statements 內宣告的變數生命週期只在該 code block 內，不污染 outer scope</li>
+</ul>
+
+<h2 id="if-else">if/else</h2>
+
+<ul>
+<li>condition 可省略 <code>()</code>（主流 coding style 會省略）</li>
+<li>無論 statement 有幾行，都一定要用 <code>{}</code> 包裹起來。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> a = <span style="color:#ae81ff">6</span>
+
+<span style="color:#66d9ef">if</span> (a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>) print(a) <span style="color:#75715e">// compile error</span>
+
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> { print(a) }
+
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> {
+  <span style="color:#75715e">// true go here</span>
+} <span style="color:#66d9ef">else</span> {
+  <span style="color:#75715e">// false go here</span>
+}</code></pre></div>
+<h2 id="for">for</h2>
+
+<ul>
+<li>使用 <code>for ... in</code> 的寫法</li>
+<li>condition <strong>不可以加上</strong> <code>()</code></li>
+<li>無論 statement 有幾行，都一定要用 <code>{}</code> 包裹起來。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> abcd = [<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;D&#34;</span>]
+<span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> abcd {
+  print(i)
+}</code></pre></div>
+<p>Swift 3 後，無法使用傳統 C style for loop <code>for (int i = 0; i &lt; 5; i++)</code>，若需取得 index，可以：</p>
+
+<ul>
+<li>使用 <code>enumerated</code> 方法。</li>
+<li>使用 <code>Range Operator</code> 產生 <code>Range</code> Object (不推薦，容易 out of range)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> abcd = [<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;D&#34;</span>]
+<span style="color:#66d9ef">for</span> (idx, val) <span style="color:#66d9ef">in</span> abcd.enumerated() {
+  print(idx, val)
+}
+
+<span style="color:#66d9ef">for</span> val <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0.</span>.&lt;abcd.count {
+    print(val)
+}</code></pre></div>
+<h2 id="while-repeat-while">while/repeat-while</h2>
+
+<ul>
+<li>condition 可省略 <code>()</code>（主流 coding style 會省略）</li>
+<li>無論 statement 有幾行，都一定要用 <code>{}</code> 包裹起來。</li>
+</ul>
+
+<blockquote>
+<p><code>repeat...while</code> 等同於 C 的 <code>do...while</code></p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> i = <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span> {
+  print(i)
+  i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+}
+
+i = <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">repeat</span> {
+  print(i)
+  i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+} <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span></code></pre></div>
+<h2 id="switch">switch</h2>
+
+<ul>
+<li>condition 可省略 <code>()</code>（主流 coding style 會省略）</li>
+<li>可以比對許多不同的型別，不限制於 character 或 integer</li>
+<li>預設每個 case 會自動 break，不需加上 <code>break</code></li>
+<li>case statements 不需要加上 <code>{}</code></li>
+<li>如不加 <code>default</code> case，<strong>需枚舉所有 case</strong>，否則 compiler 會 murmur</li>
+<li>如需 C style 的 statements fall through，請加 <code>fallthrough</code></li>
+<li>配合 <strong>pattern matching</strong> 可以玩很多花樣</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> number = <span style="color:#e6db74">&#34;A&#34;</span>
+<span style="color:#66d9ef">switch</span> aString {
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;A&#34;</span>:
+  print(<span style="color:#e6db74">&#34;Got&#34;</span>)
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;B&#34;</span>:
+  print(<span style="color:#e6db74">&#34;Got B&#34;</span>)
+  <span style="color:#66d9ef">fallthrough</span>
+<span style="color:#66d9ef">default</span>:
+  print(<span style="color:#e6db74">&#34;Got B with fallthrough&#34;</span>)
+}</code></pre></div>
+<p>Pattern matching 搶先看（with value-binding）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> point = (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>)
+
+<span style="color:#66d9ef">switch</span> point {
+<span style="color:#66d9ef">case</span> (<span style="color:#66d9ef">_</span>, <span style="color:#ae81ff">0</span>):
+  print(<span style="color:#e6db74">&#34;on x axis&#34;</span>)
+<span style="color:#66d9ef">case</span> (<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">_</span>):
+  print(<span style="color:#e6db74">&#34;on y axis&#34;</span>)
+<span style="color:#66d9ef">case</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>):
+  print(<span style="color:#e6db74">&#34;at origin&#34;</span>)
+<span style="color:#66d9ef">case</span> <span style="color:#66d9ef">let</span> (x, y):
+  print(<span style="color:#e6db74">&#34;point at (</span><span style="color:#e6db74">\(</span>x<span style="color:#e6db74">)</span><span style="color:#e6db74">, </span><span style="color:#e6db74">\(</span>y<span style="color:#e6db74">)</span><span style="color:#e6db74">)&#34;</span>)
+}</code></pre></div>
+<h2 id="guard-else">guard-else</h2>
+
+<ul>
+<li>用途：檢查是否符合 requirement，用於 Early Exit（作用類似 <code>if (!...) return</code>）</li>
+<li>guard 的 condition 為 requirement，與 <code>if</code> 相反</li>
+<li>須與 <code>else</code> 搭配，該 <code>else</code> 內必須有轉換 control flow 的動作，如 <code>break</code>、<code>return</code>等</li>
+<li>與 optional binding 搭配，可以節省寶貴的 indentation</li>
+<li>慣例寫在該 code block 的最頂層</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> aNil: Int? = <span style="color:#ae81ff">5</span>
+<span style="color:#66d9ef">guard</span> <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">else</span> {
+  fatalError(<span style="color:#e6db74">&#34;you won&#39;t fail here&#34;</span>)
+}
+
+<span style="color:#75715e">// optional-binding</span>
+<span style="color:#66d9ef">guard</span> <span style="color:#66d9ef">let</span> integer = aNil <span style="color:#66d9ef">else</span> {
+  fatalError(<span style="color:#e6db74">&#34;you won&#39;t fail here&#34;</span>)
+}
+
+print(integer) <span style="color:#75715e">// no need to wrap the optional</span>
+
+<span style="color:#66d9ef">guard</span> int <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">else</span> {
+  fatalError(<span style="color:#e6db74">&#34;you failed&#34;</span>)
+}</code></pre></div>
+<blockquote>
+<p>由於 <code>guard</code> 關鍵字用在 Early exit，<code>else</code> clause 裡不應有太複雜的邏輯</p>
+</blockquote>
+
+<h2 id="defer">defer</h2>
+
+<ul>
+<li>用途：在該 code block 返回之前，執行 <code>defer</code> 的動作</li>
+<li>若有多個 <code>defer</code>，以相反方向執行（由下而上）</li>
+<li>類似其他語言 try-catch-finally 的 finally</li>
+<li>慣例寫在該 code block 的最頂層</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">f</span>() {
+  <span style="color:#66d9ef">defer</span> { print(<span style="color:#e6db74">&#34;Last&#34;</span>) }
+  <span style="color:#66d9ef">defer</span> { print(<span style="color:#e6db74">&#34;Third&#34;</span>) }
+  <span style="color:#66d9ef">defer</span> { print(<span style="color:#e6db74">&#34;Second&#34;</span>) }
+  print(<span style="color:#e6db74">&#34;First&#34;</span>)
+}</code></pre></div>
+<blockquote>
+<p>個人認為 <code>defer</code> 本身執行順序相反，比較不推薦使用多個 defer，會減少 readability</p>
+</blockquote>
+
+<h1 id="type-system">Type system</h1>
+
+<p>Swift 除了 builtin types 以外，還有許多方式可以宣告 custom type，介紹常見的幾種</p>
+
+<ul>
+<li>value types
+
+<ul>
+<li>enum</li>
+<li>struct</li>
+</ul></li>
+<li>reference types
+
+<ul>
+<li>class</li>
+<li>function</li>
+</ul></li>
+<li>others
+
+<ul>
+<li>tuple</li>
+<li>protocol</li>
+<li>extension</li>
+</ul></li>
+</ul>
+
+<p>Swift 中，struct、enum、function 皆與 class 一樣是 <a href="https://en.wikipedia.org/wiki/First-class_citizen" target="_blank">first-class citizen</a>，可以賦值、 作為 function 參數或 function 的返回值。</p>
+
+<h2 id="value-type-v-s-reference-type">Value Type V.S. Reference Type</h2>
+
+<p>Swift 的世界中，把 type 分為 value type 與 reference type，和 Objective-C 萬物皆繼承 <code>NSObject</code> 很不一樣。</p>
+
+<table>
+<thead>
+<tr>
+<th>Behavior</th>
+<th>Value Type</th>
+<th>Reference Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>copy</td>
+<td>複製一份 copy</td>
+<td>分享同一份 value（複製新的reference）</td>
+</tr>
+
+<tr>
+<td>function call</td>
+<td>call by value</td>
+<td>call by reference</td>
+</tr>
+
+<tr>
+<td>修改屬性的method</td>
+<td>inhibited (func 需用 mutating 修飾）</td>
+<td>allowed</td>
+</tr>
+</tbody>
+</table>
+
+<p>簡而言之 value type 賦值到新的 variable 時，會複製整個實例；reference type 則只會指向同一個實例。</p>
+
+<p>如果 value type 的 method 需要改變自己的 property 時，該 method 需要使用 <code>mutating</code> 修飾。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// Value Type ----------</span>
+<span style="color:#66d9ef">let</span> array1 = [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+<span style="color:#66d9ef">var</span> array2 =  array1
+array2[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">4</span>
+
+print(array1) <span style="color:#75715e">// still the same value</span>
+<span style="color:#75715e">// [1, 2, 3]</span>
+
+print(array2) <span style="color:#75715e">// copied and modified</span>
+<span style="color:#75715e">// [4, 2, 3]</span>
+
+<span style="color:#75715e">// Reference Type -------</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
+  <span style="color:#66d9ef">var</span> prop = <span style="color:#ae81ff">1</span>
+}
+
+<span style="color:#66d9ef">let</span> instance1 = MyClass()
+<span style="color:#66d9ef">var</span> instance2 = instance1 <span style="color:#75715e">// a new reference to instance1</span>
+instance2.prop = <span style="color:#ae81ff">2</span>
+
+print(instance1)
+<span style="color:#75715e">// 2</span>
+print(instance2)
+<span style="color:#75715e">// 2</span>
+
+print(instance1 === instance2)
+<span style="color:#75715e">// true</span></code></pre></div>
+<p>慣例上，在需求允許的情況，推薦使用 value type（struct、enum）創建新的型別，在 assign/copy 時不會造成太多 side effect。例如在與 database 溝通等 object mapping 的情境下。</p>
+
+<blockquote>
+<p>小提醒：Stdlib 的 Array/Dictionary 皆為 value type</p>
+</blockquote>
+
+<h1 id="class">Class</h1>
+
+<h2 id="declaration-1">Declaration</h2>
+
+<p>class 的宣告方式和大多數程式語言相似</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
+  <span style="color:#75715e">// ...</span>
+}</code></pre></div>
+<p>繼承其他 class 或 protocol 則在 classname 後加上 <code>: MySuperClass</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MySubClass</span>: MyClass {
+  <span style="color:#75715e">// ...</span>
+}</code></pre></div>
+<p>Swift 的 class 依然不允許多重繼承，但可以繼承多個 <strong>protocol</strong>，以 <code>,</code> 分隔不同的繼承來源。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnotherSubClass</span>: MyClass, MyProtocol, AnotherProtocol {
+  <span style="color:#75715e">// ...</span>
+}</code></pre></div>
+<h2 id="properties">Properties</h2>
+
+<p>class 的 property 分為兩種</p>
+
+<ul>
+<li>Stored Property</li>
+<li>Computed Property</li>
+</ul>
+
+<h3 id="stored-property">Stored Property</h3>
+
+<p>getter／setter 就是 property 本身</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rect</span> {
+  <span style="color:#66d9ef">var</span> width = <span style="color:#ae81ff">10</span>
+  <span style="color:#66d9ef">var</span> height = <span style="color:#ae81ff">20</span>
+}
+
+<span style="color:#66d9ef">let</span> rect = Rect()
+rect.width = <span style="color:#ae81ff">20</span>
+print(rect.width)</code></pre></div>
+<h3 id="computed-property">Computed Property</h3>
+
+<ul>
+<li>getter／setter 透過計算得來</li>
+<li>setter 透過 <code>newValue</code> 變數取得新值</li>
+<li>只有 getter 時，可以直接 return 該值（Objective-C readonly property）</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rect</span> {
+  <span style="color:#66d9ef">var</span> width = <span style="color:#ae81ff">10</span>
+  <span style="color:#66d9ef">var</span> height = <span style="color:#ae81ff">20</span>
+
+  <span style="color:#66d9ef">var</span> x = <span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">var</span> y = <span style="color:#ae81ff">0</span>
+
+  <span style="color:#66d9ef">var</span> centerX: Int {
+    <span style="color:#66d9ef">get</span> {
+      <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> width <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+    }
+    <span style="color:#66d9ef">set</span> {
+      x = newValue <span style="color:#f92672">-</span> width <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+    }
+  }
+
+  <span style="color:#66d9ef">var</span> area: Int { <span style="color:#75715e">// readonly</span>
+    <span style="color:#66d9ef">return</span> width <span style="color:#f92672">*</span> height
+  }
+}</code></pre></div>
+<h3 id="property-observers">Property Observers</h3>
+
+<ul>
+<li>property willSet/didSet 時做對應的動作</li>
+<li>可取代部分 Objective-C 的 key-value Observing 的功能</li>
+<li>willSet 可以從 <code>newValue</code> 變數取得新值</li>
+<li>didSet 可以從 <code>oldValue</code> 變數取得舊值</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PropObserve</span> {
+  <span style="color:#66d9ef">var</span> aVar: Int = <span style="color:#ae81ff">0</span> {
+    <span style="color:#66d9ef">willSet</span> {
+      print(<span style="color:#e6db74">&#34;New Value: </span><span style="color:#e6db74">\(</span>newValue<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    }
+    <span style="color:#66d9ef">didSet</span> {
+      print(<span style="color:#e6db74">&#34;Old Value: </span><span style="color:#e6db74">\(</span>oldValue<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    }
+  }
+}</code></pre></div>
+<h2 id="initialization">Initialization</h2>
+
+<ul>
+<li>Designated initializer： 完全初始化所有 stored property 的 initializer</li>
+<li>Designated initializer： 皆須調用 superclass 的 designated initializer</li>
+<li>Convenience initiailzer： 用 <code>convenience</code> 修飾，必須調用其他 initializer</li>
+<li><code>convenience</code> init chain 的最末一個必須調用 self 的 designated initializer</li>
+<li>利用 <code>required</code> 修飾詞來指定 subclass 必須實作的 initializer</li>
+<li>底層與 Objective-C 同為 Two-Phase Initialization，但會賦予 stored property 實值而非 <code>nil</code></li>
+<li>subclasses 在滿足下列條件之一，就會自動繼承 superclass 的 initis（<strong>預設不繼承</strong>）：
+
+<ol>
+<li>subclass 沒有宣告任何 init -&gt; 自動繼承所有 <strong>designated init</strong></li>
+<li>subclass 實作所有 superclass 的 designated inits -&gt; 自動繼承所有 <strong>convenience init</strong></li>
+</ol></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span>: CustomStringConvertible {
+    <span style="color:#66d9ef">var</span> a: Int
+    <span style="color:#66d9ef">var</span> b: Int
+
+    <span style="color:#66d9ef">var</span> description: String {
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>a<span style="color:#e6db74">)</span><span style="color:#e6db74">, </span><span style="color:#e6db74">\(</span>b<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>
+    }
+
+    <span style="color:#66d9ef">init</span>(a: Int, b: Int) {
+        <span style="color:#66d9ef">self</span>.a = a
+        <span style="color:#66d9ef">self</span>.b = b
+    }
+    <span style="color:#66d9ef">required</span> <span style="color:#66d9ef">init</span>(a: Int, b: Int, c: Int) {
+        <span style="color:#66d9ef">self</span>.a = a <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>
+        <span style="color:#66d9ef">self</span>.b = b <span style="color:#f92672">*</span> c
+    }
+    <span style="color:#66d9ef">convenience</span> <span style="color:#66d9ef">init</span>() {
+        <span style="color:#66d9ef">self</span>.<span style="color:#66d9ef">init</span>(a: <span style="color:#ae81ff">0</span>, b: <span style="color:#ae81ff">0</span>)
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SubClass</span>: MyClass {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">init</span>(a: Int, b: Int) {
+        <span style="color:#66d9ef">super</span>.<span style="color:#66d9ef">init</span>(a: a, b: b)
+    }
+    <span style="color:#66d9ef">required</span> <span style="color:#66d9ef">init</span>(a: Int, b: Int, c: Int) {
+        <span style="color:#66d9ef">super</span>.<span style="color:#66d9ef">init</span>(a: a, b: b)
+        <span style="color:#66d9ef">self</span>.a = <span style="color:#ae81ff">10</span>
+        <span style="color:#66d9ef">self</span>.b = <span style="color:#ae81ff">15</span>
+    }
+}
+
+<span style="color:#66d9ef">let</span> my = MyClass()
+print(<span style="color:#e6db74">&#34;my: </span><span style="color:#e6db74">\(</span>my<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+
+<span style="color:#66d9ef">let</span> my2 = MyClass(a: <span style="color:#ae81ff">1</span>, b: <span style="color:#ae81ff">2</span>, c: <span style="color:#ae81ff">3</span>)
+print(<span style="color:#e6db74">&#34;my2: </span><span style="color:#e6db74">\(</span>my2<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+
+
+<span style="color:#66d9ef">let</span> sub = SubClass()
+print(<span style="color:#e6db74">&#34;sub: </span><span style="color:#e6db74">\(</span>sub<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">let</span> sub2 = SubClass(a: <span style="color:#ae81ff">1</span>, b: <span style="color:#ae81ff">2</span>, c: <span style="color:#ae81ff">3</span>)
+print(<span style="color:#e6db74">&#34;sub2: </span><span style="color:#e6db74">\(</span>sub2<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">let</span> sub3 = SubClass(a: <span style="color:#ae81ff">1</span>, b: <span style="color:#ae81ff">2</span>)
+print(<span style="color:#e6db74">&#34;sub3: </span><span style="color:#e6db74">\(</span>sub3<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)</code></pre></div>
+<h1 id="struct">Struct</h1>
+
+<ul>
+<li>和 class 相似，但為 value type，且無法繼承</li>
+<li>Default Initializer 是 memberwise initializer（須賦值給所有 properties）</li>
+<li>mutating method: 改變自身 property</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Origin</span> {
+  <span style="color:#66d9ef">let</span> x: Int
+  <span style="color:#66d9ef">let</span> y: Int
+}
+<span style="color:#66d9ef">let</span> origin = Origin(x: <span style="color:#ae81ff">0</span>, y: <span style="color:#ae81ff">1</span>) <span style="color:#75715e">// 提供 default init</span>
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span> {
+  <span style="color:#66d9ef">let</span> x: Int
+  <span style="color:#66d9ef">let</span> y: Int
+  <span style="color:#66d9ef">init</span>() {
+    <span style="color:#66d9ef">self</span>.x = <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">self</span>.y = <span style="color:#ae81ff">0</span>
+  }
+  <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">multiplyX</span>(x: Int) {
+    <span style="color:#66d9ef">self</span>.x <span style="color:#f92672">*=</span> x
+  }
+}
+
+<span style="color:#66d9ef">let</span> point = Point(x: <span style="color:#ae81ff">0</span>, y: <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">// Error： custom init 會取代 default memberwise init</span></code></pre></div>
+<ul>
+<li><strong>Extra</strong>: inherit <code>OptionSet</code> protocol for <code>NS_OPTIONS</code> (不是用 enum)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Direction</span>: OptionSet {
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">let</span> rawValue: Int
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">init</span>(rawValue: Int) {
+        <span style="color:#66d9ef">self</span>.rawValue = rawValue
+    }
+
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">let</span> north = Direction(rawValue: <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">let</span> east = Direction(rawValue: <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">let</span> south = Direction(rawValue: <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">let</span> west = Direction(rawValue: <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">3</span>)
+
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">let</span> none: Direction = []
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">let</span> all: Direction = [.north, .east, .south, .west]
+}
+
+<span style="color:#66d9ef">let</span> dir: Direction = [.north, .east]</code></pre></div>
+<h1 id="enum">Enum</h1>
+
+<ul>
+<li>不需指定 rawValue</li>
+<li>每個 case 都是被定義好的類型，不需害怕比對到 <code>0</code>（legacy Objective-C NS_ENUM issue）</li>
+<li>mutating method: 改變自身 properties 的值</li>
+<li>很容易與 <code>switch</code> 配合</li>
+<li>Advance：可以宣告 indirect enum (recursive enum)</li>
+</ul>
+
+<h1 id="optional">Optional</h1>
+
+<p>Swift 中很神奇的 Optional，實際上就只是一個 enum，實作上大概長這樣</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Optional</span>&lt;Wrapped<span style="color:#f92672">&gt;</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">none</span>
+    <span style="color:#66d9ef">case</span> some(Wrapped)
+}</code></pre></div>
+<h2 id="unwrapping">Unwrapping</h2>
+
+<ul>
+<li>forced unwrapped：強迫解析／取值（不建議使用）</li>
+<li>implicit wrapped：自動解析／取值（Apple 官方用在 xib／storyboard 的 IBOutlet property）</li>
+<li>Nil-coalescing: 提供 Optional 一個 default value</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> a: Int? = <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">let</span> b: Int<span style="color:#f92672">!</span> = <span style="color:#ae81ff">10</span>
+
+print(a<span style="color:#f92672">!</span>)                 <span style="color:#75715e">// print 需傳入非 optional 的型別，必須強迫解析</span>
+print(a ?? <span style="color:#e6db74">&#34;This is nil&#34;</span>) <span style="color:#75715e">// a 若是 nil 則 print 出 &#34;This is nil&#34;</span>
+print(b)                  <span style="color:#75715e">// b 已自動解析（不建議使用，除非完全確定不會取得 nil）</span></code></pre></div>
+<h2 id="optional-chaining">Optional Chaining</h2>
+
+<ul>
+<li>在 optional 後加上 <code>?</code>，遇到 <code>nil</code> 停止，不會 crash（類似 Objective-C 對 nil msgSend）</li>
+<li>可以 chaining protocol 的 optional method，不需要 <code>respondToSelector:</code> 檢查</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> array: [Int]? = [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+print(array?.count)
+<span style="color:#75715e">// 3</span></code></pre></div>
+<h2 id="optional-binding">Optional Binding</h2>
+
+<ul>
+<li>解析 optional 中的 value，有值則將其 binding 到 variable 上，不需再解析</li>
+<li><code>if let</code></li>
+<li><code>case let</code></li>
+<li><code>guard let</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> x: Int? = <span style="color:#ae81ff">1000</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> x = x {
+  print(x) <span style="color:#75715e">// no need to unwrap</span>
+} <span style="color:#66d9ef">else</span> {
+  <span style="color:#75715e">// if x == nil goes here</span>
+}
+
+<span style="color:#66d9ef">if</span> x <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  print(x<span style="color:#f92672">!</span>) <span style="color:#75715e">// Need a forced unwrapping. Unsafe.</span>
+}</code></pre></div>
+<h1 id="tuple">Tuple</h1>
+
+<ul>
+<li>輕巧的 container，除了儲存 value，沒有其他功能</li>
+<li>tuple elements 可以有 name</li>
+<li>tuple elements 可以是不同型別</li>
+<li>function 可利用 tuple 產生多個 return value</li>
+<li>可與強大 pattern matching 配合</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> voidTuple = ()
+
+<span style="color:#66d9ef">let</span> tuple = (<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;A&#34;</span>)
+print(tuple.<span style="color:#ae81ff">0</span>, tuple.<span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">// 1 A</span>
+
+<span style="color:#66d9ef">let</span> namedTuple = (a: <span style="color:#e6db74">&#34;a&#34;</span>, b: <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>)
+print(namedTuple.a, namedTuple.b, namedTuple.<span style="color:#ae81ff">2</span>, namedTuple.<span style="color:#ae81ff">0</span>)
+<span style="color:#75715e">// a b c a</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> point = (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)
+<span style="color:#66d9ef">switch</span> point {
+  <span style="color:#66d9ef">case</span> (<span style="color:#66d9ef">_</span>, <span style="color:#ae81ff">0</span>):
+    print(<span style="color:#e6db74">&#34;on the x axis&#34;</span>)
+  <span style="color:#66d9ef">case</span> (<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">_</span>):
+    print(<span style="color:#e6db74">&#34;on the y axis&#34;</span>)
+  <span style="color:#66d9ef">case</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>):
+    print(<span style="color:#e6db74">&#34;at origin&#34;</span>)
+  <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">let</span> (x, y): <span style="color:#75715e">// value-binding</span>
+    print(<span style="color:#e6db74">&#34;at (</span><span style="color:#e6db74">\(</span>x<span style="color:#e6db74">)</span><span style="color:#e6db74">, </span><span style="color:#e6db74">\(</span>y<span style="color:#e6db74">)</span><span style="color:#e6db74">)&#34;</span>)
+}</code></pre></div>
+<h1 id="function-method-closure">Function &amp; Method &amp; Closure</h1>
+
+<ul>
+<li>皆是 reference type，型別為 parameter types + return type，類似 method signature。</li>
+<li>closure 可以利用 capture list 獲取外部變數，防止 retain cycle</li>
+<li>escaping closure：作為參數傳遞時，會延遲至 function return 後執行，逃出 function scope</li>
+<li>預設 closure 作為 parameter 時為 @noescaing，escaping closure 需以 @escaping 特別修飾</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// function witn 0 param, return an Int</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">function1</span>() -&gt; Int {
+}
+
+<span style="color:#75715e">// function with 2 params, return a closure with 1 param and return a String</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">function2</span>(x: Double, y: String) -&gt; (Int) -&gt; (String) {
+    <span style="color:#66d9ef">return</span> { Int <span style="color:#66d9ef">in</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;a string&#34;</span>
+    }
+}
+
+<span style="color:#75715e">// closure with 2 params, no return value</span>
+<span style="color:#66d9ef">let</span> closure1 = { (a: Int, b: Int) <span style="color:#66d9ef">in</span>
+    print(a, b)
+}
+
+<span style="color:#75715e">// closure with explicit type declaration (implicit return &amp; shorthand argument)</span>
+<span style="color:#66d9ef">let</span> closure2: (String, String) -&gt; ([String: String]) = { [$0: $1] }</code></pre></div>
+<h1 id="protocol">Protocol</h1>
+
+<ul>
+<li>與 Objective-C 的 protocol 雷同</li>
+<li>可以透過 <code>@objc optional</code> 修飾為 optional 的 requirement</li>
+<li>可繼承，也可透過 extension 提供 default implementations</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">Car</span> {
+    <span style="color:#66d9ef">var</span> tireCount: Int { <span style="color:#66d9ef">get</span> <span style="color:#66d9ef">set</span> }
+    <span style="color:#66d9ef">var</span> isDriving: Bool { <span style="color:#66d9ef">get</span> }
+    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">drive</span>()
+}
+
+<span style="color:#75715e">// Optional 需要 import Foundation 才能利用 Objective-C 的 runtime 特性</span>
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Foundation</span>
+
+<span style="color:#66d9ef">@objc</span> <span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">Flyable</span> {
+    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fly</span>()
+    <span style="color:#66d9ef">@objc</span> <span style="color:#66d9ef">optional</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">landing</span>()
+}</code></pre></div>
+<h1 id="extension">Extension</h1>
+
+<ul>
+<li>class/struct/enum 皆可宣告 extension</li>
+<li>protocol 的 extension 為該 protocol 的 default implementations</li>
+<li>同一個 type 可以有多個 extesions</li>
+<li>extension 可以使用 <code>where</code> 來限制 extension 的範圍</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">UIKIt</span>
+
+<span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">SomeViewProtocol</span> {}
+
+<span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">SomeViewProtocol</span> <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">Self</span>: UIButton {
+  <span style="color:#75715e">// 作用在 UIButton 的 default implementations</span>
+}
+
+<span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">SomeViewProtocol</span> <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">Self</span>: UILabel {
+  <span style="color:#75715e">// 作用在 UILabel 的 default implementations</span>
+}</code></pre></div>
+<h1 id="access-control">Access Control</h1>
+
+<ul>
+<li>open/public: 公開</li>
+<li>internal: 模組層（預設的 ACL）</li>
+<li>fileprivate: 文件層</li>
+<li>private: 宣告層（class／struct 內部等）</li>
+<li>patial access control: setter 需要較高權限時（外部 readonly）
+
+<ul>
+<li>internal(set)</li>
+<li>fileprivate(set)</li>
+<li>private(set)</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
+  open <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">test</span>() {}
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">private</span>(<span style="color:#66d9ef">set</span>) <span style="color:#66d9ef">var</span> readonlyVar: Int = <span style="color:#ae81ff">0</span>
+}</code></pre></div>
+<blockquote>
+<p>public 與 open 的差異在與 <strong>subclassable</strong>，open 可以在模組外 subclass，但 public 不能在模組外 subclass</p>
+</blockquote>
+
+<h1 id="ecosystem">Ecosystem</h1>
+
+<ul>
+<li><a href="https://github.com/realm/SwiftLint" target="_blank">SwiftLint</a>: Coding style linter written in Swift</li>
+<li><a href="https://github.com/Carthage/Carthage" target="_blank">Carthage</a>: Package Manager written in Swift</li>
+<li><a href="https://github.com/realm/jazzy" target="_blank">Jazzy</a>: Swift documentation generator (written in Ruby)</li>
+<li><a href="https://github.com/matteocrippa/awesome-swift" target="_blank">Awesome-Swift</a>: curated list for Swift library/fraemwork</li>
+<li>Server-side Swift
+
+<ul>
+<li><a href="https://github.com/vapor/vapor" target="_blank">Vapor</a>: 最活躍的 web framework</li>
+<li><a href="https://github.com/PerfectlySoft/Perfect" target="_blank">Perfect</a>: 最多 Star 的 web framework</li>
+<li>&hellip;More</li>
+</ul></li>
+<li>functional/reactive programming
+
+<ul>
+<li><a href="https://github.com/ReactiveX/RxSwift" target="_blank">RxSwift</a>: ReactiveX Community Support</li>
+<li><a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank">ReactiveCocoa</a>: Most Popular RX library</li>
+</ul></li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<ul>
+<li><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/" target="_blank">Apple Swift Documentation</a></li>
+</ul>
+
+</div>
+
+    
+<footer class='entry-footer-container'>
+  <div class='entry-footer'>
+  <div class='tags'>
+  <span class='taxonomyTerm-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+</span>
+  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/swift'>Swift</a></div>
+
+  </div>
+</footer>
+
+
+  </article>
+  
+<nav class='entry-nav-container'>
+  <div class='entry-nav'><div class='prev-entry'>
+      <a href='/posts/2017/readthesource-swift-then/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader'>Previous post: </span>閱讀原始碼：Swift-Then</a>
+    </div><div class='next-entry'>
+      <a href='/posts/2017/carthage-intro/'>
+        <span class='screen-reader'>Next post: </span>Carthage 套件管理工具<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+  
+<div class='comments-container'>
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wehang-lo" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social-menu-container'>
+  <nav aria-label='Social Menu'>
+    <ul class='social-menu'><li>
+        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</div>
+        <div class='copyright'>
+  <p>
+        
+      
+
+       &copy; 2017 Weihang Lo 
+  </p>
+</div>
+
+      </div>
+    </footer>
+
+  </div><script src='/assets/js/main.5871befd.js'></script><script src='/js/custom.js'></script></body>
+
+</html>
+

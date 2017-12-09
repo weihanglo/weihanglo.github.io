@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &ldquo;Integrated Terminal performance&rdquo; section. Let&rsquo;s check out what they&rsquo;ve done!
+(written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
+Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &ldquo;Xterm.js&rdquo;, which is currently maintained by SourceLair and community contributors.'>
+
+<meta property='og:title' content='How Is New Terminal In VS Code So Fast? • Weihang Lo'>
+<meta property='og:description' content='Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &ldquo;Integrated Terminal performance&rdquo; section. Let&rsquo;s check out what they&rsquo;ve done!
+(written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
+Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &ldquo;Xterm.js&rdquo;, which is currently maintained by SourceLair and community contributors.'>
+<meta property='og:url' content='https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/'>
+<meta property='og:site_name' content='Weihang Lo'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Canvas'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='Terminal'><meta property='article:tag' content='Visual Studio Code'><meta property='article:tag' content='Source Reading'><meta property='article:tag' content='Xterm.js'><meta property='article:published_time' content='2017-10-12T22:05:03&#43;08:00'/><meta property='article:modified_time' content='2017-10-12T22:05:03&#43;08:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.31.1" />
+
+  <title>How Is New Terminal In VS Code So Fast? • Weihang Lo</title>
+  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700&subset=latin'>
+<link rel='stylesheet' href='/assets/css/main.77da63e1.css'><link rel='stylesheet' href='/css/custom.css'>
+</head>
+
+
+<body class='page type-posts'>
+  <div class='site'>
+
+    <a class='screen-reader' href='#main'>Skip to Content</a>
+
+    <header id='header' class='header-container'>
+      <div class='header site-header'>
+        <nav id='main-menu' class='main-menu-container' aria-label='Main Menu'>
+  <ul class='main-menu'>
+  <li>
+      <a href='/'>Home</a>
+    </li>
+  <li>
+      <a href='/posts'>Posts</a>
+    </li>
+  <li>
+      <a href='/tags'>Tags</a>
+    </li>
+  
+  </ul>
+</nav>
+
+        <div class='header-info'>
+          
+          <p class='site-title title'>Weihang Lo</p>
+          
+          <p class='site-description subtitle'>Our online life is real life</p>
+        </div>
+      </div>
+    </header>
+
+
+<main id='main' class='main'>
+  <article lang='en-us' class='entry'>
+    <header class='header-container'>
+  <div class='header entry-header'>
+    <div class='header-info'>
+      <h1 class='title'>How Is New Terminal In VS Code So Fast?</h1>
+      
+
+    </div>
+    
+<div class='meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader'>Posted on </span>
+  <time class='date' datetime='2017-10-12T22:05:03&#43;08:00'>2017, Oct 12</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+13 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+    
+    
+
+    <div class='entry-content'>
+  
+
+<p><img src="https://i.imgur.com/KGfkJxn.png" alt="" /></p>
+
+<p>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &ldquo;Integrated Terminal performance&rdquo; section. Let&rsquo;s check out what they&rsquo;ve done!</p>
+
+<p><em>(written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)</em></p>
+
+<!-- more -->
+
+<h2 id="old-performance-issue">Old Performance Issue</h2>
+
+<p>The integrated terminal in VS Code is powered by another popular open-source project <a href="https://github.com/sourcelair/xterm.js" target="_blank">&ldquo;Xterm.js&rdquo;</a>, which is currently maintained by <a href="https://www.sourcelair.com" target="_blank">SourceLair</a> and community contributors. There are many real-world use cases of Xterm.js, such as <a href="https://www.rstudio.com/products/RStudio/" target="_blank">RStudio</a> and <a href="https://github.com/jupyterlab/jupyterlab" target="_blank">JupyterLab</a> (Ah ha! Data scientist!), not to mention SourceLair itself. One can say that Xterm.js dominates web-based terminal world as React does in front-end development.</p>
+
+<p>As same as other web-based HTML terminal emulators, old versions of Xterm.js are powered by old fashion. Rendering from <code>HTMLElement</code>s, selecting text via <code>document.getSelection</code>, receiving DOM <code>MouseEvent</code>s. All these works were done by a sequence of DOM manipulations.</p>
+
+<p>Development in modern web technologies lowers the barriers for other devs to contribute to. Every programmer can easily pick up a JavaScript cookbook to study, then boasts about new frameworks on Github trending as he is a JavaScript expert. However, web techs also brings another significant drawback: performance.</p>
+
+<p>As we mention to web performance, two key concepts should be kept in mind: <strong>reflow</strong> and <strong>repaint</strong>.</p>
+
+<p><img src="gecko-rendering-process.png" alt="Gecko Rendering Process" /></p>
+
+<blockquote>
+<p>Image from MDN. We focus on <strong>layout</strong> and <strong>paint</strong>.</p>
+</blockquote>
+
+<h3 id="reflow">Reflow</h3>
+
+<p>When a web page is initialized, the render engine calculates dimensions and position of all elements to layout them in proper place. This is known as <strong>layout</strong>. Although layout is a normal stage of browser rendering process, any updates of position, dimensions or other properties on a specific element after initialization will lead to an additional layout on that element, and all its child nodes need to do a extra layout, too (except nodes with absolute position). These synchronously layout calculations are called <strong>reflows</strong>, which might result in performance bottlenecks.</p>
+
+<blockquote>
+<p>Here is a list of <a href="https://gist.github.com/paulirish/5d52fb081b3570c81e3a" target="_blank">what forces layout / reflow</a>. Read it to avoid reflows.</p>
+</blockquote>
+
+<h3 id="repaint">Repaint</h3>
+
+<p>A <strong>repaint</strong> occurs when changes are made to an element&rsquo;s visibility, background color, or other styles not relevant to layout. Repaints are less expensive than reflows, but also have some impact on browser responsive time.</p>
+
+<h3 id="dom-manipulations">DOM manipulations</h3>
+
+<p>Poor performance is not web techs or JavaScript&rsquo;s faults. It always counts on implementation details. <a href="https://hyper.is/" target="_blank">Hyper</a> and <a href="https://github.com/railsware/upterm" target="_blank">Upterm</a> are two delightful terminal emulators based on Electron. They add many convenient features to improve our boring daily terminal lives. The pain points are their performance issues due to DOM rendering. Both rendering implementations depend on heavy DOM manipulations.</p>
+
+<p>Imagine you are running a <code>yes</code>-like command that writes output at <a href="https://www.reddit.com/r/unix/comments/6gxduc/how_is_gnu_yes_so_fast/" target="_blank">full 10.2GiB/s speed</a>. You will find that your web-based terminal emulator stuck and cannot response to any mouse event anymore. The high speed <code>yes</code> triggers a tremendous amount of synchronous <strong>reflows</strong> and <strong>repaints</strong>. Soon, the browser becomes irresponsive.</p>
+
+<h2 id="optimization-in-dark-dom-era">Optimization in Dark DOM Era</h2>
+
+<p>Back to the original version before refactoring to canvas renderer (which started at <a href="https://github.com/sourcelair/xterm.js/commit/c6d4c73c" target="_blank">c6d4c73c</a>). VS Code used naïve way to render terminal output. We can simplify the old rendering process into following steps:</p>
+
+<ol>
+<li>Setup initial row elements corresponding to each row in terminal. That is to say, if size of the terminal is 80 * 24. It would creates 24 <code>&lt;div&gt;</code> representing each row.</li>
+<li>Loops lines from current terminal buffer. Each line is an array of character data. A character data stores its own width and characters information.</li>
+<li>Loop character data in each line. Wrap each characters as <code>innerHTML</code> in a <code>&lt;span&gt;</code> element. Remember that we need to escape special character such like <code>&lt;</code>, <code>&gt;</code> and <code>&amp;</code>.</li>
+<li>Append <code>&lt;span&gt;</code>s to each row element. Then append each row element to terminal element.</li>
+<li>If anything changes, repeat previous steps.</li>
+</ol>
+
+<p><strong>What a nightmare!</strong></p>
+
+<p>If you are an experienced web developer, you may feel uncomfortable with all those implementation. Modifying DOM between each updates is highly expensive and leads to janky behavior. Luckily, talented maintainers of Xterm.js found their own solution to improve performance. They</p>
+
+<ul>
+<li><a href="https://github.com/sourcelair/xterm.js/blob/c6d4c73c8a8c23ce102918fc0342cf33d2986711/src/Renderer.ts#L159" target="_blank">Use <code>DocumentFragment</code> to batch DOM manipulations</a> to reduce DOM reflow/layout.</li>
+<li><a href="https://github.com/sourcelair/xterm.js/blob/c6d4c73c8a8c23ce102918fc0342cf33d2986711/src/Renderer.ts#L35" target="_blank">Build an object pool</a> to reuse <code>&lt;span&gt;</code> elements containing characters to render. This reduce a plenty of new element creation time.</li>
+<li><a href="https://github.com/sourcelair/xterm.js/blob/c6d4c73c8a8c23ce102918fc0342cf33d2986711/src/Renderer.ts#L67-L102" target="_blank">Setup a skip-frame mechanism</a> to throttle refresh rate when consuming large streamed buffer.</li>
+<li>Implement a <a href="https://github.com/sourcelair/xterm.js/pull/670" target="_blank">custom selection logic</a> to support multiple pages selections instead of <code>document.getSelection</code>.</li>
+</ul>
+
+<p>Despite that these methods made performance much better (at least better than other popular project I&rsquo;ve tried), the implementation still had some space for enhancements. For instance,</p>
+
+<ul>
+<li>Modification of <code>&lt;span&gt;</code>s in <code>&lt;div&gt;</code> rows still trigger some unnecessary reflows.</li>
+<li>The old rendering process will always remove entire line from DOM, and then append new element to DOM, even when only a single character changed.</li>
+<li>Though the skip-frame mechanism can free CPU from endless <code>requestAnimationFrame</code> events, the skip-frame itself means dropping frame from 60 FPS animation.</li>
+<li>Most characters used in terminal can represent in ASCII code, but a browser always use UTF-16 <code>DOMString</code> to store the information, which may be seen as a waste of memory usage.</li>
+</ul>
+
+<h2 id="simple-intro-of-canvas">Simple Intro of Canvas</h2>
+
+<p><a href="https://code.visualstudio.com/blogs/2017/10/03/terminal-renderer" target="_blank">As the recent blog post said</a>, the new canvas-based rendering engine renders 5 to 45 times faster, and reduces input latency, power usage and many more. Sounds perfect! However, not all front-end developers are familiar with canvas API. Here are some basic concepts of canvas API you need to know.</p>
+
+<p>The <code>&lt;canvas&gt;</code> is an HTML element providing API for rendering graphics via scripting (JavaScript) on the fly. Modern browsers would also enable hardware-acceleration of canvas rendering by default. You can think of canvas API as an optimized version of browser&rsquo;s <strong>repaint</strong> powered by GPU.</p>
+
+<h3 id="api-provider">API Provider</h3>
+
+<p>To render a 2D canvas, one developer just need to follow simple steps shown below:</p>
+
+<ol>
+<li>Create a rendering context (by creating a <code>&lt;canvas&gt;</code> element).</li>
+<li>Access contexts (use <code>canvas.getContext('2d')</code> for 2D rendering context).</li>
+<li>Start drawing via <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D" target="_blank">various commands</a>.</li>
+<li>All drawing results are rendered onto canvas element as an composited image.</li>
+</ol>
+
+<p>As you can see, learning 2D canvas rendering needs only a small amount (around 70 API for 2D context) of human memory. Most of these drawing API are style-related. As a web developer, you must have seen more CSS styles than these tiny group of drawing commands. Memorizing 70 additional methods is just a piece of cake, huh?</p>
+
+<h3 id="resource-saver">Resource Saver</h3>
+
+<p>Another selling points is that 2D Canvas rendering provides a plenty of <strong>pixel-awared</strong> drawing commands. Instead of updating the whole canvas element, these drawing methods let you decide your region of interest to be re-render in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas" target="_blank">per-pixel level</a>. Almost all drawing API provide optional coordinates and size parameters for devs to tweak what they really desire. The process of updating only changed elements is called <strong>invalidation</strong>, and that preserves much precious CPU and GPU time.</p>
+
+<p>As opposed to DOM elements, styles in 2D canvas are shared between each path belongs to the canvas. No need to store inline-styling information for every elements. If you want to temporarily store your style state, you can use the standard <code>context.save()</code> and <code>context.restore()</code> methods to push/pop your styles from a stack-like context state container. That&rsquo;s why I call canvas a <strong>memory saver</strong>!</p>
+
+<h3 id="performance-booster">Performance Booster</h3>
+
+<p>As well as saving resources, canvas rendering also gives us ways to jack up performance. One is using detached canvas as an off-screen canvas or using <code>OffScreenCanvas</code> directly. The latter can even draw canvas in worker threads!</p>
+
+<p>Another way is creating a texture atlas. A <a href="https://en.wikipedia.org/wiki/Texture_atlas" target="_blank">texture atlas</a> a.k.a. <strong>sprite sheet</strong>, is an image packed other small pieces of sub-images into itself. When drawing a sub-image, one can picks up the sub-image by its own texture coordinates. The reason to store images in single texture is that GPU is often more performant when accessing a large texture one time than multiple tiny images many times.</p>
+
+<video alt="Nyancat on VS Code" src="nyancat.mp4" style="width:100%;height:300px" autoplay loop controls></video>
+
+<blockquote>
+<p>Nyancat runs on VS Code without janky!</p>
+</blockquote>
+
+<h2 id="canvas-to-the-rescue">Canvas to the Rescue</h2>
+
+<p>After understand big concepts in 2D canvas. Let&rsquo;s dive into <a href="https://github.com/sourcelair/xterm.js/pull/938" target="_blank">the pull request</a> that made canvas renderer. First, recap what they&rsquo;ve done:</p>
+
+<ol>
+<li>Texture atlas (use <code>ImageBitmap</code>) for ASCII codes and ANSI 256 colors. Unicode characters and true-colored text would be drawn on the fly.</li>
+<li>Only render changes. To determine state changes, use custom <code>GridCache</code> to store previous state for comparisons with incoming changes.</li>
+<li>Use four different render layers to separate concerns and reduce the whole canvas re-rendering.</li>
+<li>Remove skip-frame mechanism because new rendering performance is extremely fast.</li>
+</ol>
+
+<h3 id="texture-atlas-and-color-managements">Texture Atlas and Color Managements</h3>
+
+<p>First, we look into the texture atlas.</p>
+
+<p>Xterm.js constructs a global atlas generator shared between terminals with the same configuration (defined in <code>ICharAtlasConfig</code> and <code>ICharAtlasCacheEntry</code>). This can reduces some duplicated construction if an app gets a multiple terminal instances such as VS Code. The actual time that a atlas generated is terminal being opened by calling <code>acquireCharAtlas</code>. Internally, <code>acquireCharAtlas</code> would compare between configurations (font size, char width, color, etc.) to avoid overhead works.</p>
+
+<p>The private class <code>CharAtlasGenerator</code> does the real stuff. It sets attribute <code>alpha</code> to <code>false</code> to reduce redundant transparent compositions. Though this config seen like a limit of flexibility, the texture atlas is enough to provides frequently used colors for most text-based programs in the world. Moreover, the generator draws all ASCII code with 8 ANSI color (3 bit) in normal and bold styles onto an detached canvas in advance. That would be nearly 256 * 16 = 4096 characters pre-rendered (though some char is invisible and not printable).</p>
+
+<p><img src="imagebitmap.png" alt="ImageBitmap" />
+&gt; That&rsquo;s how the <code>CharAtlas</code> looks behind the scene.</p>
+
+<p>All colors you need on your 5-year-old ASUS laptop is here. Whoever needs more characters atlas?</p>
+
+<blockquote>
+<p>In the beginning, I found that the CharAtlas generating actually twice (canvas element and ImageBitmap). <a href="https://github.com/sourcelair/xterm.js/pull/938#pullrequestreview-69391070" target="_blank">Tyriar told me the intent</a>, what they want to achieve is not only improving the construction performance, but decreasing drawing latency.</p>
+</blockquote>
+
+<h3 id="separating-render-layers">Separating Render Layers</h3>
+
+<p>Xterm.js separates the canvas rendering into four different layers (ordered from bottom to top):</p>
+
+<ul>
+<li><code>TextRenderLayer</code>: Render background and foreground of the content.</li>
+<li><code>SelectionRenderLayer</code>: Render only selected region.</li>
+<li><code>LinkRenderLayer</code>: Render hyperlink with extra color and text decorator (underline).</li>
+<li><code>CursorRenderLayer</code>: Render different style of a blinking cursor.</li>
+</ul>
+
+<p>This can gain a performance boost since the render engine only repaint changed parts instead of the whole canvas. While constructing 4 different canvases is awesome, we lost the chance to set canvas&rsquo; alpha channel to opaque. This may lead to a performance drop on 2D graphic composition. The compositor requires extra GPU time to composite 4 additional transparent contexts. GUI framework providers always recommend that use opaque layer as possible as we can (at least <a href="https://developer.apple.com/documentation/uikit/uiview/1622622-isopaque" target="_blank">iOS UIKit</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext#Parameters" target="_blank">Canvas 2D Context</a> said).</p>
+
+<p>In reality, it may not cause any problem if you layer is not opaque. I have not yet done any profiling or tests. Just have a thought on this kind of situation.</p>
+
+<p>On the other side, it is very pleasant to trace a well-organized source code. We do not need to plunge ourselves into each lines if we only want to understand a little part of code. And Xterm.js does this job perfectly. The separation of render layers is an awesome example. The feeling deepens even more when the codebase is written in TypeScript. As a former iOS engineer, the syntax of type annotations are very familiar and helpful to rapidly grasp the big picture of a project for a newcomer. Maybe it&rsquo;s time to use TypeScript in our next project. Thanks Xterm.js contributors!</p>
+
+<h2 id="bugs-after-breaking-changes">Bugs After Breaking Changes</h2>
+
+<p>Canvas renderer is awesome! Canvas renderer is promising! Canvas renderer outperforms all competitors in web-based terminal world!</p>
+
+<p>Is the new renderer really that invulnerable? Maybe not.</p>
+
+<p>Let me introduce some interesting issues after the switch of render engine.</p>
+
+<h3 id="rendering-unicode-characters-wrong">Rendering Unicode Characters Wrong</h3>
+
+<p>When it comes to strings and texts. This may be a big nightmare to all developers. One feature Xterms.js always promoting is handling CJK fonts well. Actually, before introducing canvas renderer, most of this works done by browsers&rsquo; DOM render engine internally to handle various widths of Unicode characters. When the team chose to render character on our own renderer, the burden fell on Xterm.js itself. To render texts properly, Xterm.js needs to manually track width of all characters. Explicitly set width of render region is a must. 2D Canvas API is always that imperative and there is no way to stay away from it.</p>
+
+<p>Surprisingly, Xterm.js has already done it before canvas render landed! It used a custom data structure to track width of a character for some resizing calculations. The only task after renderer changed is passing the character width into <code>canvas.fillText</code>.</p>
+
+<p>Actually, character width received from terminal input are not always correct. Some characters <a href="https://github.com/Microsoft/vscode/issues/35102" target="_blank">consume more space than expected</a>.The truth is Xterm.js extracted some concepts from <a href="https://www.cl.cam.ac.uk/~mgk25/ucs/wcwidth.c" target="_blank">this <code>wcwidth.c</code> implementation</a>. Although the implementation covered almost all CJK and other Unicode characters with various width, it have not been modified time since 2007. During these 10 years, Emoji become prosperous. Suddenly, outdated <code>wcwidth</code> implementation cannot support arriving crazy overflowing characters.</p>
+
+<p>But Xterm.js team did not feel contented with the situation, and later they <a href="https://github.com/sourcelair/xterm.js/pull/997" target="_blank">resolved the issue</a> blazing fast. If you want to know about what they did, there was nothing but <a href="https://github.com/mofux/xterm.js/blob/b3efd7e0fd1e1ebef84cfa05d741a7bbaf9441e4/src/renderer/TextRenderLayer.ts#L207" target="_blank">delegating up the responsibility of width calculation</a> to web browsers&rsquo; render engine. When calling <code>ctx.measureText</code>, the render engine measures the target text in specific canvas context, then returns a <code>TextMatrix</code> that stores information abount how the text would be rendered, such as <code>width</code>, <code>actualBoundingBoxLeft</code>, and <code>alphabeticBaseline</code>. This implementation need not to acquire any Unicode code point mapping beforehand. Just believe that all browsers do it right.</p>
+
+<h3 id="lack-of-true-color-support">Lack of True Color Support</h3>
+
+<p>As hardware advanced, true color terminal programs are more common nowadays. The lack of real true color support become a major problems of Xterm.js. I haven&rsquo;t trace to intent why the original Xterm.js supported only ANSI 256 color, but it makes sense that canvas renderer does not support true color.</p>
+
+<p>There is a class <code>ColorManager</code> which constructs ANSI 256 color to hex color mapping table beforehand in Xterm.js v3. This eliminates dupe computations of each hex color. However, If we want to store all the true color palette, that would be combinations of 3 color channels (RGB) mutiplying alpha channel, which approximately equal to 16 million of combinations! It&rsquo;s impossible to store that huge <code>CharAtlas</code> in memory simultaneously.</p>
+
+<p>Thus, they use a hacky way (in <a href="https://github.com/sourcelair/xterm.js/blob/2e8410da4bf4ccc44b7277ec22a0d473565c9d13/src/Terminal.ts#L2146-L2230" target="_blank">Terminal.ts</a>) to make colors look like true color. The goal of this algorithm is to find the nearest color in ANSI 256 color palette. While we try <a href="https://gist.github.com/XVilka/8346728" target="_blank">some real tests</a> on it, we still can tell the differences without doubt. Some matching results are even so worse that they almost look like inverted colors. Many open-source projects depended on Xterm.js are eager for true color supports, including famous terminal app <a href="https://github.com/zeit/hyper/issues/2294" target="_blank">Hyper</a>. However, it seems that supports for true color is not the primary goal and has been remove from v3 milestones, but <a href="https://github.com/sourcelair/xterm.js/issues/484" target="_blank">the related discussion on Github</a> is still valuable to take a look.</p>
+
+<p><img src="real-true-color-image.png" alt="Real True Color Image" />
+&gt; The <strong>REAL</strong> true color in <a href="https://github.com/jwilm/alacritty" target="_blank">Alacritty</a>.</p>
+
+<p><img src="fake-true-color-image.png" alt="Fake True Color Image" />
+&gt; The <strong>quasi-</strong>true color in VS Code 1.17.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>It is very lucky see that a widely used library is brave enough to make breaking changes. When I followed up the PR to read source code of Xterm.js, I almost believed that I were working with those brilliant contributors. The experience of tracing a well documented refactor process is awesome. You can learn from some surprising solutions you have never thought before. You can also learn many communicating skills in open source world. Although canvas API is not the latest web standard and Xterm.js is not a well-known project compared with React and Vue, the success of Xterm.js&rsquo;s renderer refactor is worthy for learning!</p>
+
+</div>
+
+    
+<footer class='entry-footer-container'>
+  <div class='entry-footer'>
+  <div class='tags'>
+  <span class='taxonomyTerm-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+</span>
+  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/canvas'>Canvas</a>, <a class='tag' href='/tags/front-end'>Front-end</a>, <a class='tag' href='/tags/terminal'>Terminal</a>, <a class='tag' href='/tags/visual-studio-code'>Visual Studio Code</a>, <a class='tag' href='/tags/source-reading'>Source Reading</a>, <a class='tag' href='/tags/xterm.js'>Xterm.js</a></div>
+
+  </div>
+</footer>
+
+
+  </article>
+  
+<nav class='entry-nav-container'>
+  <div class='entry-nav'><div class='prev-entry'>
+      <a href='/posts/2017/binary-data-manipulations-in-javascript/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader'>Previous post: </span>Binary Data Manipulations in JavaScript</a>
+    </div><div class='next-entry'>
+      <a href='/posts/2017/days-with-internet-explorer-2/'>
+        <span class='screen-reader'>Next post: </span>與 IE 相處的日子二：淺談網頁相容性<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+  
+<div class='comments-container'>
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wehang-lo" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social-menu-container'>
+  <nav aria-label='Social Menu'>
+    <ul class='social-menu'><li>
+        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</div>
+        <div class='copyright'>
+  <p>
+        
+      
+
+       &copy; 2017 Weihang Lo 
+  </p>
+</div>
+
+      </div>
+    </footer>
+
+  </div><script src='/assets/js/main.5871befd.js'></script><script src='/js/custom.js'></script></body>
+
+</html>
+

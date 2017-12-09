@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Generics on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/generics/</link>
+    <description>Recent content in Generics on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 08 May 2017 22:28:09 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.github.io/tags/generics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>理解 Swift Generics</title>
+      <link>https://weihanglo.github.io/posts/2017/swift-generics/</link>
+      <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/swift-generics/</guid>
+      <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
+本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
+（撰於 2017-05-08，基於 Swift 3.1）
+Definition 想像一下，有個需求是要交換兩個變數儲存的值，現在欲交換的變數是 int type，因此實作了 void swapInt(*int, *int) 的函式；接下來要交換的是 double，又寫了 void swapFloat(*double, *double)，但兩個函式實作幾乎一樣（交換指標指向的值），如果還有 float、char 等其他 n 種 data types，就必須寫 n 個版本的實作。如果程式語言支援函式重載，可以把 function name 都改成 swap，降低函式調用端的複雜度，但依然沒解決重複的問題。
+泛型程式設計（Generic Programming）目的就是「消弭因為不同資料型態，而重複實作相同的演算法」。維基百科寫得非常清楚：
+ &amp;hellip; is a style of computer programming in which algorithms are written in terms of types to-be-specified-later that are then instantiated when needed for specific types provided as parameters</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design Patterns on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/design-patterns/</link>
+    <description>Recent content in Design Patterns on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.github.io/tags/design-patterns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Intro Rx - 2. Observer Pattern</title>
+      <link>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</guid>
+      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
+（撰於 2017-08-15，基於 Swift 3.1）
+Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
+Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
+    </item>
+    
+    <item>
+      <title>Intro Rx - 1. Iterator Pattern</title>
+      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
+（撰於 2017-08-15，基於 Swift 3.1）
+Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
+Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
+相反地， C 的 for (int i = 0; i &amp;lt; n; i++) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
+透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。</description>
+    </item>
+    
+    <item>
+      <title>Intro Rx - 0. ReactiveX</title>
+      <link>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</link>
+      <pubDate>Tue, 15 Aug 2017 09:22:37 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</guid>
+      <description>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
+（撰於 2017-08-15）
+Why use Rx 狂熱驅動開發（Hype Driven Development） 是當前軟體工程界的奇特現象，每當一個新概念新技術出來，不乏有人大力吹捧。這次，小弟同樣被狂熱驅動，要來吹捧 ReactiveX（Rx）的設計理念，但在開始推坑之前，我們仍須問自己：「為什麼要用 Rx？Rx 想解決什麼問題？ 」知道一個技術的應用範圍，遠比只會拿著新玩具揮舞來得重要。
+Asynchronous: unified asynchronous APIs 時至今日，軟體工程越來越複雜，無論前端或後端工程、大量的非同步（asynchronous）操作散落於程式各處，各種不同的非同步 API 如 Promise、async／await、callback function 混雜在一起，讓開發一個穩定的非同步程式變得難上加難。若考慮例外捕捉／處理，非同步的程式就會更加複雜了。
+如果採用的 Rx，一切的資料或事件都會轉換為 Observable，透過 Observable，就可以在統一的 API 操作非同步的程式了。這就是 ReactiveX 的核心價值：An API for asynchronous programming with observable streams。
+Declarative: better coding style Rx 除了統一非同步程式的 API 之外，另外一大特色即是採用聲明式程式設計典範（Declarative Programming Paradigm），相較於傳統命令式設計（Imperative Programming），聲明式的程式設計更能專注於程式要做什麼（What to do），而非命令程式語言該怎麼做（How to do），也減少了許多人為因素的錯誤（例如忘記調用 update 導致頁面未更新）。
+就拿網頁前端工程最熱門的兩大框架 ReactJS 與 VueJS 來說，都是 Declarative 的最佳實踐案例，也帶動整個軟體工程界對 Declarative 與 Imperative 程式設計的比較與反思。</description>
+    </item>
+    
+  </channel>
+</rss>
