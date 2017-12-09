@@ -138,7 +138,7 @@ promise.then(onFulfilled, onRejected)
 利用上一節透過 promise 包裝後的 XHR，實際看看 `then` 該如何用
 
 ```javascript
-get('http://httpbin.org/get').then(
+get('https://httpbin.org/get').then(
   // promise state 轉換為 fulfilled 時，執行 onFulfilled callback
   value => { // value 為 promise 建構時，由 resolve(value) callback 傳入
     console.log('I am resolved :)', value)
@@ -154,15 +154,15 @@ get('http://httpbin.org/get').then(
 
 ```javascript
 // 忽略 error
-get('http://httpbin.org/get')
+get('https://httpbin.org/get')
   .then(console.log)
 
 // 只處理 error
-get('http://httpbin.org/get')
+get('https://httpbin.org/get')
   .then(null, console.error)
 
 // 只處理 error 也利用 `.catch` syntax sugar
-get('http://httpbin.org/get')
+get('https://httpbin.org/get')
   .catch(console.error) // === .then(null, console.error)
 ```
 
@@ -340,7 +340,7 @@ Promise.reject(new Error('Error!!!')).
 
 ```javascript
 const getImageURL = category => (
-  fetch(`http://lorempixel.com/400/200/${category}/`)
+  fetch(`https://lorempixel.com/400/200/${category}/`)
     .then(() => response.blob())
     .then(URL.createObjectURL)
 )
@@ -504,7 +504,7 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 
 前端技術日新月異，非同步程式設計發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。
 
-![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](http://i.imgur.com/G3X0H78.jpg)
+![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](https://i.imgur.com/G3X0H78.jpg)
 
 > 後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD（不過，利用 generator 實作 async function 又是另一回事了）
 
@@ -518,7 +518,7 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 
 [concurrency-joke]: https://twitter.com/davidlohr/status/288786300067270656
 [wiki-promises]: https://en.wikipedia.org/wiki/Futures_and_promises
-[caniuse-promise]: http://caniuse.com/#search=promise
+[caniuse-promise]: https://caniuse.com/#search=promise
 [promisesaplus]: https://promisesaplus.com/
 [mdn-using-promises]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [mdn-using-fetch]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -537,7 +537,7 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 [proposal-promise-finally]: https://github.com/tc39/proposal-promise-finally
 [proposal-promise-try]: https://github.com/tc39/proposal-promise-try
 [joepie-promise-try]: http://cryto.net/~joepie91/blog/2016/05/11/what-is-promise-try-and-why-does-it-matter/
-[caniuse-await]: http://caniuse.com/#search=await
+[caniuse-await]: https://caniuse.com/#search=await
 [pouchdb]: https://pouchdb.com/
 [pouchdb-promises-problem]: https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html
 

@@ -196,4 +196,4 @@ extension Then where Self: AnyObject { // 2
 [java-default-methods]: https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html
 [remove-var]: https://github.com/apple/swift-evolution/blob/master/proposals/0003-remove-var-parameters.md
 [swift-doc]: https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/
-[byval-byref]: http://stackoverflow.com/questions/27364117/is-swift-pass-by-value-or-pass-by-reference
+[byval-byref]: https://stackoverflow.com/questions/27364117/is-swift-pass-by-value-or-pass-by-reference

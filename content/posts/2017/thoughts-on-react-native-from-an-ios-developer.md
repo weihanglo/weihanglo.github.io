@@ -6,7 +6,7 @@ tags:
 date: 2017-07-30T18:16:45+08:00
 ---
 
-![React Native](http://i.imgur.com/Ya2NnLz.png)
+![React Native](https://i.imgur.com/Ya2NnLz.png)
 
 About two month ago, I started making a React Native app ["PyConTW 17"][pycontw-mobile] for the biggest annual Python conference in Taiwan ([PyCon Taiwan][pycontw]). The app is quite simple, but still took some efforts for me to build. As a complete React newbie, I would like to share some of my thoughts about React Native.
 
@@ -107,7 +107,7 @@ As far as you dive into mobile app development, you will find that the basic API
 As a traditional mobile app developer, you are familiar with object-oriented programming. Factory pattern, adapter pattern appear all of your daily life. What if someone told you that your function is **not pure** enough and suggest to use **monad** to wrap your API? These are all functional programming buzz words. Despite of flexibility of React Native, the [Thinking in React][thinking-in-react] concept makes React fit for functional programming paradigm. Most of the open source libraries built around React ecosystem conform to functional programming pattern. If you determine to adopt React Native into your development stack, it may spend additional efforts to learn with [all those jargons][fp-jargons]. From a manager's perspective, it is hard to recruit a well trained programmer equipped with functional programming skills (at least in Taiwan).
 
 [thinking-in-react]: https://facebook.github.io/react/docs/thinking-in-react.html
-[fp-jargons]: http://git.io/fp-jargons
+[fp-jargons]: https://git.io/fp-jargons
 
 ### Concurrency
 

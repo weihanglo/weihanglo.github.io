@@ -502,7 +502,7 @@ Medium 上也有許多作者在評論 async functions，[Hacker Noon 這篇推�
 [async-functions]: https://tc39.github.io/ecmascript-asyncawait/
 [ruanyifeng-es6-generator]: http://es6.ruanyifeng.com/#docs/generator-async
 [ruanyifeng-es6-async]: http://es6.ruanyifeng.com/#docs/async
-[caniuse-async-functions]: http://caniuse.com/#search=async%20functions
+[caniuse-async-functions]: https://caniuse.com/#search=async%20functions
 [hakernoon-6-reasons-async]: https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9
 [google-async-functions]: https://developers.google.com/web/fundamentals/getting-started/primers/async-functions
 [danielbrain-understand-promises]: https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8

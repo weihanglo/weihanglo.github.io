@@ -6,7 +6,7 @@ tags:
   - Error Handling
 ---
 
-![](http://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png)
+![](https://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png)
 
 如何利用 **Swift** 的語言特性來處理例外？使用 **Optional** 是常見的做法。如果成功就返回 **value**，失敗則返回 `nil`，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 `nil`，調用者並無法得知是 **404**，抑或 **500**。為了解決這個問題，我們必須緊緊抱住[錯誤／例外處理][wiki-exception-handling]的大腿。
 
@@ -314,7 +314,7 @@ Swift 的 Error Handling 設計得很現代很 functional，也讓錯誤處理�
 [swift-error-handling]: https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html
 [wiki-exception-handling]: https://en.wikipedia.org/wiki/Exception_handling
 [swift-20-error-handling]: https://github.com/apple/swift/blob/master/docs/ErrorHandling.rst
-[stackoverflow-exception-perf]: http://stackoverflow.com/search?tab=relevance&q=exception%20performance
+[stackoverflow-exception-perf]: https://stackoverflow.com/search?tab=relevance&q=exception%20performance
 [stack-unwinding]: https://en.wikipedia.org/wiki/Call_stack#STACK-UNWINDING
 [andybargh-error-handling]: https://andybargh.com/error-handling-in-swift/
 [swift-defer]: https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Statements.html#//apple_ref/doc/uid/TP40014097-CH33-ID532
