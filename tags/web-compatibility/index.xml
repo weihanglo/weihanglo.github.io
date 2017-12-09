@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Webcompat.com on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/webcompat.com/</link>
-    <description>Recent content in Webcompat.com on Weihang Lo</description>
+    <title>Web Compatibility on Weihang Lo</title>
+    <link>https://weihanglo.github.io/tags/web-compatibility/</link>
+    <description>Recent content in Web Compatibility on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/webcompat.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.github.io/tags/web-compatibility/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -21,6 +21,17 @@
  對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
  目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者  結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
  語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &amp;lt;button&amp;gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight  語意化 HTML5 標籤  Issue：不支援語意化 tag 就算了，部分 tag 如 &amp;lt;main&amp;gt;、&amp;lt;article&amp;gt; 還會變成 inline elements Platform：IE 11  先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！</description>
+    </item>
+    
+    <item>
+      <title>與 IE 相處的日子</title>
+      <link>https://weihanglo.github.io/posts/2017/days-with-internet-explorer/</link>
+      <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
+      
+      <guid>https://weihanglo.github.io/posts/2017/days-with-internet-explorer/</guid>
+      <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
+（撰於 2017-07-15，基於 IE 11／Edge 15）
+Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!</description>
     </item>
     
   </channel>
