@@ -135,7 +135,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 <p>Promise 是 ES6 引入的標準之一，主要實踐了 <a href="https://promisesaplus.com/" target="_blank">Promise/A+</a> 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得各家的非同步操作終於有了相同的 API。以下是個人認為 ES6 Promise 的幾個重要特色：</p>
 
 <ul>
-<li>截止當前（2017.6），Promise 在瀏覽器的支援程度<a href="http://caniuse.com/#search=promise" target="_blank">已接近 90%</a>。（主流瀏覽器僅 IE 11 不支援）</li>
+<li>截止當前（2017.6），Promise 在瀏覽器的支援程度<a href="https://caniuse.com/#search=promise" target="_blank">已接近 90%</a>。（主流瀏覽器僅 IE 11 不支援）</li>
 <li>統一、可預期的 callback 調用與 error handling 流程。</li>
 <li>callback 定義清楚完善，沒有重複調用或改變狀態的疑慮。</li>
 <li>將有序的 promises 串連起來（promise chaining），解除 callback hell 問題。</li>
@@ -260,7 +260,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 </ul>
 
 <p>利用上一節透過 promise 包裝後的 XHR，實際看看 <code>then</code> 該如何用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.org/get&#39;</span>).<span style="color:#a6e22e">then</span>(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.org/get&#39;</span>).<span style="color:#a6e22e">then</span>(
   <span style="color:#75715e">// promise state 轉換為 fulfilled 時，執行 onFulfilled callback
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">value</span> =&gt; { <span style="color:#75715e">// value 為 promise 建構時，由 resolve(value) callback 傳入
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;I am resolved :)&#39;</span>, <span style="color:#a6e22e">value</span>)
@@ -272,15 +272,15 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 )</code></pre></div>
 <p>另外，<code>onFulfilled</code> 與 <code>onRejected</code> 兩個 callback 皆為 optional，我們可以只處理 success 的 case，也可以單純 handle errors。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 忽略 error
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.org/get&#39;</span>)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.org/get&#39;</span>)
   .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>)
 
 <span style="color:#75715e">// 只處理 error
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.org/get&#39;</span>)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.org/get&#39;</span>)
   .<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>)
 
 <span style="color:#75715e">// 只處理 error 也利用 `.catch` syntax sugar
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.org/get&#39;</span>)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.org/get&#39;</span>)
   .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>) <span style="color:#960050;background-color:#1e0010">// === .then(null, console.error)</span></code></pre></div>
 <blockquote>
 <p><code>Promise#catch</code> 同義於 <code>then</code> 的第一個參數傳入 <code>null</code> -&gt; <code>Promise#then(null, onRejected)</code></p>
@@ -460,7 +460,7 @@ Promise.<span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">ne
 
 <p>利用 <code>Promise.all</code>，配合 function programming 的 <code>map</code> 技巧，我們可以達到 paralleling 的 promise 操作，例如：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getImageURL</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">category</span> =&gt; (
-  <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`http://lorempixel.com/400/200/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">category</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)
+  <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://lorempixel.com/400/200/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">category</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)
     .<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">blob</span>())
     .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">createObjectURL</span>)
 )
@@ -580,7 +580,7 @@ Promise.<span style="color:#a6e22e">all</span>(
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>)
   }
 }</code></pre></div>
-<p>至今，已有<a href="http://caniuse.com/#search=await" target="_blank">七成六</a>的瀏覽器實作 Async function，Node.js 也在 7.6 解除 async function 的 harmony flag，成為 default 的關鍵字，拭目以待吧！</p>
+<p>至今，已有<a href="https://caniuse.com/#search=await" target="_blank">七成六</a>的瀏覽器實作 Async function，Node.js 也在 7.6 解除 async function 的 harmony flag，成為 default 的關鍵字，拭目以待吧！</p>
 
 <h2 id="further-reading">Further Reading</h2>
 
@@ -594,7 +594,7 @@ Promise.<span style="color:#a6e22e">all</span>(
 
 <p>前端技術日新月異，非同步程式設計發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。</p>
 
-<p><img src="http://i.imgur.com/G3X0H78.jpg" alt="A programmer had a problem. He thought to himself, &quot;I know, I'll solve it with threads!&quot;. has Now problems. two he" /></p>
+<p><img src="https://i.imgur.com/G3X0H78.jpg" alt="A programmer had a problem. He thought to himself, &quot;I know, I'll solve it with threads!&quot;. has Now problems. two he" /></p>
 
 <blockquote>
 <p>後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD（不過，利用 generator 實作 async function 又是另一回事了）</p>

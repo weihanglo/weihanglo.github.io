@@ -204,7 +204,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 
 <h3 id="q-如何避免-carthage-udpate-取得的模組版號不同">Q：如何避免 <code>carthage udpate</code> 取得的模組版號不同？</h3>
 
-<p>Carthage 提供一個鎖定文件 <code>Cartfile.resolved</code>，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，<code>Cartfile.resolved</code> 即會自動更新。可預防部分模組版號沒有完全遵循 <a href="http://semver.org/lang/zh-TW/" target="_blank">語意化版本（SEMVER）</a> 時產生的問題。</p>
+<p>Carthage 提供一個鎖定文件 <code>Cartfile.resolved</code>，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，<code>Cartfile.resolved</code> 即會自動更新。可預防部分模組版號沒有完全遵循 <a href="https://semver.org/lang/zh-TW/" target="_blank">語意化版本（SEMVER）</a> 時產生的問題。</p>
 
 <p>建議將 <code>Cartfile.resolved</code> 提交至版本管理系統中。之後將遠端儲存庫 clone 下來，只需要執行</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">carthage bootstrap</code></pre></div>
@@ -232,7 +232,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
     <span style="color:#f92672">&#34;1.3.5&#34;</span>: <span style="color:#e6db74">&#34;https://example.com/release/1.3.5/framework.zip&#34;</span>,
     <span style="color:#f92672">&#34;1.4.3&#34;</span>: <span style="color:#e6db74">&#34;https://example.com/release/1.4.3/framework.tar.gz&#34;</span>
 }</code></pre></div>
-<p>除此之外，目前只接受 <code>https</code> url 連結，且 version 只能對應<a href="http://semver.org/lang/zh-TW/" target="_blank">語意化版本</a>， Git branch／tag／commit 都暫時無法使用。</p>
+<p>除此之外，目前只接受 <code>https</code> url 連結，且 version 只能對應<a href="https://semver.org/lang/zh-TW/" target="_blank">語意化版本</a>， Git branch／tag／commit 都暫時無法使用。</p>
 
 <h3 id="q-如何同時修改相依模組的-code-並在-run-時同步更新嗎">Q：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？</h3>
 

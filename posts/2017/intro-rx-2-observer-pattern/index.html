@@ -340,7 +340,7 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
 
 <p><strong>Pub-sub pattern</strong>（Publish-subscribe，訂閱／發佈模式）是一種訊息傳遞設計模式，概念是利用中介 message 做為 publisher（對應 subject）及 subscriber（對應 observer）的溝通橋樑，subscriber 只需訂閱特定 message，而 publisher 則僅負責發佈（broadcast）message。兩者耦合性低，可作為 observer pattern 替代品，但程式也容易變得更複雜。</p>
 
-<p>實務上，Cocoa 的 <code>NSNotification</code> 是徹底實踐 pub-sub pattern 的範例；以高效著稱的 in-memory database <a href="https://redis.io/" target="_blank">Redis</a> 也有強大的 Pub／Sub 功能。此外，Modern web app 的狀態管理架構兩大陣營 <a href="http://redux.js.org/" target="_blank">Redux</a> 與 <a href="https://mobx.js.org/" target="_blank">MobX</a>，也可以視為 pub-sub pattern 與 observer pattern 的對抗。</p>
+<p>實務上，Cocoa 的 <code>NSNotification</code> 是徹底實踐 pub-sub pattern 的範例；以高效著稱的 in-memory database <a href="https://redis.io/" target="_blank">Redis</a> 也有強大的 Pub／Sub 功能。此外，Modern web app 的狀態管理架構兩大陣營 <a href="https://redux.js.org/" target="_blank">Redux</a> 與 <a href="https://mobx.js.org/" target="_blank">MobX</a>，也可以視為 pub-sub pattern 與 observer pattern 的對抗。</p>
 
 <h2 id="conclusion">Conclusion</h2>
 

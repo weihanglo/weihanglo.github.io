@@ -116,7 +116,7 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
     <div class='entry-content'>
   
 
-<p><img src="http://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png" alt="" /></p>
+<p><img src="https://npmawesome.com/wp-content/uploads/2014/08/Catch-All-The-Errors.png" alt="" /></p>
 
 <p>如何利用 <strong>Swift</strong> 的語言特性來處理例外？使用 <strong>Optional</strong> 是常見的做法。如果成功就返回 <strong>value</strong>，失敗則返回 <code>nil</code>，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 <code>nil</code>，調用者並無法得知是 <strong>404</strong>，抑或 <strong>500</strong>。為了解決這個問題，我們必須緊緊抱住<a href="https://en.wikipedia.org/wiki/Exception_handling" target="_blank">錯誤／例外處理</a>的大腿。</p>
 
@@ -141,7 +141,7 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
 <li>處理特殊、不正常的情況（C++、Objective-C、C# 等）</li>
 </ul>
 
-<p>大多數程式語言，無論屬於哪一類，只要涉及例外處理，就可能出現<a href="http://stackoverflow.com/search?tab=relevance&amp;q=exception%20performance" target="_blank">效能上的疑慮</a>，很難避開 <a href="https://en.wikipedia.org/wiki/Call_stack#STACK-UNWINDING" target="_blank">Call Stack Unwinding</a> 的問題。能改善的方法之一，就是明確定義哪些 function 能拋出例外，哪些必須拋出例外，哪些錯誤不需要拋出，而是 programmer 自己應該要 handle 的。</p>
+<p>大多數程式語言，無論屬於哪一類，只要涉及例外處理，就可能出現<a href="https://stackoverflow.com/search?tab=relevance&amp;q=exception%20performance" target="_blank">效能上的疑慮</a>，很難避開 <a href="https://en.wikipedia.org/wiki/Call_stack#STACK-UNWINDING" target="_blank">Call Stack Unwinding</a> 的問題。能改善的方法之一，就是明確定義哪些 function 能拋出例外，哪些必須拋出例外，哪些錯誤不需要拋出，而是 programmer 自己應該要 handle 的。</p>
 
 <p>要釐清這個問題，首先要定義錯誤，程式錯誤的範疇很廣，不同的狀況有不同的應對方式，大致上可以分為以下幾種類型：</p>
 

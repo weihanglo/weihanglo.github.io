@@ -213,7 +213,7 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
 <!-- -->
 
 <blockquote>
-<p>模組化的實作規範在 Javascript 界可謂群魔亂舞，所以 ECMA 2015 (ES6) 提出新的模組化 API（<a href="http://www.ecma-international.org/ecma-262/6.0/#sec-imports" target="_blank">imports</a>／<a href="http://www.ecma-international.org/ecma-262/6.0/#sec-exports" target="_blank">exports</a>），未來甚至可在瀏覽器端使用。目前可透過 Babel 轉譯器的<a href="https://www.npmjs.com/package/babel-plugin-transform-es2015-modules-commonjs" target="_blank">外掛</a>搶先體驗。</p>
+<p>模組化的實作規範在 Javascript 界可謂群魔亂舞，所以 ECMA 2015 (ES6) 提出新的模組化 API（<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-imports" target="_blank">imports</a>／<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-exports" target="_blank">exports</a>），未來甚至可在瀏覽器端使用。目前可透過 Babel 轉譯器的<a href="https://www.npmjs.com/package/babel-plugin-transform-es2015-modules-commonjs" target="_blank">外掛</a>搶先體驗。</p>
 </blockquote>
 
 <h3 id="node-js-版本管理工具">Node.js 版本管理工具</h3>
@@ -294,19 +294,19 @@ nvm uninstall node
 
 <p><code>package.json</code> 是一個 Node.js 模組最重要的檔案，記錄與此模組相關的設定，部分第三方套件的配置文件也可以寫在 <code>package.json</code> 裡，減少 project 設定檔過多的問題（例如：babel、browserslist）。</p>
 
-<p>合法的 <code>package.json</code> 除了要是一個 <a href="http://www.json.org/" target="_blank">JSON</a> 格式檔案之外，還<strong>必須包含</strong>下列兩個重要的 fields：</p>
+<p>合法的 <code>package.json</code> 除了要是一個 <a href="https://www.json.org/" target="_blank">JSON</a> 格式檔案之外，還<strong>必須包含</strong>下列兩個重要的 fields：</p>
 
 <ul>
 <li><code>name</code>：模組名稱，也是import 模組時的名稱。在 npm Registry 通常是以相同或近似的名稱註冊，命名慣例以<code>-</code>（hyphen）取代 camelCase。</li>
-<li><code>version</code>：模組目前的版號，npm 遵循<a href="http://semver.org/" target="_blank">語意化版號</a>的標準，減少套件更新異動造成的問題。</li>
+<li><code>version</code>：模組目前的版號，npm 遵循<a href="https://semver.org/" target="_blank">語意化版號</a>的標準，減少套件更新異動造成的問題。</li>
 </ul>
 
 <p>其他重要且建議填寫的 fields 有：</p>
 
 <ul>
 <li><code>main</code>：程式進入點，也是模組進入點（該檔案的 <code>module.exports</code>），慣例為 <code>index.js</code> 或 <code>main.js</code>。</li>
-<li><code>devepdencies</code>：該模組直接相依的第三方模組。規範採用<a href="http://semver.org/" target="_blank">語意化版號</a>標準。</li>
-<li><code>devDependencies</code>： 該模組開發時會使用到相依模組，例如<strong>測試模組、打包模組</strong>。規範採<a href="http://semver.org/" target="_blank">語意化版號</a>標準。</li>
+<li><code>devepdencies</code>：該模組直接相依的第三方模組。規範採用<a href="https://semver.org/" target="_blank">語意化版號</a>標準。</li>
+<li><code>devDependencies</code>： 該模組開發時會使用到相依模組，例如<strong>測試模組、打包模組</strong>。規範採<a href="https://semver.org/" target="_blank">語意化版號</a>標準。</li>
 <li><code>scripts</code>：自定義的 shell 腳本。可透過 <code>npm run &lt;command&gt;</code> 執行。</li>
 <li><code>license</code>：模組的授權條款，建議填寫。</li>
 <li><code>bin</code>：若模組有提供指令列程式，需在此配置指令名稱與對應檔案。</li>
@@ -447,7 +447,7 @@ npm start
 
 <h2 id="預處理器-轉譯器">預處理器／轉譯器</h2>
 
-<p>雖然 Node.js／npm 為 Javascript 生態圈帶來前所未有的繁榮盛況，但前端的世界還是處處充滿危機，不同瀏覽器廠商的實作參差不齊，開發者常搞不清楚<a href="http://caniuse.com/" target="_blank">可以用哪些 CSS 與 Javascript 的 features</a>，開源社群為了消弭這些惱人的問題，開發出許多協助開發者的<a href="https://github.com/showcases/css-preprocessors" target="_blank">預處理器</a>／<a href="https://en.wikipedia.org/wiki/Source-to-source_compiler" target="_blank">轉譯器（transpiler）</a>。</p>
+<p>雖然 Node.js／npm 為 Javascript 生態圈帶來前所未有的繁榮盛況，但前端的世界還是處處充滿危機，不同瀏覽器廠商的實作參差不齊，開發者常搞不清楚<a href="https://caniuse.com/" target="_blank">可以用哪些 CSS 與 Javascript 的 features</a>，開源社群為了消弭這些惱人的問題，開發出許多協助開發者的<a href="https://github.com/showcases/css-preprocessors" target="_blank">預處理器</a>／<a href="https://en.wikipedia.org/wiki/Source-to-source_compiler" target="_blank">轉譯器（transpiler）</a>。</p>
 
 <blockquote>
 <p>預處理器／轉譯器屬於 <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler" target="_blank">source-to-source compiler</a>，雖然可以加速開發，但也需要引入 build tools 協助轉換語法，有關 build tools／task runner，會在<a href="#自動化工具打包工具">自動化工具／打包工具</a>與各位分享。</p>
@@ -512,9 +512,9 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 
 <h3 id="es6-babel">ES6+／Babel</h3>
 
-<p>Javascript 從出生到現在，一直是個被人嫌棄的語言，弱型別，隱式轉換，缺乏真正物件導向概念（只有 prototype oriented），變數可重複宣告，<a href="http://stackoverflow.com/questions/3127429/how-does-the-this-keyword-work" target="_blank"><code>this</code> 的語意</a>更讓人摸不著頭緒。近年來，ECMAScript 的標準不斷往前走，加入了 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/let" target="_blank">作用域變數 scope variable（<code>let</code>）</a>、<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/const" target="_blank">常數宣告 constant declaration（<code>const</code>）</a>，自動綁定 <code>this</code> 的 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank">arrow function</a>，甚至原生的 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes" target="_blank">class</a> 等語言新特性。徹底改造整個 Javascript 的生態圈。</p>
+<p>Javascript 從出生到現在，一直是個被人嫌棄的語言，弱型別，隱式轉換，缺乏真正物件導向概念（只有 prototype oriented），變數可重複宣告，<a href="https://stackoverflow.com/questions/3127429/how-does-the-this-keyword-work" target="_blank"><code>this</code> 的語意</a>更讓人摸不著頭緒。近年來，ECMAScript 的標準不斷往前走，加入了 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/let" target="_blank">作用域變數 scope variable（<code>let</code>）</a>、<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/const" target="_blank">常數宣告 constant declaration（<code>const</code>）</a>，自動綁定 <code>this</code> 的 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank">arrow function</a>，甚至原生的 <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes" target="_blank">class</a> 等語言新特性。徹底改造整個 Javascript 的生態圈。</p>
 
-<p>可惜又面臨同個問題，目前的瀏覽器／Node.js 環境不一定支援。社群又跳出來，寫了名為 <a href="http://babeljs.io/" target="_blank"><code>Babel</code></a>（借用巴別塔的典故）的 transpiler，將最新的 Javascript 語法，轉換成當前瀏覽器相容的語法。透過 <a href="http://babeljs.io/" target="_blank">Babel</a>，我們可歡樂地使用 ES6 的 class，不必擔心 IE 會 crash 了！</p>
+<p>可惜又面臨同個問題，目前的瀏覽器／Node.js 環境不一定支援。社群又跳出來，寫了名為 <a href="https://babeljs.io/" target="_blank"><code>Babel</code></a>（借用巴別塔的典故）的 transpiler，將最新的 Javascript 語法，轉換成當前瀏覽器相容的語法。透過 <a href="https://babeljs.io/" target="_blank">Babel</a>，我們可歡樂地使用 ES6 的 class，不必擔心 IE 會 crash 了！</p>
 
 <p>以下介紹 Babel 的簡易設定：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在你的專案目錄底下安裝 babel 套件
@@ -541,13 +541,13 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 
 <h2 id="自動化工具-打包工具">自動化工具／打包工具</h2>
 
-<p>使用這麼多預處理器／轉譯器／自定義腳本，如果每次都需要自己 <code>npm run compile</code>、<code>babel script.js</code> 豈不麻煩？為了減少重複性的任務（task），Javascript 生態圈發展出數套實用的 build tool／system，老牌的 <a href="https://gruntjs.com/" target="_blank">Grunt</a> 與較年輕的 <a href="http://gulpjs.com/" target="_blank">Gulp</a>，這裡選擇使用 <a href="http://gulpjs.com/" target="_blank">Gulp</a>。</p>
+<p>使用這麼多預處理器／轉譯器／自定義腳本，如果每次都需要自己 <code>npm run compile</code>、<code>babel script.js</code> 豈不麻煩？為了減少重複性的任務（task），Javascript 生態圈發展出數套實用的 build tool／system，老牌的 <a href="https://gruntjs.com/" target="_blank">Grunt</a> 與較年輕的 <a href="https://gulpjs.com/" target="_blank">Gulp</a>，這裡選擇使用 <a href="https://gulpjs.com/" target="_blank">Gulp</a>。</p>
 
 <p>另外，當我們想使用 npm 上的各種模組，卻很難直接在瀏覽器端引入這些 dependencies。打包工具如 <a href="http://browserify.org/" target="_blank"><code>Browserify</code></a> 與 <a href="https://webpack.js.org/" target="_blank">Webpack</a> 提供我們將這些散落各處的 .js、.css、.html 打包起來的方法，便於 import 到瀏覽器客戶端。這裡主要介紹 <a href="https://webpack.js.org/" target="_blank">Webpack</a>。</p>
 
 <h3 id="gulp">Gulp</h3>
 
-<p><a href="http://gulpjs.com/" target="_blank">Gulp</a> 是一個直觀易懂的 build system，其概念是利用 Node.js 的 <a href="https://nodejs.org/api/stream.html" target="_blank">stream</a> API，有如 <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)" target="_blank">pipeline</a> 般將檔案傳遞到每個 plugin／transformer 中做對應的任務。而 Gulp 也有豐富的 plugin 生態系，提供許多主流預處理器的 plugin，讓結果如同 stream 一樣容易產出。</p>
+<p><a href="https://gulpjs.com/" target="_blank">Gulp</a> 是一個直觀易懂的 build system，其概念是利用 Node.js 的 <a href="https://nodejs.org/api/stream.html" target="_blank">stream</a> API，有如 <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)" target="_blank">pipeline</a> 般將檔案傳遞到每個 plugin／transformer 中做對應的任務。而 Gulp 也有豐富的 plugin 生態系，提供許多主流預處理器的 plugin，讓結果如同 stream 一樣容易產出。</p>
 
 <p>以下簡單示範 gulp 安裝與用法：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 1. 首先先安裝 Global gulp command-line tool
@@ -621,7 +621,7 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 </span><span style="color:#75715e">### [14:48:30] Finished &#39;clean&#39; after 12 ms
 </span><span style="color:#75715e">### [14:48:30] Starting &#39;default&#39;...
 </span><span style="color:#75715e"></span>### <span style="color:#f92672">[</span><span style="color:#ae81ff">14</span>:48:30<span style="color:#f92672">]</span> Finished <span style="color:#e6db74">&#39;default&#39;</span> after <span style="color:#ae81ff">9</span>.36 ms</code></pre></div>
-<p>欲了解其他 Plugin／用法，可直接 <a href="http://gulpjs.com/" target="_blank">Gulp 官網</a>，或直接搜尋 <code>gulp + &lt;something&gt;</code>，神人都幫你做好了。</p>
+<p>欲了解其他 Plugin／用法，可直接 <a href="https://gulpjs.com/" target="_blank">Gulp 官網</a>，或直接搜尋 <code>gulp + &lt;something&gt;</code>，神人都幫你做好了。</p>
 
 <h3 id="webpack">Webpack</h3>
 
@@ -801,12 +801,12 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 <p>使用<a href="https://en.wikipedia.org/wiki/Integrated_development_environment" target="_blank">整合開發環境（IDE）</a>的童鞋，想必對<a href="https://en.wikipedia.org/wiki/Lint_(software)" target="_blank">靜態語法檢查</a>有深刻體會。使用靜態語法檢查，會對程式碼撰寫的風格有所限制，但同時可以可防止許多 <a href="https://en.wikipedia.org/wiki/Code_smell" target="_blank">bad code smell</a>，例如：</p>
 
 <ul>
-<li><a href="http://eslint.org/docs/rules/handle-callback-err" target="_blank">一定要處理 error</a></li>
-<li><a href="http://eslint.org/docs/rules/no-const-assign" target="_blank">避免修改以 const 宣告的變數</a></li>
-<li><a href="http://eslint.org/docs/rules/no-unexpected-multiline" target="_blank">不要用 <code>(</code> <code>/</code> <code>.</code> <code>,</code> 等符號當開頭</a>（不寫分號唯一會遇到的問題！）</li>
+<li><a href="https://eslint.org/docs/rules/handle-callback-err" target="_blank">一定要處理 error</a></li>
+<li><a href="https://eslint.org/docs/rules/no-const-assign" target="_blank">避免修改以 const 宣告的變數</a></li>
+<li><a href="https://eslint.org/docs/rules/no-unexpected-multiline" target="_blank">不要用 <code>(</code> <code>/</code> <code>.</code> <code>,</code> 等符號當開頭</a>（不寫分號唯一會遇到的問題！）</li>
 </ul>
 
-<p>Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 <a href="http://eslint.org/" target="_blank">ESLint</a> 作範例。</p>
+<p>Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 <a href="https://eslint.org/" target="_blank">ESLint</a> 作範例。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝 eslint
 </span><span style="color:#75715e"></span>npm install --save-dev eslint
 
@@ -828,7 +828,7 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 <p>有些檔案不需要 linter 檢查（例如 test spec、其他套件的 config），可在 project root 加入 <code>.eslintignore</code> 忽略這些檔案（<a href="https://git-scm.com/docs/gitignore#_examples" target="_blank">寫法同 <code>.gitignore</code></a>）。</p>
 </blockquote>
 
-<p>通常我們會用一些大廠的設定，簡化我們的 Linter config，例如使用 <a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank">Airbnb Javascript style</a>，如果需要客製化 linter 可以參考 <a href="http://eslint.org/docs/user-guide/configuring" target="_blank">ESLint 如何配置</a>。</p>
+<p>通常我們會用一些大廠的設定，簡化我們的 Linter config，例如使用 <a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank">Airbnb Javascript style</a>，如果需要客製化 linter 可以參考 <a href="https://eslint.org/docs/user-guide/configuring" target="_blank">ESLint 如何配置</a>。</p>
 
 <p>許多文字編輯器有整合的 eslint 的 plugin（如 <a href="https://atom.io/packages/linter-eslint" target="_blank">Atom</a>、<a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank">Visual Studio Code</a>），可即時查看 lint 結果，讓開發者更容易檢查語法錯誤。</p>
 
@@ -845,11 +845,11 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 <li><a href="https://docs.npmjs.com/getting-started#cli" target="_blank">NPM Cli Commands</a></li>
 <li><a href="https://docs.npmjs.com/files/package.json" target="_blank">NPM package.json spec</a></li>
 <li><a href="https://developer.mozilla.org/" target="_blank">Mozilla Developer Network</a></li>
-<li><a href="http://gulpjs.com/" target="_blank">Gulp - The streaming build system</a></li>
+<li><a href="https://gulpjs.com/" target="_blank">Gulp - The streaming build system</a></li>
 <li><a href="https://webpack.js.org/" target="_blank">Webpack - A bundler for javascript and friends</a></li>
 <li><a href="https://mochajs.org/" target="_blank">Mocha - Feature-rich Test Framework</a></li>
 <li><a href="http://chaijs.com/" target="_blank">Chai - BDD/TDD Assertion Library</a></li>
-<li><a href="http://eslint.org/" target="_blank">ESLint - Pluggable JavaScript Linter</a></li>
+<li><a href="https://eslint.org/" target="_blank">ESLint - Pluggable JavaScript Linter</a></li>
 </ul>
 
 </div>
