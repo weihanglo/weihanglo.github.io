@@ -9,7 +9,7 @@ tags:
 date: 2017-07-15T11:36:04+08:00
 ---
 
-![](http://i.imgur.com/VEgmWpv.jpg)
+![](https://i.imgur.com/VEgmWpv.jpg)
 
 近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，**「沒碰過 IE，別說你會做前端」**，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 
@@ -65,7 +65,7 @@ html {
 }
 ```
 
-[fullscreen]: http://caniuse.com/#feat=fullscreen
+[fullscreen]: https://caniuse.com/#feat=fullscreen
 
 ### Can an image fit its container with aspect ratio?
 
@@ -85,7 +85,7 @@ preload.onload = function () {
 preload.src = 'uri/to/a/large/image'
 ```
 
-[object-fit]: http://caniuse.com/#feat=object-fit
+[object-fit]: https://caniuse.com/#feat=object-fit
 
 ### Do you know your `id`?
 
@@ -181,9 +181,9 @@ document.querySelector('img').getAttribute('id')
 </svg>
 ```
 
-[svg-smil]: http://caniuse.com/#feat=svg-smil
+[svg-smil]: https://caniuse.com/#feat=svg-smil
 [svg-smil-deprecation]: https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/5o0yiO440LM%5B126-150%5D
-[css-transform2d]: http://caniuse.com/#feat=transforms2d
+[css-transform2d]: https://caniuse.com/#feat=transforms2d
 
 ### How an element removes itself?
 
@@ -215,7 +215,7 @@ document.querySelector('img').getAttribute('id')
 ```
 
 [web-components]: https://www.webcomponents.org/
-[childnode-remove]: http://caniuse.com/#feat=childnode-remove
+[childnode-remove]: https://caniuse.com/#feat=childnode-remove
 [whatwg-custom-elements]: https://html.spec.whatwg.org/multipage/scripting.html#custom-elements
 [custom-elements-childnode]: https://github.com/webcomponents/custom-elements/blob/master/src/Patch/Interface/ChildNode.js#L104
 [custom-elements-issue-103]: https://github.com/webcomponents/custom-elements/issues/103

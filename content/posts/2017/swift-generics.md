@@ -6,7 +6,7 @@ tags:
 date: 2017-05-08T22:28:09+08:00
 ---
 
-![](http://i.imgur.com/xuMiBGM.jpg)
+![](https://i.imgur.com/xuMiBGM.jpg)
 
 **泛型程式設計（Generic Programming）** 是經典的程式設計典範之一，不論是老牌的 **C++**，還是潮潮的 **TypeScript**，都能一睹**泛型**的風采。近年來，程式設計吹的是 **static typing** 風，泛型又開始被廣泛討論。
 
@@ -362,7 +362,7 @@ public protocol Sequence {
 [github-swift-algorithm-club]: https://github.com/raywenderlich/swift-algorithm-club
 [associatedtype-why]: http://www.russbishop.net/swift-why-associated-types
 [associatedtype-pokemon]: https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/
-[stackoverflow-associatedtype-why]: http://www.stackoverflow.com/a/26555177
+[stackoverflow-associatedtype-why]: https://www.stackoverflow.com/a/26555177
 
 [go-proposal-generics]: https://github.com/golang/proposal/blob/master/design/15292-generics.md
 [go-generics-issue]: https://github.com/golang/go/issues/15292

@@ -172,6 +172,6 @@ carthage checkout --use-submodules
 
 [carthage]: https://github.com/Carthage/Carthage
 [cocoapods]: https://cocoapods.org/
-[SEMVER]: http://semver.org/lang/zh-TW/
+[SEMVER]: https://semver.org/lang/zh-TW/
 [carthage-submodules]: https://github.com/Carthage/Carthage#using-submodules-for-dependencies
 [binary-imp]: https://github.com/Carthage/Carthage/commit/3a151a413350b980c68b2f1be8ca234e7947d575

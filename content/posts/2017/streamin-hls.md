@@ -140,7 +140,7 @@ Internet-Draft             HTTP Live Streaming                March 2017
 - [IETF Drafts - HTTP Live Streaming](https://tools.ietf.org/html/draft-pantos-http-live-streaming)
 - [Wiki - HTTP Live Streaming][hls]
 - [Wiki - M3U][m3u]
-- [HTTP Live Streaming (HLS) - 概念](http://www.jianshu.com/p/2ce402a485ca)
+- [HTTP Live Streaming (HLS) - 概念](https://www.jianshu.com/p/2ce402a485ca)
 
 [hls]: https://en.wikipedia.org/wiki/HTTP_Live_Streaming
 [rtmp]: https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol

@@ -262,7 +262,7 @@ Swift 的 Property observer 讓實作 observer 的門檻降低了，很多有趣
 [cocoa-kvo]: https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html
 [mobx]: https://mobx.js.org/
 [redis]: https://redis.io/
-[redux]: http://redux.js.org/
+[redux]: https://redux.js.org/
 [swift4-kvc]: https://github.com/apple/swift-evolution/blob/master/proposals/0161-key-paths.md
 [wiki-observer-pattern]: https://en.wikipedia.org/wiki/Observer_pattern
 [wiki-pub-sub-pattern]: https://en.wikipedia.org/wiki/Publish-subscribe_pattern
