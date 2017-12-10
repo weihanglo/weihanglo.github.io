@@ -99,7 +99,7 @@ head.insertBefore(base, head.firstElementChild) // IE has no `prepend` method.
 - **Issue**：IE 不支援 `XMLHttpRequest` v2 使用 JSON 作為 `responseType`
 - **Platform**：IE 11
 
-Ajax 技術中最有代表性的概念就是 **XHR**（`XMLHttpRequest`），非同步的技術讓 web content 可以動態更新，這可算是 Microsoft 對 web 貢獻之一（雖然最後是 [Mozilla Gecko 引擎先在 browser 實作][xhr-history]了）。我們很感謝 IE 不辭辛勞付出，但不代表能不遵從 web standard。IE 至今（2017/11）仍未完全實作 [XHR v2][xhr-v2] 的 spec，沒辦法支援 JSON as returning value。
+Ajax 技術中最有代表性的概念就是 **XHR**（`XMLHttpRequest`），非同步的技術讓 web content 可以動態更新，這可算是 Microsoft 對 web 貢獻之一（雖然最後是 [Mozilla Gecko 引擎先在 browser 實作][xhr-history]了）。我們很感謝 IE 不辭辛勞付出，但不代表能不遵從 web standard。IE 至今（2017/11）仍未完全實作 XHR v2 的 spec（請參考 [XHR Living Standard][xhr-living-standard]，沒辦法支援 JSON as returning value。
 
 就算未來 client request 會逐漸被 [fecth API][fetch-api] 取代，我們仍該好好處理瀏覽器向下相容性，畢竟 fetch API 目前只能透過 [AbortController][web-abortcontroller] 取消 request，而且只有 Firefox 57 和 Edge 16 有實作，這時候就凸顯出 `xhr.abort` 的重要性。
 
@@ -520,3 +520,4 @@ const scrollWidth = detectEdge() && verticalPattern.test(writingMode)
 [webcompat]: https://webcompat.com
 [xhr-history]: https://wikipedia.org/wiki/XMLHttpRequest#History
 [xml-namespace]: https://wikipedia.org/wiki/XML_namespace
+[xhr-living-standard]: https://xhr.spec.whatwg.org/
