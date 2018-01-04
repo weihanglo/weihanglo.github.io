@@ -18,14 +18,14 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
  &hellip;is the process of responding to the occurrence, during computation, of exceptions – anomalous or exceptional conditions requiring special processing – often changing the normal flow of program execution.
  簡單來說，就是某些例外狀況，需要特別的處理，這個處理過程就稱為例外處理，而這個處理常伴隨程式流程轉移改變。
 寫習慣 C&#43;&#43;／Objective-C 的同學，想必很排斥寫 try-catch 這種吃效能、又易出錯的例外處理，明明 if&hellip;else 就能打遍天下嘛！而喜歡 Python／Ruby 的朋友對 raise 和各種 Exceptions 一定不陌生，甚至 Python 底層的 iterator 都是用 StopIteration Exception 實作。依照各個程式語言的設計，例外處理大致分為兩類：'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/swift-error-handling/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/swift-error-handling/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Swift'><meta property='article:tag' content='Error Handling'><meta property='article:published_time' content='2017-04-10T16:36:33&#43;08:00'/><meta property='article:modified_time' content='2017-04-10T16:36:33&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>理解 Swift 的 Error Handling • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/swift-error-handling/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/swift-error-handling/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -47,16 +47,16 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -73,7 +73,7 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -532,9 +532,11 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 

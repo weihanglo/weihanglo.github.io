@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Iterator Pattern on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/iterator-pattern/</link>
+    <link>https://weihanglo.tw/tags/iterator-pattern/</link>
     <description>Recent content in Iterator Pattern on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 15 Aug 2017 13:06:59 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/iterator-pattern/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/iterator-pattern/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Intro Rx - 1. Iterator Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
       <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。

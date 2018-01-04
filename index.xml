@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on Weihang Lo</title>
-    <link>https://weihanglo.github.io/</link>
+    <link>https://weihanglo.tw/</link>
     <description>Recent content in Home on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
-      <link>https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/</link>
+      <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/</guid>
+      <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
 （撰於 2017-12-09，基於各種莫名其妙的狀況)
  對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
@@ -25,10 +25,10 @@
     
     <item>
       <title>How Is New Terminal In VS Code So Fast?</title>
-      <link>https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
+      <link>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
+      <guid>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
       <description>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &amp;ldquo;Integrated Terminal performance&amp;rdquo; section. Let&amp;rsquo;s check out what they&amp;rsquo;ve done!
 (written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
 Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &amp;ldquo;Xterm.js&amp;rdquo;, which is currently maintained by SourceLair and community contributors.</description>
@@ -36,10 +36,10 @@ Old Performance Issue The integrated terminal in VS Code is powered by another p
     
     <item>
       <title>Binary Data Manipulations in JavaScript</title>
-      <link>https://weihanglo.github.io/posts/2017/binary-data-manipulations-in-javascript/</link>
+      <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/binary-data-manipulations-in-javascript/</guid>
+      <guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid>
       <description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
 存在許久但最近才變為 ES6 標準「Typed Array」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）
@@ -50,10 +50,10 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
     
     <item>
       <title>Intro Rx - 2. Observer Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
       <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
@@ -63,10 +63,10 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
     
     <item>
       <title>Intro Rx - 1. Iterator Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
       <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
@@ -77,10 +77,10 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
     
     <item>
       <title>Intro Rx - 0. ReactiveX</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</link>
       <pubDate>Tue, 15 Aug 2017 09:22:37 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</guid>
       <description>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
 （撰於 2017-08-15）
 Why use Rx 狂熱驅動開發（Hype Driven Development） 是當前軟體工程界的奇特現象，每當一個新概念新技術出來，不乏有人大力吹捧。這次，小弟同樣被狂熱驅動，要來吹捧 ReactiveX（Rx）的設計理念，但在開始推坑之前，我們仍須問自己：「為什麼要用 Rx？Rx 想解決什麼問題？ 」知道一個技術的應用範圍，遠比只會拿著新玩具揮舞來得重要。
@@ -92,10 +92,10 @@ Declarative: better coding style Rx 除了統一非同步程式的 API 之外，
     
     <item>
       <title>Thoughts on React Native from an iOS developer</title>
-      <link>https://weihanglo.github.io/posts/2017/thoughts-on-react-native-from-an-ios-developer/</link>
+      <link>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</link>
       <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/thoughts-on-react-native-from-an-ios-developer/</guid>
+      <guid>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</guid>
       <description>About two month ago, I started making a React Native app &amp;ldquo;PyConTW 17&amp;rdquo; for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quite simple, but still took some efforts for me to build. As a complete React newbie, I would like to share some of my thoughts about React Native.
 (written on 2017-07-30, based on React Native 0.44.2)
  Disclaimer: I am a junior iOS developer (about 1 year experience) without any computer science degree.</description>
@@ -103,10 +103,10 @@ Declarative: better coding style Rx 除了統一非同步程式的 API 之外，
     
     <item>
       <title>Answers to Cherny&#39;s Interview Questions</title>
-      <link>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</link>
+      <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</guid>
+      <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
       <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現代前端技術棧相差頗大。不過，一些核心概念還是挺重要的，在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
 （撰於 2017-07-26）
 Concepts Be able to clearly explain these in words (no coding):
@@ -118,10 +118,10 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
     
     <item>
       <title>與 IE 相處的日子</title>
-      <link>https://weihanglo.github.io/posts/2017/days-with-internet-explorer/</link>
+      <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link>
       <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/days-with-internet-explorer/</guid>
+      <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
 Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!</description>
@@ -129,10 +129,10 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
     
     <item>
       <title>Modern Concurrency in JavaScript - Async Functions</title>
-      <link>https://weihanglo.github.io/posts/2017/javascript-concurrency-async-function/</link>
+      <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/javascript-concurrency-async-function/</guid>
+      <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
       <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！
 （撰於 2017-06-17，基於 ECMAScript 7+）
 Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7 標準，這對 JS 社群無疑是一大利多。截至目前為止（2017.6），實作 Async Functions 的環境有：
@@ -142,10 +142,10 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
     
     <item>
       <title>Modern Concurrency in JavaScript - Promises</title>
-      <link>https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/</link>
+      <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/</guid>
+      <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
       <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
 眾所周知，Concurrency is hard！設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 Promise 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到另一個煉獄人間。
 （撰於 2017-06-12，基於 ECMAScript 6+）
@@ -156,10 +156,10 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A+ 組�
     
     <item>
       <title>理解 Swift Generics</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-generics/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-generics/</link>
       <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-generics/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-generics/</guid>
       <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
 本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
 （撰於 2017-05-08，基於 Swift 3.1）
@@ -170,10 +170,10 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
     
     <item>
       <title>理解 Swift 的 Error Handling</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-error-handling/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-error-handling/</link>
       <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-error-handling/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid>
       <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
 （撰於 2017-04-10，基於 Swift 3.1）
 Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了解什麼是例外處理。維基百科道：
@@ -184,10 +184,10 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
     
     <item>
       <title>Front End Development Toolchain</title>
-      <link>https://weihanglo.github.io/posts/2017/fed-toolchain/</link>
+      <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
       <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/fed-toolchain/</guid>
+      <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
 （撰於 2017-03-10）
 Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具  NPM 套件模組管理工具  package.json NPM 常用指令  預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel  自動化工具／打包工具  Gulp Webpack  程式碼品質  測試 靜態程式語法檢查  小結 Reference  （以下環境皆以 macOS 為例）
@@ -196,10 +196,10 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
     
     <item>
       <title>Carthage 套件管理工具</title>
-      <link>https://weihanglo.github.io/posts/2017/carthage-intro/</link>
+      <link>https://weihanglo.tw/posts/2017/carthage-intro/</link>
       <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/carthage-intro/</guid>
+      <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
 （撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
 特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
@@ -210,10 +210,10 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
     
     <item>
       <title>Swift Quick Note</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-quick-note/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-quick-note/</link>
       <pubDate>Mon, 06 Feb 2017 23:25:19 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-quick-note/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-quick-note/</guid>
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。
 （撰於 2017-02-06，基於 Swift 3.1）
 Declaration 宣告變數使用 var，宣告常數使用 let
@@ -225,10 +225,10 @@ let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&am
     
     <item>
       <title>閱讀原始碼：Swift-Then</title>
-      <link>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</link>
+      <link>https://weihanglo.tw/posts/2017/readthesource-swift-then/</link>
       <pubDate>Tue, 10 Jan 2017 12:15:34 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</guid>
+      <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。
 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！

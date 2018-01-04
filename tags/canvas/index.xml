@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Canvas on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/canvas/</link>
+    <link>https://weihanglo.tw/tags/canvas/</link>
     <description>Recent content in Canvas on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 12 Oct 2017 22:05:03 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/canvas/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/canvas/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How Is New Terminal In VS Code So Fast?</title>
-      <link>https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
+      <link>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
+      <guid>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
       <description>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &amp;ldquo;Integrated Terminal performance&amp;rdquo; section. Let&amp;rsquo;s check out what they&amp;rsquo;ve done!
 (written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
 Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &amp;ldquo;Xterm.js&amp;rdquo;, which is currently maintained by SourceLair and community contributors.</description>

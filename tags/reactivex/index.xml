@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ReactiveX on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/reactivex/</link>
+    <link>https://weihanglo.tw/tags/reactivex/</link>
     <description>Recent content in ReactiveX on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/reactivex/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/reactivex/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Intro Rx - 2. Observer Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
       <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
@@ -25,10 +25,10 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
     
     <item>
       <title>Intro Rx - 1. Iterator Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
       <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
@@ -39,10 +39,10 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
     
     <item>
       <title>Intro Rx - 0. ReactiveX</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</link>
       <pubDate>Tue, 15 Aug 2017 09:22:37 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-0-reactivex/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</guid>
       <description>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
 （撰於 2017-08-15）
 Why use Rx 狂熱驅動開發（Hype Driven Development） 是當前軟體工程界的奇特現象，每當一個新概念新技術出來，不乏有人大力吹捧。這次，小弟同樣被狂熱驅動，要來吹捧 ReactiveX（Rx）的設計理念，但在開始推坑之前，我們仍須問自己：「為什麼要用 Rx？Rx 想解決什麼問題？ 」知道一個技術的應用範圍，遠比只會拿著新玩具揮舞來得重要。

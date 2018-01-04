@@ -18,14 +18,14 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
 brew install carthage  如果還沒有裝 homebrew，請來這下載
  建立一個 Carfile，列出欲使用的模組，例如：
   github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/carthage-intro/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/carthage-intro/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Carthage'><meta property='article:tag' content='Swift'><meta property='article:published_time' content='2017-03-05T08:45:57&#43;08:00'/><meta property='article:modified_time' content='2017-03-05T08:45:57&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>Carthage 套件管理工具 • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/carthage-intro/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/carthage-intro/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -47,16 +47,16 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -73,7 +73,7 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -379,9 +379,11 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 

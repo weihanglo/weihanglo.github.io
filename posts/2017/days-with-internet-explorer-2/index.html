@@ -16,14 +16,14 @@
  對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
  目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者  結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
  語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &lt;button&gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight  語意化 HTML5 標籤  Issue：不支援語意化 tag 就算了，部分 tag 如 &lt;main&gt;、&lt;article&gt; 還會變成 inline elements Platform：IE 11  先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/'>
 <meta property='og:site_name' content='Weihang Lo'>
-<meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.github.io/build-websites-for-web.png'><meta property='article:section' content='Posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Web Access Right'><meta property='article:published_time' content='2017-12-09T18:48:48&#43;08:00'/><meta property='article:modified_time' content='2017-12-09T18:48:48&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.github.io/build-websites-for-web.png'><meta property='twitter:image:alt' content='Modified from Webcompat.com'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='article:section' content='Posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Web Access Right'><meta property='article:published_time' content='2017-12-09T18:48:48&#43;08:00'/><meta property='article:modified_time' content='2017-12-09T18:48:48&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='twitter:image:alt' content='Modified from Webcompat.com'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>與 IE 相處的日子二：淺談網頁相容性 • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -45,16 +45,16 @@
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -71,7 +71,7 @@
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -731,9 +731,11 @@
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 

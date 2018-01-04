@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Interview Questions on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/interview-questions/</link>
+    <link>https://weihanglo.tw/tags/interview-questions/</link>
     <description>Recent content in Interview Questions on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 26 Jul 2017 20:48:30 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/interview-questions/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/interview-questions/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Answers to Cherny&#39;s Interview Questions</title>
-      <link>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</link>
+      <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/</guid>
+      <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
       <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現代前端技術棧相差頗大。不過，一些核心概念還是挺重要的，在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
 （撰於 2017-07-26）
 Concepts Be able to clearly explain these in words (no coding):

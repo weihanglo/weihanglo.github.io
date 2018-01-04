@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Web Access Right on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/web-access-right/</link>
+    <link>https://weihanglo.tw/tags/web-access-right/</link>
     <description>Recent content in Web Access Right on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/web-access-right/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/web-access-right/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
-      <link>https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/</link>
+      <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/days-with-internet-explorer-2/</guid>
+      <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
 （撰於 2017-12-09，基於各種莫名其妙的狀況)
  對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。

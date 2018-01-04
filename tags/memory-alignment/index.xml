@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memory Alignment on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/memory-alignment/</link>
+    <link>https://weihanglo.tw/tags/memory-alignment/</link>
     <description>Recent content in Memory Alignment on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 03 Sep 2017 23:35:55 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/memory-alignment/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/memory-alignment/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Binary Data Manipulations in JavaScript</title>
-      <link>https://weihanglo.github.io/posts/2017/binary-data-manipulations-in-javascript/</link>
+      <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/binary-data-manipulations-in-javascript/</guid>
+      <guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid>
       <description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
 存在許久但最近才變為 ES6 標準「Typed Array」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）

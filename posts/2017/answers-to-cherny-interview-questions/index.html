@@ -20,14 +20,14 @@ What is Big O notation, and why is it useful? Big O notation 是用來分析演�
 Big O 以宏觀的角度來分析演算法，並利用簡單的數學式表示，令演算法效率分析有簡明、客觀的基準。
 What is the DOM? 全名為「Document Object Model」，是 W3C 的標準之一，定義如何將文件（XML／HTML document 等）映射至一樹狀結構中，每個節點都是一個物件，並帶有操作此 DOM node 的 API。
 What is the event loop? JavaScript 是單執行緒（單線程）的程式語言，任何龐大運算都可能阻塞整個程式，因此 JavaScript 設計了 message queue 配合一個不間斷的 event loop 來管理任務，當 call stack 沒有執行任何 task 時（程式閒置時），loop 便從 queue 中取第一個 message 至 call stack 調用。開發者可將 callback 加入 message queue 等待 loop 輪詢（polling），實現非同步程式，這就是 JavaScript event loop 的機制。'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Interview Questions'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-07-26T20:48:30&#43;08:00'/><meta property='article:modified_time' content='2017-07-26T20:48:30&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>Answers to Cherny&#39;s Interview Questions • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/answers-to-cherny-interview-questions/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -49,16 +49,16 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -75,7 +75,7 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -167,7 +167,7 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
 
 <h2 id="how-does-this-work">How does <code>this</code> work?</h2>
 
-<p>當一段 code 被 JavaScript 執行時，會創建新的執行上下文（execution context），在創建之初就會綁定 <code>this</code> 的值（還有變數與作用域鍊），接下來才執行程式碼。要知道 function 的 <code>this</code> 指向何者，就要了解創建 context 時是 function 如何被調用。一般來說，以下幾種狀況便可涵蓋大多數的情境。</p>
+<p>當一段 code 被 JavaScript 執行時，會創建新的執行語彙環境（execution context），在創建之初就會綁定 <code>this</code> 的值（還有變數與作用域鍊），接下來才執行程式碼。要知道 function 的 <code>this</code> 指向何者，就要了解創建 context 時是 function 如何被調用。一般來說，以下幾種狀況便可涵蓋大多數的情境。</p>
 
 <table>
 <thead>
@@ -528,9 +528,11 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 

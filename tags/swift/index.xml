@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Swift on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/swift/</link>
+    <link>https://weihanglo.tw/tags/swift/</link>
     <description>Recent content in Swift on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/swift/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/swift/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Intro Rx - 2. Observer Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-2-observer-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
       <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
@@ -25,10 +25,10 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
     
     <item>
       <title>Intro Rx - 1. Iterator Pattern</title>
-      <link>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</link>
+      <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/intro-rx-1-iterator-pattern/</guid>
+      <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
       <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
@@ -39,10 +39,10 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
     
     <item>
       <title>理解 Swift Generics</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-generics/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-generics/</link>
       <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-generics/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-generics/</guid>
       <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
 本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
 （撰於 2017-05-08，基於 Swift 3.1）
@@ -53,10 +53,10 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
     
     <item>
       <title>理解 Swift 的 Error Handling</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-error-handling/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-error-handling/</link>
       <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-error-handling/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid>
       <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
 （撰於 2017-04-10，基於 Swift 3.1）
 Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了解什麼是例外處理。維基百科道：
@@ -67,10 +67,10 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
     
     <item>
       <title>Carthage 套件管理工具</title>
-      <link>https://weihanglo.github.io/posts/2017/carthage-intro/</link>
+      <link>https://weihanglo.tw/posts/2017/carthage-intro/</link>
       <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/carthage-intro/</guid>
+      <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
 （撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
 特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
@@ -81,10 +81,10 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
     
     <item>
       <title>Swift Quick Note</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-quick-note/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-quick-note/</link>
       <pubDate>Mon, 06 Feb 2017 23:25:19 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-quick-note/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-quick-note/</guid>
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。
 （撰於 2017-02-06，基於 Swift 3.1）
 Declaration 宣告變數使用 var，宣告常數使用 let
@@ -96,10 +96,10 @@ let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&am
     
     <item>
       <title>閱讀原始碼：Swift-Then</title>
-      <link>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</link>
+      <link>https://weihanglo.tw/posts/2017/readthesource-swift-then/</link>
       <pubDate>Tue, 10 Jan 2017 12:15:34 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/readthesource-swift-then/</guid>
+      <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。
 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！

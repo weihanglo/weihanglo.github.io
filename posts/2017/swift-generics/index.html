@@ -18,14 +18,14 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
 Definition 想像一下，有個需求是要交換兩個變數儲存的值，現在欲交換的變數是 int type，因此實作了 void swapInt(*int, *int) 的函式；接下來要交換的是 double，又寫了 void swapFloat(*double, *double)，但兩個函式實作幾乎一樣（交換指標指向的值），如果還有 float、char 等其他 n 種 data types，就必須寫 n 個版本的實作。如果程式語言支援函式重載，可以把 function name 都改成 swap，降低函式調用端的複雜度，但依然沒解決重複的問題。
 泛型程式設計（Generic Programming）目的就是「消弭因為不同資料型態，而重複實作相同的演算法」。維基百科寫得非常清楚：
  &hellip; is a style of computer programming in which algorithms are written in terms of types to-be-specified-later that are then instantiated when needed for specific types provided as parameters'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/swift-generics/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/swift-generics/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Swift'><meta property='article:tag' content='Generics'><meta property='article:published_time' content='2017-05-08T22:28:09&#43;08:00'/><meta property='article:modified_time' content='2017-05-08T22:28:09&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>理解 Swift Generics • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/swift-generics/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/swift-generics/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -47,16 +47,16 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -73,7 +73,7 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -181,7 +181,7 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
 <!--  -->
 
 <blockquote>
-<p>Type Parameter 可使用任意的合法 identifier，常見如 <code>&lt;T&gt;</code>、<code>&lt;U&gt;</code>，或是與上下文有關，如 generic collection protocol 就用 <code>&lt;Element&gt;</code>，慣例會用大寫開頭，表示是一個 type，而非 value。</p>
+<p>Type Parameter 可使用任意的合法 identifier，常見如 <code>&lt;T&gt;</code>、<code>&lt;U&gt;</code>，或是與語彙環境有關，如 generic collection protocol 就用 <code>&lt;Element&gt;</code>，慣例會用大寫開頭，表示是一個 type，而非 value。</p>
 </blockquote>
 
 <h2 id="generic-types">Generic Types</h2>
@@ -537,9 +537,11 @@ lessThan(<span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">123
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 

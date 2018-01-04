@@ -18,14 +18,14 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 Definition Promise 是一個非同步操作的代理物件（proxy object），表示這個非同步操作在未來終將實現（或產生錯誤），並同時取得該操作的結果值。Promise 並不侷限在 JavaScript 中，它是一個概念，有時候又稱為 Deferred、Future，維基百科有詳盡的介紹。
 Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得各家的非同步操作終於有了相同的 API。以下是個人認為 ES6 Promise 的幾個重要特色：
  截止當前（2017.6），Promise 在瀏覽器的支援程度已接近 90%。（主流瀏覽器僅 IE 11 不支援） 統一、可預期的 callback 調用與 error handling 流程。 callback 定義清楚完善，沒有重複調用或改變狀態的疑慮。 將有序的 promises 串連起來（promise chaining），解除 callback hell 問題。 可自由組合多個 promises（promise composition)，實作 sequential 或 paralleling 的 promise chain。  Terminology 開始之前，先了解 Promise 相關的術語：'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/javascript-concurrency-promise/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Concurrency'><meta property='article:tag' content='Promise'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-06-12T23:02:43&#43;08:00'/><meta property='article:modified_time' content='2017-06-12T23:02:43&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>Modern Concurrency in JavaScript - Promises • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/javascript-concurrency-promise/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -47,16 +47,16 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -73,7 +73,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -743,9 +743,11 @@ Promise.<span style="color:#a6e22e">all</span>(
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 

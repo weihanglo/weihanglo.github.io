@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Generator on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/generator/</link>
+    <link>https://weihanglo.tw/tags/generator/</link>
     <description>Recent content in Generator on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 18 Jun 2017 12:45:34 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/generator/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/generator/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Modern Concurrency in JavaScript - Async Functions</title>
-      <link>https://weihanglo.github.io/posts/2017/javascript-concurrency-async-function/</link>
+      <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/javascript-concurrency-async-function/</guid>
+      <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
       <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！
 （撰於 2017-06-17，基於 ECMAScript 7+）
 Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7 標準，這對 JS 社群無疑是一大利多。截至目前為止（2017.6），實作 Async Functions 的環境有：

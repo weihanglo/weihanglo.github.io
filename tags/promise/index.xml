@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Promise on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/promise/</link>
+    <link>https://weihanglo.tw/tags/promise/</link>
     <description>Recent content in Promise on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 12 Jun 2017 23:02:43 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/promise/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/promise/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Modern Concurrency in JavaScript - Promises</title>
-      <link>https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/</link>
+      <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/</guid>
+      <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
       <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
 眾所周知，Concurrency is hard！設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 Promise 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到另一個煉獄人間。
 （撰於 2017-06-12，基於 ECMAScript 6+）

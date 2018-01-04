@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Generics on Weihang Lo</title>
-    <link>https://weihanglo.github.io/tags/generics/</link>
+    <link>https://weihanglo.tw/tags/generics/</link>
     <description>Recent content in Generics on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 08 May 2017 22:28:09 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.github.io/tags/generics/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/generics/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>理解 Swift Generics</title>
-      <link>https://weihanglo.github.io/posts/2017/swift-generics/</link>
+      <link>https://weihanglo.tw/posts/2017/swift-generics/</link>
       <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
       
-      <guid>https://weihanglo.github.io/posts/2017/swift-generics/</guid>
+      <guid>https://weihanglo.tw/posts/2017/swift-generics/</guid>
       <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛型的風采。近年來，程式設計吹的是 static typing 風，泛型又開始被廣泛討論。
 本篇將簡單介紹泛型的背景，再來理解並學習 Swift 語言的泛型寫法。
 （撰於 2017-05-08，基於 Swift 3.1）

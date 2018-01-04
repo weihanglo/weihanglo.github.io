@@ -12,14 +12,14 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
 <meta property='og:description' content='近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
 Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!'>
-<meta property='og:url' content='https://weihanglo.github.io/posts/2017/days-with-internet-explorer/'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2017/days-with-internet-explorer/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Browser Testing'><meta property='article:published_time' content='2017-07-15T11:36:04&#43;08:00'/><meta property='article:modified_time' content='2017-07-15T11:36:04&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.31.1" />
+<meta name="generator" content="Hugo 0.32.2" />
 
   <title>與 IE 相處的日子 • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.github.io/posts/2017/days-with-internet-explorer/'>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer/'>
   
   
   <link rel='icon' href='/favicon.ico'>
@@ -41,16 +41,16 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
       <a href='/'>Home</a>
     </li>
   <li>
-      <a href='/posts'>Posts</a>
+      <a href='/posts/'>Posts</a>
     </li>
   <li>
-      <a href='/aha'>Aha!</a>
+      <a href='/tips/'>Tips!</a>
     </li>
   <li>
-      <a href='/tags'>Tags</a>
+      <a href='/tags/'>Tags</a>
     </li>
   <li>
-      <a href='/about'>About</a>
+      <a href='/about/'>About</a>
     </li>
   
   </ul>
@@ -67,7 +67,7 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
 
 
 <main id='main' class='main'>
-  <article lang='en-us' class='entry'>
+  <article lang='en' class='entry'>
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
@@ -241,8 +241,8 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
 <blockquote>
 <p>順便提一下，Edge/IE 的 <a href="https://caniuse.com/#feat=transforms2d" target="_blank">CSS transform 並不支援 SVG</a>，僅能透過 transform attribute 來達成效果。Poor IE！</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-svg" data-lang="svg">&lt;svg x=&#34;0px&#34; y=&#34;0px&#34; width=&#34;24px&#34; height=&#34;30px&#34; viewBox=&#34;0 0 20 20&#34;&gt;
-  &lt;style type=&#34;text/css&#34;&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-svg" data-lang="svg"><span style="color:#f92672">&lt;svg</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;0px&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;0px&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;24px&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;30px&#34;</span> <span style="color:#a6e22e">viewBox=</span><span style="color:#e6db74">&#34;0 0 20 20&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;style</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;text/css&#34;</span><span style="color:#f92672">&gt;</span>
     rect {
       transform-origin: center center;
       animation: 0.5s animate infinite ease-in-out alternate;
@@ -254,11 +254,11 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
       from { opacity: 0.2; transform: scaleY(1); }
       to { opacity: 0.8; transform: scaleY(2); }
     }
-  &lt;/style&gt;
-  &lt;rect x=&#34;0&#34; y=&#34;5&#34; width=&#34;4&#34; height=&#34;10&#34; fill=&#34;#333&#34; opacity=&#34;0.2&#34;&gt;&lt;/rect&gt;
-  &lt;rect x=&#34;8&#34; y=&#34;5&#34; width=&#34;4&#34; height=&#34;10&#34; fill=&#34;#333&#34;  opacity=&#34;0.2&#34;&gt;&lt;/rect&gt;
-  &lt;rect x=&#34;16&#34; y=&#34;5&#34; width=&#34;4&#34; height=&#34;10&#34; fill=&#34;#333&#34;  opacity=&#34;0.2&#34;&gt;&lt;/rect&gt;
-&lt;/svg&gt;</code></pre></div>
+  <span style="color:#f92672">&lt;/style&gt;</span>
+  <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;#333&#34;</span> <span style="color:#a6e22e">opacity=</span><span style="color:#e6db74">&#34;0.2&#34;</span><span style="color:#f92672">&gt;&lt;/rect&gt;</span>
+  <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;8&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;#333&#34;</span>  <span style="color:#a6e22e">opacity=</span><span style="color:#e6db74">&#34;0.2&#34;</span><span style="color:#f92672">&gt;&lt;/rect&gt;</span>
+  <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;16&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;#333&#34;</span>  <span style="color:#a6e22e">opacity=</span><span style="color:#e6db74">&#34;0.2&#34;</span><span style="color:#f92672">&gt;&lt;/rect&gt;</span>
+<span style="color:#f92672">&lt;/svg&gt;</span></code></pre></div>
 <h3 id="how-an-element-removes-itself">How an element removes itself?</h3>
 
 <ul>
@@ -495,9 +495,11 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
         <div class='copyright'>
   <p>
         
+          
+        
       
 
-       &copy; 2017 Weihang Lo 
+       &copy; 2017-2018 Weihang Lo 
   </p>
 </div>
 
