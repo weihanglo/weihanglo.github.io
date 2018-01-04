@@ -1,6 +1,6 @@
 ---
 title: "【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架"
-date: 2017-12-22T09:13:22+08:00
+date: 2018-01-03T09:13:22+08:00
 draft: true
 ---
 
@@ -186,8 +186,8 @@ Tokio 在 Mio 上註冊了許多 `Evented` 型別，儲存在特定的 token 上
 - Token 0（`TOKEN_MESSAGES`）：用於 Tokio 內部的消息佇列（message queue），這個佇列提供移除 I/O 來源、接收讀寫 readiness 通知的 task 排程，設定 timeout，以及執行在 event loop 語彙環境中的任意閉包。這個 token 可以安全地從其他線程與 event loop 溝通。例如，[`Remote::spawn()`][tokio-spawn] 透過訊息系統，將 future 送達 event loop。
   實作上，消息佇列是一個 [`futures::sync::mpsc`][futures-mpsc] stream。身為一個 [`futures::stream::Stream`][futures-stream]（與 future 類似，但是產生一序列的值而非單一值），消息佇列使用上述 `MySetReadiness` 方案來處理，而 `Registration` 則是以 `TOKEN_MESSAGES` 這個 token 註冊。當接收到 `TOKEN_MESSAGES` 事件時，該事件會分派到 `consume_queue()` 方法進一步處理。（原始碼：[`enum Message`][tokio-reactor-enum-message]、[`consume_queue()`][tokio-reactor-consume-queue]）
 - Token 1（`TOKEN_FUTURE`）：用於通知 Tokio 需要輪詢 main task。這個事件會發生在一個通知與 main task 相關聯（也就是傳入 `Core::run()` 的 future 或它的子 future，而非透過 `spawn()` 在不同 task 中執行的 future）。這個事件同樣用了 `MySetReadiness` 方案將 future 轉譯成 Mio 的事件。在一個 future 被 main task 執行前，會先回傳 `Async::NotReady`，並以其所選的方式在稍後發送通知。當接收了 `TOKEN_FUTURE` 事件，Tokio event loop 就會再次輪詢 main task。
-- 大於 1 的偶數數字 token（`TOKEN_START + key * 2`）：用來指示 I/O 來源的 readiness 改變。Token 中的 key 是 `Slab` key，關聯值是 `Core::inner::io_dispatch Slab<ScheduledIo>`。當 Mio 的 I/O 來源型別（`UdpSocket`、`TcpListener`、`TcpStream`）實例化之初，會自動以此 token 註冊。
-- 大於 1 的奇數數字 token（`TOKEN_START + key * 2 + 1`）：用來指示一個 spawned task（及其關聯的 future）需要被輪詢。Token 中的 key 是 `Slab` key，關聯值是 `Core::inner::task_dispatch Slab<ScheduledTask>`。和 `TOKEN_MESSAGES` 與 `TOKEN_FUTURE` 事件相同，這個事件也用了 `MySetReadiness` 溝通。
+- 大於 1 的偶數 token（`TOKEN_START + key * 2`）：用來指示 I/O 來源的 readiness 改變。Token 中的 key 是 `Slab` key，關聯值是 `Core::inner::io_dispatch Slab<ScheduledIo>`。當 Mio 的 I/O 來源型別（`UdpSocket`、`TcpListener`、`TcpStream`）實例化之初，會自動以此 token 註冊。
+- 大於 1 的奇數 token（`TOKEN_START + key * 2 + 1`）：用來指示一個 spawned task（及其關聯的 future）需要被輪詢。Token 中的 key 是 `Slab` key，關聯值是 `Core::inner::task_dispatch Slab<ScheduledTask>`。和 `TOKEN_MESSAGES` 與 `TOKEN_FUTURE` 事件相同，這個事件也用了 `MySetReadiness` 溝通。
 
 [tokio-mysetreadiness]: https://github.com/tokio-rs/tokio-core/blob/0.1.10/src/reactor/mod.rs#L791
 [tokio-handle]: https://docs.rs/tokio-core/0.1.10/tokio_core/reactor/struct.Handle.html
@@ -212,9 +212,11 @@ Tokio，更精確來說是 [`tokio_core::reactor::Core`][tokio-reactor-core] 提
 
 ## What happens when data arrives on a socket?
 
-了解 Tokio 的方法之一就是觀察當資料抵達 socket 時，event loop 發生的每個步驟。
+想了解 Tokio，可以觀察當資料抵達 socket 時，event loop 發生的每個步驟。我很訝異地發現，這個過程最終分為兩部分，分別在各自的 event loop 迭代中，進行各自的 epoll 交易處理。第一部分負責當 socket 讀取就緒時（例如，Mio 事件帶著比 1 大的偶數 token，或 main task 的 `TOKEN_FUTURE`），傳送通知到對該 socket 有興趣的 task；第二部分則是透過輪詢 task 與其關聯的 future 來處理通知（例如，Mio 事件帶著比 1 大的奇數 token）。我們來了解以下情境：一個 spawned task 從 Linux 上的 `UdpSocket`，透過 Tokio event loop 讀取資料，並假設前一次輪詢結果導致 `recv_from()` 回傳一個 `WouldBlock` 錯誤。
 
 ![](https://cafbit.com/resource/tokio/recv-sequence-1.svg)
+
+Tokio event loop 調用 `mio::Poll:poll()`，該方法轉而調用 `epoll_wait()`（在 Linux 上）進而阻塞到某個監測中的 file descriptor 發生了 readiness 改變的事件。當上述情形發生後，`epoll_wait()` 回傳一個 `epoll_event` structs 的陣列，用以描述發生什麼事，這些 structs 也將透過 Mio 轉譯為 `mio::Events`，並返回 Tokio。
 
 ![](https://cafbit.com/resource/tokio/recv-sequence-2.svg)
 
