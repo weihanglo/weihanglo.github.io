@@ -73,7 +73,7 @@ func call<Phone>(by phone: Phone) {
 
 <!--  -->
 
-> Type Parameter 可使用任意的合法 identifier，常見如 `<T>`、`<U>`，或是與上下文有關，如 generic collection protocol 就用 `<Element>`，慣例會用大寫開頭，表示是一個 type，而非 value。
+> Type Parameter 可使用任意的合法 identifier，常見如 `<T>`、`<U>`，或是與語彙環境有關，如 generic collection protocol 就用 `<Element>`，慣例會用大寫開頭，表示是一個 type，而非 value。
 
 ## Generic Types
 

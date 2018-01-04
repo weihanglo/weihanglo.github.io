@@ -56,7 +56,7 @@ Prototype-based 的語言雖沒有真正的 class，但會有類似建構子（c
 
 ## How does `this` work?
 
-當一段 code 被 JavaScript 執行時，會創建新的執行上下文（execution context），在創建之初就會綁定 `this` 的值（還有變數與作用域鍊），接下來才執行程式碼。要知道 function 的 `this` 指向何者，就要了解創建 context 時是 function 如何被調用。一般來說，以下幾種狀況便可涵蓋大多數的情境。
+當一段 code 被 JavaScript 執行時，會創建新的執行語彙環境（execution context），在創建之初就會綁定 `this` 的值（還有變數與作用域鍊），接下來才執行程式碼。要知道 function 的 `this` 指向何者，就要了解創建 context 時是 function 如何被調用。一般來說，以下幾種狀況便可涵蓋大多數的情境。
 
 | 情境                        | `this` 指向                  |
 | :------------------------- | :--------------------------- |
