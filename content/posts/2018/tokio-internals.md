@@ -196,7 +196,9 @@ Tokio 在 Mio 上註冊了許多 `Evented` 型別，儲存在特定的 token 上
 
     實作上，消息佇列是一個 [`futures::sync::mpsc`][futures-mpsc] stream。身為一個 [`futures::stream::Stream`][futures-stream]（與 future 類似，但是產生一序列的值而非單一值），消息佇列使用上述 `MySetReadiness` 方案來處理，而 `Registration` 則是以 `TOKEN_MESSAGES` 這個 token 註冊。當接收到 `TOKEN_MESSAGES` 事件時，該事件會分派到 `consume_queue()` 方法進一步處理。（原始碼：[`enum Message`][tokio-reactor-enum-message]、[`consume_queue()`][tokio-reactor-consume-queue]）
 - **Token 1（`TOKEN_FUTURE`）**：用於通知 Tokio 需要輪詢 main task。這個 token 會在與 main task 相關聯的通知上（也就是傳入 `Core::run()` 的 future 或它的子 future，而非透過 `spawn()` 在不同 task 中執行的 future）。這個事件同樣用了 `MySetReadiness` 方案將 future 轉譯成 Mio 的事件。在一個 future 被 main task 執行前，會先回傳 `Async::NotReady`，並以其所選的方式在稍後發布通知。當接收了 `TOKEN_FUTURE` 事件，Tokio event loop 就會再次輪詢 main task。
+
 - **大於 1 的偶數 token（`TOKEN_START + key * 2`）**：用來指示 I/O 來源的 readiness 改變。Token 中的 key 是 `Slab` key，關聯值是 `Core::inner::io_dispatch Slab<ScheduledIo>`。當 Mio 的 I/O 來源型別（`UdpSocket`、`TcpListener`、`TcpStream`）實例化之初，會自動以此 token 註冊。
+
 - **大於 1 的奇數 token（`TOKEN_START + key * 2 + 1`）**：用來指示一個 spawned task（及其關聯的 future）需要被輪詢。Token 中的 key 是 `Slab` key，關聯值是 `Core::inner::task_dispatch Slab<ScheduledTask>`。和 `TOKEN_MESSAGES` 與 `TOKEN_FUTURE` 事件相同，這個事件也用了 `MySetReadiness` 溝通。
 
 [tokio-mysetreadiness]: https://github.com/tokio-rs/tokio-core/blob/0.1.10/src/reactor/mod.rs#L791
