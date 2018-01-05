@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>Asynchronous I/O</title>
+      <link>https://weihanglo.tw/tags/asynchronous-i/o/</link>
+      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/asynchronous-i/o/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Binary Data</title>
       <link>https://weihanglo.tw/tags/binary-data/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
@@ -218,6 +227,15 @@
     </item>
     
     <item>
+      <title>Rust</title>
+      <link>https://weihanglo.tw/tags/rust/</link>
+      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Source Reading</title>
       <link>https://weihanglo.tw/tags/source-reading/</link>
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
@@ -241,6 +259,24 @@
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
       
       <guid>https://weihanglo.tw/tags/terminal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tokio</title>
+      <link>https://weihanglo.tw/tags/tokio/</link>
+      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/tokio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Translation</title>
+      <link>https://weihanglo.tw/tags/translation/</link>
+      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/translation/</guid>
       <description></description>
     </item>
     

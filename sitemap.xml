@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weihanglo.tw/posts/2018/translation-tokio-internals/</loc>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</loc>
     <lastmod>2017-12-09T18:48:48+08:00</lastmod>
   </url>
@@ -94,6 +99,12 @@
   </url>
   
   <url>
+    <loc>https://weihanglo.tw/tags/asynchronous-i/o/</loc>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/authors/</loc>
     <priority>0</priority>
   </url>
@@ -171,7 +182,7 @@
   
   <url>
     <loc>https://weihanglo.tw/</loc>
-    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
   </url>
   
   <url>
@@ -224,7 +235,7 @@
   
   <url>
     <loc>https://weihanglo.tw/posts/</loc>
-    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -243,6 +254,12 @@
   <url>
     <loc>https://weihanglo.tw/tags/reactivex/</loc>
     <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.tw/tags/rust/</loc>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -267,6 +284,18 @@
   <url>
     <loc>https://weihanglo.tw/tags/terminal/</loc>
     <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.tw/tags/tokio/</loc>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.tw/tags/translation/</loc>
+    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
     <priority>0</priority>
   </url>
   
