@@ -16,7 +16,7 @@ pygmentsCodefences = true
 DefaultContentLanguage = "en"
 
 [params.info]
-description = "Our online life is real life"
+description = ""
 title404 = "Nothing's here!"
 
 [params.assets]
