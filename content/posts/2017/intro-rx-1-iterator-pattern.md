@@ -1,5 +1,5 @@
 ---
-title: Intro Rx - 1. Iterator Pattern
+title: Rx 入門一：迭代器模式
 tags:
   - Design Patterns
   - Iterator Pattern
@@ -8,7 +8,7 @@ tags:
 date: 2017-08-15T13:06:59+08:00
 ---
 
-本篇介紹 Rx 的重要基礎概念 **Iterator pattern**。
+本篇介紹 Rx 的重要基礎概念 **Iterator pattern**（迭代器模式）。
 
 _（撰於 2017-08-15，基於 Swift 3.1）_
 

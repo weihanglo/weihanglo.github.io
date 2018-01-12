@@ -1,5 +1,5 @@
 ---
-title: Intro Rx - 0. ReactiveX
+title: Rx 入門零：ReactiveX
 tags:
   - ReactiveX
   - Design Patterns

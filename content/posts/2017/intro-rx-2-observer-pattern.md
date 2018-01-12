@@ -1,5 +1,5 @@
 ---
-title: Intro Rx - 2. Observer Pattern
+title: Rx 入門二：觀察者模式
 tags:
   - Design Patterns
   - Observer Pattern
@@ -8,7 +8,7 @@ tags:
 date: 2017-08-15T16:32:39+08:00
 ---
 
-本篇介紹 Rx 另一個重要的基礎概念 **Observer pattern**。
+本篇介紹 Rx 另一個重要的基礎概念 **Observer pattern**（觀察者模式）。
 
 _（撰於 2017-08-15，基於 Swift 3.1）_
 

@@ -1,5 +1,5 @@
 ---
-title: Answers to Cherny's Interview Questions
+title: 試答 Cherny 所謂「最好的前端面試題」
 tags:
   - Interview Questions
   - JavaScript

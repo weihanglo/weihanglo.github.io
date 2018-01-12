@@ -1,5 +1,5 @@
 ---
-title: Binary Data Manipulations in JavaScript
+title: 使用 JavaScript 處理二進位資料
 tags:
   - JavaScript
   - Endianness

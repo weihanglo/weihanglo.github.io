@@ -1,5 +1,5 @@
 ---
-title: Swift Quick Note
+title: Swift 初學速記
 date: 2017-02-06T23:25:19+08:00
 tags:
   - Swift

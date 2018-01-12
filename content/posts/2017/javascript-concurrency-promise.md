@@ -1,5 +1,5 @@
 ---
-title: Modern Concurrency in JavaScript - Promises
+title: 現代化的 JavaScript 併發 - Promises
 tags:
   - JavaScript
   - Concurrency
