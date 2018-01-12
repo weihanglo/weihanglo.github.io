@@ -1,5 +1,5 @@
 ---
-title: Modern Concurrency in JavaScript - Async Functions
+title: 現代化的 JavaScript 併發 - Async Functions
 tags:
   - JavaScript
   - Concurrency
