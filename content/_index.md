@@ -4,4 +4,4 @@ title: Home
 
 Finally, I realized.
 
-# There is no test while refactoring a life.
+## Life is a refactoring process without tests.
