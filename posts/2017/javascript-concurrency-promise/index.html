@@ -11,7 +11,7 @@ Definition Promise 是一個非同步操作的代理物件（proxy object），�
 Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得各家的非同步操作終於有了相同的 API。以下是個人認為 ES6 Promise 的幾個重要特色：
  截止當前（2017.6），Promise 在瀏覽器的支援程度已接近 90%。（主流瀏覽器僅 IE 11 不支援） 統一、可預期的 callback 調用與 error handling 流程。 callback 定義清楚完善，沒有重複調用或改變狀態的疑慮。 將有序的 promises 串連起來（promise chaining），解除 callback hell 問題。 可自由組合多個 promises（promise composition)，實作 sequential 或 paralleling 的 promise chain。  Terminology 開始之前，先了解 Promise 相關的術語：'>
 
-<meta property='og:title' content='Modern Concurrency in JavaScript - Promises • Weihang Lo'>
+<meta property='og:title' content='現代化的 JavaScript 併發 - Promises • Weihang Lo'>
 <meta property='og:description' content='所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
 眾所周知，Concurrency is hard！設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 Promise 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到另一個煉獄人間。
 （撰於 2017-06-12，基於 ECMAScript 6&#43;）
@@ -24,7 +24,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 
 <meta name="generator" content="Hugo 0.32.3" />
 
-  <title>Modern Concurrency in JavaScript - Promises • Weihang Lo</title>
+  <title>現代化的 JavaScript 併發 - Promises • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/javascript-concurrency-promise/'>
   
   
@@ -77,7 +77,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
-      <h1 class='title'>Modern Concurrency in JavaScript - Promises</h1>
+      <h1 class='title'>現代化的 JavaScript 併發 - Promises</h1>
       
 
     </div>
@@ -647,7 +647,7 @@ Promise.<span style="color:#a6e22e">all</span>(
         <span class='screen-reader'>Previous post: </span>理解 Swift Generics</a>
     </div><div class='next-entry'>
       <a href='/posts/2017/javascript-concurrency-async-function/'>
-        <span class='screen-reader'>Next post: </span>Modern Concurrency in JavaScript - Async Functions<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+        <span class='screen-reader'>Next post: </span>現代化的 JavaScript 併發 - Async Functions<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>

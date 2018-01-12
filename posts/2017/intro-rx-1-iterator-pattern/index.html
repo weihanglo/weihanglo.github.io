@@ -4,15 +4,15 @@
 <head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='本篇介紹 Rx 的重要基礎概念 Iterator pattern。
+<meta name='description' content='本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
 Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
 相反地， C 的 for (int i = 0; i &lt; n; i&#43;&#43;) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
 透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。'>
 
-<meta property='og:title' content='Intro Rx - 1. Iterator Pattern • Weihang Lo'>
-<meta property='og:description' content='本篇介紹 Rx 的重要基礎概念 Iterator pattern。
+<meta property='og:title' content='Rx 入門一：迭代器模式 • Weihang Lo'>
+<meta property='og:description' content='本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
 Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
@@ -24,7 +24,7 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
 
 <meta name="generator" content="Hugo 0.32.3" />
 
-  <title>Intro Rx - 1. Iterator Pattern • Weihang Lo</title>
+  <title>Rx 入門一：迭代器模式 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/'>
   
   
@@ -77,7 +77,7 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
-      <h1 class='title'>Intro Rx - 1. Iterator Pattern</h1>
+      <h1 class='title'>Rx 入門一：迭代器模式</h1>
       
 
     </div>
@@ -119,7 +119,7 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
     <div class='entry-content'>
   
 
-<p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>。</p>
+<p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>（迭代器模式）。</p>
 
 <p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
 
@@ -254,10 +254,10 @@ Countdown(count: <span style="color:#ae81ff">5</span>).map { $0 <span style="col
   
 </svg>
  Previous</span>
-        <span class='screen-reader'>Previous post: </span>Intro Rx - 0. ReactiveX</a>
+        <span class='screen-reader'>Previous post: </span>Rx 入門零：ReactiveX</a>
     </div><div class='next-entry'>
       <a href='/posts/2017/intro-rx-2-observer-pattern/'>
-        <span class='screen-reader'>Next post: </span>Intro Rx - 2. Observer Pattern<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+        <span class='screen-reader'>Next post: </span>Rx 入門二：觀察者模式<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>

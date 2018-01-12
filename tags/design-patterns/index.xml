@@ -11,12 +11,12 @@
     
     
     <item>
-      <title>Intro Rx - 2. Observer Pattern</title>
+      <title>Rx 入門二：觀察者模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
       
       <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
-      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
+      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
@@ -24,12 +24,12 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
     </item>
     
     <item>
-      <title>Intro Rx - 1. Iterator Pattern</title>
+      <title>Rx 入門一：迭代器模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
       
       <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
-      <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern。
+      <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
 Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
@@ -38,7 +38,7 @@ Application Iterator pattern 是最基本的設計模式之一，基本上大部
     </item>
     
     <item>
-      <title>Intro Rx - 0. ReactiveX</title>
+      <title>Rx 入門零：ReactiveX</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</link>
       <pubDate>Tue, 15 Aug 2017 09:22:37 +0800</pubDate>
       

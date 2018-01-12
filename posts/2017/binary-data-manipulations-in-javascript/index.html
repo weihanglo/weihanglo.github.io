@@ -11,7 +11,7 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
 所謂 Buffer 是一個指向儲存資料的記憶體區塊之物件，類似於 malloc 配置出來的空間，無法直接存取或修改 buffer 內部的資料，在 JavaScript 中 Buffer 的實作就是 ArrayBuffer。
 如果我們想存取某些 buffer 底下的內容，我們需要 View（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取呢？抑或以 unsigned integer 來操作。'>
 
-<meta property='og:title' content='Binary Data Manipulations in JavaScript • Weihang Lo'>
+<meta property='og:title' content='使用 JavaScript 處理二進位資料 • Weihang Lo'>
 <meta property='og:description' content='由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
 存在許久但最近才變為 ES6 標準「Typed Array」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 （撰於 2017-09-03，基於 ECMAScript 6&#43;，Node.js 8.3）
@@ -24,7 +24,7 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
 
 <meta name="generator" content="Hugo 0.32.3" />
 
-  <title>Binary Data Manipulations in JavaScript • Weihang Lo</title>
+  <title>使用 JavaScript 處理二進位資料 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/'>
   
   
@@ -77,7 +77,7 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
-      <h1 class='title'>Binary Data Manipulations in JavaScript</h1>
+      <h1 class='title'>使用 JavaScript 處理二進位資料</h1>
       
 
     </div>
@@ -553,7 +553,7 @@ i = int 所佔的 byte
   
 </svg>
  Previous</span>
-        <span class='screen-reader'>Previous post: </span>Intro Rx - 2. Observer Pattern</a>
+        <span class='screen-reader'>Previous post: </span>Rx 入門二：觀察者模式</a>
     </div><div class='next-entry'>
       <a href='/posts/2017/how-is-new-terminal-in-vs-code-so-fast/'>
         <span class='screen-reader'>Next post: </span>How Is New Terminal In VS Code So Fast?<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>

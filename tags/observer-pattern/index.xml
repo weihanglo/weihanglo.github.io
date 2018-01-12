@@ -11,12 +11,12 @@
     
     
     <item>
-      <title>Intro Rx - 2. Observer Pattern</title>
+      <title>Rx 入門二：觀察者模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
       
       <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
-      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
+      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。

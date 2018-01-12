@@ -24,7 +24,7 @@
     </item>
     
     <item>
-      <title>Binary Data Manipulations in JavaScript</title>
+      <title>使用 JavaScript 處理二進位資料</title>
       <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
       
@@ -38,7 +38,7 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
     </item>
     
     <item>
-      <title>Answers to Cherny&#39;s Interview Questions</title>
+      <title>試答 Cherny 所謂「最好的前端面試題」</title>
       <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
       
@@ -64,7 +64,7 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
     </item>
     
     <item>
-      <title>Modern Concurrency in JavaScript - Async Functions</title>
+      <title>現代化的 JavaScript 併發 - Async Functions</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
       
@@ -77,7 +77,7 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
     </item>
     
     <item>
-      <title>Modern Concurrency in JavaScript - Promises</title>
+      <title>現代化的 JavaScript 併發 - Promises</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
       
@@ -91,7 +91,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A+ 組�
     </item>
     
     <item>
-      <title>Front End Development Toolchain</title>
+      <title>大前端時代的工具箱</title>
       <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
       <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
       

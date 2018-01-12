@@ -4,14 +4,14 @@
 <head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
+<meta name='description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
 Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
 
-<meta property='og:title' content='Intro Rx - 2. Observer Pattern • Weihang Lo'>
-<meta property='og:description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern。
+<meta property='og:title' content='Rx 入門二：觀察者模式 • Weihang Lo'>
+<meta property='og:description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
@@ -22,7 +22,7 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
 
 <meta name="generator" content="Hugo 0.32.3" />
 
-  <title>Intro Rx - 2. Observer Pattern • Weihang Lo</title>
+  <title>Rx 入門二：觀察者模式 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/'>
   
   
@@ -75,7 +75,7 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
     <header class='header-container'>
   <div class='header entry-header'>
     <div class='header-info'>
-      <h1 class='title'>Intro Rx - 2. Observer Pattern</h1>
+      <h1 class='title'>Rx 入門二：觀察者模式</h1>
       
 
     </div>
@@ -117,7 +117,7 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
     <div class='entry-content'>
   
 
-<p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>。</p>
+<p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>（觀察者模式）。</p>
 
 <p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
 
@@ -387,10 +387,10 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
   
 </svg>
  Previous</span>
-        <span class='screen-reader'>Previous post: </span>Intro Rx - 1. Iterator Pattern</a>
+        <span class='screen-reader'>Previous post: </span>Rx 入門一：迭代器模式</a>
     </div><div class='next-entry'>
       <a href='/posts/2017/binary-data-manipulations-in-javascript/'>
-        <span class='screen-reader'>Next post: </span>Binary Data Manipulations in JavaScript<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+        <span class='screen-reader'>Next post: </span>使用 JavaScript 處理二進位資料<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>
