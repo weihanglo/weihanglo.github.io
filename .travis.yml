@@ -1,0 +1,28 @@
+sudo: required
+language: go
+go:
+  - master
+
+before_install:
+  - sudo apt-get update -y
+  - sudo apt-get install python-pygments -y
+
+install:
+  - go get github.com/spf13/hugo
+
+before_script:
+  - rm -rf public || exit 0
+
+script:
+  - hugo
+
+deploy:
+  provider: pages
+  target-branch: master
+  local-dir: public
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: sources
+
