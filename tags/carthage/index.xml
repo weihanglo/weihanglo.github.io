@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Carthage on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/carthage/</link>
+    <description>Recent content in Carthage on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 05 Mar 2017 08:45:57 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.tw/tags/carthage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Carthage 套件管理工具</title>
+      <link>https://weihanglo.tw/posts/2017/carthage-intro/</link>
+      <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
+      <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
+（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
+特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
+brew install carthage  如果還沒有裝 homebrew，請來這下載
+ 建立一個 Carfile，列出欲使用的模組，例如：
+  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
+    </item>
+    
+  </channel>
+</rss>
