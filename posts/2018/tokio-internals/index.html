@@ -20,7 +20,7 @@ Thanks David Simmons for this awesome article!
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Rust'><meta property='article:tag' content='Tokio'><meta property='article:tag' content='Asynchronous I/O'><meta property='article:tag' content='Translation'><meta property='article:published_time' content='2018-01-05T08:44:43&#43;08:00'/><meta property='article:modified_time' content='2018-01-05T08:44:43&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.35-DEV" />
+<meta name="generator" content="Hugo 0.36-DEV" />
 
   <title>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2018/tokio-internals/'>
@@ -74,9 +74,6 @@ Thanks David Simmons for this awesome article!
     </li>
   <li>
       <a href='/posts/'>Posts</a>
-    </li>
-  <li>
-      <a href='/tips/'>Tips!</a>
     </li>
   <li>
       <a href='/tags/'>Tags</a>
@@ -402,7 +399,12 @@ epoll_wait(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0x7
 </span>
   <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/rust'>Rust</a>, <a class='tag' href='/tags/tokio'>Tokio</a>, <a class='tag' href='/tags/asynchronous-i/o'>Asynchronous I/O</a>, <a class='tag' href='/tags/translation'>Translation</a></div>
 
-  </div>
+  </div><div style="text-align: center; padding-top: 2em;">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="cc-by-nc-sa-4">
+  </a>
+</div>
+
 </footer>
 
 
