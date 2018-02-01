@@ -88,13 +88,6 @@ identifier = "posts"
 url = "/posts/"
 
 [[menu.main]]
-name = "Tips!"
-weight = 30
-identifier = "tips"
-url = "/tips/"
-
-
-[[menu.main]]
 name = "Tags"
 weight = 40
 identifier = "tags"
