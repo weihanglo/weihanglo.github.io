@@ -20,7 +20,7 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Concurrency'><meta property='article:tag' content='Async Function'><meta property='article:tag' content='Generator'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-06-18T12:45:34&#43;08:00'/><meta property='article:modified_time' content='2017-06-18T12:45:34&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.36-DEV" />
+<meta name="generator" content="Hugo 0.38-DEV" />
 
   <title>現代化的 JavaScript 併發 - Async Functions • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/'>
@@ -196,7 +196,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 <p>日常會遇到的 iterable 應該會長這樣：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">iterable</span>) {}
 <span style="color:#a6e22e">iterable</span>.<span style="color:#a6e22e">forEach</span>()
-<span style="color:#a6e22e">iterable</span>.<span style="color:#a6e22e">map</span>()</code></pre></div>
+<span style="color:#a6e22e">iterable</span>.<span style="color:#a6e22e">map</span>()
+</code></pre></div>
 <p>這些 <strong>iterable</strong> 有共通特性，就像下面的 list 一樣又臭又長。</p>
 
 <ul>
@@ -231,7 +232,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 <span style="color:#75715e">// 無限迴圈
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">infiniteLoop</span>) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">v</span>)
-}</code></pre></div>
+}
+</code></pre></div>
 <blockquote>
 <p>有興趣了解相關 protocols，可以<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">看此</a>。</p>
 </blockquote>
@@ -252,7 +254,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">done</span>) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">value</span>)
   <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">next</span>()
-}</code></pre></div>
+}
+</code></pre></div>
 <p>乍看之下，似乎沒比 iterator 簡單，而且又多了 <code>function*</code> 和 <code>yield</code>，是要嚇死人嗎？這裡的重點並非語法，而是一開始提及的 <a href="https://en.wikipedia.org/wiki/Coroutine" target="_blank">Coroutine</a>概念。這種 coroutine 的概念與一般逐行執行的程式不同，運作流程如下：</p>
 
 <ol>
@@ -279,7 +282,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>)
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>)
-}</code></pre></div>
+}
+</code></pre></div>
 <p>看起來非常驚人！可惜這是虛擬的程式碼，<code>a</code>、<code>b</code> 都是一個 Promise，需要利用 <code>then</code> method 取得 resolve value。不過，JS 社群當然不會放過 generator 這個裝逼的好工具，大神們透過各種奇淫巧技，讓我得以利用 generator 優美地寫出 synchronously asynchronous code，以下這個例子便是透過 <code>spawn</code> 自動執行 <code>next</code> 的 helper function 達成。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// Helper Function
 </span><span style="color:#75715e">// from: Jake Archibald - JavaScript Promises: an Introduction
@@ -309,7 +313,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>) <span style="color:#75715e">// a 是一個
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;b&#39;</span>) <span style="color:#75715e">// 等待 fetch(&#39;b&#39;)，並將結果 assign to b
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>)
-})</code></pre></div>
+})
+</code></pre></div>
 <p>這就是 async generator 的實作，很美，但過程十分嚇人。</p>
 
 <blockquote>
@@ -330,7 +335,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 }
 
 <span style="color:#75715e">// 執行 async function，不需自己寫 `spawn`，如同正常的 function call。
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">run</span>()</code></pre></div>
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">run</span>()
+</code></pre></div>
 <p>Async functions 使用語意清楚的 <code>async</code>／<code>await</code> 取代 <code>function*</code>／<code>yield</code>，除此之外，幾乎與 generator 版本一模一樣。其差異如下：</p>
 
 <ul>
@@ -352,12 +358,14 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Error occurred: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
   }
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="await">Await</h3>
 
 <p><code>await</code> 是用來等待 Promise resolution 的運算子，語法與特性如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#a6e22e">rv</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">expression</span>
-<span style="color:#960050;background-color:#1e0010">// rv -&gt; return value of await expression</span></code></pre></div>
+<span style="color:#75715e">// rv -&gt; return value of await expression
+</span><span style="color:#75715e"></span></code></pre></div>
 <ul>
 <li>僅能用在 async function 內部。</li>
 <li>expression 若是 promise 以外的 value，直接返回該 value</li>
@@ -379,7 +387,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">process</span>()
   <span style="color:#75715e">// 返回最終的結果 c
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="return-value">Return Value</h3>
 
 <p>我們知道，Async function 的 return value 會是一個 promise，那這個 promise 什麼時候會 fulfill，什麼時候會被 reject 呢？</p>
@@ -430,7 +439,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
   <span style="color:#75715e">// 由於原本即是 return a promise，所以不需使用 `await` 等待結果
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// No need to: `return await heavyAsyncProcess()`
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">heavyAsyncProcess</span>()
-}</code></pre></div>
+}
+</code></pre></div>
 <p>看完範例，我們可以得知 Async function 的錯誤處理模式與一般的 function 如出一轍，即「由 context 的執行情形來決定何時 return，何時該 throw Error」。</p>
 
 <p>另外，Async function 的 return value 與 Error 傳到 caller context 時會以 promise 包裹。不會讓整個 call frame 掛掉，但也如同 promise 對錯誤比較 silent，所以再次提醒，慣例會在 async function 內部透過 <strong>try-catch</strong> 處理錯誤，不讓錯誤傳遞過遠，好比 promise 最後必會掛個 catch 處理錯誤。</p>
@@ -456,7 +466,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 <span style="color:#75715e">// A method of a class
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">myAsync</span> () {}
-}</code></pre></div>
+}
+</code></pre></div>
 <h2 id="advanced-usage">Advanced Usage</h2>
 
 <h3 id="sequential-operation">Sequential Operation</h3>
@@ -467,7 +478,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resA</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;a&#39;</span>)
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resB</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">resA</span>, <span style="color:#a6e22e">resB</span>}
-}</code></pre></div>
+}
+</code></pre></div>
 <p>透過 <code>for</code> loop，也可達成 sequential 的效果。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 利用 for loop，iterate 所有 url，逐一等待 promise resolution
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInSequence</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
@@ -477,7 +489,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">json</span>)
   }
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="parallel-operation">Parallel Operation</h3>
 
 <p>如果 <code>await</code> 會阻塞該 context（正確說來是轉移執行權），那我如何設計 parallel operation 呢？</p>
@@ -492,7 +505,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resA</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">pA</span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resB</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">pB</span>
   <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">resA</span>, <span style="color:#a6e22e">resB</span>]
-}</code></pre></div>
+}
+</code></pre></div>
 <p>自幹兩個 promises 很不直觀？不然我們改用 <code>Promise.all</code>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 使用 Promise.all await 多個 promises
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promiseAllInParallel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
@@ -500,7 +514,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
     <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;a&#39;</span>),
     <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   ])
-}</code></pre></div>
+}
+</code></pre></div>
 <p>蛤！<code>Promise.all</code> 又出現了！使用 async function 不就是為了拋棄 promise 嗎？很抱歉，在有更清楚的語言特性出現前，只能選擇這種方式，畢竟 async funciton 整個 tech stack 就是建立於 promise 之上。</p>
 
 <p>如果是多個 promise，也可以利用 <code>Array#map</code> 建立新的 context（function scope）來實作 parallel operation，這種方式看起來也稍微 hack，不過仍是本著 async function 的概念。</p>
@@ -514,7 +529,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">jsonPromise</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">jsonPromises</span>) {
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">jsonPromise</span>) <span style="color:#75715e">// 等待個別 promise resolution
 </span><span style="color:#75715e"></span>  }
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="promise-race">Promise.race</h3>
 
 <p>想模擬 <code>Promise.race</code>，該如何實作？就直接用 <code>Promise.race</code> 吧。</p>
@@ -524,7 +540,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
   }))
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="first-fulfillment">First Fulfillment</h3>
 
 <p>在前一篇 Promise 文章中，我們 invert <code>onRejected</code> <code>onFulfilled</code> 兩個 callback，取得首個 fullfillment result。那在 async function 該如何實作呢？</p>
@@ -545,7 +562,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
   } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span> <span style="color:#75715e">// 直接返回 inversion 的 fulfillment
 </span><span style="color:#75715e"></span>  }
-}</code></pre></div>
+}
+</code></pre></div>
 <p>雖然有達到目的，但 fulfillment 卻是從 <code>catch</code> block 返回，實作漸漸不直觀了。</p>
 
 <h2 id="async-interation">Async Interation</h2>
@@ -571,7 +589,8 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
   } <span style="color:#66d9ef">finally</span> {
     <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">close</span>();
   }
-}</code></pre></div>
+}
+</code></pre></div>
 <h2 id="further-reading">Further Reading</h2>
 
 <p>比起 promises，async functions 相對沒這麼多文獻供參考，想要入門，依然推薦阮大大的 <a href="http://es6.ruanyifeng.com/#docs/async" target="_blank">ECMAScript 6 入门：async 函数</a>，真的是非常豐富的 ES6 大全。當然，<a href="https://developers.google.com/web/fundamentals/getting-started/primers/async-functions" target="_blank">Google Web Fundamentals</a> 也值得一看，但沒有 Promise 篇含金量這麼高就是了。</p>

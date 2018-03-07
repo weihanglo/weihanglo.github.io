@@ -18,7 +18,7 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Node.js'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-03-10T15:36:46&#43;08:00'/><meta property='article:modified_time' content='2017-03-10T15:36:46&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.36-DEV" />
+<meta name="generator" content="Hugo 0.38-DEV" />
 
   <title>大前端時代的工具箱 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/fed-toolchain/'>
@@ -377,7 +377,8 @@ nvm uninstall node
 </span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;mocha&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#75715e">// 使用最新／任意版本。
 </span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;chai&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;*&#34;</span>
   }
-}</code></pre></div>
+}
+</code></pre></div>
 <p>還有許多沒介紹到的 <code>package.json</code> 設定，在 <a href="https://docs.npmjs.com/files/package.json" target="_blank">npm 官方文件</a> 裡應有盡有！</p>
 
 <h3 id="npm-常用指令">NPM 常用指令</h3>
@@ -589,7 +590,8 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 
 <span style="color:#a6e22e">gulp</span>.<span style="color:#a6e22e">task</span>(<span style="color:#e6db74">&#39;default&#39;</span>, <span style="color:#66d9ef">function</span>() {
   <span style="color:#75715e">// 你的預設 task
-</span><span style="color:#75715e"></span>});</code></pre></div>
+</span><span style="color:#75715e"></span>});
+</code></pre></div>
 <p>回到終端環境：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 4. 輸入 `gulp`，執行預設的 task：
 </span><span style="color:#75715e"></span>gulp
@@ -616,7 +618,8 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 
 <span style="color:#a6e22e">gulp</span>.<span style="color:#a6e22e">task</span>(<span style="color:#e6db74">&#39;default&#39;</span>, [<span style="color:#e6db74">&#39;clean&#39;</span>], <span style="color:#66d9ef">function</span> () { <span style="color:#75715e">// 建立預設任務，並設 clean 為相依任務（在該任務執行前執行）
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">gulp</span>.<span style="color:#a6e22e">watch</span>(<span style="color:#e6db74">&#39;src/**/*.js&#39;</span>, [<span style="color:#e6db74">&#39;babel&#39;</span>]); <span style="color:#75715e">// 使用 `gulp.watch` 監視檔案異動，有異動就執行 babel 任務
-</span><span style="color:#75715e"></span>});</code></pre></div>
+</span><span style="color:#75715e"></span>});
+</code></pre></div>
 <p>在終端環境下，我們這樣做：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 先寫一個假的 ES6 js file
 </span><span style="color:#75715e"></span>mkdir src
@@ -682,7 +685,8 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
   <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [                                <span style="color:#75715e">// 4. 其他有用的 plugins
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">optimize</span>.<span style="color:#a6e22e">UglifyJsPlugin</span>(),
   ]
-};</code></pre></div>
+};
+</code></pre></div>
 <p>Webpack 的簡易運作流程如下：</p>
 
 <pre><code>找到 entry file
@@ -749,7 +753,8 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
       <span style="color:#a6e22e">array</span>.<span style="color:#a6e22e">should</span>.<span style="color:#a6e22e">include</span>(<span style="color:#ae81ff">2</span>);          <span style="color:#75715e">// 使用 should 風格進行斷言
 </span><span style="color:#75715e"></span>    });
   });
-});</code></pre></div>
+});
+</code></pre></div>
 <p>回到終端環境，執行以下指令：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 使用 mocha 模組的 command-line tool，進行測試
 </span><span style="color:#75715e"></span>./node_modules/.bin/mocha test/test.js
@@ -783,7 +788,8 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
   <span style="color:#a6e22e">afterEach</span>(<span style="color:#66d9ef">function</span> () {
     <span style="color:#75715e">// 在這個 block 內每個 test case 之後執行
 </span><span style="color:#75715e"></span>  });
-});</code></pre></div></blockquote>
+});
+</code></pre></div></blockquote>
 
 <p>有需要非同步（異步）的測試，請</p>
 
@@ -817,7 +823,8 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
     })
     .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">done</span>); <span style="color:#75715e">// 直接傳入 done！
 </span><span style="color:#75715e"></span>  });  
-});</code></pre></div>
+});
+</code></pre></div>
 <blockquote>
 <p>如果需要非同步的 hooks，同樣加入 <code>done</code> 參數，並調用 done。</p>
 </blockquote>
@@ -848,7 +855,8 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#f92672">:</span> {
     <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;lint&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;eslint .; exit 0;&#34;</span> <span style="color:#75715e">// 有錯誤的話 eslint exit code 是 1， 我們手動 exit 0 以避免 npm 報錯。
-</span><span style="color:#75715e"></span>  }</code></pre></div></blockquote>
+</span><span style="color:#75715e"></span>  }
+</code></pre></div></blockquote>
 
 <!--  -->
 

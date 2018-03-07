@@ -20,7 +20,7 @@
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='article:section' content='Posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Web Access Right'><meta property='article:published_time' content='2017-12-09T18:48:48&#43;08:00'/><meta property='article:modified_time' content='2017-12-09T18:48:48&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='twitter:image:alt' content='Modified from Webcompat.com'>
 
-<meta name="generator" content="Hugo 0.36-DEV" />
+<meta name="generator" content="Hugo 0.38-DEV" />
 
   <title>與 IE 相處的日子二：淺談網頁相容性 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/'>
@@ -243,7 +243,8 @@
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">base</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;base&#39;</span>)
 <span style="color:#a6e22e">base</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;href&#39;</span>, <span style="color:#a6e22e">baseURL</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">head</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;head&#39;</span>)
-<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">firstElementChild</span>) <span style="color:#960050;background-color:#1e0010">// IE has no `prepend` method.</span></code></pre></div>
+<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">firstElementChild</span>) <span style="color:#75715e">// IE has no `prepend` method.
+</span><span style="color:#75715e"></span></code></pre></div>
 <blockquote>
 <p>在導入 polyfill 之前，記得先想清楚專案的環境，別導入一整包卻只用到一兩個 method。</p>
 </blockquote>
@@ -274,7 +275,8 @@
   <span style="color:#a6e22e">body</span>
     <span style="color:#f92672">?</span> <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">body</span>)
     <span style="color:#f92672">:</span> <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>()
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="customevent-沒有建構函式">CustomEvent 沒有建構函式</h3>
 
 <ul>
@@ -296,7 +298,8 @@
   }
   <span style="color:#a6e22e">CustomEvent</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">Event</span>.<span style="color:#a6e22e">prototype</span>
   window.<span style="color:#a6e22e">CustomEvent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">CustomEvent</span>
-})()</code></pre></div>
+})()
+</code></pre></div>
 <h3 id="flex-grow-需要-absolute-height">flex-grow 需要 absolute height</h3>
 
 <ul>
@@ -377,7 +380,8 @@
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">div</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">backgroundPosition</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;bottom 20px left&#39;</span>
 <span style="color:#a6e22e">getComputedStyle</span>(<span style="color:#a6e22e">div</span>).<span style="color:#a6e22e">backgroundPosition</span>
 <span style="color:#75715e">// Other: &#34;0% calc(-20px + 100%)
-</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">// IE: &#34;0% 0%&#34;</span></code></pre></div>
+</span><span style="color:#75715e">// IE: &#34;0% 0%&#34;
+</span><span style="color:#75715e"></span></code></pre></div>
 <p>總之，在 IE／Edge 的世界裡，別太相信 <code>getComputedStyle</code> 會自動更新這種鬼話。</p>
 
 <h3 id="iframe-不支援-data-uri">iframe 不支援 Data URI</h3>
@@ -411,7 +415,8 @@
 <span style="color:#75715e">// 👌 Compatible implementation
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">iframe</span>.<span style="color:#a6e22e">contentDocument</span>.<span style="color:#a6e22e">open</span>()
 <span style="color:#a6e22e">iframe</span>.<span style="color:#a6e22e">contentDocument</span>.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">outerHTML</span>)
-<span style="color:#a6e22e">iframe</span>.<span style="color:#a6e22e">contentDocument</span>.<span style="color:#a6e22e">close</span>()</code></pre></div>
+<span style="color:#a6e22e">iframe</span>.<span style="color:#a6e22e">contentDocument</span>.<span style="color:#a6e22e">close</span>()
+</code></pre></div>
 <p>就是這麼噁心。</p>
 
 <blockquote>
@@ -465,7 +470,8 @@
   <span style="color:#a6e22e">Uint8Array</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">f</span>) {
     <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>([].<span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">f</span>))
   }
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="不支援-custom-namespace-attribute-selector">不支援 custom namespace attribute selector</h3>
 
 <ul>
@@ -477,7 +483,8 @@
 
 <p>在 <code>Document</code> 中，要取得含有特定 attribute 的 element，我們會使用 <a href="https://developer.mozilla.org/docs/Web/CSS/Attribute_selectors" target="_blank">CSS attribute selector</a>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// Fetch &lt;a href&gt;&lt;/a&gt; element
-</span><span style="color:#75715e"></span>document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;a[href]&#39;</span>)</code></pre></div>
+</span><span style="color:#75715e"></span>document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;a[href]&#39;</span>)
+</code></pre></div>
 <p>當這個 document 是 <code>XMLDocument</code> 時，element 或 attribute 可以有 <a href="https://wikipedia.org/wiki/XML_namespace" target="_blank">namespace</a>，如</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;nav</span> <span style="color:#a6e22e">epub:type=</span><span style="color:#e6db74">&#34;toc&#34;</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;toc&#34;</span><span style="color:#f92672">&gt;&lt;/nav&gt;</span>`</code></pre></div>
 <p>我們會很直覺地把 <code>epub:type</code> 當作 attribute name 去 query，但這樣是行不通的，需要 escape <code>:</code>，但試了幾次之後發現，下列四種方法都沒有完整的相容性，。</p>
@@ -488,7 +495,8 @@
 <span style="color:#75715e">// ❌ Not work in IE and Edge (glob namespace selector )
 </span><span style="color:#75715e"></span>document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;nav[*|type=&#34;toc&#34;]&#39;</span>)
 <span style="color:#75715e">// ❌ Not work in IE and Edge (escaping)
-</span><span style="color:#75715e"></span>document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;nav[epub\\:type=&#34;toc&#34;]&#39;</span>)</code></pre></div>
+</span><span style="color:#75715e"></span>document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;nav[epub\\:type=&#34;toc&#34;]&#39;</span>)
+</code></pre></div>
 <p>最後的解法就是把所有 element 取出來，再判斷有沒有對應的 attribute。</p>
 
 <p><strong>以下程式碼可能引發胸悶、頭暈、血壓驟升，呼吸困難，有程式碼潔癖者請斟酌觀賞。</strong></p>
@@ -504,7 +512,8 @@
       <span style="color:#66d9ef">break</span>
     }
   }
-}</code></pre></div>
+}
+</code></pre></div>
 <h3 id="scrollwidth-與-scrollheight-搞反了"><code>scrollWidth</code> 與 <code>scrollHeight</code> 搞反了</h3>
 
 <ul>
@@ -525,7 +534,8 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">writingMode</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">getComputedStyle</span>(<span style="color:#a6e22e">el</span>).<span style="color:#a6e22e">writingMode</span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">scrollWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">detectEdge</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">verticalPattern</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">writingMode</span>)
   <span style="color:#f92672">?</span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">scrollHeight</span>
-  <span style="color:#f92672">:</span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">scrollWidth</span></code></pre></div>
+  <span style="color:#f92672">:</span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">scrollWidth</span>
+</code></pre></div>
 <h3 id="multi-column-layout-需給定-absolute-column-width">Multi-column layout 需給定 absolute <code>column-width</code></h3>
 
 <ul>

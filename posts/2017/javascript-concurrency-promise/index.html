@@ -22,7 +22,7 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Concurrency'><meta property='article:tag' content='Promise'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-06-12T23:02:43&#43;08:00'/><meta property='article:modified_time' content='2017-06-12T23:02:43&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.36-DEV" />
+<meta name="generator" content="Hugo 0.38-DEV" />
 
   <title>現代化的 JavaScript 併發 - Promises • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/javascript-concurrency-promise/'>
@@ -227,7 +227,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">value</span>)
   <span style="color:#75715e">// else failure
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">someReason</span>)
-})</code></pre></div>
+})
+</code></pre></div>
 <p>Promise 的建構式僅需一個 function parameter，而這個 function param 則帶有兩個 callback 性質的 function params（<code>resolve</code>、<code>reject</code>），這兩個 function params 的作用是「將 Promise 的 state 從 pending 轉移至 resolved／rejected」，主動調用時機如下：</p>
 
 <ul>
@@ -261,7 +262,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
   <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">responseText</span>) <span style="color:#75715e">// 調用 resolve，狀態變為 resolved
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span>  () =&gt; <span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error (<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">statusText</span>)) <span style="color:#75715e">// 狀態變為 rejected
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>()
-})</code></pre></div>
+})
+</code></pre></div>
 <p>慣例上，會將 promise 包在一個 factory function 中，方便建構新的 promise。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 簡單的 http GET request promise version
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">get</span> (<span style="color:#a6e22e">url</span>) {
@@ -272,14 +274,16 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
     <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span>  () =&gt; <span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error (<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">statusText</span>))
     <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>()
   })
-}</code></pre></div>
+}
+</code></pre></div>
 <p>乍看之下，Promise 似乎比較複雜，但經過這些包裝後，再利用即將介紹的 <code>then</code> method ，產生可預期的非同步結果，promise 對調用者來說 ，絕對比起傳統 callback 更為穩健。</p>
 
 <h2 id="the-then-method">The <code>then</code> method</h2>
 
 <p>Promise 的 <code>then</code> 是 promise 最核心的元素，本質上就是「替 promise instancestate 添加 state 改變時的 callback function」。 method signature 如下</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// return a Promise instance
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">onFulfilled</span>, <span style="color:#a6e22e">onRejected</span>)</code></pre></div>
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">promise</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">onFulfilled</span>, <span style="color:#a6e22e">onRejected</span>)
+</code></pre></div>
 <p>其中 <code>onFulfilled</code>、<code>onRejected</code> 為兩個 callback，執行時機為 state 轉移：</p>
 
 <ul>
@@ -297,7 +301,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">error</span> =&gt; { <span style="color:#75715e">// error 為 promise 建構時，由 reject(error) callback 傳入
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;I am rejected :(&#39;</span>, <span style="color:#a6e22e">error</span>)
   }
-)</code></pre></div>
+)
+</code></pre></div>
 <p>另外，<code>onFulfilled</code> 與 <code>onRejected</code> 兩個 callback 皆為 optional，我們可以只處理 success 的 case，也可以單純 handle errors。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 忽略 error
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.org/get&#39;</span>)
@@ -309,7 +314,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 
 <span style="color:#75715e">// 只處理 error 也利用 `.catch` syntax sugar
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.org/get&#39;</span>)
-  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>) <span style="color:#960050;background-color:#1e0010">// === .then(null, console.error)</span></code></pre></div>
+  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>) <span style="color:#75715e">// === .then(null, console.error)
+</span><span style="color:#75715e"></span></code></pre></div>
 <blockquote>
 <p><code>Promise#catch</code> 同義於 <code>then</code> 的第一個參數傳入 <code>null</code> -&gt; <code>Promise#then(null, onRejected)</code></p>
 </blockquote>
@@ -334,7 +340,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 <span style="color:#a6e22e">promise2</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">newValue</span> =&gt; { <span style="color:#75715e">// 3
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`newValue === </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">newValue</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
   <span style="color:#75715e">// newValue === 2
-</span><span style="color:#75715e"></span>})</code></pre></div>
+</span><span style="color:#75715e"></span>})
+</code></pre></div>
 <blockquote>
 <ul>
 <li>上例（1）中，我們創建了一個 promise instance，經過負責運算，value <code>resolve</code> 為 1，狀態變為 fulfilled。</li>
@@ -388,7 +395,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 </span><span style="color:#75715e"></span>  })
   .<span style="color:#a6e22e">then</span>(() =&gt; { <span style="color:#75715e">// final async
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;All done!&#39;</span>) <span style="color:#75715e">// 6
-</span><span style="color:#75715e"></span>  })</code></pre></div>
+</span><span style="color:#75715e"></span>  })
+</code></pre></div>
 <p>（0）<code>fetch</code> 這個 function 傳入 URI，回傳一個 promise</p>
 
 <p>（1）若執行成功，<code>then</code> 接受到 fulfilled 的 value（response），並檢驗 response 的 status。</p>
@@ -431,7 +439,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Don&#39;t worry about it&#34;</span>);
 }).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>() {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;All done!&#34;</span>);
-})</code></pre></div>
+})
+</code></pre></div>
 <p><img src="google-promises.png" height="600px" /></p>
 
 <blockquote>
@@ -465,7 +474,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A&#43; 
 
 Promise.<span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Error!!!&#39;</span>)).
   .<span style="color:#a6e22e">then</span>(() =&gt; { <span style="color:#75715e">/* will not go here */</span> })
-  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Error shows up here </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">err</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>))</code></pre></div>
+  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Error shows up here </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">err</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>))
+</code></pre></div>
 <h3 id="all-race"><code>all</code> &amp; <code>race</code></h3>
 
 <p>而 <code>Promise.all</code> 與 <code>Promise.race</code> ，屬於 high order 的 method ，參數為 promise instances array（iterable），回傳一個 promise，其 fulfill 與 reject 的條件如下</p>
@@ -503,7 +513,8 @@ Promise.<span style="color:#a6e22e">all</span>(
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">imageUrls</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">i</span>) =&gt; {
     <span style="color:#a6e22e">imgElements</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>
   })
-})</code></pre></div>
+})
+</code></pre></div>
 <p>為什麼 <code>['cats', 'sports', 'food'].map(getImageURL)</code> 會是 parallelism 呢？</p>
 
 <p>因為 <code>Array#map</code> 之中的 每個 element 皆為獨立建構，<code>Promise</code> 一旦建構了（調用 fetch 會建構 promise），就會嘗試 resolve，也就達到發送 paralleling requests 的目的。</p>
@@ -527,7 +538,8 @@ Promise.<span style="color:#a6e22e">all</span>(
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">sequence</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sequence</span>.<span style="color:#a6e22e">then</span>(() =&gt; ( <span style="color:#75715e">// 1, 3
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">loadStatus</span>(<span style="color:#a6e22e">id</span>)
   )).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">addStatusToPage</span>) <span style="color:#75715e">// 2
-</span><span style="color:#75715e"></span>})</code></pre></div>
+</span><span style="color:#75715e"></span>})
+</code></pre></div>
 <p>上例比較複雜，以下一一說明：</p>
 
 <p>（1）從 sequence 調用 <code>then</code>，chain 一個新的 promise，</p>
@@ -543,13 +555,15 @@ Promise.<span style="color:#a6e22e">all</span>(
   .<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">loadStatus</span>(<span style="color:#ae81ff">5678</span>))
   .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">addStatusToPage</span>)
   .<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">loadStatus</span>(<span style="color:#ae81ff">2468</span>))
-  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">addStatusToPage</span>)</code></pre></div>
+  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">addStatusToPage</span>)
+</code></pre></div>
 <p>不過，比起 imperative 的 <code>Array#forEach</code> ，近來崇尚 declarative 的寫法，這裡使用 <code>Array#reduce</code> 取代。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// reduce 版本的 sequential promise chain
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">statusIds</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">sequence</span>, <span style="color:#a6e22e">id</span>) =&gt; (
   <span style="color:#a6e22e">sequence</span>.<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">loadStatus</span>(<span style="color:#a6e22e">id</span>))
     .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">addStatusToPage</span>)
-), Promise.<span style="color:#a6e22e">resolve</span>())</code></pre></div>
+), Promise.<span style="color:#a6e22e">resolve</span>())
+</code></pre></div>
 <p>程式碼又更簡潔明瞭一些了，也免去宣告額外的變數來保存 promises，很棒！</p>
 
 <h3 id="first-fullfillment">First Fullfillment</h3>
@@ -560,7 +574,8 @@ Promise.<span style="color:#a6e22e">all</span>(
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// from Stackoverflow https://stackoverflow.com/a/39941616
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invert</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>  =&gt; <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">rej</span>) =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">rej</span>, <span style="color:#a6e22e">res</span>))
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">firstOf</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ps</span> =&gt; <span style="color:#a6e22e">invert</span>(Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">invert</span>)))
-<span style="color:#960050;background-color:#1e0010">// ...</span></code></pre></div>
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span></code></pre></div>
 <p>說明：利用 Promise.all 會因為任一個 promise rejected 而被 reject 的特性，調換 onRejected 與 onFulfilled 這兩個 callback。達成「取得首個 fullfilled promise」的任務。</p>
 
 <h2 id="some-issues">Some Issues</h2>
@@ -581,7 +596,8 @@ Promise.<span style="color:#a6e22e">all</span>(
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Promise.<span style="color:#a6e22e">resolve</span>()
   .<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doAsyncThing1</span> () {})
   .<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doAsyncThing2</span> () {})
-  .<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doAsyncThing3</span> () {})</code></pre></div>
+  .<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doAsyncThing3</span> () {})
+</code></pre></div>
 <p>但這樣就無法使用 ES6 的 Arrow function 了，也失去 promise 的簡潔特性，算是一種 tradeoff。</p>
 
 <p>此外，Promise 由 <code>then</code> 第二個參數 <code>onRejected</code> callback 全權接管 Error Handling，傳統的 try-catch 在此完全不管用，同步／非同步的例外處理距離變遠，可能造成邏輯較為複雜。而且，若無顯式處理被 reject 的 promise，該 Exception 就不會 propagation 到 promise 外部，過於 silent 也是一件壞事（We should let it crash！）。</p>
@@ -607,7 +623,8 @@ Promise.<span style="color:#a6e22e">all</span>(
   } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) {
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>)
   }
-}</code></pre></div>
+}
+</code></pre></div>
 <p>至今，已有<a href="https://caniuse.com/#search=await" target="_blank">七成六</a>的瀏覽器實作 Async function，Node.js 也在 7.6 解除 async function 的 harmony flag，成為 default 的關鍵字，拭目以待吧！</p>
 
 <h2 id="further-reading">Further Reading</h2>

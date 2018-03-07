@@ -16,7 +16,7 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Browser Testing'><meta property='article:published_time' content='2017-07-15T11:36:04&#43;08:00'/><meta property='article:modified_time' content='2017-07-15T11:36:04&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.36-DEV" />
+<meta name="generator" content="Hugo 0.38-DEV" />
 
   <title>與 IE 相處的日子 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer/'>
@@ -199,7 +199,8 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">real</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>)
   <span style="color:#a6e22e">real</span>.<span style="color:#a6e22e">backgroundImage</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`url(&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">preload</span>.<span style="color:#a6e22e">src</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;)`</span>
 }
-<span style="color:#a6e22e">preload</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uri/to/a/large/image&#39;</span></code></pre></div>
+<span style="color:#a6e22e">preload</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uri/to/a/large/image&#39;</span>
+</code></pre></div>
 <h3 id="do-you-know-your-id">Do you know your <code>id</code>?</h3>
 
 <ul>
@@ -214,7 +215,8 @@ Contents  Issues  Fullscreen breaks my layout! Can an image fit its container wi
 <span style="color:#75715e">/* become */</span>
 <span style="color:#f92672">image</span><span style="color:#f92672">[</span><span style="color:#f92672">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myid&#34;</span><span style="color:#f92672">]</span> { <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">none</span>; }</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>).<span style="color:#a6e22e">id</span>
 <span style="color:#75715e">/* become */</span>
-document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>).<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;id&#39;</span>)</code></pre></div>
+document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>).<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;id&#39;</span>)
+</code></pre></div>
 <h3 id="where-are-my-children">Where are my <code>children</code>?</h3>
 
 <ul>
@@ -253,7 +255,8 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
       }
     })
   }
-})(<span style="color:#75715e">/* window.Node || */</span> window.<span style="color:#a6e22e">Element</span>) <span style="color:#960050;background-color:#1e0010">// 加 `Node` 是給 SVG 使用，on demand 囉</span></code></pre></div>
+})(<span style="color:#75715e">/* window.Node || */</span> window.<span style="color:#a6e22e">Element</span>) <span style="color:#75715e">// 加 `Node` 是給 SVG 使用，on demand 囉
+</span><span style="color:#75715e"></span></code></pre></div>
 <h3 id="give-me-some-animated-svg">Give me some animated SVG</h3>
 
 <ul>
@@ -310,7 +313,8 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
       <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">remove</span>() { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#66d9ef">this</span>) }
     })
   })
-})([<span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#a6e22e">CharacterData</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#a6e22e">DocumentType</span>.<span style="color:#a6e22e">prototype</span>])</code></pre></div>
+})([<span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#a6e22e">CharacterData</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#a6e22e">DocumentType</span>.<span style="color:#a6e22e">prototype</span>])
+</code></pre></div>
 <h3 id="same-css-weird-flexbox-behavior">Same CSS, weird flexbox behavior</h3>
 
 <ul>
