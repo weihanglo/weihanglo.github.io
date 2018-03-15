@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。
+（撰於 2018-03-15）
+背景 森林系畢業，沒參與過任何資工必修課，是個大四才起步的自學傻子，啟蒙語言是 R。大四時協助教授建置 Linux server 並擔任 server admin。畢業前進入業界擔任 iOS 開發實習生，並在畢業後轉正職，2017 年 Q3 才開始全職開發前端工程。正職工作經驗約 1.5 年。
+我的優勢是學習力旺盛、有 native app 開發經驗、熟悉且熱愛 Linux 和 command-line、熟悉電子書市場與相關技術、善於溝通傾聽而不堅持己見、喜愛分享所學所見。
+我的劣勢是對 UI 較不在行、CS 知識不夠紮實、臨場反應不佳易緊張、沒有跑過真正的 TDD 和嚴謹的軟體開發流程。
+希望我的背景能給同樣境遇的朋友一些參照。
+求職需求 由於前東家是上櫃公司，規模不小，制度完善，但也稍缺彈性，所以求職希望以新創公司為主。
+以下依優先順序排列，薪資等基本需求不列入：
+ 新創團隊或具有新創氛圍 技術討論風氣盛。 有能力相仿或更強的 co-worker，不必自幹。 工作流程明確。 重視軟體品質（CI／CD、單元測試）。 同事年齡相近。 對社會有正面意義。  應徵企業列表 以下是這段時間我有去應徵的企業，如果你對細節沒興趣，可以直接 end。
+ CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume   職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機'>
+
+<meta property='og:title' content='2018 前端工程師面試心得 • Weihang Lo'>
+<meta property='og:description' content='這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。
+（撰於 2018-03-15）
+背景 森林系畢業，沒參與過任何資工必修課，是個大四才起步的自學傻子，啟蒙語言是 R。大四時協助教授建置 Linux server 並擔任 server admin。畢業前進入業界擔任 iOS 開發實習生，並在畢業後轉正職，2017 年 Q3 才開始全職開發前端工程。正職工作經驗約 1.5 年。
+我的優勢是學習力旺盛、有 native app 開發經驗、熟悉且熱愛 Linux 和 command-line、熟悉電子書市場與相關技術、善於溝通傾聽而不堅持己見、喜愛分享所學所見。
+我的劣勢是對 UI 較不在行、CS 知識不夠紮實、臨場反應不佳易緊張、沒有跑過真正的 TDD 和嚴謹的軟體開發流程。
+希望我的背景能給同樣境遇的朋友一些參照。
+求職需求 由於前東家是上櫃公司，規模不小，制度完善，但也稍缺彈性，所以求職希望以新創公司為主。
+以下依優先順序排列，薪資等基本需求不列入：
+ 新創團隊或具有新創氛圍 技術討論風氣盛。 有能力相仿或更強的 co-worker，不必自幹。 工作流程明確。 重視軟體品質（CI／CD、單元測試）。 同事年齡相近。 對社會有正面意義。  應徵企業列表 以下是這段時間我有去應徵的企業，如果你對細節沒興趣，可以直接 end。
+ CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume   職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2018/2018-interviews/'>
+<meta property='og:site_name' content='Weihang Lo'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.tw/hahow-frontdoor.jpg'><meta property='article:section' content='Posts'><meta property='article:tag' content='Interview'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2018-03-15T10:44:17&#43;08:00'/><meta property='article:modified_time' content='2018-03-15T10:44:17&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.tw/hahow-frontdoor.jpg'><meta property='twitter:image:alt' content='三次面試中唯一一張照片'>
+
+<meta name="generator" content="Hugo 0.38-DEV" />
+
+  <title>2018 前端工程師面試心得 • Weihang Lo</title>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2018/2018-interviews/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.f0e8df71.css'><link rel='stylesheet' href='/css/custom.css'>
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+</head>
+
+
+<body class='page type-posts hasCover'>
+  <div class='site'>
+
+    <a class='screen-reader' href='#main'>Skip to Content</a>
+
+    <header id='header' class='header-container'>
+      <div class='header site-header'>
+        <nav id='main-menu' class='main-menu-container' aria-label='Main Menu'>
+  <ul class='main-menu'>
+  <li>
+      <a href='/'>Home</a>
+    </li>
+  <li>
+      <a href='/posts/'>Posts</a>
+    </li>
+  <li>
+      <a href='/tags/'>Tags</a>
+    </li>
+  <li>
+      <a href='/about/'>About</a>
+    </li>
+  
+  </ul>
+</nav>
+
+        <div class='header-info'>
+          
+          <p class='site-title title'>Weihang Lo</p>
+          
+          <p class='site-description subtitle'></p>
+        </div>
+      </div>
+    </header>
+
+
+<main id='main' class='main'>
+  <article lang='en' class='entry'>
+    <header class='header-container'>
+  <div class='header entry-header'>
+    <div class='header-info'>
+      <h1 class='title'>2018 前端工程師面試心得</h1>
+      
+
+    </div>
+    
+<div class='meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader'>Posted on </span>
+  <time class='date' datetime='2018-03-15T10:44:17&#43;08:00'>2018, Mar 15</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+3 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+    <div class='entry-cover-container'>
+  <figure class='entry-cover cover-normal'>
+    <img src='hahow-frontdoor.jpg' alt='三次面試中唯一一張照片'/>
+    
+      
+      <figcaption>
+        <span>三次面試中唯一一張照片</span>
+      </figcaption>
+      
+    
+  </figure>
+</div>
+    
+
+    <div class='entry-content'>
+  
+
+<p>這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。</p>
+
+<p><em>（撰於 2018-03-15）</em></p>
+
+<!-- more -->
+
+<h2 id="背景">背景</h2>
+
+<p>森林系畢業，沒參與過任何資工必修課，是個大四才起步的自學傻子，啟蒙語言是 R。大四時協助教授建置 Linux server 並擔任 server admin。畢業前進入業界擔任 iOS 開發實習生，並在畢業後轉正職，2017 年 Q3 才開始全職開發前端工程。正職工作經驗約 1.5 年。</p>
+
+<p>我的優勢是學習力旺盛、有 native app 開發經驗、熟悉且熱愛 Linux 和 command-line、熟悉電子書市場與相關技術、善於溝通傾聽而不堅持己見、喜愛分享所學所見。</p>
+
+<p>我的劣勢是對 UI 較不在行、CS 知識不夠紮實、臨場反應不佳易緊張、沒有跑過真正的 TDD 和嚴謹的軟體開發流程。</p>
+
+<p>希望我的背景能給同樣境遇的朋友一些參照。</p>
+
+<h2 id="求職需求">求職需求</h2>
+
+<p>由於前東家是上櫃公司，規模不小，制度完善，但也稍缺彈性，所以求職希望以新創公司為主。</p>
+
+<p>以下依優先順序排列，薪資等基本需求不列入：</p>
+
+<ul>
+<li>新創團隊或具有新創氛圍</li>
+<li>技術討論風氣盛。</li>
+<li>有能力相仿或更強的 co-worker，不必自幹。</li>
+<li>工作流程明確。</li>
+<li>重視軟體品質（CI／CD、單元測試）。</li>
+<li>同事年齡相近。</li>
+<li>對社會有正面意義。</li>
+</ul>
+
+<h2 id="應徵企業列表">應徵企業列表</h2>
+
+<p>以下是這段時間我有去應徵的企業，如果你對細節沒興趣，<a href="#一些想法">可以直接 end</a>。</p>
+
+<ul>
+<li><a href="#cakeresume">CakeResume：錄取但婉拒</a></li>
+<li><a href="#hahow-好學校">Hahow 好學校：錄取</a></li>
+<li><a href="#appier-沛星互動">Appier 沛星互動：錄取</a></li>
+</ul>
+
+<h2 id="cakeresume">CakeResume</h2>
+
+<div style="text-align: center; padding: 2em;">
+  <img src="cakeresume.png">
+</div>
+
+<ul>
+<li>職缺：全端工程師</li>
+<li>應徵方式：使用 CakeResume 投遞 CakeResume 的履歷</li>
+</ul>
+
+<p>若是近年來想求職的朋友，想必對 <a href="https://www.cakeresume.com/" target="_blank">CakeResume</a> 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。
+動機</p>
+
+<p>會想應徵全端工程師是因在學期間協助實驗室架設 server 與 DB，對後端頗有興趣。看到 CakeResume 全端缺便躍躍欲試，自己對新創團隊的運作方式十分好奇，加上媒體轉載許多創辦人的創業過程分享，頓時熱血沸騰，從頭打造服務百萬用戶的機會實屬難得。</p>
+
+<h3 id="面試">面試</h3>
+
+<p>面試地點是在 AppWorks 之初創投的空間，由於我是約週一晚間面試，因此只有創辦人來面試我，一問之下，才發現公司規模比想像中更迷你。面試內容不外乎自我介紹、作品展示等，並沒有技術考題。創辦人很善於傾聽，會順着你的話瞭解你的人格特質與能力，整體而言，面談十分舒服，相談甚歡。後來我們開始大談各種技術選型，因爲新創的緣故，目前是用開發較快的 Rails，比較缺乏大公司那種完整的 CI／CD 流程，我表達了工作的預期，雖然薪資與工作環境沒有符合我的需求，但感覺創辦人希望我能考慮考慮，或許是人格特質符合徵才需求吧！</p>
+
+<h3 id="結果">結果</h3>
+
+<p>週末之前就收到回覆。美其名是錄取通知，其實比較類似邀請成爲夥伴，共同奮鬥打拚。當下其實滿兩難的，CakeResume 的理念很棒，創辦人很誠懇又熱情，甚至最後盡量將薪資拉近我的預期，但礙於我內心希望有 co-worker 共同討論成長，不希望完全自幹，所以就婉拒了，非常感謝創辦人的盛情邀約。</p>
+
+<p>在面談中，創辦人有句話一直縈繞在我心中：「CakeResume 不是科技業求職平台，透過履歷編輯工具，協助相對資訊弱勢的其他族群曝光自己，展現他們的長才！」平臺上早有許多廚師、理髮師等各行各業的人使用履歷服務。如此崇高的理念，令我非常感動，也回憶起踏入軟體圈的初衷與期許。誠摯推薦大家使用分享 CakeResume 的服務！</p>
+
+<h2 id="hahow-好學校">Hahow 好學校</h2>
+
+<div style="text-align: center; padding: 2em 0;">
+  <img src="hahow.png">
+</div>
+
+<ul>
+<li>職缺：前端工程師</li>
+<li>應徵方式：主動在 Hahow 官網投遞履歷</li>
+</ul>
+
+<p><a href="https://hahow.in" target="_blank">Hahow</a> 是在華語市場頗爲知名的線上課程募資平臺，至今有幾十萬會員數與豐富多樣的線上課程。和其他平台的差異在於 Hahow 使用募資的方式，確保學生人數與課程品質，並提供同學與老師，還有同學間完善的交流與作業批改機制。]</p>
+
+<h3 id="動機">動機</h3>
+
+<p>應徵 Hahow 工程師並非偶然，早在 2017 Q3 就看到楚楚動人的徵才文，不過當時沒打算離職。爾後不久就讀到 Hahow 在他們的<a href="https://tech.hahow.in/" target="_blank">技術 Medium</a> 上許多軟工與對軟體品質的分享，對於許多還在 <code>rsync</code> <code>tar</code> 作部署備份的手動工程師，有如荒漠甘泉。 一月初偶然在 Facebook 上瞥見徵才貼文，期限只剩幾刻鐘，「此時不投，更待何時」。這時候你絕對會慶幸<strong>平常有整理履歷和 LinkedIn</strong>。</p>
+
+<p>由於 Hahow 的面試流程較有意思，接下來以時序分段落介紹：</p>
+
+<h3 id="線上測驗">線上測驗</h3>
+
+<p>幾天後，收到 Hahow 的回覆，獲得第二階段線上測驗的門票，三十分鐘 3 題 JavaScript 演算法，用的是 RemoteInterview.io 平台。老實說我其實滿緊張的，LeetCode 刷得不多，又沒受過專業演算法訓練，甚至上機當天還在擔心 online editor 沒有 VIM keymap，還好平台編輯器使用 CodeMirror，沒有太奇怪的 keymap 設定，但也因此失去一些寶貴作答時間。</p>
+
+<p>題目就是 LeetCode Easy 的程度，也有考到 closure 概念（有點忘了），不過實在是太緊張，有個基本到不行的 Dynamic Programming 題，寫到最後居然卡住，當時就覺得駭啊，只好繼續調 CodeMirror 的 VIM 設定放鬆心情。默默祈禱 Hahow 評分除了過測資，也會參考解題邏輯。</p>
+
+<h3 id="第一階段面試">第一階段面試</h3>
+
+<p>幾天後，收到 on-site 面試邀約。面試官約莫 30 歲，是個略靦腆但好相處的人，一開始就介紹自己是四個 co-funder 之一，以三十人的小公司來說，不難想像面試都是 co-funder 自己來。同樣從背景，工作經歷問起，也有技術相關的討論，這時我才知道，原來 React + RxJS 早已滲透每個人心中，新創公司不是已經導入就是正在導入，Hahow 也不例外。突然話鋒一轉，面試官開始技術面試，主要是考觀念，例如 SPA 爲什麼流行？如何在 SPA 做 SEO 等等，必須「清楚理解每種技術的優劣」，並學會「在不同情境下選用適合的技術」。也有 JavaScript 必考題：Promise 與 callback 的比較，還好之前有<a href="https://weihanglo.tw/posts/2017/javascript-concurrency-promise/" target="_blank">認真研究 Promise</a>。除此之外，少不了白板面試，題目是簡單的 array 題，只是腦袋突然打結，讓面試官撒泡尿才寫完。</p>
+
+<p>接下來是求職者發問時間，我必問的問題之一是：「你如何得知今天該做什麼」，其實我並不在意團隊跑不跑 scrum 這種形式上的流程，只要有明確的任務管理，不會讓工程師閒着發呆，或是任意插件就很 OK 了，熱門的開發流程並不總是適合每個團隊。</p>
+
+<p>由於是新創公司，我也詢問了公司目前資金與營運狀況，面試官也順便介紹了其他 co-funder 的背景，過程就像老友聊天一樣放鬆，一不小心面試就從九點聊到十二點，蠻不好意思的。</p>
+
+<h3 id="小專案">小專案</h3>
+
+<p>一面完，面試官告訴我有一個 mini project，主要是了解 coding style 和實際的能力，有辦法的話，可以嘗試使用一些 promising 的技術展現自己。其實做 mini project 的成本不低，不過我還是稍微花了心力，在週末趕完，<a href="https://github.com/weihanglo/hahow-recruitment" target="_blank">程式碼在此</a>，有興趣可以參考。個人認爲小專案不僅可體現實力，更是一個有條理地說明程式架構的機會，寫出讓人快速理解文件，反而比實作還燒腦啊！</p>
+
+<p>幾天後，就收到回覆，Hahow 針對專案實作提了一些問題，我也簡單提供修正與改善的方法，就進入最後面試階段了。</p>
+
+<h3 id="第二階段面試">第二階段面試</h3>
+
+<p>二面主要是看個人特質及目標與公司的契合度，面試官是兩個 co-funder，一個技術背景，另一個負責營運。同樣也是自我介紹，聊聊爲什麼想要和 Hahow 一起奮鬥，這部分與一面重複，不過有了前次經驗，這次嘗試抓住對方想聽的重點，也訓練自己在壓力下維持口條清晰。</p>
+
+<p>由於前份工作也有教育相關的部分，我就開始針對 Hahow 的政策、理念和目標開始發問，再導引到自身擅長的領域。這邊就不諱言的舉個例子，Hahow 的理念固然是推廣教育，學那些學校不會教的事，但對於經濟弱勢的朋友，有些課程仍然負擔不起，有沒有解決辦法？其實這不只是 Hahow 的問題，坊間甚至整個國民教育，都有資源不均的情形，當我們揮舞著「唯有讀書高」的大旗，是否有些人根本無法心無旁騖地好好學習？</p>
+
+<p>這次面試一不小心又談了兩個多小時，不過目前遇到的 3 個 co-funder 都很誠懇，也願意將許多營運面的狀況分享給我。傳說在 Hahow 的 slack 上，這些都是公開的祕密，也許所謂扁平化的管理就如斯。</p>
+
+<h3 id="結果-1">結果</h3>
+
+<p>經過一番電話交涉，最終 Hahow 給了符合預期的 package，雖然過程有點冗長，仍然感謝 Hahow 如此器重我。
+Hahow 非常注重學生老師互動，也有心推廣各式各樣的技能，而非獨尊程式設計。從 <a href="https://blog.hahow.in/" target="_blank">Hahow 的部落格</a> 就可一窺這群文青多麼理想多麼可愛，希望看倌也能從 Hahow 豐富的課程中學到些什麼，翻轉臺灣金錢學歷至上的教育。</p>
+
+<p>哦還有一點，Hahow 的男女比例很 OK。</p>
+
+<h2 id="appier-沛星互動">Appier 沛星互動</h2>
+
+<p><img src="appier.png" alt="" /></p>
+
+<ul>
+<li>職缺：前端工程師</li>
+<li>應徵方式：主動在 Appier 官網投遞履歷 + 內部推薦</li>
+</ul>
+
+<p>談到 <a href="https://www.appier.com/" target="_blank">Appier</a>，應該無人不曉，被譽爲下個台機電，未來的新創獨角獸，全球百大 AI 企業。目前主要產品是 AI 廣告與跨螢追蹤等。客戶多是大型跨國企業。Appier 可謂近來最火熱的公司之一。</p>
+
+<h3 id="動機-1">動機</h3>
+
+<p>很早就知道有前端缺，礙於自信不足，沒有嘗試，因緣際會下，朋友說有缺可以幫忙內推，加上很喜歡 JSDC 2017 兩位 Appier 講者給的 RxJS 與 FP 的演說，就主動循正常管道投遞履歷（原以為履歷直接交給朋友就行）。</p>
+
+<h3 id="第一階段面試-1">第一階段面試</h3>
+
+<p>履歷過關後，便是第一次 on-site 面試，地點是在臺北信義區的總部內。我承認我是土包子，看到門禁設備像捷運一樣要領磁扣過閘門，開始懷疑走錯地方了。</p>
+
+<h4 id="工程師">工程師</h4>
+
+<p>這次面試共有三組人馬，第一組是兩位前端 leader，與前面兩間公司不同，很直接就切入技術層面，先是問選擇 Redux-Observable 實作 Hahow 小專案的理由（不是 Appier 面試嗎，怎麼問起 Hahow 來了呢？），蠻欣慰地是他們很用心看 GitHub 和作品集。接下來繼續追問 Observable 的概念，不知道哪根筋不對，我居然拿出筆電 demo 簡單的 Observable 實作。面試官就說：「既然拿出筆電了，那我們來<strong>從頭實作一個 Promise 吧！</strong>我跟你同時寫。」實作 promise 談何容易，雖然面試官不斷提點我方向，可惜最後只有半成品，還好實作方向正確。</p>
+
+<p>這硬仗過後，便是口頭觀念問答：</p>
+
+<ul>
+<li>解釋 CORS</li>
+<li>爲什麼送 request 伺服器沒收到 cookies（因爲沒有加 <code>withCredentials</code>）</li>
+<li>何謂 third-party cookies</li>
+</ul>
+
+<p>感覺起來都是 tracking 或廣告常遇到的 issue，除了 CORS 最近實作 <a href="https://github.com/weihanglo/sfz" target="_blank">static file server</a> 剛好有接觸，其他答得勉勉強強，不過面試官們很和善，也很願意聊技術，據說連 <a href="https://reasonml.github.io/" target="_blank">Reason</a> 都進 production 了，果真玩很大！</p>
+
+<h4 id="pm">PM</h4>
+
+<p>這關大概算是 PM 面試，一位漂亮的 PM 姐姐和 PCMan（沒錯，就是 PCMan），PM 姐姐講話條理分明，也很親切，主要詢問個人特質和溝通技巧，遇到難以溝通的情況會怎麼應對；輪到 PCMan 就毫不留情開了白板演算法，選擇一種語言寫實際程式碼。「API 忘記了就儘管問沒關係」PCMan 如是說。我當下居然沒選 JavaScript 而選擇許久沒碰的 Python，導致作答花了不少時間（應該要選 Rust 的）。題目雖不難，但 PCMan 會依循你的程式碼脈絡深入探討你怎麼分析複雜度，例如我提到了 amortized analysis，PCMan 就順著追問平攤的算法與定義，甚至最後討論到 Python built-in function 實作上與 for-loop 解法的 memory allocation 比較，果然功力深不可測。</p>
+
+<p>既然遇到 PCMan，我就順便問了一些 <a href="https://github.com/weihanglo/sfz" target="_blank">side project</a> 遇到的疑惑，雖然沒有直接替我解惑，卻提點不少方向，讓我順利修正一些 issue，很高興能看見傳說中的人物。</p>
+
+<h4 id="人資">人資</h4>
+
+<p>人資姐姐這部分就比較輕鬆，是常見的人資問題，也閒聊在此工作的光景，但前面兩關耗時太多，早已超過下班時間，對姐姐挺不好意思，不敢聊太多。這邊要幫忙緩頰，我覺得不管是工程師、PM 還是 HR，每個人都非常友善，沒有鄉民口中的趾高氣昂，也許當事人才知道實情，別再任意散播啦。</p>
+
+<h3 id="第二階段面試-1">第二階段面試</h3>
+
+<p>二面安排在週六上午，很神奇的時間，想必面試官是高階主管。</p>
+
+<h4 id="cto">CTO</h4>
+
+<p>第一關是 CTO，風格獨特的技術人，先談談過去的經驗，而後從經驗延伸相關問題，大概如下：</p>
+
+<ul>
+<li>爲什麼用 React，jQuery 不好嗎？</li>
+<li>什麼是 closure？</li>
+<li>什麼是 CORS？哪些請求需要開啟 CORS？</li>
+<li>你說 JSONP 可以 cross origin，那怎麼實作 JSONP？</li>
+<li>客戶說網頁跑很慢，你要怎麼檢測？</li>
+</ul>
+
+<p>後來 CTO 似乎翻到我寫的「<a href="https://medium.com/@weihanglo/answers-to-chernys-interview-questions-ed5b35dce930" target="_blank">所謂最好的面試題</a>」，就拿來考，我有點太緊張，一直試圖回想自己寫了什麼，搞得答題像背答案，答得不盡理想。最後我問了公司未來的產品與規劃，當然沒辦法得知新產品的內容，但依稀聽得出來 Appier 不僅在廣告下足功夫，且將邁向下個階段了。</p>
+
+<p>這邊平反一下，也許 CTO 面試時會打斷面試者說話，但通常都是離題或誤解才會出手。而且用心觀察，可以發現 CTO 只是說話急促，並非盛氣凌人，當天我有告知 CTO 他的語速過快，而他也有試圖慢下來講（雖然還是很快）。我認爲每個人的言談都自成風格，若不適可以當場提出，相信大多數人會試著改善，事後發文抨擊對事情無益。</p>
+
+<h4 id="ceo-coo">CEO/COO</h4>
+
+<p>CEO 和 COO 這一關偏向人格特質，先是問了離職原因，我說想找年齡相近的 co-worker，CEO 馬上笑笑地說自己很老要被淘汰了，我趕緊補上說因爲前同事都生小孩去了，COO 接著說我才剛生完小孩呢！這下慘了，馬上踩了兩個雷。之後不免俗地問了自認為的優缺點，對自己的期許，以及生涯規劃。我也提問了公司目前最大的困難是什麼？答案不是資金而是跨國溝通，蠻令人訝異的，但也由此得知 Appier 已經走過新創風險最高的那里路。</p>
+
+<p>不論是 CTO、CEO 還是 COO，身爲公司的領導人物，卻沒有一絲高姿態，也願意親自面試工程師，尊重每位面試者，難能可貴，大家別在捕風捉影啦。</p>
+
+<h3 id="結果-2">結果</h3>
+
+<p>錄取。縱使整個過程有個人特殊狀況，仍感謝 Appier 各位大大協助我排除，讓我可以很放心的面試。Appier 真的高手如雲，能在這邊工作學習絕對進步神速。</p>
+
+<h2 id="一些想法">一些想法</h2>
+
+<p>原本想要分享一些面試準備方式，但發現自己沒有依循特定模式準備，LeetCode 也很偶爾刷一刷，而且四處都有大神分享如何拿到 FLAG 或 BAT offer 的文章，我就不誤人子弟了。</p>
+
+<p>從 3 人剛孵化的團隊，到 30 人逐漸穩定的熱血新創，面試到近 300 個員工的未來獨角獸。每一個創業階段都經歷過，會看到起步期趕著做出 MVP 證明理念，初期商業模式與理想的拉鋸，到擴張期捨我其誰的傲氣，甚是有趣。雖然自己沒能力領導團隊，有幸身在其中參與面試也滿足了。</p>
+
+<p>一連串的面試下來，我覺得最有價值的是「了解自己」，爲了面試，你必須定期整理自己的履歷，反省自己的長處與缺點，並檢視這段歲月究竟成長多少。有時候我們會汲汲營營薪資福利，但機運勉強不來，寶貴的面試經驗才是你最可靠的財富。失敗了，就過半年一年再投一次吧！</p>
+
+<p>我最喜歡問面試官：「你喜歡在這裡工作嗎？」很多時候，得到的是意味深長的微笑，我依稀記得以前部門主管的一席話：「工作不是人生的目標，卻占了一半的人生，學習與之共處才能快樂工作。」工作當然有愉快也有不爽，不過，在臺灣這種低薪、高工時、職場霸凌嚴重、勞權低落的就業環境，除了想辦法讓慣老闆無所遁形外，也別忘了鼓勵那些願意照顧員工，讓員工快樂工作的優良企業。</p>
+
+<p>最後，<strong>堅持初衷，擇你所愛，選了就不要後悔</strong>。</p>
+
+<p>祝福各位都能找到理想中的工作！</p>
+
+</div>
+
+    
+<footer class='entry-footer-container'>
+  <div class='entry-footer'>
+  <div class='tags'>
+  <span class='taxonomyTerm-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+</span>
+  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/interview'>Interview</a>, <a class='tag' href='/tags/front-end'>Front-end</a></div>
+
+  </div><div style="text-align: center; padding-top: 2em;">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="cc-by-nc-sa-4">
+  </a>
+</div>
+
+</footer>
+
+
+  </article>
+  
+<nav class='entry-nav-container'>
+  <div class='entry-nav'><div class='prev-entry'>
+      <a href='/posts/2018/tokio-internals/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader'>Previous post: </span>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架</a>
+    </div></div>
+</nav>
+
+  
+<div class='comments-container'>
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "weihang-lo" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social-menu-container'>
+  <nav aria-label='Social Menu'>
+    <ul class='social-menu'><li>
+        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://t.me/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</div>
+        <div class='copyright'>
+  <p>
+        
+          
+        
+      
+
+       &copy; 2017-2018 Weihang Lo 
+  </p>
+</div>
+
+      </div>
+    </footer>
+
+  </div><script src='/assets/js/main.5871befd.js'></script><script src='/js/custom.js'></script></body>
+
+</html>
+

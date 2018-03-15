@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weihanglo.tw/posts/2018/2018-interviews/</loc>
+    <lastmod>2018-03-15T10:44:17+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/posts/2018/tokio-internals/</loc>
     <lastmod>2018-01-05T08:44:43+08:00</lastmod>
   </url>
@@ -164,7 +169,7 @@
   
   <url>
     <loc>https://weihanglo.tw/tags/front-end/</loc>
-    <lastmod>2017-12-09T18:48:48+08:00</lastmod>
+    <lastmod>2018-03-15T10:44:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -182,7 +187,7 @@
   
   <url>
     <loc>https://weihanglo.tw/</loc>
-    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
+    <lastmod>2018-03-15T10:44:17+08:00</lastmod>
   </url>
   
   <url>
@@ -192,8 +197,8 @@
   </url>
   
   <url>
-    <loc>https://weihanglo.tw/tags/interview-questions/</loc>
-    <lastmod>2017-07-26T20:48:30+08:00</lastmod>
+    <loc>https://weihanglo.tw/tags/interview/</loc>
+    <lastmod>2018-03-15T10:44:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -235,7 +240,7 @@
   
   <url>
     <loc>https://weihanglo.tw/posts/</loc>
-    <lastmod>2018-01-05T08:44:43+08:00</lastmod>
+    <lastmod>2018-03-15T10:44:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
