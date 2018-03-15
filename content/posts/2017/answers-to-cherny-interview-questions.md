@@ -1,7 +1,7 @@
 ---
 title: 試答 Cherny 所謂「最好的前端面試題」
 tags:
-  - Interview Questions
+  - Interview
   - JavaScript
   - Front-end
 date: 2017-07-26T20:48:30+08:00
