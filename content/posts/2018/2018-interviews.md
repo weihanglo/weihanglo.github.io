@@ -161,6 +161,7 @@ Hahow 非常注重學生老師互動，也有心推廣各式各樣的技能，�
 
 這硬仗過後，便是口頭觀念問答：
 
+- 原型鍊的觀念
 - 解釋 CORS
 - 爲什麼送 request 伺服器沒收到 cookies（因爲沒有加 `withCredentials`）
 - 何謂 third-party cookies
