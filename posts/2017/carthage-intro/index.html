@@ -10,6 +10,7 @@
 brew install carthage  如果還沒有裝 homebrew，請來這下載
  建立一個 Carfile，列出欲使用的模組，例如：
   github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
+<meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Carthage 套件管理工具 • Weihang Lo'>
 <meta property='og:description' content='Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
@@ -22,92 +23,70 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Carthage'><meta property='article:tag' content='Swift'><meta property='article:published_time' content='2017-03-05T08:45:57&#43;08:00'/><meta property='article:modified_time' content='2017-03-05T08:45:57&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.38-DEV" />
+<meta name="generator" content="Hugo 0.40" />
 
   <title>Carthage 套件管理工具 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/carthage-intro/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.f0e8df71.css'><link rel='stylesheet' href='/css/custom.css'>
-  <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-  });
-  MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
+<link rel='stylesheet' href='/assets/css/main.b0a0b202.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
 
-  MathJax.Hub.Config({
-  
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-  });
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-118441906-2', 'auto');
+ga('send', 'pageview');
 </script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
 
 </head>
 
 
 <body class='page type-posts'>
+
   <div class='site'>
 
-    <a class='screen-reader' href='#main'>Skip to Content</a>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
 
-    <header id='header' class='header-container'>
-      <div class='header site-header'>
-        <nav id='main-menu' class='main-menu-container' aria-label='Main Menu'>
-  <ul class='main-menu'>
-  <li>
-      <a href='/'>Home</a>
-    </li>
-  <li>
-      <a href='/posts/'>Posts</a>
-    </li>
-  <li>
-      <a href='/tags/'>Tags</a>
-    </li>
-  <li>
-      <a href='/about/'>About</a>
-    </li>
-  
-  </ul>
+    <div class='main'>
+
+      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/posts/'>Posts</a>
+      </li><li class='item'>
+        <a href='/tags/'>Tags</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li></ul>
+  </div>
 </nav>
 
-        <div class='header-info'>
-          
-          <p class='site-title title'>Weihang Lo</p>
-          
-          <p class='site-description subtitle'></p>
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Weihang Lo</p><p class='desc site-desc'></p>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      <main id='content'>
 
 
-<main id='main' class='main'>
-  <article lang='en' class='entry'>
-    <header class='header-container'>
-  <div class='header entry-header'>
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
     <div class='header-info'>
       <h1 class='title'>Carthage 套件管理工具</h1>
       
 
     </div>
     
-<div class='meta'>
+<div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -116,8 +95,8 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
   <line x1="3" y1="10" x2="21" y2="10"/>
   
 </svg>
-<span class='screen-reader'>Posted on </span>
-  <time class='date' datetime='2017-03-05T08:45:57&#43;08:00'>2017, Mar 05</time>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2017-03-05T08:45:57&#43;08:00'>2017, Mar 05</time>
 </span>
 
   
@@ -138,10 +117,10 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
   </div>
 </header>
 
-    
-    
+  
+  
 
-    <div class='entry-content'>
+  <div class='container entry-content'>
   
 
 <p><a href="https://github.com/Carthage/Carthage" target="_blank">Carthage</a> 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 <a href="https://cocoapods.org/" target="_blank">CocoaPods</a> 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。</p>
@@ -171,7 +150,7 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
 <li><p>建立一個 <code>Carfile</code>，列出欲使用的模組，例如：</p></li>
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  github <span style="color:#e6db74">&#34;Alamofire/Alamofire&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span>
-  <span style="color:#f92672"></span>github <span style="color:#e6db74">&#34;ReactiveX/RxSwift&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span><span style="color:#f92672"></span></code></pre></div>
+  github <span style="color:#e6db74">&#34;ReactiveX/RxSwift&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span></code></pre></div>
 <ol>
 <li>在終端環境輸入 <code>carthage update</code>，Carthage 將自動下載所有相依模組至 <code>Carthage/Checkouts</code> 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。</li>
 <li>將 <code>Carthage/Build</code> 資料夾內編譯好的 frameworks 拖拉進你的 <strong>app target</strong> =&gt; <strong>General</strong> =&gt; <strong>Linked Frameworks and Libraries</strong></li>
@@ -188,13 +167,13 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># 版號 &gt;= 3.1.2</span>
 github <span style="color:#e6db74">&#34;ReactiveX/RxSwift&#34;</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">1</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2</span>
 
-<span style="color:#f92672"></span><span style="color:#75715e"># 版號 3.x (3.0 &lt;= ver &lt; 4.0)</span>
+<span style="color:#75715e"># 版號 3.x (3.0 &lt;= ver &lt; 4.0)</span>
 github <span style="color:#e6db74">&#34;SnapKit/SnapKit&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span>
 
-<span style="color:#f92672"></span><span style="color:#75715e"># 僅匹配版號 0.4.1</span>
+<span style="color:#75715e"># 僅匹配版號 0.4.1</span>
 github <span style="color:#e6db74">&#34;jspahrsummers/libextobjc&#34;</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">1</span>
 
-<span style="color:#f92672"></span><span style="color:#75715e"># 最新版</span>
+<span style="color:#75715e"># 最新版</span>
 github <span style="color:#e6db74">&#34;jspahrsummers/xcconfigs&#34;</span>
 
 <span style="color:#75715e"># 指定 Git branch</span>
@@ -254,7 +233,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 <p>Carthage 提供的來源除了 Git 以外，事實上<a href="https://github.com/Carthage/Carthage/commit/3a151a413350b980c68b2f1be8ca234e7947d575" target="_blank">最近才提供 binary</a> 這個選項。</p>
 
 <p><strong>Cartfile</strong> 範例如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">binary <span style="color:#e6db74">&#34;https://example.com/release/ExampleFramework.json&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span><span style="color:#f92672"></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">binary <span style="color:#e6db74">&#34;https://example.com/release/ExampleFramework.json&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span></code></pre></div>
 <p>這裡的 json 檔應描述該 framework 對應版號的下載路徑，配置範例如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     <span style="color:#f92672">&#34;1.3.5&#34;</span>: <span style="color:#e6db74">&#34;https://example.com/release/1.3.5/framework.zip&#34;</span>,
@@ -276,18 +255,18 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 
 </div>
 
-    
-<footer class='entry-footer-container'>
-  <div class='entry-footer'>
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
   <div class='tags'>
-  <span class='taxonomyTerm-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <span class='taxonomy-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
 </span>
-  <span class='screen-reader'>Tags: </span><a class='tag' href='/tags/carthage'>Carthage</a>, <a class='tag' href='/tags/swift'>Swift</a></div>
+  <span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/carthage'>Carthage</a>, <a class='tag' href='/tags/swift'>Swift</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -298,10 +277,10 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 </footer>
 
 
-  </article>
-  
-<nav class='entry-nav-container'>
-  <div class='entry-nav'><div class='prev-entry'>
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
       <a href='/posts/2017/swift-quick-note/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -310,10 +289,10 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
   
 </svg>
  Previous</span>
-        <span class='screen-reader'>Previous post: </span>Swift 初學速記</a>
-    </div><div class='next-entry'>
+        <span class='screen-reader-text'>Previous post: </span>Swift 初學速記</a>
+    </div><div class='next-entry sep-before'>
       <a href='/posts/2017/fed-toolchain/'>
-        <span class='screen-reader'>Next post: </span>大前端時代的工具箱<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+        <span class='screen-reader-text'>Next post: </span>大前端時代的工具箱<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>
@@ -324,39 +303,17 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
     </div></div>
 </nav>
 
-  
-<div class='comments-container'>
-  <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "weihang-lo" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
 
-</main>
 
-    <footer id='footer' class='footer-container'>
-      <div class='footer'>
-        <div class='social-menu-container'>
-  <nav aria-label='Social Menu'>
-    <ul class='social-menu'><li>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'>
+          <section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
         <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
   
@@ -364,7 +321,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 </a>
       </li><li>
         <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
   
@@ -372,7 +329,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 </a>
       </li><li>
         <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
   
@@ -380,7 +337,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 </a>
       </li><li>
         <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
   <polyline points="22,6 12,13 2,6"/>
@@ -389,15 +346,17 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 </a>
       </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
-  <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
   
 </svg>
 </a>
       </li><li>
         <a href='https://t.me/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
   
@@ -405,22 +364,19 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 </a>
       </li></ul>
   </nav>
-</div>
-        <div class='copyright'>
-  <p>
-        
-          
-        
-      
-
-       &copy; 2017-2018 Weihang Lo 
-  </p>
+</section>
+          <div class='copyright'>
+  <p> &copy; 2017-2018 Weihang Lo </p>
 </div>
 
-      </div>
-    </footer>
+        </div>
+      </footer>
 
-  </div><script src='/assets/js/main.5871befd.js'></script><script src='/js/custom.js'></script></body>
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='/assets/js/main.53e19345.js'></script><script src='/js/custom.js'></script>
+</body>
 
 </html>
 
