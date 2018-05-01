@@ -8,7 +8,11 @@ before_install:
   - sudo apt-get install python-pygments -y
 
 install:
-  - go get github.com/spf13/hugo
+  - go get github.com/magefile/mage
+  - go get -d github.com/gohugoio/hugo
+  - cd ${GOPATH:-$HOME/go}/src/github.com/gohugoio/hugo
+  - mage vendor
+  - mage install
 
 before_script:
   - rm -rf public || exit 0
