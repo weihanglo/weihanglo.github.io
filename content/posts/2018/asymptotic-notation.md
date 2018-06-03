@@ -4,9 +4,10 @@ date: 2018-05-31T23:38:59+08:00
 mathjax: true
 tags:
   - Algorithms
+  - Big O
 ---
 
-這是個人第一次撰寫 CS 基礎知識的文章，同時也是 [Rust Algorithm Club](https://weihanglo.tw/rust-algorithm-club) 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
+> 這是個人第一次撰寫 CS 基礎知識的文章，同時也是 [Rust Algorithm Club](https://weihanglo.tw/rust-algorithm-club) 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
 
 _（撰於 2018-05-31）_
 
