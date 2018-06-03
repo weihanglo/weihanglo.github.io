@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Algorithms on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/algorithms/</link>
-    <description>Recent content in Algorithms on Weihang Lo</description>
+    <title>Big O on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/big-o/</link>
+    <description>Recent content in Big O on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 31 May 2018 23:38:59 +0800</lastBuildDate>
     
-	<atom:link href="https://weihanglo.tw/tags/algorithms/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://weihanglo.tw/tags/big-o/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

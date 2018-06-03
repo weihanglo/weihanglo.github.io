@@ -17,7 +17,7 @@
       
       <guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid>
       <description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
-（撰於 2018-05-31）
+ （撰於 2018-05-31）
 日常生活中，你會如何描述處理事情的效率？
 「原來她五分鐘內可以吃掉一頭牛！」
 「房間這麼小你還能擺一堆雜物？還不快收拾！」
