@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/</loc>
+    <lastmod>2018-07-09T23:48:41+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/posts/2018/asymptotic-notation/</loc>
     <lastmod>2018-05-31T23:38:59+08:00</lastmod>
   </url>
@@ -204,7 +209,7 @@
   
   <url>
     <loc>https://weihanglo.tw/</loc>
-    <lastmod>2018-05-31T23:38:59+08:00</lastmod>
+    <lastmod>2018-07-09T23:48:41+08:00</lastmod>
   </url>
   
   <url>
@@ -256,8 +261,14 @@
   </url>
   
   <url>
+    <loc>https://weihanglo.tw/tags/podcasts/</loc>
+    <lastmod>2018-07-09T23:48:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/posts/</loc>
-    <lastmod>2018-05-31T23:38:59+08:00</lastmod>
+    <lastmod>2018-07-09T23:48:41+08:00</lastmod>
     <priority>0</priority>
   </url>
   
