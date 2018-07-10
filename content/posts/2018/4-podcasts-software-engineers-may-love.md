@@ -9,9 +9,9 @@ cover:
   style: normal
 ---
 
-As a non-native English speaker, I often try several methods to improve my English skills. Listen to podcasts is one of the most interesting way to practice in English, especially with fascinating topics I indulge in.
+As a non-native English speaker, I often try several methods to improve my English skills. Listen to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
 
-Therefore, I pick some of my favorite podcasts about software engineering to share with you. Enjoy these awesome shows and don't forget to give them some feedbacks.
+Therefore, I pick some of my favorite podcasts about software engineering to share with you. Enjoy these awesome shows and don't forget to give them some feedback.
 
 _(written on 2018-07-09)_
 
@@ -74,7 +74,7 @@ Gateway episode: [A/B testing - Ale or Bourbon?](http://frontendhappyhour.com/ep
 
 [![](https://is5-ssl.mzstatic.com/image/thumb/Music71/v4/56/d4/c2/56d4c2a4-be6e-5dcc-aec6-aa3817008e3e/source/200x200bb.jpg)][softskills]
 
-Unlike other podcasts mentioned above, in [Soft Skill Engineering][softskills] we do not talk about any technical details. We focus on soft skills a software engineer needs to learn. Dave Smith and Jamison Dance would lead us to navigate every little but crucial things outside programming, such as quitting jobs without jeopardizing working relationship, or how to work with colleague who often writes code in bad grammer.
+Unlike other podcasts mentioned above, [Soft Skill Engineering][softskills] does not talk about much technical details. It focuses on soft skills a software engineer needs to learn. Dave Smith and Jamison Dance would lead us to navigate every little but crucial things outside programming, such as quitting jobs without jeopardizing working relationship, or how to work with colleague who often writes code in bad grammer.
 
 Software development is not like programming. Sometimes team management and collaborations take up a more important role than implementing features. Checkout it out if you want to level up your soft skills.
 
@@ -105,6 +105,6 @@ As a software engineer, I wish I can utilize technologies to make the world bett
 
 That's all of my picks.
 
-Now, what is your favorite podcast about software engineering?
+### Now, what is your favorite podcast about software engineering?
 
 Leave a comment and share with us!
