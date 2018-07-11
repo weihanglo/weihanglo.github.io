@@ -9,7 +9,7 @@ cover:
   style: normal
 ---
 
-As a non-native English speaker, I often try several methods to improve my English skills. Listen to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
+As a non-native English speaker, I often try several methods to improve my English skills. Listening to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
 
 Therefore, I pick some of my favorite podcasts about software engineering to share with you. Enjoy these awesome shows and don't forget to give them some feedback.
 
