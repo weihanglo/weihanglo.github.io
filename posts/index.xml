@@ -5,10 +5,24 @@
     <link>https://weihanglo.tw/posts/</link>
     <description>Recent content in Posts on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 09 Jul 2018 23:48:41 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Jul 2018 10:58:59 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>【譯】Rust vs. Go</title>
+      <link>https://weihanglo.tw/posts/2018/rust-vs-go/</link>
+      <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2018/rust-vs-go/</guid>
+      <description>本文譯自 Julio Merino 的 Rust vs. Go。Julio Merino 目前是 G 社僱員，在 G 社工作超過 8 年，無論工作內外，都接觸開發不少 Go 語言，並撰寫 Rust 點評系列文，來聽聽他對 Rust 與 Go 的想法吧。
+Thanks Julio Merino for this awesome article!
+ 歡迎來到「Rust 點評」系列特別篇，也是我在系列文開始就承諾撰寫的主題，將探討一個難以忽視的大哉問：Rust 與 Go 孰優孰劣？
+這麼比較並沒有根據，所以不會有標準答案。我認為人們會把這兩種語言作伙比較只因為它們幾乎同時釋出，而且 Rust 的釋出像是在回應 Go。除此之外，兩種語言都被認為聚焦在系統軟體上（system software），但其實它們大相徑庭，就算都專注系統軟體，各自目標的軟體類型也不盡相同。
+Go 可以視為「做對了的 C」或是「Python 的替代品」。Go 在開發網路伺服器與自動化工具的領域發光發熱。Rust 專注在正確與安全性，定位在 C++ 與 Haskell 之間，如同之前提及，可以視為「務實的 Haskell」。儘管 Rust 的語言抽象程度很高，它仍承諾這些抽象是零成本（zero-cost abstraction），也就是說，它應該擅長寫任何系統專案。
+這篇個人點評基於我用兩種語言寫了相同的專案 sandboxfs。最初實作是用 Go，而我開發了另一個用 Rust 的實驗性改寫（還沒有完全檢驗），兩個實作都通過相同的測試套件（test suite）。除了透過這次改寫來學習語言，也因為當我分析 Go 實作版本的效能時，發現熱點總是在 Go 的執行環境（runtime），我想要嘗試看看簡單的 Rust 改寫後效能能否長進，而情況似乎就是如此。隨著這次改寫，我很訝異原本的 Go 實作版本有不少潛在的並行（concurrency）漏洞，因為許多 Rust 並不允許我利用相同的設計改寫。</description>
+    </item>
     
     <item>
       <title>4 Podcasts Software Engineers May Love</title>
@@ -16,7 +30,7 @@
       <pubDate>Mon, 09 Jul 2018 23:48:41 +0800</pubDate>
       
       <guid>https://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/</guid>
-      <description>As a non-native English speaker, I often try several methods to improve my English skills. Listen to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
+      <description>As a non-native English speaker, I often try several methods to improve my English skills. Listening to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
 Therefore, I pick some of my favorite podcasts about software engineering to share with you. Enjoy these awesome shows and don&amp;rsquo;t forget to give them some feedback.
 (written on 2018-07-09)
 Software Engineering Daily</description>
