@@ -151,7 +151,7 @@ ga('send', 'pageview');
 
 <p>若要高效使用 Rust，需要瞭解電腦記憶體如何運作。Go 可以赦免你不懂記憶體管理，但如同我下一節將提到的，不懂記憶體並非好事：瞭解記憶體運作是通往程式設計大師之路的重要一步。</p>
 
-<p><strong>獲勝者：</strong>無法決定。Go 與 Rust 兩者都提供更不容易記憶體洩漏（memory leak）且具有優良人因設計（ergonomic）的記憶體管理機制。</p>
+<p><strong>獲勝者</strong>：無法決定。Go 與 Rust 兩者都提供更不容易記憶體洩漏（memory leak）且具有優良人因設計（ergonomic）的記憶體管理機制。</p>
 
 <h2 id="難度">難度</h2>
 
@@ -161,7 +161,7 @@ ga('send', 'pageview');
 
 <p>你要選擇自己的戰爭：快速地撰寫 Go，再花費額外的時間寫瑣細的測試與修正執行期的問題；或是花時間一步步撰寫穩健的 Rust 程式，避免構建後的問題。</p>
 
-<p><strong>獲勝者：</strong>難以決定。我們可以很簡單地說 Go 贏了，但我並不想要這樣定論，因為我個人喜歡花更多時間打造一個禁得起時間考驗的程式，而非在未來還必須追蹤複雜的記憶體與線程問題。</p>
+<p><strong>獲勝者</strong>：難以決定。我們可以很簡單地說 Go 贏了，但我並不想要這樣定論，因為我個人喜歡花更多時間打造一個禁得起時間考驗的程式，而非在未來還必須追蹤複雜的記憶體與線程問題。</p>
 
 <h2 id="泛型">泛型</h2>
 
@@ -169,7 +169,7 @@ ga('send', 'pageview');
 
 <p>Rust 剛好具有如你所願的泛型。這個泛型支援普通型別及 traits，而且你還可以透過 <code>impl</code> 與 <code>dyn</code> 這兩個新特性（從 2018 開始），控制 Rust 從 traits 上面產生的泛型機器碼（machine code）。</p>
 
-<p><strong>獲勝者：</strong>不用多說了，非 Rust 莫屬。</p>
+<p><strong>獲勝者</strong>：不用多說了，非 Rust 莫屬。</p>
 
 <h2 id="程式碼完備性-code-sanity">程式碼完備性（Code sanity）</h2>
 
@@ -178,28 +178,28 @@ ga('send', 'pageview');
 <p>那麼，什麼我在 Rust 發現什麼 Go 缺少的功能，可令程式碼更穩健更能防範未然？</p>
 
 <ul>
-<li><p><strong>斷言（Assertions）。</strong>斷言之所以無價，是因為它讓碼農們得以溝通不一定明顯的意圖。Rust 有斷言，反觀 Go 沒有。呃⋯⋯Go 的確有 <code>panic</code> 可以來模擬斷言，但這作法不被認可，你應該永不使用它。</p>
+<li><p><strong>斷言（Assertions）</strong>。斷言之所以無價，是因為它讓程式設計師們得以溝通不一定明顯的意圖。Rust 有斷言，反觀 Go 沒有。呃⋯⋯Go 的確有 <code>panic</code> 可以來模擬斷言，但這作法不被認可，你應該永不使用它。</p>
 
 <p>為什麼 Go 沒有斷言呢？以下是我瞎猜的：因為程式設計師常常誤用斷言來驗證使用者的輸入，這樣導致有不對或惡意輸入時產生執行期錯誤。於是，崇尚務實主義的 Go 要求把所有問題當成可以被控制的錯誤，從而避免「誤用斷言」這種情況。（嗯⋯⋯，這我過些時間想再寫一篇獨立的文章來討論⋯⋯)</p>
 
 <p>順便提個我常常聽到的說法：你可以從寫了多少斷言來判斷一個程式設計師的經驗是否老到，而越多代表越老練。歡迎對這個想法有任何評論。</p></li>
 
-<li><p><strong>標註（Annotations）。</strong>有時候該用到的輸入參數沒使用到，或該檢查的回傳值沒檢查。或其他時候，你知道一個特定函式永遠不會返回，而且希望給予調用端這項資訊，讓編譯器閉嘴。舉個例子，缺少 return 陳述句。Go 沒有這些標註，讓程式設計是很難清楚表達意圖。而 Rust 嘟嘟好有這些標註。</p>
+<li><p><strong>標註（Annotations）</strong>。有時候該用到的輸入參數沒使用到，或該檢查的回傳值沒檢查。或其他時候，你知道一個特定函式永遠不會返回，而且希望給予呼叫端這項資訊，讓編譯器閉嘴。舉個例子，缺少 return 陳述句。Go 沒有這些標註，讓程式設計是很難清楚表達意圖。而 Rust 嘟嘟好有這些標註。</p>
 
 <p>更糟的是，Go 有些特定內部函式的行為如 <code>panic</code>，這些編譯器知道無法回傳，但不可能在你手寫的 Go 程式碼中表達這件事。如果考慮這問題和前面提及泛型是同個缺點，再次提及比較有點失允。</p></li>
 
 <li><p><strong>註釋即文件（Docstrings）</strong>。是的，Go 有 docstrings，但神基本。雖然大部分可以正常運作，但寫了一堆 Java 之後，知道事先定義好結構的 docstrings 能提供不少價值。許多工具可協助檢驗文件的完備性。舉例來說，IntelliJ 可以驗證參數名稱是否對應真正的函式參數，並且交叉參照其他類別是否也合法。</p>
 
-<p>Rust 的 docstrings 支援 Markdown 而比 Go 來得好些，但仍無明確的撰寫指引：似乎沒有一種標準方式撰寫，也不支持替每一項目個別撰寫文件，工具更無法交叉檢查 docstrings 是否和程式碼吻合。</p></li>
+<p>Rust 的 docstrings 支援 Markdown 而比 Go 來得好些，但仍無明確的撰寫指引：似乎沒有一種標準方式撰寫，也不支援替每一項目個別撰寫文件，工具更無法交叉檢查 docstrings 是否和程式碼吻合。</p></li>
 
 <li><p><strong>錯誤檢查（Error checking）</strong>。我是少數（？）喜愛 Go 手動錯誤傳遞的一分子。你說得沒錯，寫一堆錯誤檢查很惱人，但這樣做迫使你使用與其他語言不同的方式思考錯誤這檔事。</p>
 
-<p>很不幸，Go 選擇的寫法有些問題：一個函式總是回傳一個結果值與一個錯誤，調用端可以決定先檢查錯誤，再檢查值。語言本身並無強制做這件事，而我看多太多太多錯誤是在檢查錯誤前先取值所導致。另一方面，Rust 帶著更高端的型別封裝了值或錯誤，加上沒有 null 這個特點，這代表了調用端永遠不會在有錯誤時取得結果值，反之亦然。可以參考看看 <a href="https://doc.rust-lang.org/std/result/" target="_blank"><code>Result</code> 型別</a>還有我寫<a href="http://julio.meroh.net/2018/06/rust-review-match-keyword.html" target="_blank">有關 match 關鍵字</a>的文章。</p></li>
+<p>很不幸，Go 選擇的寫法有些問題：一個函式總是回傳一個結果值與一個錯誤，呼叫端可以決定先檢查錯誤，再檢查值。語言本身並無強制做這件事，而我看多太多太多錯誤是在檢查錯誤前先取值所導致。另一方面，Rust 帶著更高端的型別封裝了值或錯誤，加上沒有 null 這個特點，這代表了呼叫端永遠不會在錯誤存在時取得結果值，反之亦然。可以參考看看 <a href="https://doc.rust-lang.org/std/result/" target="_blank"><code>Result</code> 型別</a>還有我寫<a href="http://julio.meroh.net/2018/06/rust-review-match-keyword.html" target="_blank">有關 match 關鍵字</a>的文章。</p></li>
 </ul>
 
-<p>讓我下個結論，一個正向的聲明，這兩個語言都不提供自動型別。舉例來說，Rust 與 Go 強制碼農們整數轉型至不同大小，於是任何可能溢位（overflow/underflow）之處顯露無遺。提醒你一下：Go 在這方面比 Rust 稍強些，因為 Go 的型別別名（type alias）語義上被視為不同的型別，編譯時需要手動轉型，而 Rust 則是當作語法上的別名（就像 C <code>typedef</code> 所作所為）。</p>
+<p>讓我下個結論，一個正向的聲明，這兩個語言都不提供自動型別。舉例來說，Rust 與 Go 強制程式設計師們整數轉型至不同大小，於是任何可能溢位（overflow/underflow）之處顯露無遺。提醒你一下：Go 在這方面比 Rust 稍強些，因為 Go 的型別別名（type alias）語義上被視為不同的型別，編譯時需要手動轉型，而 Rust 則是當作語法上的別名（就像 C <code>typedef</code> 所作所為）。</p>
 
-<p><strong>獲勝者：</strong>Rust 輕鬆勝出。你可以主張這只是對 Go 缺乏功能的一些抱怨，而且應該接受 Go 就是這種風格，但我不行：這些抱怨就是討論上述失能讓 Go 無法寫出防範未然，晶瑩剔透的程式碼。</p>
+<p><strong>獲勝者</strong>：Rust 輕鬆勝出。你可以主張這只是對 Go 缺乏功能的一些抱怨，而且應該接受 Go 就是這種風格，但我不行：這些抱怨就是討論上述失能讓 Go 無法寫出防範未然，晶瑩剔透的程式碼。</p>
 
 <h2 id="效能分析">效能分析</h2>
 
@@ -207,15 +207,15 @@ ga('send', 'pageview');
 
 <p>我還沒發現任何 Rust 的分析工具可以和 Go 的工具一樣整合 pprof。當然，有一個函式庫可以生成類似 pprof 的追蹤資料，但我無法簡易上手，安裝上也有點詭異（需要 gperftools 以顯示在系統上）。<a href="http://athemathmo.github.io/2016/09/14/tools-for-profiling-rust.html" target="_blank">這篇舊文</a>有相關資訊和工具可供參考。</p>
 
-<p><strong>獲勝者：</strong>就我目前所知，Go 在這方面大勝。</p>
+<p><strong>獲勝者</strong>：就我目前所知，Go 在這方面大勝。</p>
 
 <h2 id="構建速度">構建速度</h2>
 
-<p>打從娘胎開始，Go 就被設計為盡可能快速構建。就我所知，這是為了減少 Google 內部大型應用程式構建時間而做的嘗試。我猜測這合理解釋為什麼 Go 選擇 duck typing 來避免組件間強耦合，進而加速增量編譯（incremental compilation）。當我第一次在 NetBSD 自我建立（bootstrap）Go 整個工具鏈時，我非常震驚，整麼流程只需要幾分鐘。我以前使用 clang 需要幾小時建立環境。</p>
+<p>打從娘胎開始，Go 就被設計為盡可能快速構建。就我所知，這是為了減少 Google 內部大型應用程式構建時間而做的嘗試。我猜測這合理解釋為什麼 Go 選擇 duck typing 來避免組件間強耦合，進而加速增量編譯（incremental compilation）。當我第一次在 NetBSD 自我建立（bootstrap）Go 整個工具鏈時，我非常震驚，整個流程只需要幾分鐘。我以前使用 clang 需要幾小時建立環境。</p>
 
 <p>Rust 是家喻戶曉的編譯緩慢，所有完備性檢驗（sanity check），例如 borrow checker 和泛型，並不是白吃的午餐。我聽說有機會可以改善，但第一，我還沒研究過；第二，這說法尚未實現。</p>
 
-<p><strong>獲勝者：</strong>簡單啦，Go。</p>
+<p><strong>獲勝者</strong>：簡單啦，Go。</p>
 
 <h2 id="構建系統">構建系統</h2>
 
@@ -227,7 +227,7 @@ ga('send', 'pageview');
 
 <p>有趣的是，人們可以透過 Bazel 構建 Go 與 Rust 的程式。這種情況下，Bazel 透過一系列條件（<code>rules_go</code>）修正了上述提及 Go 的已知問題：這些條件允許相依套件以及工具鏈固定版號。至於 Bazel 對 Rust 的支援還很陽春，對應的條件（<code>rules_rust</code>）並沒有太多功能。</p>
 
-<p><strong>獲勝者：</strong>只考慮原生構建系統，Rust 的 Cargo 工具鏈勝出。如果把 Bazel 拉進來討論，目前是 Go 略勝一籌。</p>
+<p><strong>獲勝者</strong>：只考慮原生構建系統，Rust 的 Cargo 工具鏈勝出。如果把 Bazel 拉進來討論，目前是 Go 略勝一籌。</p>
 
 <h2 id="單元測試">單元測試</h2>
 
@@ -237,17 +237,17 @@ ga('send', 'pageview');
 
 <p>另一頭，Rust 的測試函式庫較貼近你預期的其他語言的行為。換言之，你有斷言可以用。我發現比較奇怪的點是，Rust 推薦你把測試寫在與待測原始碼同一份檔案中。由於我還沒寫足夠的測試，不清楚在真實世界中這種做法到底會如何？</p>
 
-<p><strong>獲勝者：</strong>我很想說是 Rust，因為 Go 的測試途徑太令我失望了，但 Go 有 <code>testify</code> 套件存在，我必須說兩者平分秋色。</p>
+<p><strong>獲勝者</strong>：我很想說是 Rust，因為 Go 的測試途徑太令我失望了，但 Go 有 <code>testify</code> 套件存在，我必須說兩者平分秋色。</p>
 
 <h2 id="結論">結論</h2>
 
-<p>每一種程式語言皆有優缺點，</p>
+<p>每一種程式語言皆有優缺點，這些小小的權衡抉擇是我藉由 Go 與 Rust 做比較來 證明這個概念。在每個部分勝出的語言都不一樣，有些時候你根本無法決定誰更有優勢。</p>
 
 <blockquote>
 <p>您身為工程師的職責就是瞭解每個專案該如何權衡，並替專案選擇最佳的工具。Rust 與 Go 只是工具，挑一個最適配<a href="http://julio.meroh.net/2018/03/bazel-tests-in-java-part-1.html" target="_blank">團隊</a>，專案，還有你自己吧（按照這個順序）。</p>
 </blockquote>
 
-<p>如果你希望我能更具體，我會強力推薦在座的各位學習 Rust，與 borror checker 與 ownership 和平共處。即使最終你並沒有使用 Rust，過程中所學都會回饋到其他語言上，連 Go 也不例外。</p>
+<p>如果你希望我能更具體，我會強力推薦在座的各位學習 Rust，與 borrow checker 與 ownership 和平共處。即使最終你並沒有使用 Rust，過程中所學都會回饋到其他語言上，連 Go 也不例外。</p>
 
 <hr />
 
