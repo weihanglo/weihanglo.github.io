@@ -1,0 +1,72 @@
+==================================================================
+https://keybase.io/weihanglo
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://weihanglo.tw
+  * I am weihanglo (https://keybase.io/weihanglo) on keybase.
+  * I have a public key with fingerprint 7D84 EA07 47C1 240C 2A16  D2A6 D7DB F189 825E 82E7
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101fe5bc2318de4fb059eca202bb49e2510e90f1f25a6a3d72100a8ebce2ea2af420a",
+      "fingerprint": "7d84ea0747c1240c2a16d2a6d7dbf189825e82e7",
+      "host": "keybase.io",
+      "key_id": "d7dbf189825e82e7",
+      "kid": "0101fe5bc2318de4fb059eca202bb49e2510e90f1f25a6a3d72100a8ebce2ea2af420a",
+      "uid": "660e91cb8e0e7e7486c6e4e7aef66519",
+      "username": "weihanglo"
+    },
+    "service": {
+      "hostname": "weihanglo.tw",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1534572059,
+  "expire_in": 157680000,
+  "prev": "c6f28de3e1f702a562f272a5d5687260ad7522702c0336c01dbd864243e99081",
+  "seqno": 4,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtkmtMHFUUxxcKRRY0xCBGCioDhEc3OHPnuUuxQKFPsa0tmpZ2N/O4s0y77MDu
+lEcXIrYYnqZGKi1tJYAKogHRIomFpMEYwqMQAjZ12yqUimZZgkCAljSlzqL9Yvzo
+/XJyz/n9//eck/vhs5s0Wq9bdxYrzxjP/OE17OI0WQXdkQ6Ek4UixOBATsKNAC0C
+tCumk5KAGBAUQzERkhwPcIwRICFyKKmHPAtQwHGEHgISQ6EeFTERkCzF4gINMBRl
+GcjxEEAWsCIBUBbRIaJkNUNbrk2yKqotLTAEZFGaoHkMECgPWIwSAEsJtMCJGKNn
+AAkZAGlVmC3bPQq1OY61wwRJVnPqxbTR3n/w/3PfpzbsKEqlMZ5jIAppSBMMxVOQ
+gDQLRYoiMb0HtEOblc2BKl0ApWzWarbISIkOUdP5Eg89m/WM8m8kQSlQxbk2WZF5
+2aJWshUl127wKJWi3L9RzvSPiYmTrIK6SFWRD212SbYiBkwleUXyuGIkTpA0UCfV
+IbAwV7JBk+QhSJpiUPV43oH5qiVPiYARjkAcYiKNApakgAhoNQokxdCAQlmBJgFQ
+SzyK4xSPYgInMBQBCBzq9SiDIZ658qwyYiDUPlmz6mmXzFZWOWWDSIm20hv30Xhp
+NeEhET4lZbN+u/qiAuNDxluefj5fb8/P02j9g55mDJVBmvOHm9jUPTvJnQ8zW+Oc
+fd8dN2MrE3EhA2inFN1VVdWVkPocbAg/YQ1+vcK/8BuD9kr7Z4Pnoq+OZT35Cm+7
+kLcWlkLtemuf+9qasLrlmFsew1MvT93/OmitP/He6PTHu1/hLxU8xldm3M9P/5DB
+kB9tjtgc/O7u2sjhrsnGubiUHtJne3HPg4acpF79siN9pn095tHR24M6J+iZ23v8
+6PDNq5k7Iqrn9fzny6li8IPqtT5HfU5YuiXs1fJts2Xu1q2Z1uITDwO1WSs15a6e
+7u5NN69Fvb/QcWQPccxPc7d+eUinFOfdGhsZ7fgtubm63OKb1bzdVDYzm+zoLx4a
+mg5orHtjtj8Rymm9kz8vVAb4XvAeiawIbUyIDrh01g9m+Iceelz2tjF/aCE2reWZ
+xaml0tKppYHDxtPrnQps9r37Zdb8tvCxyRrn0js1oWH1bUkuX/8/05qMIKraMbH6
+wv7JytLXjLXnk3wcq8M1rXt3BMamfVExejDePd2CcU+QukMU1Xb71wS/iVm/tZ+a
+3N9/wkQcyB9PcbW/tP6o8OLUp0nB3lvmvPxrk7zMmYPtW+t+GUm8s17qdMa8ef96
+x6Lr9L2BwXP7yeu6hUbLOBcTdmC1Ie7Hy+k3qi3J5HvYFX1/XVUFOdwZ32tMdLpS
+v30xI/ODtsKXLQeF9LOxTStVRdPzN37/Cw==
+=v3tV
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/weihanglo
+
+==================================================================
