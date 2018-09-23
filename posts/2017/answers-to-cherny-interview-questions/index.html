@@ -23,25 +23,31 @@ What is the DOM? 全名為「Document Object Model」，是 W3C 的標準之一�
 What is the event loop? JavaScript 是單執行緒（單線程）的程式語言，任何龐大運算都可能阻塞整個程式，因此 JavaScript 設計了 message queue 配合一個不間斷的 event loop 來管理任務，當 call stack 沒有執行任何 task 時（程式閒置時），loop 便從 queue 中取第一個 message 至 call stack 調用。開發者可將 callback 加入 message queue 等待 loop 輪詢（polling），實現非同步程式，這就是 JavaScript event loop 的機制。'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/'>
 <meta property='og:site_name' content='Weihang Lo'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Interview'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-07-26T20:48:30&#43;08:00'/><meta property='article:modified_time' content='2017-07-26T20:48:30&#43;08:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Interview'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-07-26T20:48:30&#43;08:00'/><meta property='article:modified_time' content='2017-07-26T20:48:30&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.40" />
+<meta name="generator" content="Hugo 0.48" />
 
   <title>試答 Cherny 所謂「最好的前端面試題」 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.b0a0b202.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
 
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-118441906-2', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-118441906-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
 
 </head>
 
@@ -406,16 +412,13 @@ ga('send', 'pageview');
 
   
 <footer class='entry-footer'>
-  <div class='container sep-before'>
-  <div class='tags'>
-  <span class='taxonomy-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-</span>
-  <span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/interview'>Interview</a>, <a class='tag' href='/tags/javascript'>JavaScript</a>, <a class='tag' href='/tags/front-end'>Front-end</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/interview/'>Interview</a>, <a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/front-end/'>Front-end</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -458,8 +461,7 @@ ga('send', 'pageview');
       </main>
 
       <footer id='footer' class='footer'>
-        <div class='container sep-before'>
-          <section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
     <ul><li>
         <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -513,8 +515,7 @@ ga('send', 'pageview');
 </a>
       </li></ul>
   </nav>
-</section>
-          <div class='copyright'>
+</section><div class='copyright'>
   <p> &copy; 2017-2018 Weihang Lo </p>
 </div>
 
@@ -524,7 +525,8 @@ ga('send', 'pageview');
     </div>
   </div><script>window.__public_path__='\/assets\/js\/'</script>
 
-<script src='/assets/js/main.53e19345.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+
 </body>
 
 </html>

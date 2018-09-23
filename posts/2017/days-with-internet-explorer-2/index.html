@@ -19,25 +19,31 @@
  語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &lt;button&gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight  語意化 HTML5 標籤  Issue：不支援語意化 tag 就算了，部分 tag 如 &lt;main&gt;、&lt;article&gt; 還會變成 inline elements Platform：IE 11  先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/'>
 <meta property='og:site_name' content='Weihang Lo'>
-<meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='article:section' content='Posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Web Access Right'><meta property='article:published_time' content='2017-12-09T18:48:48&#43;08:00'/><meta property='article:modified_time' content='2017-12-09T18:48:48&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='twitter:image:alt' content='Modified from Webcompat.com'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='article:section' content='posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Web Access Right'><meta property='article:published_time' content='2017-12-09T18:48:48&#43;08:00'/><meta property='article:modified_time' content='2017-12-09T18:48:48&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='twitter:image:alt' content='Modified from Webcompat.com'>
 
-<meta name="generator" content="Hugo 0.40" />
+<meta name="generator" content="Hugo 0.48" />
 
   <title>與 IE 相處的日子二：淺談網頁相容性 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.b0a0b202.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
 
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-118441906-2', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-118441906-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
 
 </head>
 
@@ -629,16 +635,13 @@ ga('send', 'pageview');
 
   
 <footer class='entry-footer'>
-  <div class='container sep-before'>
-  <div class='tags'>
-  <span class='taxonomy-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-</span>
-  <span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/internet-explorer'>Internet Explorer</a>, <a class='tag' href='/tags/front-end'>Front-end</a>, <a class='tag' href='/tags/javascript'>JavaScript</a>, <a class='tag' href='/tags/web-compatibility'>Web Compatibility</a>, <a class='tag' href='/tags/web-access-right'>Web Access Right</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/internet-explorer/'>Internet Explorer</a>, <a class='tag' href='/tags/front-end/'>Front-end</a>, <a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/web-compatibility/'>Web Compatibility</a>, <a class='tag' href='/tags/web-access-right/'>Web Access Right</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -681,8 +684,7 @@ ga('send', 'pageview');
       </main>
 
       <footer id='footer' class='footer'>
-        <div class='container sep-before'>
-          <section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
     <ul><li>
         <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -736,8 +738,7 @@ ga('send', 'pageview');
 </a>
       </li></ul>
   </nav>
-</section>
-          <div class='copyright'>
+</section><div class='copyright'>
   <p> &copy; 2017-2018 Weihang Lo </p>
 </div>
 
@@ -747,7 +748,8 @@ ga('send', 'pageview');
     </div>
   </div><script>window.__public_path__='\/assets\/js\/'</script>
 
-<script src='/assets/js/main.53e19345.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+
 </body>
 
 </html>
