@@ -4,12 +4,12 @@
 <head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='This is a series of posts about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my quick notes. Please contact me if there are some misleading words.
+<meta name='description' content='This is a series of quick notes about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.
 Ownership and References While a program runs, it need a way to manage memory . Here are three common approaches of memory management:'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Rust: Ownership and References • Weihang Lo'>
-<meta property='og:description' content='This is a series of posts about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my quick notes. Please contact me if there are some misleading words.
+<meta property='og:description' content='This is a series of quick notes about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.
 Ownership and References While a program runs, it need a way to manage memory . Here are three common approaches of memory management:'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2018/rust-ownership-and-references/'>
 <meta property='og:site_name' content='Weihang Lo'>
@@ -121,7 +121,7 @@ if (!doNotTrack) {
   <div class='container entry-content'>
   
 
-<p>This is a series of posts about the fundamentals of <a href="https://rust-lang.org" target="_blank">the Rust programming language</a>. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my quick notes. Please contact me if there are some misleading words.</p>
+<p>This is a series of quick notes about the fundamentals of <a href="https://rust-lang.org" target="_blank">the Rust programming language</a>. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.</p>
 
 <!-- more -->
 
@@ -153,14 +153,16 @@ if (!doNotTrack) {
 
 <h3 id="stack-v-s-heap">Stack v.s. Heap</h3>
 
-<p>Store in stack</p>
+<p>To determine where to store a variable, Rust categorizes varaibles into two groups - stack and heap allocations. Here are some properties held by each procedure.</p>
+
+<p><strong>Store in stack</strong></p>
 
 <ul>
 <li>Need to know the size of value at compile time.</li>
 <li>Since the size is known, when the variable get out of scope, the compiler can free the variable automatically.</li>
 </ul>
 
-<p>Store in heap</p>
+<p><strong>Store in heap</strong></p>
 
 <ul>
 <li>To store a value in heap, you need to request a region of memory from the operating system.</li>

@@ -16,7 +16,7 @@
       <pubDate>Sun, 30 Sep 2018 11:07:45 +0800</pubDate>
       
       <guid>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</guid>
-      <description>This is a series of posts about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my quick notes. Please contact me if there are some misleading words.
+      <description>This is a series of quick notes about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.
 Ownership and References While a program runs, it need a way to manage memory . Here are three common approaches of memory management:</description>
     </item>
     
