@@ -5,10 +5,20 @@
     <link>https://weihanglo.tw/</link>
     <description>Recent content in Home on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 20 Jul 2018 10:58:59 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Sep 2018 11:07:45 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rust: Ownership and References</title>
+      <link>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</link>
+      <pubDate>Sun, 30 Sep 2018 11:07:45 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</guid>
+      <description>This is a series of posts about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my quick notes. Please contact me if there are some misleading words.
+Ownership and References While a program runs, it need a way to manage memory . Here are three common approaches of memory management:</description>
+    </item>
     
     <item>
       <title>【譯】Rust vs. Go</title>
