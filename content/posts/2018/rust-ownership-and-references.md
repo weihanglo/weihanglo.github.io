@@ -7,6 +7,8 @@ tags:
 
 This is a series of quick notes about the fundamentals of [the Rust programming language](https://rust-lang.org). It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.
 
+_(written on 2018-09-30)_
+
 <!-- more -->
 
 ## Ownership and References
