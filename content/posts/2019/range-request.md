@@ -1,10 +1,8 @@
 ---
-title: "Range Request"
+title: 理解 HTTP Range Requests
 date: 2018-03-09T10:17:34+08:00
 draft: true
 ---
-
-# 理解 HTTP Range Requests
 
 你是否曾遇過使用瀏覽器下載大檔案時網路中斷，又要從頭下載的經驗？這是因為 HTTP 傳輸協定模型是一個請求對應完整的回應 payload，因此 client 與 server 連線中斷後，若欲繼續取得資源，須將從頭再下載完整資源，之前的傳輸可說是完全浪費了。
 
@@ -25,6 +23,8 @@ draft: true
     - `If-Range`
 - 完整流程圖
 - 參考資料
+
+_（撰於 2018-03-10）_
 
 ## 簡介
 
