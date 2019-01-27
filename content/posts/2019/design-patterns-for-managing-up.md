@@ -4,8 +4,8 @@ date: 2019-01-27T15:04:29+08:00
 tags:
   - Design Patterns
 cover:
-  image: http://www.botinternational.com/comics/comic_managing_up.jpg
-  caption: Image from ProjectManagement.com 
+  image: https://softskills.audio/img/logo-transparent-bg.png
+  caption: Logo of Soft Skill Engineering Podcast
   style: normal
 ---
 
@@ -65,8 +65,6 @@ _（撰於 2019-01-27）_
 如果希望學系軟體工程硬功夫以外的「軟實力」，不妨聽聽 [Soft Skill Engineering][softskills] Podcast，Jamison 和 Dave 在 Podcast 裡面雖然酸味十足，但也常點出有趣的 IT 職場法則，從薪水談判、和平離職、冗長的會議，到「救命！我的同事有狐臭」，無所不包，毫不忌諱。
 
 祝各位 IT 人越軟越強。
-
-![](https://softskills.audio/img/logo-transparent-bg.png)
 
 ## 參考資料
 
