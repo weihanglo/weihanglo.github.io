@@ -1,6 +1,8 @@
 ---
 title: 向上管理的設計模式
 date: 2019-01-27T15:04:29+08:00
+tags:
+  - Design Patterns
 cover:
   image: http://www.botinternational.com/comics/comic_managing_up.jpg
   caption: Image from ProjectManagement.com 
@@ -8,6 +10,8 @@ cover:
 ---
 
 在資訊產業工作久了，其實就會知道，成功的軟體工程師並非社會眼中的科技宅男，溝通反而是做好工作的關鍵。Kate Matsudaira 整理了四個工作上常見的難題，並利用 design pattern 的方式，點出什麼情況該怎麼做。本文抽絲剝繭整理出其中的關鍵，想閱讀原文請點 [_Design Patterns for Managing Up_][dpmu]。
+
+_（撰於 2019-01-27）_
 
 ## 1. 有人問了你不知道的問題
 
