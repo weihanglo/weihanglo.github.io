@@ -9,7 +9,7 @@
 特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8&#43;, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
 brew install carthage  如果還沒有裝 homebrew，請來這下載
  建立一個 Carfile，列出欲使用的模組，例如：
-  github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
+  github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Carthage 套件管理工具 • Weihang Lo'>
@@ -18,12 +18,12 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
 特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8&#43;, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
 brew install carthage  如果還沒有裝 homebrew，請來這下載
  建立一個 Carfile，列出欲使用的模組，例如：
-  github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
+  github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2017/carthage-intro/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Carthage'><meta property='article:tag' content='Swift'><meta property='article:published_time' content='2017-03-05T08:45:57&#43;08:00'/><meta property='article:modified_time' content='2017-03-05T08:45:57&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.49" />
+<meta name="generator" content="Hugo 0.53" />
 
   <title>Carthage 套件管理工具 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/carthage-intro/'>
@@ -162,8 +162,8 @@ if (!doNotTrack) {
 <li>將 <code>Carthage/Build</code> 資料夾內編譯好的 frameworks 拖拉進你的 <strong>app target</strong> =&gt; <strong>General</strong> =&gt; <strong>Linked Frameworks and Libraries</strong></li>
 <li>在 <strong>app target</strong> =&gt; <strong>Build Phases</strong> 下新增一個 <strong>New Run Script Phase</strong></li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">  <span style="color:#75715e"># 自動將 framework 複製到 target app 的 bundle中
-</span><span style="color:#75715e"></span>  /usr/local/bin/carthage copy-frameworks</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">  <span style="color:#75715e"># 自動將 framework 複製到 target app 的 bundle中</span>
+  /usr/local/bin/carthage copy-frameworks</code></pre></div>
 <p>並在 <strong>Input Files</strong> 加入相依的 frameworks 路徑，例如：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">  <span style="color:#66d9ef">$(</span>SRCROOT<span style="color:#66d9ef">)</span>/Carthage/Build/iOS/Alamofire.framework
   <span style="color:#66d9ef">$(</span>SRCROOT<span style="color:#66d9ef">)</span>/Carthage/Build/iOS/RxSwift.framework</code></pre></div>
@@ -226,8 +226,8 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 <h3 id="q-我不想提交-carthage-資料夾到-git-server-怎辦">Q：我不想提交 Carthage 資料夾到 Git Server，怎辦？</h3>
 
 <p>一般而言，我們會將 Carthage 加入 Project 的 <code>.gitignore</code> 中：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># in .gitignore
-</span><span style="color:#75715e"></span>Carthage</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># in .gitignore</span>
+Carthage</code></pre></div>
 <p>除非另有需求，不然 <code>Cartfile.resolve</code> 應足以還原 project 與提交時相同版號的模組環境。</p>
 
 <h3 id="q-我需要開發用但非-project-相關的模組-該如何">Q：我需要開發用但非 Project 相關的模組，該如何？</h3>
@@ -255,8 +255,8 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
 
 <p>所有在 Carthage/checkouts 內的 source 隨時可能改變。如果確定需要改動相依模組，請利用 <a href="https://github.com/Carthage/Carthage#using-submodules-for-dependencies" target="_blank">carthage 指令將相依模組加入 Git submodules</a>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">carthage update --use-submodules
-<span style="color:#75715e"># or
-</span><span style="color:#75715e"></span>carthage checkout --use-submodules</code></pre></div>
+<span style="color:#75715e"># or</span>
+carthage checkout --use-submodules</code></pre></div>
 <p>之後就可以直接操作 Git submodules 了！</p>
 
 </div>
@@ -367,7 +367,7 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2018 Weihang Lo </p>
+  <p> &copy; 2017-2019 Weihang Lo </p>
 </div>
 
         </div>

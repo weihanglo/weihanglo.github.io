@@ -5,10 +5,41 @@
     <link>https://weihanglo.tw/posts/</link>
     <description>Recent content in Posts on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 30 Sep 2018 11:07:45 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Jan 2019 15:04:29 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>向上管理的設計模式</title>
+      <link>https://weihanglo.tw/posts/2019/design-patterns-for-managing-up/</link>
+      <pubDate>Sun, 27 Jan 2019 15:04:29 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2019/design-patterns-for-managing-up/</guid>
+      <description>在資訊產業工作久了，其實就會知道，成功的軟體工程師並非社會眼中的科技宅男，溝通反而是做好工作的關鍵。Kate Matsudaira 整理了四個工作上常見的難題，並利用 design pattern 的方式，點出什麼情況該怎麼做。本文抽絲剝繭整理出其中的關鍵，想閱讀原文請點 Design Patterns for Managing Up。
+（撰於 2019-01-27）
+1. 有人問了你不知道的問題 步驟  直說你不知道。 承攬後續找答案的計畫。 設下後續處理的時程表。 給一個簡潔且正確回應。  範例 「我不清楚，但我會先調查，午餐過後給你答覆」，或是「我不確定，但我可以問問 Bob，然後在今天下班前回覆你」，如此一來，你就是解決問題的關鍵人物。
+2. 有個問題是你的錯或責任 步驟  讓相關人士了解你知道這件事，並主動處理中。（表達自己是問題的 owner） 分享解決步驟，如果尚無明確解法，告訴他們什麼時候會給 follow-up 資訊。 給一個時程表。什麼時候解決？什麼時候給 follow-up 資訊？會嘗試什麼解法？  範例 「我們不確定造成問題的原因，但會在一小時內更新相關資訊」，別讓通訊軟體的另一端乾等焦急。
+3. 有個你不認同的決定 步驟  丟掉情緒。需要時間冷靜，那就等一兩天吧。 別起爭執；試著詢問來龍去脈，探究改變的原因。 先從你的主管或決策者開始，再一起向上表達看法（別直接越級通報）。 研究並呈現相同效果的替代方案。 如果說服失敗，就支持這個計畫。務必與團隊分享你的想法，並嘗試做讓情況好一些的措施。  切記，別直接一個「No」就完全拒絕。
+4. 主管給你負面回饋 步驟  只有一個：深呼吸，注意情緒，然後回覆：「知道了，未來我會更注意的！」  你仍然可以整理相關想法，寄封 email ，讓主管得知你有用心在這個回饋上。切記，主管給你負面回饋不比收到負面回饋來的簡單。
+小結 其實這些方法在任何場域都很受用，但實事求是，「Shut up and show me the code」文化充斥著 IT 產業，少了一些人味，更需要注意這些眉眉角角。</description>
+    </item>
+    
+    <item>
+      <title>HLS 串流協議二三事</title>
+      <link>https://weihanglo.tw/posts/2019/streamin-hls/</link>
+      <pubDate>Sun, 27 Jan 2019 12:31:29 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2019/streamin-hls/</guid>
+      <description>最近開始研究很夯的直播技術，一般常見的直播方案為 HLS 以及 RTMP 等，本篇將介紹 Apple 強迫使用 大力支持的 HLS 協議。
+（撰於 2017-04-10）
+ 本文是兩年前的舊文，剛好最近又開始碰串流，所以拿出來獻醜一下。
+ Overview HLS 的全名為 HTTP Live Streaming，是一個由 Apple 提出並實作。HLS 是基於 HTTP 的串流協議，實作起來平易近人。如果你想要實作串流但又不想要太複雜的後台配置、或是串流須經加密驗證，HLS 會是一個不錯的解決方案。
+Workflow HLS 原理非常簡單：
+ 將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 .ts 檔）。 建立索引檔（index file，為 .m3u8 檔）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。 透過 HTTP 給予 client 對應的 Response（.m3u8、.ts）。 Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。 該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。   簡單來講，就是取得 .m3u8 播放列表，按照順序播放 .ts 檔，全部放完再請求下一個 .m3u8 playlist，週而復始。
+ Features HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：
+Adaptability and Availability .</description>
+    </item>
     
     <item>
       <title>Rust: Ownership and References</title>
@@ -293,7 +324,7 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
 特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
 brew install carthage  如果還沒有裝 homebrew，請來這下載
  建立一個 Carfile，列出欲使用的模組，例如：
-  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中  /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
+  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
     </item>
     
     <item>

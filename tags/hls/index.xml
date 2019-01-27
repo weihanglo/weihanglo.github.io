@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HLS on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/hls/</link>
+    <description>Recent content in HLS on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 27 Jan 2019 12:31:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.tw/tags/hls/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HLS 串流協議二三事</title>
+      <link>https://weihanglo.tw/posts/2019/streamin-hls/</link>
+      <pubDate>Sun, 27 Jan 2019 12:31:29 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2019/streamin-hls/</guid>
+      <description>最近開始研究很夯的直播技術，一般常見的直播方案為 HLS 以及 RTMP 等，本篇將介紹 Apple 強迫使用 大力支持的 HLS 協議。
+（撰於 2017-04-10）
+ 本文是兩年前的舊文，剛好最近又開始碰串流，所以拿出來獻醜一下。
+ Overview HLS 的全名為 HTTP Live Streaming，是一個由 Apple 提出並實作。HLS 是基於 HTTP 的串流協議，實作起來平易近人。如果你想要實作串流但又不想要太複雜的後台配置、或是串流須經加密驗證，HLS 會是一個不錯的解決方案。
+Workflow HLS 原理非常簡單：
+ 將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 .ts 檔）。 建立索引檔（index file，為 .m3u8 檔）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。 透過 HTTP 給予 client 對應的 Response（.m3u8、.ts）。 Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。 該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。   簡單來講，就是取得 .m3u8 播放列表，按照順序播放 .ts 檔，全部放完再請求下一個 .m3u8 playlist，週而復始。
+ Features HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：
+Adaptability and Availability .</description>
+    </item>
+    
+  </channel>
+</rss>

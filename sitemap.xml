@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://weihanglo.tw/posts/2019/design-patterns-for-managing-up/</loc>
+    <lastmod>2019-01-27T15:04:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.tw/posts/2019/streamin-hls/</loc>
+    <lastmod>2019-01-27T12:31:29+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</loc>
     <lastmod>2018-09-30T11:07:45+08:00</lastmod>
   </url>
@@ -183,7 +193,7 @@
   
   <url>
     <loc>https://weihanglo.tw/tags/design-patterns/</loc>
-    <lastmod>2017-08-15T16:32:39+08:00</lastmod>
+    <lastmod>2019-01-27T15:04:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -224,8 +234,14 @@
   </url>
   
   <url>
+    <loc>https://weihanglo.tw/tags/hls/</loc>
+    <lastmod>2019-01-27T12:31:29+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://weihanglo.tw/</loc>
-    <lastmod>2018-09-30T11:07:45+08:00</lastmod>
+    <lastmod>2019-01-27T15:04:29+08:00</lastmod>
   </url>
   
   <url>
@@ -284,7 +300,7 @@
   
   <url>
     <loc>https://weihanglo.tw/posts/</loc>
-    <lastmod>2018-09-30T11:07:45+08:00</lastmod>
+    <lastmod>2019-01-27T15:04:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -315,6 +331,12 @@
   <url>
     <loc>https://weihanglo.tw/tags/source-reading/</loc>
     <lastmod>2017-10-12T22:05:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://weihanglo.tw/tags/streaming/</loc>
+    <lastmod>2019-01-27T12:31:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   

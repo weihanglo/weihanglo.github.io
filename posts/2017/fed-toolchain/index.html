@@ -19,7 +19,7 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Node.js'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-03-10T15:36:46&#43;08:00'/><meta property='article:modified_time' content='2017-03-10T15:36:46&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.49" />
+<meta name="generator" content="Hugo 0.53" />
 
   <title>大前端時代的工具箱 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/fed-toolchain/'>
@@ -181,21 +181,21 @@ if (!doNotTrack) {
 <h3 id="安裝-node-js">安裝 Node.js</h3>
 
 <p>在 macOS 安裝 Node.js 非常簡單，在終端環境輸入指令來安裝最新版的 <a href="https://nodejs.org/" target="_blank">Node.js</a>：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># The latest version of Node.js
-</span><span style="color:#75715e"></span>brew install node
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># The latest version of Node.js</span>
+brew install node
 
-<span style="color:#75715e"># 檢查是否安裝成功（成功則顯示最新版本版號）
-</span><span style="color:#75715e"></span>node -v
-### v7.7.1</code></pre></div>
+<span style="color:#75715e"># 檢查是否安裝成功（成功則顯示最新版本版號）</span>
+node -v
+<span style="color:#75715e">### v7.7.1</span></code></pre></div>
 <p>同時 Node.js 也附帶如同 <strong>python</strong>、<strong>irb</strong> 的直譯式互動環境（<a href="https://en.wikipedia.org/wiki/Read–eval–print_loop" target="_blank">REPL</a>）可快速測試／開發一些功能。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 進入 REPL 環境
-</span><span style="color:#75715e"></span>node
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 進入 REPL 環境</span>
+node
 
-<span style="color:#75715e"># -- REPL 環境 --
-</span><span style="color:#75715e"></span>&gt; <span style="color:#ae81ff">1</span> + <span style="color:#ae81ff">2</span>
-<span style="color:#75715e">### 3
-</span><span style="color:#75715e"></span>&gt; <span style="color:#e6db74">&#39;cat,mouse,dog&#39;</span>.split<span style="color:#f92672">(</span>/,/<span style="color:#f92672">)</span>
-### <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;cat&#39;</span>, <span style="color:#e6db74">&#39;mouse&#39;</span>, <span style="color:#e6db74">&#39;dog&#39;</span> <span style="color:#f92672">]</span></code></pre></div>
+<span style="color:#75715e"># -- REPL 環境 --</span>
+&gt; <span style="color:#ae81ff">1</span> + <span style="color:#ae81ff">2</span>
+<span style="color:#75715e">### 3</span>
+&gt; <span style="color:#e6db74">&#39;cat,mouse,dog&#39;</span>.split<span style="color:#f92672">(</span>/,/<span style="color:#f92672">)</span>
+<span style="color:#75715e">### [ &#39;cat&#39;, &#39;mouse&#39;, &#39;dog&#39; ]</span></code></pre></div>
 <h3 id="node-js-內建模組與變數">Node.js 內建模組與變數</h3>
 
 <p>Node.js 提供豐富的原生模組，可以操作 filesystem、socket、os 等系統層的 API，讓 Javascript 躋身至與 Python、Ruby 之流同樣地位，成為流行的腳本語言（<a href="https://en.wikipedia.org/wiki/Scripting_language" target="_blank">scripting language</a>）。這裡列出前端開發者較常使用的幾個模組：</p>
@@ -242,50 +242,50 @@ if (!doNotTrack) {
 </ul>
 
 <p><strong>總之，先開啟你的終端機吧！</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 透過 homebrew 安裝 nvm（macOS）
-</span><span style="color:#75715e"></span>brew install nvm
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 透過 homebrew 安裝 nvm（macOS）</span>
+brew install nvm
 
-<span style="color:#75715e"># 在使用者家目錄下，新增一個 .nvm 的工作目錄
-</span><span style="color:#75715e"></span>mkdir ~/.nvm
+<span style="color:#75715e"># 在使用者家目錄下，新增一個 .nvm 的工作目錄</span>
+mkdir ~/.nvm
 
-<span style="color:#75715e"># 使用預設編輯器開啟 ~/.bash_profile
-</span><span style="color:#75715e"></span>$EDITOR ~/.bash_profile</code></pre></div>
+<span style="color:#75715e"># 使用預設編輯器開啟 ~/.bash_profile</span>
+$EDITOR ~/.bash_profile</code></pre></div>
 <p>在你預設（或者你最喜愛）的編輯器裡，將下列兩行設定加入 .bash_profile 中：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 將下列設定加在 .bash_profile 中，讓 shell 讀取 nvm 設定
-</span><span style="color:#75715e"></span>export NVM_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.nvm&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 將下列設定加在 .bash_profile 中，讓 shell 讀取 nvm 設定</span>
+export NVM_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.nvm&#34;</span>
 . <span style="color:#e6db74">&#34;/usr/local/opt/nvm/nvm.sh&#34;</span></code></pre></div>
 <p>離開編輯器，回到終端機畫面。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 檢查設定是否正確
-</span><span style="color:#75715e"></span>echo $NVM_DIR
-<span style="color:#75715e">### /Users/weihanglo/.nvm
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># 重新讀取 .bash_profile，讓剛剛的設定生效
-</span><span style="color:#75715e"></span>source ~/.bash_profile</code></pre></div>
-<p>現在可以開始安裝不同版本的 node 了！</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝最新版的 Node.js
-</span><span style="color:#75715e"></span>nvm install node
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 檢查設定是否正確</span>
+echo $NVM_DIR
+<span style="color:#75715e">### /Users/weihanglo/.nvm</span>
 
-<span style="color:#75715e"># 安裝／移除特定版本
-</span><span style="color:#75715e"></span>nvm install v6.9.0
+<span style="color:#75715e"># 重新讀取 .bash_profile，讓剛剛的設定生效</span>
+source ~/.bash_profile</code></pre></div>
+<p>現在可以開始安裝不同版本的 node 了！</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝最新版的 Node.js</span>
+nvm install node
+
+<span style="color:#75715e"># 安裝／移除特定版本</span>
+nvm install v6.9.0
 nvm install v7.6.0
 nvm uninstall node
 
-<span style="color:#75715e"># 設定預設使用的版本
-</span><span style="color:#75715e"></span>nvm alias default v7.6.0
+<span style="color:#75715e"># 設定預設使用的版本</span>
+nvm alias default v7.6.0
 
-<span style="color:#75715e"># 切換至其他版本
-</span><span style="color:#75715e"></span>nvm use v7.6.0
-<span style="color:#75715e"># or
-</span><span style="color:#75715e"></span>nvm use default
+<span style="color:#75715e"># 切換至其他版本</span>
+nvm use v7.6.0
+<span style="color:#75715e"># or</span>
+nvm use default
 
-<span style="color:#75715e"># 列出 local 已經安裝的版本
-</span><span style="color:#75715e"></span>nvm ls
-<span style="color:#75715e">###         v6.9.0
-</span><span style="color:#75715e">### -&gt;      v7.6.0
-</span><span style="color:#75715e">### default -&gt; v7.6.0
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># 安裝新版 Node.js，並從其他版本安裝相同的 packages／modules
-</span><span style="color:#75715e"></span>nvm install v7.7.1 --reinstall-packages-from<span style="color:#f92672">=</span>v7.4.0</code></pre></div>
+<span style="color:#75715e"># 列出 local 已經安裝的版本</span>
+nvm ls
+<span style="color:#75715e">###         v6.9.0</span>
+<span style="color:#75715e">### -&gt;      v7.6.0</span>
+<span style="color:#75715e">### default -&gt; v7.6.0</span>
+
+<span style="color:#75715e"># 安裝新版 Node.js，並從其他版本安裝相同的 packages／modules</span>
+nvm install v7.7.1 --reinstall-packages-from<span style="color:#f92672">=</span>v7.4.0</code></pre></div>
 <blockquote>
 <p>使用 <strong>nvm</strong> 至今，個人唯一詬病的是 script 體積較大，拖慢 shell startup time，社群有人發現此問題，並提出<a href="https://www.reddit.com/r/node/comments/4tg5jg/lazy_load_nvm_for_faster_shell_start/d5ib9fs/" target="_blank">解法</a>。我稍作修改，去蕪存菁，只讀取 default version 的 binary，略提升 startup 時間（畢竟敝人的 <code>.bashrc</code> 已不瘦了），<a href="https://github.com/weihanglo/dotfiles/blob/master/.bashrc#L97-L122" target="_blank">這段 script 提供大家參考</a>。</p>
 </blockquote>
@@ -385,41 +385,41 @@ nvm uninstall node
 <li>全域模式 <code>--global</code>：安裝的模組通常是常用的指令列程式，例如 npm 本身。</li>
 <li>本地模式：用來安裝與 project 相依的模組，會在 project 根目錄產生一個 <code>node_modules</code> 存放相依模組。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 創建一個 npm 模組環境（互動式產生 package.json）
-</span><span style="color:#75715e"></span>npm init
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 創建一個 npm 模組環境（互動式產生 package.json）</span>
+npm init
 
-<span style="color:#75715e"># 尋找同目錄下的 `package.json`，安裝該檔案內記錄的相依套件
-</span><span style="color:#75715e"></span>npm install
+<span style="color:#75715e"># 尋找同目錄下的 `package.json`，安裝該檔案內記錄的相依套件</span>
+npm install
 
-<span style="color:#75715e"># 安裝 axios 套件，不儲存相依關係。
-</span><span style="color:#75715e"></span>npm install axios
+<span style="color:#75715e"># 安裝 axios 套件，不儲存相依關係。</span>
+npm install axios
 
-<span style="color:#75715e"># 安裝 bluebird 套件，並將相依版號寫入 `package.json` 的 `dependencies` field 中
-</span><span style="color:#75715e"></span>npm install bluebird --save
+<span style="color:#75715e"># 安裝 bluebird 套件，並將相依版號寫入 `package.json` 的 `dependencies` field 中</span>
+npm install bluebird --save
 
-<span style="color:#75715e"># 安裝 mocha、chai 套件，並將相依版號寫入 `package.json` 的 `devDependencies` field 中（開發用套件）
-</span><span style="color:#75715e"></span>npm install mocha chai --save-dev
+<span style="color:#75715e"># 安裝 mocha、chai 套件，並將相依版號寫入 `package.json` 的 `devDependencies` field 中（開發用套件）</span>
+npm install mocha chai --save-dev
 
-<span style="color:#75715e"># 安裝 Globally 的套件，在任何目錄都可直接使用該模組的指令列程式
-</span><span style="color:#75715e"></span>npm install --global yarn
+<span style="color:#75715e"># 安裝 Globally 的套件，在任何目錄都可直接使用該模組的指令列程式</span>
+npm install --global yarn
 
-<span style="color:#75715e"># 移除 bluebird 套件，並從 `package.json` 中移除相依關係
-</span><span style="color:#75715e"></span>npm uninstall bluebird --save
+<span style="color:#75715e"># 移除 bluebird 套件，並從 `package.json` 中移除相依關係</span>
+npm uninstall bluebird --save
 
-<span style="color:#75715e"># 列出 locally（project-wide） 的套件到第一階層（專案的相依套件的相依套件）
-</span><span style="color:#75715e"></span>npm ls --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+<span style="color:#75715e"># 列出 locally（project-wide） 的套件到第一階層（專案的相依套件的相依套件）</span>
+npm ls --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
 
-<span style="color:#75715e"># 列出全域安裝的套件（只列出 user 直接安裝的套件）
-</span><span style="color:#75715e"></span>npm ls --global --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+<span style="color:#75715e"># 列出全域安裝的套件（只列出 user 直接安裝的套件）</span>
+npm ls --global --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
 
-<span style="color:#75715e"># 更新 bluebird 套件至 package.json 內的指定版號
-</span><span style="color:#75715e"></span>npm update bluebird
+<span style="color:#75715e"># 更新 bluebird 套件至 package.json 內的指定版號</span>
+npm update bluebird
 
-<span style="color:#75715e"># 更新 package.json 記錄的套件至指定版號
-</span><span style="color:#75715e"></span>npm update
+<span style="color:#75715e"># 更新 package.json 記錄的套件至指定版號</span>
+npm update
 
-<span style="color:#75715e"># 更新所有全員安裝的套件
-</span><span style="color:#75715e"></span>npm update --global</code></pre></div>
+<span style="color:#75715e"># 更新所有全員安裝的套件</span>
+npm update --global</code></pre></div>
 <blockquote>
 <p>Facebook、Google 幾個大頭在 2016 年 10 月 開源了新一代的 Node.js 套件管理工具 <a href="https://yarnpkg.com/" target="_blank">Yarn</a>，在速度、體驗、介面上皆略勝 npm 一籌。Yarn 也會自動產生 <code>yarn.lock</code> 檔案，精確記錄相依模組的版號，在套件管理上更安全安心，有興趣的童鞋可嘗試看看。</p>
 </blockquote>
@@ -431,8 +431,8 @@ nvm uninstall node
 </ul>
 
 <p>用來執行 <code>package.json</code> 的 <code>scripts</code> field 中的自定義腳本。在執行開始前，<code>npm run</code> 會在既有的 <a href="https://en.wikipedia.org/wiki/PATH_(variable)" target="_blank">PATH</a> 環境變數加上 <code>node_modules/.bin</code>，許多套件提供的 binary 執行檔可以直接執行，不需要再加上 <code>./node_modules/.bin/a-command</code> 等冗長的相對路徑。因此，<code>npm run</code> 常作為 task/test runner、build tools 的入口。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在 `package.json` 裡
-</span><span style="color:#75715e"></span><span style="color:#f92672">{</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在 `package.json` 裡</span>
+<span style="color:#f92672">{</span>
   <span style="color:#e6db74">&#34;scripts&#34;</span>: <span style="color:#f92672">{</span>
     <span style="color:#e6db74">&#34;start&#34;</span>: <span style="color:#e6db74">&#34;echo &#39;Start my node.js app&#39;&#34;</span>,
     <span style="color:#e6db74">&#34;fail&#34;</span>: <span style="color:#e6db74">&#34;echo \&#34;Oops! Failed on </span>$1<span style="color:#e6db74">\&#34;&#34;</span>,
@@ -440,23 +440,23 @@ nvm uninstall node
   <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
 
-<span style="color:#75715e"># 回到終端環境，先安裝相依套件
-</span><span style="color:#75715e"></span>npm install serve
+<span style="color:#75715e"># 回到終端環境，先安裝相依套件</span>
+npm install serve
 
-<span style="color:#75715e"># 等同於執行 `./node_modules/.bin/serve`，開啟一個 local http server
-</span><span style="color:#75715e"></span>npm run serve
-<span style="color:#75715e">### Serving!
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># `--` 可傳入參數等，同執行 `echo &#39;Oops! Failed $1`
-</span><span style="color:#75715e"></span>npm run fail -- Example
-<span style="color:#75715e">### Oops! Failed on Example
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># `start`、`test`、`restart` 等 script 可不透過 `run`，直接使用簡寫執行
-</span><span style="color:#75715e"></span>npm run start
-<span style="color:#75715e">### Start my node.js app
-</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># 等同於執行 `./node_modules/.bin/serve`，開啟一個 local http server</span>
+npm run serve
+<span style="color:#75715e">### Serving!</span>
+
+<span style="color:#75715e"># `--` 可傳入參數等，同執行 `echo &#39;Oops! Failed $1`</span>
+npm run fail -- Example
+<span style="color:#75715e">### Oops! Failed on Example</span>
+
+<span style="color:#75715e"># `start`、`test`、`restart` 等 script 可不透過 `run`，直接使用簡寫執行</span>
+npm run start
+<span style="color:#75715e">### Start my node.js app</span>
+
 npm start
-### Start my node.js app</code></pre></div>
+<span style="color:#75715e">### Start my node.js app</span></code></pre></div>
 <p>除了上述 npm 還有許多功能，族繁不及備載，詳情請參考 <a href="https://docs.npmjs.com/getting-started#cli" target="_blank">npm - Cli Commands</a>。有關 <code>npm run-script</code>，也可以瞧瞧<a href="http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html" target="_blank">這篇教學</a>。</p>
 
 <h2 id="預處理器-轉譯器">預處理器／轉譯器</h2>
@@ -531,14 +531,14 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 <p>可惜又面臨同個問題，目前的瀏覽器／Node.js 環境不一定支援。社群又跳出來，寫了名為 <a href="https://babeljs.io/" target="_blank"><code>Babel</code></a>（借用巴別塔的典故）的 transpiler，將最新的 Javascript 語法，轉換成當前瀏覽器相容的語法。透過 <a href="https://babeljs.io/" target="_blank">Babel</a>，我們可歡樂地使用 ES6 的 class，不必擔心 IE 會 crash 了！</p>
 
 <p>以下介紹 Babel 的簡易設定：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在你的專案目錄底下安裝 babel 套件
-</span><span style="color:#75715e"></span>npm install --save-dev babel-cli babel-preset-env
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在你的專案目錄底下安裝 babel 套件</span>
+npm install --save-dev babel-cli babel-preset-env
 
-<span style="color:#75715e"># 使用預設編輯器開啟 .babelrc（Babel 設定檔）
-</span><span style="color:#75715e"></span>$EDITOR ~/.bash_profile</code></pre></div>
+<span style="color:#75715e"># 使用預設編輯器開啟 .babelrc（Babel 設定檔）</span>
+$EDITOR ~/.bash_profile</code></pre></div>
 <p>在你預設（或者你最喜愛）的編輯器裡，將下列設定加入 <code>.babelrc</code>（Babel 設定檔） 中：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在 .babelrc 中加入下列設定
-</span><span style="color:#75715e"></span><span style="color:#f92672">{</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 在 .babelrc 中加入下列設定</span>
+<span style="color:#f92672">{</span>
   <span style="color:#e6db74">&#34;presets&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;env&#34;</span><span style="color:#f92672">]</span>
 <span style="color:#f92672">}</span></code></pre></div>
 <p>接下來利用你喜愛的 task runner，把你的 code compile 成瀏覽器相容的 javascript 吧！</p>
@@ -564,11 +564,11 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 <p><a href="https://gulpjs.com/" target="_blank">Gulp</a> 是一個直觀易懂的 build system，其概念是利用 Node.js 的 <a href="https://nodejs.org/api/stream.html" target="_blank">stream</a> API，有如 <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)" target="_blank">pipeline</a> 般將檔案傳遞到每個 plugin／transformer 中做對應的任務。而 Gulp 也有豐富的 plugin 生態系，提供許多主流預處理器的 plugin，讓結果如同 stream 一樣容易產出。</p>
 
 <p>以下簡單示範 gulp 安裝與用法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 1. 首先先安裝 Global gulp command-line tool
-</span><span style="color:#75715e"></span>npm install --global gulp-cli
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 1. 首先先安裝 Global gulp command-line tool</span>
+npm install --global gulp-cli
 
-<span style="color:#75715e"># 2. 接著在 project 將 gulp 安裝為 devDependencies
-</span><span style="color:#75715e"></span>npm install --save-dev gulp</code></pre></div>
+<span style="color:#75715e"># 2. 接著在 project 將 gulp 安裝為 devDependencies</span>
+npm install --save-dev gulp</code></pre></div>
 <p>在 project root 新增 gulpfile.js，並寫入這些設定：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 3. gulpfile.js at project root
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gulp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;gulp&#39;</span>);
@@ -578,11 +578,11 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 </span><span style="color:#75715e"></span>});
 </code></pre></div>
 <p>回到終端環境：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 4. 輸入 `gulp`，執行預設的 task：
-</span><span style="color:#75715e"></span>gulp
-<span style="color:#75715e">### [14:20:30] Using gulpfile ~/Documents/gulp-demo/gulpfile.js
-</span><span style="color:#75715e">### [14:20:30] Starting &#39;default&#39;...
-</span><span style="color:#75715e"></span>### <span style="color:#f92672">[</span><span style="color:#ae81ff">14</span>:20:30<span style="color:#f92672">]</span> Finished <span style="color:#e6db74">&#39;default&#39;</span> after <span style="color:#ae81ff">361</span> μs</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 4. 輸入 `gulp`，執行預設的 task：</span>
+gulp
+<span style="color:#75715e">### [14:20:30] Using gulpfile ~/Documents/gulp-demo/gulpfile.js</span>
+<span style="color:#75715e">### [14:20:30] Starting &#39;default&#39;...</span>
+<span style="color:#75715e">### [14:20:30] Finished &#39;default&#39; after 361 μs</span></code></pre></div>
 <p>Gulp 本身的 <a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md" target="_blank">API 不多</a>，語法也很簡單，這邊舉例並說明 <code>gulpfile.js</code> 實例：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 確認有先安裝相依的 babel 套件 與 del 套件
 </span><span style="color:#75715e">// `npm install --save-dev gulp-babel babel-preset-env del`
@@ -606,37 +606,37 @@ $my-horizontal-padding<span style="color:#f92672">:</span> <span style="color:#a
 </span><span style="color:#75715e"></span>});
 </code></pre></div>
 <p>在終端環境下，我們這樣做：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 先寫一個假的 ES6 js file
-</span><span style="color:#75715e"></span>mkdir src
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 先寫一個假的 ES6 js file</span>
+mkdir src
 echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&#39;))() &#34;</span> &gt; src/demo.js
 
-<span style="color:#75715e"># 執行 babel 任務
-</span><span style="color:#75715e"></span>gulp babel
-<span style="color:#75715e">### [14:42:23] Using gulpfile ~/Documents/gulp-babel-demo/gulpfile.js
-</span><span style="color:#75715e">### [14:42:23] Starting &#39;babel&#39;...
-</span><span style="color:#75715e">### [14:42:23] Finished &#39;babel&#39; after 9.31 ms
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># 測試是否正確 compile 成功
-</span><span style="color:#75715e"></span>node src/demo.js
-<span style="color:#75715e">### Hello, world!
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># 清除輸出檔案
-</span><span style="color:#75715e"></span>gulp clean
-<span style="color:#75715e">### [14:56:18] Using gulpfile ~/Documents/gulp-babel-demo/gulpfile.js
-</span><span style="color:#75715e">### [14:56:18] Starting &#39;clean&#39;...
-</span><span style="color:#75715e">### [14:56:18] Finished &#39;clean&#39; after 4.34 ms
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># 測試是否正確清除 `dist` 目錄
-</span><span style="color:#75715e"></span>ls
-<span style="color:#75715e">### gulpfile.js  node_modules package.json src
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># 執行 `gulp`，會先執行 clean（相依任務），再執行 default（預設任務）
-</span><span style="color:#75715e"></span>gulp
-<span style="color:#75715e">### [14:48:30] Using gulpfile ~/Documents/gulp-babel-demo/gulpfile.js
-</span><span style="color:#75715e">### [14:48:30] Starting &#39;clean&#39;...
-</span><span style="color:#75715e">### [14:48:30] Finished &#39;clean&#39; after 12 ms
-</span><span style="color:#75715e">### [14:48:30] Starting &#39;default&#39;...
-</span><span style="color:#75715e"></span>### <span style="color:#f92672">[</span><span style="color:#ae81ff">14</span>:48:30<span style="color:#f92672">]</span> Finished <span style="color:#e6db74">&#39;default&#39;</span> after <span style="color:#ae81ff">9</span>.36 ms</code></pre></div>
+<span style="color:#75715e"># 執行 babel 任務</span>
+gulp babel
+<span style="color:#75715e">### [14:42:23] Using gulpfile ~/Documents/gulp-babel-demo/gulpfile.js</span>
+<span style="color:#75715e">### [14:42:23] Starting &#39;babel&#39;...</span>
+<span style="color:#75715e">### [14:42:23] Finished &#39;babel&#39; after 9.31 ms</span>
+
+<span style="color:#75715e"># 測試是否正確 compile 成功</span>
+node src/demo.js
+<span style="color:#75715e">### Hello, world!</span>
+
+<span style="color:#75715e"># 清除輸出檔案</span>
+gulp clean
+<span style="color:#75715e">### [14:56:18] Using gulpfile ~/Documents/gulp-babel-demo/gulpfile.js</span>
+<span style="color:#75715e">### [14:56:18] Starting &#39;clean&#39;...</span>
+<span style="color:#75715e">### [14:56:18] Finished &#39;clean&#39; after 4.34 ms</span>
+
+<span style="color:#75715e"># 測試是否正確清除 `dist` 目錄</span>
+ls
+<span style="color:#75715e">### gulpfile.js  node_modules package.json src</span>
+
+<span style="color:#75715e"># 執行 `gulp`，會先執行 clean（相依任務），再執行 default（預設任務）</span>
+gulp
+<span style="color:#75715e">### [14:48:30] Using gulpfile ~/Documents/gulp-babel-demo/gulpfile.js</span>
+<span style="color:#75715e">### [14:48:30] Starting &#39;clean&#39;...</span>
+<span style="color:#75715e">### [14:48:30] Finished &#39;clean&#39; after 12 ms</span>
+<span style="color:#75715e">### [14:48:30] Starting &#39;default&#39;...</span>
+<span style="color:#75715e">### [14:48:30] Finished &#39;default&#39; after 9.36 ms</span></code></pre></div>
 <p>欲了解其他 Plugin／用法，可直接 <a href="https://gulpjs.com/" target="_blank">Gulp 官網</a>，或直接搜尋 <code>gulp + &lt;something&gt;</code>，神人都幫你做好了。</p>
 
 <h3 id="webpack">Webpack</h3>
@@ -718,14 +718,14 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 <p>一些 BDD 的測試框架與 BDD 斷言庫也順勢產生，透過語意化的 API，讓測試員更能了解程式到底「幹了啥事」，增添寫測試的樂趣。這裡主要介紹 <a href="https://mochajs.org/" target="_blank">Mocha</a> 測試框架，配合 <a href="http://chaijs.com/" target="_blank">Chai</a> 斷言庫，達成「快樂寫測試，寫測試快樂」的最高境界。</p>
 
 <p><a href="https://mochajs.org/" target="_blank"><code>mocha</code></a> 與 <a href="http://chaijs.com/" target="_blank"><code>chai</code></a> 安裝與使用方法如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝 mocha、chai 兩個套件
-</span><span style="color:#75715e"></span>npm install --save-dev mocha chai
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝 mocha、chai 兩個套件</span>
+npm install --save-dev mocha chai
 
-<span style="color:#75715e"># 建立一個 test 目錄
-</span><span style="color:#75715e"></span>mkdir test
+<span style="color:#75715e"># 建立一個 test 目錄</span>
+mkdir test
 
-<span style="color:#75715e"># 使用預設編輯器開啟 test/test.js（第一個測試檔案）
-</span><span style="color:#75715e"></span>$EDITOR test/test.js</code></pre></div>
+<span style="color:#75715e"># 使用預設編輯器開啟 test/test.js（第一個測試檔案）</span>
+$EDITOR test/test.js</code></pre></div>
 <p>在你預設（或者你最喜愛）的編輯器裡，將下列測試加入 test/test.js</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chai</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;chai&#39;</span>); <span style="color:#75715e">// 引入 `chai`（提供 asset／expect／should 風格斷言）
 </span><span style="color:#75715e"></span>
@@ -741,13 +741,13 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 });
 </code></pre></div>
 <p>回到終端環境，執行以下指令：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 使用 mocha 模組的 command-line tool，進行測試
-</span><span style="color:#75715e"></span>./node_modules/.bin/mocha test/test.js
-<span style="color:#75715e">###  Array
-</span><span style="color:#75715e">###    #indexOf()
-</span><span style="color:#75715e">###      ✓ should include 2
-</span><span style="color:#75715e">###
-</span><span style="color:#75715e"></span>###  <span style="color:#ae81ff">1</span> passing <span style="color:#f92672">(</span>10ms<span style="color:#f92672">)</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 使用 mocha 模組的 command-line tool，進行測試</span>
+./node_modules/.bin/mocha test/test.js
+<span style="color:#75715e">###  Array</span>
+<span style="color:#75715e">###    #indexOf()</span>
+<span style="color:#75715e">###      ✓ should include 2</span>
+<span style="color:#75715e">###</span>
+<span style="color:#75715e">###  1 passing (10ms)</span></code></pre></div>
 <blockquote>
 <p>若希望直接執行 <code>mocha</code> 來測試，不想每次都加上模組路徑，可以
   1. 在全域安裝 <code>mocha</code> 套件 <code>npm install --global mocha</code>
@@ -827,14 +827,14 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
 </ul>
 
 <p>Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 <a href="https://eslint.org/" target="_blank">ESLint</a> 作範例。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝 eslint
-</span><span style="color:#75715e"></span>npm install --save-dev eslint
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝 eslint</span>
+npm install --save-dev eslint
 
-<span style="color:#75715e"># 互動式建置 `.eslint.js` 配置文件
-</span><span style="color:#75715e"></span>./node_modules/.bin/eslint --init
+<span style="color:#75715e"># 互動式建置 `.eslint.js` 配置文件</span>
+./node_modules/.bin/eslint --init
 
-<span style="color:#75715e"># 之後就可以直接用 eslint 來檢查你的程式碼了
-</span><span style="color:#75715e"></span>./node_modules/.bin/eslint path/to/your/file.js</code></pre></div>
+<span style="color:#75715e"># 之後就可以直接用 eslint 來檢查你的程式碼了</span>
+./node_modules/.bin/eslint path/to/your/file.js</code></pre></div>
 <blockquote>
 <p>同樣地，可以在 <code>package.json</code> 加入一個 run-script，方便隨時 lint</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#f92672">:</span> {
@@ -981,7 +981,7 @@ echo <span style="color:#e6db74">&#34; (() =&gt; console.log(&#39;Hello, world!&
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2018 Weihang Lo </p>
+  <p> &copy; 2017-2019 Weihang Lo </p>
 </div>
 
         </div>
