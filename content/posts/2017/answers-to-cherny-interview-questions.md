@@ -64,7 +64,7 @@ Prototype-based 的語言雖沒有真正的 class，但會有類似建構子（c
 | 調用物件的方法 `obj.method`  | 該物件                        |
 | function.call／bind／apply  | 被綁定的物件                  |
 | 透過 `new` 調用 constructor  | 新創建的物件                  |
-| ES6 arrow function         | 該詞法作用域下的 `this`（較直觀）|
+| ES6 arrow function         | 該詞法作用域下的 `this`（較直觀）|   
 
 
 ## What is event bubbling and how does it work?

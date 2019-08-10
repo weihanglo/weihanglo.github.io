@@ -30,9 +30,9 @@ tags:
 
 ## Asynchronous I/O in a nutshell
 
-同步 I/O 程式會執行阻塞性的 I/O 操作，直到操作完成。例如讀取會阻塞至資料抵達，寫入會阻塞執行緒直到欲傳遞的 bytes 送達 kernel。這些操作非常適合依序執行的傳統命令式程式設計。舉例來說，一個 HTTP 伺服器替每個新連線產生一個新執行緒，這個執行緒會讀取資料並阻塞執行緒直到接收完整的 request，之後處理請求，再來阻塞執行緒至資料完全寫入 response。這是個方法非常直觀，缺點是會阻塞執行緒，因此每個連線的執行緒要各自獨立，每個執行緒也需有自己的 stack。然而，執行緒開銷阻礙了伺服器處理大量連線的可延伸性（參閱 [C10k problem][c10k])，對低階系統來說也不易負荷。
+同步 I/O 程式會執行阻塞性的 I/O 操作，直到操作完成。例如讀取會阻塞至資料抵達，寫入會阻塞線程直到欲傳遞的 bytes 送達 kernel。這些操作非常適合依序執行的傳統命令式程式設計。舉例來說，一個 HTTP 伺服器替每個新連線產生一個新線程，這個線程會讀取資料並阻塞線程直到接收完整的 request，之後處理請求，再來阻塞線程至資料完全寫入 response。這是個方法非常直觀，缺點是會阻塞線程，因此每個連線的線程要各自獨立，每個線程也需有自己的 stack。然而，線程開銷阻礙了伺服器處理大量連線的可延伸性（參閱 [C10k problem][c10k])，對低階系統來說也不易負荷。
 
-如果 HTTP server 使用非同步 I/O 開發，換句話說，在同一個執行緒上處理所有 I/O 操作。如此一來，所有活躍的連線以及 socket 監聽都會配置為非阻塞狀態（non-blocking），並在 event loop 中監控讀取與寫入是否就緒，進而在事件發生時分派給對應的處理程式（handler）。而每個連線都需維護自身的狀態與 buffer，如果一個處理程式一次僅能從 200 bytes 的 request 中讀取 100 個位元組（bytes），它就不能等待剩下的 bytes 而造成執行緒阻塞，處理程式必須將部分資料儲存在 buffer 中，設定當前的狀態為「讀取請求中」，並返回給 event loop。待到下一次連線調用的相同的處理程式，它才可讀取剩餘的 bytes 並將狀態轉為「寫入回應中」。如此的資源管理系統將會非常迅速，但同時也產生更複雜的 state machine 與容易出錯的毛病。
+如果 HTTP server 使用非同步 I/O 開發，換句話說，在同一個線程上處理所有 I/O 操作。如此一來，所有活躍的連線以及 socket 監聽都會配置為非阻塞狀態（non-blocking），並在 event loop 中監控讀取與寫入是否就緒，進而在事件發生時分派給對應的處理程式（handler）。而每個連線都需維護自身的狀態與 buffer，如果一個處理程式一次僅能從 200 bytes 的 request 中讀取 100 個位元組（bytes），它就不能等待剩下的 bytes 而造成線程阻塞，處理程式必須將部分資料儲存在 buffer 中，設定當前的狀態為「讀取請求中」，並返回給 event loop。待到下一次連線調用的相同的處理程式，它才可讀取剩餘的 bytes 並將狀態轉為「寫入回應中」。如此的資源管理系統將會非常迅速，但同時也產生更複雜的 state machine 與容易出錯的毛病。
 
 理想中的非同步 I/O 框架應該要提供能寫出近似於同步 I/O 的程式，但底層是 event loop 與 state machine。這對每個語言來說都很不容易，不過 Tokio 的實現已接近了。
 
@@ -63,7 +63,7 @@ Mio 旨在提供一系列低階的 I/O API，允許調用端接收事件，如 s
 
 2. **System selector**。Mio 提供可跨平台的 system selector 訪問，所以 Linux epoll、Windows IOCP、FreeBSD/macOS `kqueue()`，甚至許多有潛力的平台都可調用相同的 API。不同平台使用 Mio API 的開銷不盡相同。由於 Mio 是提供基於 readiness（就緒狀態）的 API，與 Linux epoll 相似，不少 API 在 Linux 上都可以一對一映射。（例如：`mio::Events` 實質上是一個 `struct epoll_event` 陣列。）對比之下，Windows IOCP 是基於完成（completion-based）而非基於 readiness 的 API，所以兩者間會需要較多橋接。Mio 同時提供自身版本的 `std::net` struct 如 `TcpListener`、`TcpStream` 與 `UdpSocket`。這些 API 封裝 `std::net` 版本的 API，預設為非阻塞且提供 `Evented` 實作讓其將 socket 加入 system selector。
 
-3. **Non-system events**。Mio 除了提供從 I/O 所得的 readiness 狀態來源，也可以用來指示從 user-space 來的 readiness 事件（非系統事件）。舉例來說，當一個工作執行緒（worker thread）完成一單位的工作，它就可以向 event loop 發出完成信號。你的程式調用 [`Registration::new2()`][mio-registration-new2] 以取得一個 `(Registration, SetReadiness)` 元組。`Registration` 是一個實作 `Evented` 且藉由 Mio 註冊在 event loop 的物件；而需要指示當前 readiness 狀態時，則會調用 [`SetReadiness::set_readiness`][mio-set_readiness]。在 Linux 上，非系統事件通知以 pipe 實作，當調用 `SetReadiness::set_readiness()` 時，會將 `0x01` 這個位元組寫入 pipe 中。而 `mio::Poll` 底層的 epoll 會配置為監控 pipe 讀取結束，所以 `epoll_wait()` 會解除阻塞，而 Mio 就可以將事件傳遞到調用端。另外，無論註冊多少非系統事件，都只會在 Poll 實例化時建立唯一一個 pipe。
+3. **Non-system events**。Mio 除了提供從 I/O 所得的 readiness 狀態來源，也可以用來指示從 user-space 來的 readiness 事件（非系統事件）。舉例來說，當一個工作線程（worker thread）完成一單位的工作，它就可以向 event loop 發出完成信號。你的程式調用 [`Registration::new2()`][mio-registration-new2] 以取得一個 `(Registration, SetReadiness)` 元組。`Registration` 是一個實作 `Evented` 且藉由 Mio 註冊在 event loop 的物件；而需要指示當前 readiness 狀態時，則會調用 [`SetReadiness::set_readiness`][mio-set_readiness]。在 Linux 上，非系統事件通知以 pipe 實作，當調用 `SetReadiness::set_readiness()` 時，會將 `0x01` 這個位元組寫入 pipe 中。而 `mio::Poll` 底層的 epoll 會配置為監控 pipe 讀取結束，所以 `epoll_wait()` 會解除阻塞，而 Mio 就可以將事件傳遞到調用端。另外，無論註冊多少非系統事件，都只會在 Poll 實例化時建立唯一一個 pipe。
 
 每個 `Evented` 的註冊皆與一個由調用端提供 `usize` 型別的 [`mio::Token`][mio-token] 綁定，這個 token 將會與事件一起返回，以指示出對應的註冊資訊。這種作法很好地映射到 Linux 的 system selector，因為 token 可以放置在 64-bit 的 `epoll_data` union 中，並保持相同的功能。
 
@@ -113,7 +113,7 @@ Mio 旨在提供一系列低階的 I/O API，允許調用端接收事件，如 s
 [mio-poll-poll]: https://docs.rs/mio/0.6.10/mio/struct.Poll.html#method.poll
 
 [mio-registration-new2]: https://docs.rs/mio/0.6.10/mio/struct.Registration.html#method.new2
-[mio-set_readiness]: https://docs.rs/mio/0.6.10/mio/struct.SetReadiness.html#method.set_readiness
+[mio-set_readiness]: https://docs.rs/mio/0.6.10/mio/struct.SetReadiness.html#method.set_readiness 
 [mio-token]: https://docs.rs/mio/0.6.10/mio/struct.Token.html
 
 ## Futures and Tasks
@@ -146,11 +146,11 @@ pub fn wait_future(&mut self) -> Result<F::Item, F::Error> {
 }
 ```
 
-給定一個融合 task 與 future 的 [`futures::executor::Spawn`][futures-executor-spawn] 物件，這個 executor 在迴圈中調用 [`poll_future_notify`][poll-future-notify]。這個 `Notify` 會成為 task 執行語彙環境的一部分，future 也會被輪詢。如果一個 future `poll` 方法回傳 `Async::NotReady`，表示 future 仍等待中，必須在往後再次輪詢。`Notify` object 會從 [`futures::task::current()`][futures-task-current] 取得一個指向 task 的 handle，且在 future 有些進展時調用 [`notify()`][futures-task-notify] 方法。（當一個 future 被輪詢時，與該 future 相關的 task 訊息將會儲存到 thread-local 中，thread-local 可以透過 `current()` 存取取得。）上例中，如果輪詢回傳 `Async::NotReady`，executor 會阻塞至接收到通知。也許 future 在其他執行緒運算，在完成時調用 `notify()`；或是 `poll()` 方法在返回 `Asynx::NotReady` 之前，自身直接調用了 `notify()`（後者並不常見，因為理論上一個 `poll()` 在返回之前應該持續取得進展）。 
+給定一個融合 task 與 future 的 [`futures::executor::Spawn`][futures-executor-spawn] 物件，這個 executor 在迴圈中調用 [`poll_future_notify`][poll-future-notify]。這個 `Notify` 會成為 task 執行語彙環境的一部分，future 也會被輪詢。如果一個 future `poll` 方法回傳 `Async::NotReady`，表示 future 仍等待中，必須在往後再次輪詢。`Notify` object 會從 [`futures::task::current()`][futures-task-current] 取得一個指向 task 的 handle，且在 future 有些進展時調用 [`notify()`][futures-task-notify] 方法。（當一個 future 被輪詢時，與該 future 相關的 task 訊息將會儲存到 thread-local 中，thread-local 可以透過 `current()` 存取取得。）上例中，如果輪詢回傳 `Async::NotReady`，executor 會阻塞至接收到通知。也許 future 在其他線程運算，在完成時調用 `notify()`；或是 `poll()` 方法在返回 `Asynx::NotReady` 之前，自身直接調用了 `notify()`（後者並不常見，因為理論上一個 `poll()` 在返回之前應該持續取得進展）。 
 
 Tokio 的 event loop 行為上比簡單整合「 Mio 事件驅動 future 完成」來得精細。舉例來說，一個 Mio event 表示一個 socket 的 readiness（就緒狀態），最後會產生一個通知，足以告知相對應的 future 需要輪詢。
 
-處理 future 時，Task 是最基礎的執行單元，且基本上就是[綠色執行緒][wiki-green-threads]，提供[協調式多工][wiki-cooperative-multitasking]，允許在同一個系統執行緒有多個執行語彙環境。當一個 task 無法有所進展，會讓處理器先處理其他可執行的 task。我們必須理解的是，「通知」會發生在 task 層級而非 future 層級。當一個 task 被通知時，它會輪詢它連結的最高層級的 future，這會導致任何或是全部的 child future 同樣被輪詢。例如，如果一個 task 最高層級的 future 是一個以 [`join_all`][futures-join-all] 組合的十個 future，而其中一個 future 安排要通知此一 task，則無論需不需要，全部十個 future 皆須接受輪詢。
+處理 future 時，Task 是最基礎的執行單元，且基本上就是[綠色線程][wiki-green-threads]，提供[協調式多工][wiki-cooperative-multitasking]，允許在同一個系統線程有多個執行語彙環境。當一個 task 無法有所進展，會讓處理器先處理其他可執行的 task。我們必須理解的是，「通知」會發生在 task 層級而非 future 層級。當一個 task 被通知時，它會輪詢它連結的最高層級的 future，這會導致任何或是全部的 child future 同樣被輪詢。例如，如果一個 task 最高層級的 future 是一個以 [`join_all`][futures-join-all] 組合的十個 future，而其中一個 future 安排要通知此一 task，則無論需不需要，全部十個 future 皆須接受輪詢。
 
 [wiki-futures]: https://wikipedia.org/wiki/Futures_and_promises
 [futures-Future]: https://docs.rs/futures/0.1.17/futures/future/trait.Future.html
@@ -192,7 +192,7 @@ Tokio 版本的 I/O 來源型別的建構子都需要傳入 event loop 的 handl
 
 Tokio 在 Mio 上註冊了許多 `Evented` 型別，儲存在特定的 token 上：
 
-- **Token 0（`TOKEN_MESSAGES`）**：用於 Tokio 內部的消息佇列（message queue），這個佇列提供移除 I/O 來源、接收讀寫 readiness 通知的 task 排程，設定 timeout，以及執行在 event loop 語彙環境中的任意閉包。這個 token 可以安全地從其他執行緒與 event loop 溝通。例如，[`Remote::spawn()`][tokio-spawn] 透過訊息系統，將 future 送達 event loop。
+- **Token 0（`TOKEN_MESSAGES`）**：用於 Tokio 內部的消息佇列（message queue），這個佇列提供移除 I/O 來源、接收讀寫 readiness 通知的 task 排程，設定 timeout，以及執行在 event loop 語彙環境中的任意閉包。這個 token 可以安全地從其他線程與 event loop 溝通。例如，[`Remote::spawn()`][tokio-spawn] 透過訊息系統，將 future 送達 event loop。
 
     實作上，消息佇列是一個 [`futures::sync::mpsc`][futures-mpsc] stream。身為一個 [`futures::stream::Stream`][futures-stream]（與 future 類似，但是產生一序列的值而非單一值），消息佇列使用上述 `MySetReadiness` 方案來處理，而 `Registration` 則是以 `TOKEN_MESSAGES` 這個 token 註冊。當接收到 `TOKEN_MESSAGES` 事件時，該事件會分派到 `consume_queue()` 方法進一步處理。（原始碼：[`enum Message`][tokio-reactor-enum-message]、[`consume_queue()`][tokio-reactor-consume-queue]）
 - **Token 1（`TOKEN_FUTURE`）**：用於通知 Tokio 需要輪詢 main task。這個 token 會在與 main task 相關聯的通知上（也就是傳入 `Core::run()` 的 future 或它的子 future，而非透過 `spawn()` 在不同 task 中執行的 future）。這個事件同樣用了 `MySetReadiness` 方案將 future 轉譯成 Mio 的事件。在一個 future 被 main task 執行前，會先回傳 `Async::NotReady`，並以其所選的方式在稍後發布通知。當接收了 `TOKEN_FUTURE` 事件，Tokio event loop 就會再次輪詢 main task。
@@ -234,7 +234,7 @@ Tokio event loop 調用 `mio::Poll:poll()`，該方法轉而調用 `epoll_wait()
 
 在 Tokio event loop 往下一個迭代前進之前，它會再次輪詢 Mio，Mio 則調用 `epoll_wait()`，而 `epoll_wait()` 這次返回一個在 Mio 的 readiness pipe 上發生的讀取 readiness 事件。Mio 讀取之前寫入的 `0x01`，並從 readiness 佇列取出最前端（dequeue）的非系統事件資料，並將這個事件回傳到 Tokio。由於該事件的 token 是大於 1 的奇數 token，Tokio 辨識其為 task 通知事件，並從 `Slab<ScheduledTask>` 中尋找對應的元素，以取得 task 從 `spawn()` 回傳的最原始的 `Spawn` 物件。接下來，Tokio 透過 [`poll_future_notify()`][futures-spawn-poll-future-notify] 輪詢這個 task 與它的 future，這個 future 可能會從 socket 讀取資料，直至得到 `WouldBlock` 錯誤。
 
-這個二迭代的方法涉及了 pipe 讀寫，對比其他非同步 I/O event loop，可能會有一點額外開銷。如果在一個單執行緒的程式中，使用 `strace` 會看到一個執行緒用 pipe 與自己溝通，很是奇怪：
+這個二迭代的方法涉及了 pipe 讀寫，對比其他非同步 I/O event loop，可能會有一點額外開銷。如果在一個單線程的程式中，使用 `strace` 會看到一個線程用 pipe 與自己溝通，很是奇怪：
 
 ```c
 pipe2([4, 5], O_NONBLOCK|O_CLOEXEC) = 0
@@ -250,7 +250,7 @@ epoll_wait(3, [], 1024, 0) = 0
 epoll_wait(3, 0x7f5765b24000, 1024, -1) = -1 EINTR (Interrupted system call)
 ```
 
-Mio 選用 pipe 的方案來支持通用性，以防 `set_readiness()` 可能被其他執行緒調用。也有可能這種作法對強制實施公平的事件調節與維持 futures 與 I/O 的間接層有所幫助。
+Mio 選用 pipe 的方案來支持通用性，以防 `set_readiness()` 可能被其他線程調用。也有可能這種作法對強制實施公平的事件調節與維持 futures 與 I/O 的間接層有所幫助。
 
 [futures-spawn-poll-future-notify]: https://docs.rs/futures/0.1.17/futures/executor/struct.Spawn.html#method.poll_future_notify
 
@@ -301,7 +301,7 @@ epoll_wait(3, 0x7f2a11c36000, 1024, -1) = ...
 我仍有些問題待日後研究：
 
 - Tokio 有處理 edge triggering（Linux `epoll`）的飢餓問題（starvation problem）嗎？我認為這個問題可以在 future 中，以單一一個 `poll()` 限制讀 / 寫的數量。當達到這個限制時，future 可以在顯式通知當前 task 提前返回，而非依靠 Tokio I/O 來源類型的隱式「`WouldBlock` 排程」行為。因此這使得其他 task 與 future 有機會有所進展。
-- Tokio 是否不依賴於將工作卸載給工作執行緒（worker thread）以最大化處理器核心運用，而是直接支援多執行緒環境下執行 event loop 嗎？
+- Tokio 是否不依賴於將工作卸載給工作線程（worker thread）以最大化處理器核心運用，而是直接支援多線程環境下執行 event loop 嗎？
 
 > **2017-12-19 更新**：這裡有 Reddit 對話串討論本文。Mio 的作者 Carl Lerche 在[這裡][reddit-comment-1]和[這裡][reddit-comment-2]貼了些資訊量充足的留言。除了回應上述問題，他也點出 [`FuturesUnordered`][futures-stream-futures-unordered] 是一種合成 futures 的方法，只有相關的 child future 會被輪詢，以避免所有 future 像使用 `join_all()` 全部輪詢，不過這方法有些額外的記憶體配置開銷要衡量。另外，未來的 Tokio 將要遷離 `mio::Registration` 的通知方案，目的是簡化前述一些步驟。
 > <!-- -->
