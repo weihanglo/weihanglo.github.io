@@ -42,7 +42,7 @@ Async functions 的目的在於簡化多個 promise 操作，不需要再串聯�
 
 ## Generator With Async Operations
 
-在 async／await 還沒出世之前，generator function 是非同步程式設計的最新潮的替代品，TJ 的 [co][tj-co] 與 Facebook 的 [regenerator][facebook-regenerator] 這兩個 libraries 都擁有高人氣。藉由 [Coroutine（協程）][wiki-coroutine] suspend／resume 的機制，讓開發非同步 JS 可以避開多線程煩人的 context-switch、dead lock，能用很直觀的方式撰寫程式。當然，coroutine 仍是在同個 thread 上面執行，並非真實的 parallel computing，不過 browser 這種常出現 I／O 的場景中，coroutine 已綽綽有餘了。
+在 async／await 還沒出世之前，generator function 是非同步程式設計的最新潮的替代品，TJ 的 [co][tj-co] 與 Facebook 的 [regenerator][facebook-regenerator] 這兩個 libraries 都擁有高人氣。藉由 [Coroutine（協程）][wiki-coroutine] suspend／resume 的機制，讓開發非同步 JS 可以避開多執行緒煩人的 context-switch、dead lock，能用很直觀的方式撰寫程式。當然，coroutine 仍是在同個 thread 上面執行，並非真實的 parallel computing，不過 browser 這種常出現 I／O 的場景中，coroutine 已綽綽有餘了。
 
 **我只是想了解 async function 怎麼用，為什麼還要學 coroutine 和 generator？不會太複雜嗎？**
 

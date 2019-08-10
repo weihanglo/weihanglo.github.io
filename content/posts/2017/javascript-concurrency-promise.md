@@ -10,7 +10,7 @@ date: 2017-06-12T23:02:43+08:00
 
 ![](https://cdn.rawgit.com/promises-aplus/promises-spec/master/logo.svg)
 
-所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
+所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多執行緒（Multi-threading）分散主執行緒（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單執行緒（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，執行緒不至完全阻塞，或多或少彌補了單執行緒的不足。
 
 眾所周知，[Concurrency is hard！][concurrency-joke]設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 **Promise** 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到~~另一個煉獄~~人間。
 
