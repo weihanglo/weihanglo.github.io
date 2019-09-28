@@ -23,7 +23,7 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Endianness'><meta property='article:tag' content='Binary Data'><meta property='article:tag' content='Memory Alignment'><meta property='article:published_time' content='2017-09-03T23:35:55&#43;08:00'/><meta property='article:modified_time' content='2017-09-03T23:35:55&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.58.3" />
 
   <title>使用 JavaScript 處理二進位資料 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/'>
@@ -181,7 +181,7 @@ if (!doNotTrack) {
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/path/to/柯P火影.gif&#39;</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buffer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">arrayBuffer</span>() <span style="color:#75715e">// 取得 ArrayBuffer 實例
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">buffer</span>.<span style="color:#a6e22e">byteLength</span>) <span style="color:#75715e">// 查看當前這個 ArrayBuffer 有多少 bytes。
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>當然，也可以透過 <code>File</code> 與 <code>FileReader</code> API，讀取使用者上傳的資料。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;input&#39;</span>)
 <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#a6e22e">handleFiles</span>, <span style="color:#66d9ef">false</span>);
@@ -303,7 +303,7 @@ if (!doNotTrack) {
 
 <p>我們也可以從其他 TypedArray 建立相同長度的 TypedArray，會指向同一個 buffer。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">u8</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">u16</span>) <span style="color:#75715e">// length of u8 is 4
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>這樣會建立一個新的型別 array，但記憶體區塊不變。我們的例子中，u8 因為溢位的緣故（overflow），自動過濾偶數 bytes（或奇數，視 <a href="https://en.wikipedia.org/wiki/Endianness" target="_blank">endianness</a> 而定），僅顯示餘下 4 個 bytes 的資料，記憶體位址變得不連續。</p>
 
 <p><strong>從 ArrayBuffer 建立</strong></p>
@@ -328,7 +328,7 @@ if (!doNotTrack) {
 <p>每個語言實作不盡相同，TypedArray 的溢位處理規則和多數語言相同：<strong>捨棄溢出的 high bits。</strong> 我們來看簡單的例子。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">Uint8Array</span>.<span style="color:#66d9ef">of</span>(<span style="color:#ae81ff">0xff</span>, <span style="color:#ae81ff">0x100</span>)
 <span style="color:#75715e">// Unit8Array [255, 0]
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>第一個例子中，我們選用 Uint8Array，一個元素最多儲存 8 bits 的資料，第二個元素是 256，需要第 9 bit 來儲存，因此溢位。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 255，至少需要 8 bits 儲存
 </span><span style="color:#75715e"></span><span style="color:#ae81ff">0b11111111</span>
@@ -339,7 +339,7 @@ if (!doNotTrack) {
 </span><span style="color:#75715e">// 捨棄的方式同於 bitwise or `&amp; 0xFF`
 </span><span style="color:#75715e"></span><span style="color:#ae81ff">0x100</span> <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>
 <span style="color:#75715e">// 0
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <blockquote>
 <p>Note：underflow 的處理方式與 overflow 相同。</p>
 </blockquote>
@@ -351,14 +351,14 @@ if (!doNotTrack) {
 <span style="color:#75715e">// Unit8Array [255, 0, 156]
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">Uint8ClampedArray</span>.<span style="color:#66d9ef">of</span>(<span style="color:#ae81ff">0xff</span>, <span style="color:#ae81ff">0x100</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>)
 <span style="color:#75715e">// Uint8ClampedArray [255, 255, 0]
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>這有什麼好處呢？在影像處理上非常方便。有個很常舉的例子，有 3 bytes 的 Uint8Array 存放 RGB 色碼，我們想要增加他的 gamma factor，如果使用 Uint8Array 儲存：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 必須自行限制大小，防止 ooverflow／underflow。
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">u8</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(<span style="color:#ae81ff">0</span>, Math.<span style="color:#a6e22e">min</span>(<span style="color:#ae81ff">255</span>, <span style="color:#a6e22e">u8</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">gamma</span>)) <span style="color:#75715e">// u8 是一個 Uint8Array
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>如果是 <code>Uint8ClampedArray</code>，只需要直接乘上 gammer factor，非常方便。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">pixels</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">*=</span> <span style="color:#a6e22e">gamma</span> <span style="color:#75715e">// pixels 是一個 Uint8ClampedArray
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <h3 id="composite-data-structure">Composite Data Structure</h3>
 
 <p>當需處理類似 C struct 的複合資料結構，如下所示</p>
@@ -389,7 +389,7 @@ if (!doNotTrack) {
 <span style="color:#75715e">// 從 byte offset 8 的位址開始寫入 Float32 的資料
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">dv</span>.<span style="color:#a6e22e">setFloat32</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">200000</span>, <span style="color:#66d9ef">true</span>)
 <span style="color:#a6e22e">dv</span>.<span style="color:#a6e22e">getFloat32</span>(<span style="color:#ae81ff">8</span>, <span style="color:#66d9ef">true</span>) <span style="color:#75715e">// 加薪囉！！
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>各位有沒有注意到，DataView 的 bytes getter／setter 最後面都多帶了一個 boolean 參數？這個參數是指定使用 Little-endian 讀取資料，預設為 <code>false</code> 也就是以 Big-endian 讀取。可控制 endian 是 DataView 蠻重要但也頗惱人的特性，在下一節會介紹 Endianness。</p>
 
 <p>DataView 另一個重要特性就是不會 <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank">buffer overflow</a>，所謂的 buffer overflow 是「<strong>當寫入一筆資料到指定 buffer 中，若寫入的資料大小超過該 buffer 的 boundary，溢出值就會覆寫下個 byte</strong>」。這種不安全的性質，也讓 buffer overflow 成為許多駭客的攻擊手法，有潛在的安全性問題。而透過 DataView setter 賦予一個超過型別最大值的數字，並不會覆蓋臨近記憶體位址的資料，而是內部先檢查邊界，處理 overflow 之後，再寫入該記憶體區間，彌補了 buffer overflow 的漏洞。</p>
@@ -496,7 +496,7 @@ i = int 所佔的 byte
 <span style="color:#75715e">// RangeError: start offset of Uint16Array should be a multiple of 2
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint32Array</span>(<span style="color:#a6e22e">buffer</span>, <span style="color:#ae81ff">0</span>)
 <span style="color:#75715e">// RangeError: byte length of Uint32Array should be a multiple of 4
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>所以囉，當我們在設計複合資料時，想想對應的 C struct alignment，多考量記憶體底層，才不會讓操作 binary data 產生效能低落的反效果。</p>
 
 <h2 id="others">Others</h2>
@@ -557,7 +557,7 @@ i = int 所佔的 byte
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/endianness/'>Endianness</a>, <a class='tag' href='/tags/binary-data/'>Binary Data</a>, <a class='tag' href='/tags/memory-alignment/'>Memory Alignment</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/endianness/'>Endianness</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">

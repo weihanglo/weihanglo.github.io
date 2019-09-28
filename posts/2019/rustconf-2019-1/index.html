@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='RustConf 是 Rust 社群年度最重要的研討會之一，從 Rust 在 2015 年 1.0 版正式發布之後，2016、2017、2018 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球迷稱作 Rip City 的波特蘭舉行。由於歷史悠久，加上 Rust 社群在美國較為活躍，許多 Rust Core Team 成員都會共襄盛舉，這場研討會是 Rust 開發者絕對不能錯過的盛事。
+RustConf 歷年來皆由 Tilde Inc. 旗下的 Skylight 主辦，Skylight 是一個 Rails profiler in production 的解決方案，產品中關鍵的模組用了不少 Rust。
+好了，介紹完背景，這篇文章主要是紀錄小弟我「在 YouTube 上」觀看演講的心得分享，當然，RustConf 除了主要的演講軌，還有不少場邊工作坊等小活動，這就留給看倌明年到實地考察啦！
+目錄  這篇文章僅為部分心得，陸續更新中。
+    不負責任中譯講題 內容摘要     ✅ Rust 慣老闆們如何管理 Rust 社群 回顧 Rust 過去一年成就，現在如何治理 Rust 團隊與社群，又遭遇什麼困難   ✅ Rust 大法好，統一資料科學沒煩惱 資料科學工具 Weld 底層 JIT compiler 與 Runtime 技術選型與演進過程   ✅ 鏽媳婦也得見公婆的臉書 Facebook 內部的 Rust 生態現況與如何推廣   ✅ Constant Evaluation 的五十道陰影 const eval 目前開發狀況與未來藍圖   ✅ 用 Rust 後依舊慢的 Electron MongDB Compass 用 Rust &#43; WASM 開發 Electron 心得    Opening Keynote 回到目錄'>
+<meta name='theme-color' content='#ffcd00'>
+
+<meta property='og:title' content='RustConf 2019 雲參訪錄（1） • Weihang Lo'>
+<meta property='og:description' content='RustConf 是 Rust 社群年度最重要的研討會之一，從 Rust 在 2015 年 1.0 版正式發布之後，2016、2017、2018 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球迷稱作 Rip City 的波特蘭舉行。由於歷史悠久，加上 Rust 社群在美國較為活躍，許多 Rust Core Team 成員都會共襄盛舉，這場研討會是 Rust 開發者絕對不能錯過的盛事。
+RustConf 歷年來皆由 Tilde Inc. 旗下的 Skylight 主辦，Skylight 是一個 Rails profiler in production 的解決方案，產品中關鍵的模組用了不少 Rust。
+好了，介紹完背景，這篇文章主要是紀錄小弟我「在 YouTube 上」觀看演講的心得分享，當然，RustConf 除了主要的演講軌，還有不少場邊工作坊等小活動，這就留給看倌明年到實地考察啦！
+目錄  這篇文章僅為部分心得，陸續更新中。
+    不負責任中譯講題 內容摘要     ✅ Rust 慣老闆們如何管理 Rust 社群 回顧 Rust 過去一年成就，現在如何治理 Rust 團隊與社群，又遭遇什麼困難   ✅ Rust 大法好，統一資料科學沒煩惱 資料科學工具 Weld 底層 JIT compiler 與 Runtime 技術選型與演進過程   ✅ 鏽媳婦也得見公婆的臉書 Facebook 內部的 Rust 生態現況與如何推廣   ✅ Constant Evaluation 的五十道陰影 const eval 目前開發狀況與未來藍圖   ✅ 用 Rust 後依舊慢的 Electron MongDB Compass 用 Rust &#43; WASM 開發 Electron 心得    Opening Keynote 回到目錄'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2019/rustconf-2019-1/'>
+<meta property='og:site_name' content='Weihang Lo'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Rust'><meta property='article:published_time' content='2019-09-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2019-09-29T00:00:00&#43;08:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.58.3" />
+
+  <title>RustConf 2019 雲參訪錄（1） • Weihang Lo</title>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2019/rustconf-2019-1/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-118441906-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+
+</head>
+
+
+<body class='page type-posts'>
+
+  <div class='site'>
+
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+    <div class='main'>
+
+      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/posts/'>Posts</a>
+      </li><li class='item'>
+        <a href='/tags/'>Tags</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li></ul>
+  </div>
+</nav>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Weihang Lo</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>RustConf 2019 雲參訪錄（1）</h1>
+      
+
+    </div>
+    
+<div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2019-09-29T00:00:00&#43;08:00'>2019, Sep 29</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+8 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<p><img src="rustconf-logo.svg" alt="" /></p>
+
+<p><a href="rustconf" target="_blank">RustConf</a> 是 Rust 社群年度最重要的研討會之一，從 <a href="https://blog.rust-lang.org/2015/05/15/Rust-1.0.html" target="_blank">Rust 在 2015 年 1.0 版正式發布</a>之後，<a href="https://2016.rustconf.com" target="_blank">2016</a>、<a href="https://2017.rustconf.com" target="_blank">2017</a>、<a href="https://2018.rustconf.com" target="_blank">2018</a> 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球迷稱作 Rip City 的波特蘭舉行。由於歷史悠久，加上 Rust 社群在美國較為活躍，許多 Rust Core Team 成員都會共襄盛舉，這場研討會是 Rust 開發者絕對不能錯過的盛事。</p>
+
+<p>RustConf 歷年來皆由 <a href="https://tilde.io" target="_blank">Tilde Inc.</a> 旗下的 <a href="https://skylight.io" target="_blank">Skylight</a> 主辦，Skylight 是一個 Rails profiler in production 的解決方案，產品中關鍵的模組用了不少 Rust。</p>
+
+<p>好了，介紹完背景，這篇文章主要是紀錄小弟我「在 YouTube 上」觀看演講的心得分享，當然，RustConf 除了主要的演講軌，還有不少場邊工作坊等小活動，這就留給看倌明年到實地考察啦！</p>
+
+<h2 id="目錄">目錄</h2>
+
+<blockquote>
+<p>這篇文章僅為部分心得，陸續更新中。</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>不負責任中譯講題</th>
+<th>內容摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>✅ <a href="#opening-keynote">Rust 慣老闆們如何管理 Rust 社群</a></td>
+<td>回顧 Rust 過去一年成就，現在如何治理 Rust 團隊與社群，又遭遇什麼困難</td>
+</tr>
+
+<tr>
+<td>✅ <a href="#rust-for-weld-a-high-performance-parallell-jit-compiler">Rust 大法好，統一資料科學沒煩惱</a></td>
+<td>資料科學工具 Weld  底層 JIT compiler 與 Runtime 技術選型與演進過程</td>
+</tr>
+
+<tr>
+<td>✅ <a href="#bringing-rust-home-to-meet-the-parents">鏽媳婦也得見公婆的臉書</a></td>
+<td>Facebook 內部的 Rust 生態現況與如何推廣</td>
+</tr>
+
+<tr>
+<td>✅ <a href="#taking-constant-evaluation-to-the-limit">Constant Evaluation 的五十道陰影</a></td>
+<td>const eval 目前開發狀況與未來藍圖</td>
+</tr>
+
+<tr>
+<td>✅ <a href="#from-electron-to-wasm-to-rust-aaand-back-to-electron">用 Rust 後依舊慢的 Electron</a></td>
+<td>MongDB Compass 用 Rust + WASM 開發 Electron 心得</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="opening-keynote">Opening Keynote</h2>
+
+<p><a href="#目錄">回到目錄</a></p>
+
+<ul>
+<li>講者：Steve Klabnik &amp; Florian Gilcher (<a href="https://github.com/steveklabnik" target="_blank">@steveklabnik</a> &amp; <a href="https://github.com/skade" target="_blank">@skade</a>)</li>
+<li>難度：⭑⭐︎⭐︎</li>
+<li><a href="https://youtu.be/FSrQX4uYuOM" target="_blank">演講連結</a></li>
+</ul>
+
+<p>由 Rust Core Team 給的開場 Keynote，主軸有兩個：</p>
+
+<ol>
+<li>Rust 過去一年耕耘成果</li>
+<li>開源社群治理遇到的各種挑戰</li>
+</ol>
+
+<h3 id="rust-過去的成果">Rust 過去的成果</h3>
+
+<p>開場先上個圖：</p>
+
+<p><img src="image-20190927222030698.png" alt="" /></p>
+
+<p>講者直接強調雖然這個推特很有趣，但是 Rust 是社群為主的團體，不會有這種 Top-Down 的決策出現。</p>
+
+<p>因為這場演講的資訊較為分散，這裡僅條列我覺得有趣重要的：</p>
+
+<ul>
+<li><strong>關於講者：</strong>Steve 和 Florian 在貢獻 Rust 之前都是活躍的 Ruby/Rails 社群成員，很愛研討會的 Florian 甚至有舉辦過柏林的 Ruby 研討會。此外，有個秘密：Steve 就是 Twitter 的 <a href="https://twitter.com/rustlang" target="_blank">rustlang</a>。</li>
+<li><strong>關於 Stackoverflow 最受寵愛的語言：</strong>Rust 連續四年，而且 userbase 不斷上升，已逐漸脫離小眾語言衝高滿意度的境況。</li>
+<li><strong>關於研討會：</strong>除了 RustConf、RustFest、Rust Belt Rust，今年多了七場大型 Conference，遍佈南美、日本、中國、義大利、俄羅斯，甚至是專門的嵌入式 Rust 研討會，小弟有幸參與了 <a href="http://weihanglo.tw/slides/rustcon-asia-2019.html#1" target="_blank">RustCon Asia</a>。（據說大部分的研討會都是 old Rubyist 主辦）
+<img src="image-20190927225837761.png" style="zoom: 33%;" /></li>
+<li><strong>關於成就：</strong><a href="https://this-week-in-rust.org/" target="_blank">This Week in Rust</a> 破三百期了、async/.await 1.39 會穩定、Rust team 現在有超過 200 名成員。</li>
+</ul>
+
+<h3 id="organizational-challenges">Organizational Challenges</h3>
+
+<p>Rust 開源專案越來越大，管理工作顯得越來越重要，Core Team 的兩位特別開闢這個章節，講述 Rust 專案目前遇到的各種困難和挑戰，希望有志之士一同來貢獻。</p>
+
+<p>這裡同樣重點條列式：</p>
+
+<ul>
+<li><strong>Rust 已漸脫離 Mozilla 掌握：</strong>超過 75% 的大型 Rust 專案不是 Mozillan 做的，</li>
+<li><strong>表揚隱形貢獻者：</strong>許多貢獻者不是透過寫程式的方式貢獻 Rust，例如舉辦 meetup，或是在公司內部推廣，這些都是一種貢獻，要如何表揚這群人並不容易。</li>
+
+<li><p><strong>建立新工作群組與架構變成愈趨重要：</strong>一個開源專案成長後長大需要區分類似 staff employee/line employee 的角色，需要透過嚴謹的工程分工，才讓專案能更順利發展。</p></li>
+
+<li><p><strong>Rust 套件、框架與夥伴的合法性浮上檯面：</strong>有人可能覺得 side project 上傳到 crates.io 沒問題，但處處可能有法律上或產權上的爭議。</p></li>
+
+<li><p><strong>不同的溝通模式：</strong>每個 Rustacean 想要的溝通方式不一致，在最外圈 Orbit 4 可能只是想要 get job done，但 obrit 1 的朋友卻想要和 Rust Core Team 深談。
+<img src="image-20190927232856410.png" style="zoom:25%;" /></p></li>
+</ul>
+
+<h3 id="pragmatic-active-results-based-project">Pragmatic, Active, Results-Based Project</h3>
+
+<p>最後，Rust 團隊引出了這場演講最重要的一張投影片，讓 Rustacean 了解管理團隊的發展方向：希望讓 Rust 成為一個「A pragmatic, active, and results-based project」。</p>
+
+<ul>
+<li><strong>Pragmatic：</strong>計畫和解法要有可觸及效益，且這個法是生根在整個專案中。</li>
+<li><strong>Active：</strong>持續自內改善組織架構，而非一味回應外界刺激。</li>
+<li><strong>Results based：</strong>檢驗每個決定動作帶來的結果，並廣納回饋與意見。</li>
+</ul>
+
+<blockquote>
+<p>後記：其實有在跟 Rust 社群動態的 Rustacean 對過去一年做了什麼並不陌生，但是開源社群治理是較少人注重的領域，很明顯感受 Rust 團隊在符合社群期待和達成優秀軟體工程流程之中拉扯，也持續徵求更多人來做專案管理。</p>
+</blockquote>
+
+<h2 id="rust-for-weld-a-high-performance-parallell-jit-compiler">Rust for Weld, a High Performance Parallell JIT Compiler</h2>
+
+<p><a href="#目錄">回到目錄</a></p>
+
+<ul>
+<li>講者：Shoumik Palkar (<a href="https://github.com/sppalkia" target="_blank">@sppalkia</a>)</li>
+<li>難度：⭑⭑⭑</li>
+<li><a href="https://youtu.be/AZsgdCEQjFo" target="_blank">演講連結</a></li>
+<li><a href="https://weld.rs" target="_blank">專案連結</a></li>
+<li><a href="https://notamonadtutorial.com/weld-accelerating-numpy-scikit-and-pandas-as-much-as-100x-with-rust-and-llvm-12ec1c630a1" target="_blank">專訪連結</a></li>
+<li><a href="https://cs.stanford.edu/~matei/papers/2017/cidr_weld.pdf" target="_blank">Palkar, Shoumik, et al. &ldquo;Weld: A common runtime for high performance data analytics.&rdquo; <em>Conference on Innovative Data Systems Research (CIDR)</em>. 2017.</a></li>
+</ul>
+
+<p>本場演講介紹 <a href="https://weld.rs" target="_blank">Weld</a> 這個大型專案的背景與架構，非常簡潔扼要，且很清楚傳達專案目標，<strong>極推薦觀看</strong>。</p>
+
+<p>Weld 是一個高效能的 Runtime + JIT Compiler，目標是加速已碎片化的資料分析函式（例如 Numpy、Pandas），現在也能針對更通用的場景平行加速。</p>
+
+<p>講者 Shoumik Palkar 是史丹佛大學的 Ph. D，師承 Scala 創造者 <a href="https://github.com/mateiz" target="_blank">Matei Zaharia</a>，可謂大神出自大神。</p>
+
+<h3 id="既生-numpy-何生-weld">既生 Numpy，何生 Weld？</h3>
+
+<p>演講一開始就點出創造 Weld 的目標（絕對不是找不到論文題目）：當前資料分析工具的的最佳化多半針對個別函式（per function basis），不同功能的函式往往自成一個函式庫，這種現象雖然有利於更多貢獻者加入，但是不同函式、不同函式庫間的最佳化非常匱乏。小弟我擅自將這種現象稱為「Optimization Fragmentation 」（自作聰明）。</p>
+
+<p>例如下面例子，就算是 Pandas 和 Numpy 這麼常溝通的套件，兩者之間並沒用 <code>Iterator</code> trait 這種 lazy evaluation 抽象，導致整個 data frame 每一步都會重新計算，簡直 memory eater。</p>
+
+<p><img src="image-20190926210646484.png" alt="" /></p>
+
+<p>而 Weld 的目標就是解決 cross-function 的最佳化，Weld 是一個通用的資料分析 Runtime，輸入資料分析常用的格式 SQL/ML/Graph-algorithm，經過通用平行化的 Runtime 最佳化，再輸出到不同的 compile target 如 CPU/GPU 或是各種計算分析平台。以下是 Weld 應用場景簡圖：</p>
+
+<p><img src="image-20190926210803575.png" alt="" /></p>
+
+<ul>
+<li><strong>Weld Runtime 由以下幾個組件組成：</strong>Weld Runtime = Weld IR (+ optimizer) + backends。</li>
+<li><strong>Runtime 主要功能：</strong>IR fragments -&gt; combined IR -&gt; optimized IR -&gt; machine code</li>
+<li>因為是 Runtime，所以很容易實作自己的 REPL！建議可以直接看影片（左邊就是 Weld IR）
+<img src="image-20190926212225868.png" alt="" /></li>
+</ul>
+
+<h3 id="為何選用-rust-開發">為何選用 Rust 開發</h3>
+
+<p>老實說，一開始 Weld compiler 是 Scala 寫的，Scala 的優勢如下：</p>
+
+<ul>
+<li>Algebraic types 和 pattern matching：容易撰寫各種 parser 和 compiler</li>
+<li>Large ecosystem (Java)</li>
+<li>講者的 advisor 尬意（就是 Spark creator 嘛）</li>
+</ul>
+
+<p>但 Scala 的劣勢也惡名昭彰：</p>
+
+<ul>
+<li>不容易 embed：需要 JVM，把 JVM 放到其他語言太肥）</li>
+<li>JIT 太慢</li>
+<li>JVM 自己管理 runtime（managed runtime），FFI 不好寫</li>
+<li>Scala 的 build tool <a href="https://www.scala-sbt.org/" target="_blank">sbt</a> 很詭異（原文是 clunky 😂）</li>
+<li>Runtime 可能還需要用其他語言做</li>
+</ul>
+
+<p>綜合上面考量，需要重新設計以下 compoment：</p>
+
+<ul>
+<li>JIT：效能考量</li>
+<li>Core API：要容易開 FFI</li>
+<li>Runtime：要有 native memory layout，才能做各種底層最佳化、平行化</li>
+</ul>
+
+<p>講者最後比較了 Rust、Swift、Go、Python、C++、Java，最後只有 Rust 完全符合下面幾項標準：</p>
+
+<ul>
+<li>快</li>
+<li>安全</li>
+<li>沒有 managed runtime，可以很容易整合到其他 runtime 中</li>
+<li>Build system 不錯，有 Cargo 撐著</li>
+<li>有相對不錯的 functional paradigm 和 pattern matching</li>
+<li>社群很棒</li>
+</ul>
+
+<h3 id="weld-歷史沿革">Weld 歷史沿革</h3>
+
+<h4 id="1-0-版">1.0 版</h4>
+
+<p>1.0 版已經用 Rust 重寫 compiler ，但 Runtime 還是 C++ runtime，C API binding 也還是用 C 寫，所以整個 Weld 在 1.0 其實是 C/C++/Rust 混雜的專案。</p>
+
+<p><img src="image-20190926230318764.png" alt="" /></p>
+
+<p>幾個實作重點節錄：</p>
+
+<ul>
+<li>Weld IR 是一顆 AST（abstract syntax tree）</li>
+<li>Pattern matching 和 scala 非常相似，幾乎是 1：1 轉移</li>
+<li>Rust 可以很方便直接使用 LLVM CPI <code>*-sys</code> 來 code generation</li>
+<li>跟 Scala 比 不需要 wrapper object 也不需要和 GC 溝通，就可以開 FFI，例如 <code>#[repr(u64)]</code> 的設定、<code>#[no_mangle]</code> 設定，甚至可以透過 proc macros 來處理 FFI</li>
+<li>Cargo 可以用來自動生成 <a href="https://github.com/weld-project/weld/tree/master/weld-capi" target="_blank">C header</a>（w/ <a href="https://github.com/eqrion/cbindgen" target="_blank"><code>cbindgen</code></a>）</li>
+<li>使用 Cargo workspace 分離關注點，並用之構建 subcrate（講者在此透露出對 makefile 的怨念）</li>
+</ul>
+
+<p>效能注意事項：<code>clone</code> 是 Rust 的緊急逃生出口，但容易被濫用</p>
+
+<ul>
+<li>對效能是致命傷，尤其是 drived 出來的 recursive clones。</li>
+<li>對 new Rustacean 來說誘惑太強，尤其充斥著 poiner-based 資料結構 和 borrow checker 的環境。</li>
+<li>用 placeholder 和 <code>mem::swap</code> 將需通過 borrow check 的資料 以 <code>move</code> 代替<code>clone</code>，減少開銷。</li>
+</ul>
+
+<h4 id="2-0-版">2.0 版</h4>
+
+<p>決定把 C++ runtime 用 Rust 重寫</p>
+
+<ul>
+<li>更安全</li>
+<li>logging debugging 終於可以共用同一個 Rust codebase</li>
+<li>Runtime/Compiler 之間更容易互傳資料</li>
+</ul>
+
+<p><img src="image-20190926235934424.png" alt="image-20190926235934424" /></p>
+
+<p><strong>額外補充：</strong>以下這個圖表示 Rust 以開 FFI 的方式給 JIT machine code 呼叫（真香）。</p>
+
+<p><img src="image-20190927000113239.png" alt="image-20190927000113239" /></p>
+
+<h3 id="結論">結論</h3>
+
+<p>Rust 為什麼適合做高效能的 JIT compiler 和 runtime？</p>
+
+<ul>
+<li>具有函數式語義方便打造編譯器</li>
+<li>提供執行時期（runtime）原生執行速度與精細底層控制</li>
+<li>無縫接軌的與 C 寫作 -&gt; 代表可以很容易與其他語言掛鉤</li>
+</ul>
+
+<h2 id="bringing-rust-home-to-meet-the-parents">Bringing Rust Home to Meet the Parents</h2>
+
+<p><a href="#目錄">回到目錄</a></p>
+
+<ul>
+<li>講者：Jeremy Fitzhardinge (<a href="https://github.com/jsgf" target="_blank">@jsgf</a>)</li>
+<li>難度：⭑⭐︎⭐︎</li>
+<li><a href="https://youtu.be/kylqq8pEgRs" target="_blank">演講連結</a></li>
+</ul>
+
+<p>這場演講是來自 Facebook 的講者，講述 Rust 在 Facebook 內部的各種面向，主要包括開發環境、工程師回饋、目前使用的場景，演講內容其實蠻多都是已知的優缺點，但是從一個 Facebook 僱員口中說出來份量就是不一樣，不過演講的風格我不太能接受就是。</p>
+
+<p>講者背景如下：</p>
+
+<ul>
+<li>Kernel/hypervisor/system in pure C（三十年經驗）</li>
+<li>比起愛 C，C 更像是他有的技能，</li>
+<li>Rust：講者認為在各種角色上有可能取代 C 的語言</li>
+</ul>
+
+<p>在 FB 三年，看到很多高手對 Rust 有興趣但沒行動</p>
+
+<h3 id="在-facebook-導入-rust-的困難">在 Facebook 導入 Rust 的困難</h3>
+
+<p>導入一個新語言不是只有技術問題，而是一個風險高的賭注，而且更多工程師只想要完成工作，而非玩弄技術，所以 Rust 需要「非常值得」才有可能導入。</p>
+
+<p>最困難的是後端開發環境，Facebook 的後端環境太過多元太多客製化：</p>
+
+<ul>
+<li>多語言的 monorepo 環境，百萬個檔案，破億行程式碼的 monorepo 獨霸。</li>
+<li>御用語言是 C++、Java、Python。</li>
+<li>從 source code control、CI/CD、測試環境，到部署工具幾乎都是自己手刻。</li>
+</ul>
+
+<p>上述的環境與 Rust 以 Cargo 為構建中心的思維相互抵觸，基本上 Rust 只會區分 Rust 和 Non-Rust 程式碼，但這遠遠不夠 Facebook 使用，我猜也許是不容易整合入 Facebook 的 <a href="https://buck.build/" target="_blank">Buck</a>。這讓我聯想 Google 的 <a href="https://bazel.build/" target="_blank">Bazel build toolchain</a> 其實已經可以整合 Rust 了。</p>
+
+<h3 id="rust-導入-facebook-的優勢">Rust 導入 Facebook 的優勢</h3>
+
+<p><strong>程式碼品管</strong></p>
+
+<p>Facebook 有嚴格的程式碼品管，從 Code Review、Static Analysis，到 Test Infrastructure 非常齊全，但如何上線的程式出現問題，需要工程師在開發新系統與解決臭蟲之間 context switch，成本不小。而 Rust 嚴格的編譯器和方便的測試撰寫，讓這一切運作在開發循環中（development loop）解決，不需要延伸到正式環境。</p>
+
+<blockquote>
+<p>當然，如何量化沒有發生的 bug 的價值，一直困擾著軟體工程界。</p>
+</blockquote>
+
+<p><strong>更低的維護風險</strong></p>
+
+<p>同樣因為 Rust 注重安全性，修改遺留程式碼時能夠避免引入更多錯誤，加上嚴謹的型別與生命週期（type + lifetime）編譯條件和高度抽象，讓維護或閱讀程式碼時可以更注重在高層次的邏輯，而非底層運作，從而避免改爆既有程式碼。</p>
+
+<h3 id="facebook-的-rust-社群現況">Facebook 的 Rust 社群現況</h3>
+
+<p><a href="https://github.com/facebookexperimental/mononoke" target="_blank">Mononoke</a> 是 Facebook 用 Rust 重寫的 Mecurial 實作，特色如下</p>
+
+<ul>
+<li>非常早就使用了 Tokio stack</li>
+<li>用了 Rust 後就沒有 memory corruption，但仍有 stack overflows</li>
+<li>C++ binding 或是 FFI 來的 core dumps 無所不在</li>
+</ul>
+
+<p>而在 Facebook 使用 Rust 最多是動態語言的使用者，尤其是 Python 社群，Node.js/JavaScript 社群也高度關注 Rust 動態。蠻多一部分是寫 CLI app，都大推 clap.rs + structors。</p>
+
+<p>其他語言來的使用者，大部分的心聲如下：</p>
+
+<ul>
+<li>函數式程式語言：很容易理解 Rust 的精髓</li>
+<li>C++：Rust lifetime 有道理</li>
+<li>Go/Java：較難從 GC 大補湯中走出來</li>
+<li>各種繼承語言：有一個大誤區「Trait mania」（聽起來像繼承地獄）</li>
+</ul>
+
+<p>而 Facebook 內部正在建立 Rust 社群，這個社群有以下特質：</p>
+
+<ul>
+<li>是一個外部 Rust 社群的延伸（外部社群已非常健康活躍）</li>
+<li>Review 文化：協助 review 新 rustacean 的程式</li>
+<li>混合內外部的文件資源，來建立完善的文件系統，不過目前沒有善用 rustdoc。</li>
+<li>每個評估過 Rust 的團隊仍然在使用，而且不後悔</li>
+<li>Facebook 整體的開發經驗非常舒服，而且對 Rust dev 來說開發很自然</li>
+<li>已經有在很多高價值的專案裡（沒透露細節）</li>
+</ul>
+
+<h2 id="taking-constant-evaluation-to-the-limit">Taking Constant Evaluation to the Limit</h2>
+
+<p><a href="#目錄">回到目錄</a></p>
+
+<ul>
+<li>講者：Oliver Schneider (<a href="https://github.com/oli-obk" target="_blank">@oli-obk</a>)</li>
+<li>難度：⭑⭑⭑</li>
+<li><a href="https://youtu.be/wkXNm_qo8aY" target="_blank">演講連結</a></li>
+</ul>
+
+<p>這場演講是我聽了這幾場 talk 中數一數二難，除了講者帶了很多觀念但沒有太深入講解外，講題本身和不同語言／記憶體模型／編譯器等領域知識要求都頗高，C++ 和 <code>send</code>/<code>sync</code> 的運作原理不熟可能會有點辛苦。</p>
+
+<p>這場演講主要在闡述 <a href="https://doc.rust-lang.org/reference/const_eval.html" target="_blank">Constant Evaluation</a> 這個在編譯期就計算出表達式的最佳化手段，主要分為三個部分：</p>
+
+<ol>
+<li>為什麼需要 const eval？</li>
+<li>我們想要怎樣的 const eval？</li>
+<li>現在 Rust 的 const eval 情況如何？</li>
+</ol>
+
+<p>首先，講者點評了為什麼需要 const eval ：</p>
+
+<ol>
+<li>可以保存執行期（Runtime）的寶貴的運算資源。</li>
+<li>先計算出一些值，減少因為 Rust 嚴格的型別系統帶來寫作上的麻煩。</li>
+<li>在編譯期就可以給定一些限制，讓執行期更安全。</li>
+<li>因為我們可以做到。</li>
+</ol>
+
+<p>其實對於第二點與第三點，沒有範例我也不是非常懂，因為目前 Rust 的 const eval 裡面的表達式都要是 constant，會比一般的 Rust code 更加嚴格，也許這樣就能做到第三點的目標。</p>
+
+<p>而講者也提到 constant evaluator 的等級分類法：全能（omnipotent）、有限制的全能（restricted omnipotent，這還叫全能嗎）、天生殘疾（inherently limited），Rust 則是分類在「非常被限制的全能（very restricted omnipotent）」。但這個被限制並不是不好，許多東西可能永遠不會再 const eval 實作出來，例如改變 global state，或是導入 random number generator，這些會讓編譯引入不確定性，需要避免。</p>
+
+<p>講者繼續點出一般使用者想要 const eval 有什麼功能，整體分為四類：</p>
+
+<ol>
+<li>Heap allocation（no RFC ye）</li>
+<li>loop 與 if condition（Accepted RFC）</li>
+<li>呼叫 trait method</li>
+<li>unsafe（no RFC yet）</li>
+</ol>
+
+<p>接下來就是一一告訴你為什麼這些還沒做／遇到什麼問題。
+（但其實可以用 unsafe 了，只要 unsafe block 裡沒有任何 unsafe 操作就行）</p>
+
+<h3 id="heap-allocations-problems">Heap Allocations Problems</h3>
+
+<p>我們無法確認這個 ·FOO 什麼時候會被呼叫 drop 被 dealloc，C++ 這樣也不合法（如果不是 heap alloc 就直接 bit-by-bit copy 整個 foo 就可以，完全合法）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">const</span> FOO: String <span style="color:#f92672">=</span> format<span style="color:#f92672">!</span>(...);
+<span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> FOO;
+drop(x) <span style="color:#75715e">// 我們無法得知誰會呼叫這個 drop
+</span></code></pre></div>
+<p>但是 <code>&amp;String</code> <code>&amp;str</code>，或是其他 non heap type 都合法，因為只是複製指標。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">const</span> BAD: String <span style="color:#f92672">=</span> format<span style="color:#f92672">!</span>(...);
+<span style="color:#66d9ef">const</span> OK: <span style="color:#66d9ef">&amp;</span>String <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>format<span style="color:#f92672">!</span>(...);
+<span style="color:#66d9ef">const</span> OK2: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>format<span style="color:#f92672">!</span>(...);
+<span style="color:#66d9ef">const</span> OK: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">MostNonHeapType</span> <span style="color:#f92672">=</span> ...;
+</code></pre></div>
+<p>這種 move 不合法，但在指標後面就合法的行為，是不是很像 <code>Send + Sync</code>？沒錯，const heap allocation導入了 <code>ConstSafe</code> 、<code>ConstRefSafe</code> 兩種新型別，用處理 multi-threading 那一套方法來解決 const eval 的問題。</p>
+
+<p>講者提及 C++ 20 才有 heap alloc const eval 的標準提案，英文 C++ 覺得這種作法太危險，只能在 computation 期間用到，但 final product 不能有任何 heap pointer，這是非法的。而 Rust 和 C++ 不一樣，我們其實可以有 heap alloc，只要他躲在 ref 後面就行了，例如下面這個 <code>String</code> 就會實作 <code>ConstRefSafe</code>（類似 <code>Sync</code>）。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">impl</span> ConstRefSafe <span style="color:#66d9ef">for</span> String {}
+</code></pre></div>
+<p>Rust 太安全了，只要照著 <code>Send</code> 和 <code>Sync</code> 的經驗再次開放，大致上就能完成 heap alloc in const eval，以下是 <code>ConstRefSafe</code> 目前的定義：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// 類似 impl Send for &amp;Sync
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;a</span>, T: <span style="color:#a6e22e">ConstRefSafe</span><span style="color:#f92672">&gt;</span> ConstSafe <span style="color:#66d9ef">for</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">&#39;a</span> T {}
+</code></pre></div>
+<p>想了解更多的話，這裡有<a href="https://github.com/rust-rfcs/const-eval/issues/20" target="_blank">講者草擬的 RFC </a> 可以參考。</p>
+
+<h3 id="unsafe-in-constants">Unsafe In Constants</h3>
+
+<p>再來講者提及 unsafe，其實已經可在 const eval 寫 unsafe，只要我們的 unsafe 裡面沒有真正的 unsafe（笑）。我們都知道處理不好的 <code>unsafe</code> block 會給程式在執行期帶來 undefined behavior，而 unsafe in const eval 則是導入「Compile time undefined behavior」（再笑）。</p>
+
+<p>目前 Rust 還沒有辦法分辨 <code>transmute</code> 之後會不會有 UB，但在編譯時期就可以 dereference 的確是大家都想要的一個功能。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// UB
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> X: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> { <span style="color:#f92672">*</span>(<span style="color:#ae81ff">42</span> <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">i32</span>) };
+<span style="color:#66d9ef">const</span> Y: <span style="color:#66d9ef">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> { transmute(<span style="color:#ae81ff">3</span>) };
+
+<span style="color:#75715e">// Not UB
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> X: <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">42</span> <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">i32</span>;
+<span style="color:#66d9ef">const</span> Y: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> { <span style="color:#f92672">*</span>X };
+</code></pre></div>
+<h3 id="don-t-try-this-at-home">Don&rsquo;t Try This At Home</h3>
+
+<p>講者最後總結了 Constant Evaluation 的現況：沒有什麼理論上的限制，現在就可以玩很多花樣，只要家下面這個內部測試用的 compile flag:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">-Zunleash-the-miri-inside-of-you</code></pre></div>
+<p>想玩 stable Rust 的 const eval 的話  <a href="https://crates.io/crates/static_assertions" target="_blank"><code>static_assertions</code></a> crate 歡迎你！講者也承諾現在也不會再大改 API 了，以下示範 static assertion 怎麼做到 boolean 的 assertion，小弟認為很魔性。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"> <span style="color:#75715e">// 如果 boolean 是 true 就會 index 0，不是的話就會 out of bound error
+</span><span style="color:#75715e"></span>[()][(<span style="color:#f92672">!</span>ok) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>];
+</code></pre></div>
+<p>最後講者示範了 fibonacci sequence on stable rust in compile time，有趣的是這個費氏數列無法成功編譯，會噴 compile error，這個 error 就是費氏數列的值，馬上獲得全場獲得如雷貫耳的掌聲。（全劇終）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> _: [(); {
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> fib <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> prev <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span> n <span style="color:#f92672">!=</span> <span style="color:#ae81ff">10</span> {
+    		<span style="color:#66d9ef">let</span> swap <span style="color:#f92672">=</span> fib;
+        fib <span style="color:#f92672">+=</span> prev;
+      	prev <span style="color:#f92672">=</span> swap;
+        n <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+    }
+    fib
+}] <span style="color:#f92672">=</span> [(); <span style="color:#ae81ff">42</span>];
+
+<span style="color:#75715e">// error[E0308]: mismatched types
+</span><span style="color:#75715e">//   --&gt; src/main.rs:13:6
+</span><span style="color:#75715e">//    |
+</span><span style="color:#75715e">// 13 | }] = [(); 42];
+</span><span style="color:#75715e">//    |      ^^^^^^^^ expected an array with a fixed size of 144 elements, found one with 42 elements
+</span><span style="color:#75715e">//    |
+</span><span style="color:#75715e">//    = note: expected type `[(); 144]`
+</span><span style="color:#75715e">//               found type `[(); 42]`
+</span></code></pre></div>
+<h2 id="from-electron-to-wasm-to-rust-aaand-back-to-electron">From Electron, to Wasm, to Rust (Aaand Back to Electron)</h2>
+
+<p><a href="#目錄">回到目錄</a></p>
+
+<ul>
+<li>講者：Irina Shestak (<a href="https://github.com/lrlna" target="_blank">@lrlna</a>)</li>
+<li>難度：⭑⭑⭐︎</li>
+<li><a href="https://youtu.be/lLzFJenzBng" target="_blank">演講連結</a></li>
+<li><a href="https://github.com/mongodb-js/mongodb-schema" target="_blank">專案連結</a></li>
+</ul>
+
+<p>這場演講主要分享一個 JavaScript developer 用 Rust + WASM 寫 Electron app 的觀點，也稍微提及 Rust 的 WebAssembly 生態，相信蠻多開發者會有興趣，但對熟悉 WASM 的強者來說知識點有點不足。演講有兩個最大的亮點：</p>
+
+<ol>
+<li>講者來自 MongoDB，負責開發 MongoDB 的 GUI client - Compass。</li>
+<li>Rust 成功讓目標功能快了 3x 到 40x。</li>
+</ol>
+
+<p>講者實作 Compass 其中一個功能「Schema Analysis of Mongo Collection」，就是是給定一堆 Mongo doucments 幫你找出 schema 到底長什麼樣子。</p>
+
+<h3 id="為什麼選擇用-rust-wasm">為什麼選擇用 Rust + WASM</h3>
+
+<p>講者需要一個 progressive collection scan，但是原本的 JS 版本分析 10000 document 就要 1216000 ms，實在太慢，決定重寫 schema parser，考慮過用 V8 dark art 或是 Web worker 來加速，但其實沒有很清楚說明為什麼最後選擇 Rust，只是說倒不如用 Rust 重寫，個人認為論點不足，不過有提到一個有趣的觀點：「你不需要自己使用 Dark Art」，這和我的觀點不謀而合，語言是用來給人讀的，如果一個程式語言很厲害，代價是寫出無人能懂的程式碼，那就不是好的產出，除非那段程式碼沒有人需要再讀第二次（或是這段程式碼你交付了就沒你的事 XD）。</p>
+
+<h3 id="一些實作小細節">一些實作小細節</h3>
+
+<ol>
+<li>Rust 可以用這個 <a href="https://crates.io/crates/bson" target="_blank">bson</a> crate 直接處理 BSON 檔，直接跳過 string 這個環節</li>
+<li>然後 bson crate 用到 libc，不過想編譯成 WASM 的話它有提供 target_arch 的 attribute 開關</li>
+<li>Rust 的 nubmer type 比 JavaScript 多太多了，講者最後選了與 BSON 最相關的 <code>f64</code> 和 <code>uszie</code>
+<img src="image-20190922205759675.png" alt="image-20190922205759675" style="zoom: 25%;" /></li>
+<li>選用用了 <a href="https://docs.rs/failure/" target="_blank">failure</a> 解決 error 問題</li>
+</ol>
+
+<h3 id="有關-wasm-與-rust">有關 WASM 與 Rust</h3>
+
+<p>講者蠻清楚節錄幾個講者提到的有趣觀點</p>
+
+<ul>
+<li><p>WASM 只是一種 compilation target</p></li>
+
+<li><p><a href="https://github.com/rustwasm/wasm-bindgen" target="_blank"><code>wasm-bindgen</code></a> 讓 JavaScript 可以 import Rust binding 模組</p></li>
+
+<li><p>在 console debug 只能找到 js binding 的位置，最多到 wasm binary foramt，無法定位到 Rust：使用講者自己寫的 <a href="https://docs.rs/femme" target="_blank"><code>femme</code></a> crate 來定位（你問為什麼不用支援 Rust WASM debug 的 Firefox，我的老天鵝這是在開發 Electron 啊）</p></li>
+
+<li><p><a href="https://rustwasm.github.io/wasm-pack" target="_blank"><code>wasm-pack</code></a> 可以將 Rust-wasm 打包成 npm module</p></li>
+
+<li><p>用 <code>Uint8Array</code> 溝通，讓傳遞資料不再因為 stringify 而失去一些精度</p></li>
+
+<li><p>解決 Rust <code>Err</code> 與 JavaScript <code>Error</code>  的溝通：因為 wasm-bindgen 還不能從 Rust 直接 throw JsError，所以先 Stringify Rust <code>Err</code> 到 <code>JsValue</code> 給 JavaScript 接：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">wasm_write_json</span>(...) -&gt;  Result<span style="color:#f92672">&lt;</span>(), JsValue<span style="color:#f92672">&gt;</span> {
+  <span style="color:#66d9ef">match</span> ... {
+      Err(e) <span style="color:#f92672">=&gt;</span> Err(JsValue::from_str(<span style="color:#f92672">&amp;</span>format<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, e))),
+      _ <span style="color:#f92672">=&gt;</span> Ok(()),
+  } 
+}
+</code></pre></div></li>
+</ul>
+
+<p>不過這樣太爛了，所以最後用了 <a href="https://docs.rs/js-sys" target="_blank"><code>js-sys</code></a> ，這個 crate（也是官方 WASM working group 出品），提供了從 Rust 呼叫 JavaScript API 的 raw binding，裡面還包含的各種 <code>js_sys::TypeError</code> 、 <code>js_sys::ReferenceError</code> 等原生 JS 錯誤。</p>
+
+<h3 id="rust-lets-you-write-performant-and-clean-code-right-off-the-bat">Rust lets you write performant and clean code right off the bat</h3>
+
+<p>這句話一個寫 Rust 不到一年，但已經站在 RustConf 的舞台上的 JavaScript 工程師的心聲。最後講者附帶了之前 Mozilla 工程師用 Rust 重寫 sourcemap，被 Google 的 Dart lead 反擊，然後兩個人的唇槍舌劍（但其實都算有風度）。這串我當初有追，高手過招，小的惶恐不安。</p>
+
+<ul>
+<li><a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/" target="_blank">理性文：如何使用 Rust 和 WASM 氧化 sourcemap</a></li>
+<li><a href="https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html" target="_blank">開戰：或許你不需要 Rust 就可以加速你的 JS</a></li>
+<li><a href="https://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html" target="_blank">反擊：加速其實不需要黑魔法</a></li>
+</ul>
+
+<blockquote>
+<p>後記：MongoDb Compass 爛透了，本來在 Robo 3T 一秒可以查詢的 query 用 Compass 一直 timeout，簡直整個繡掉耶 Compass。</p>
+</blockquote>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/rust/'>Rust</a></div>
+
+  </div><div style="text-align: center; padding-top: 2em;">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="cc-by-nc-sa-4">
+  </a>
+</div>
+
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/2019/design-patterns-for-managing-up/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>向上管理的設計模式</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://t.me/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2019 Weihang Lo </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

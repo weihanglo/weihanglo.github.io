@@ -5,10 +5,23 @@
     <link>https://weihanglo.tw/posts/</link>
     <description>Recent content in Posts on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 27 Jan 2019 15:04:29 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Sep 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RustConf 2019 雲參訪錄（1）</title>
+      <link>https://weihanglo.tw/posts/2019/rustconf-2019-1/</link>
+      <pubDate>Sun, 29 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2019/rustconf-2019-1/</guid>
+      <description>RustConf 是 Rust 社群年度最重要的研討會之一，從 Rust 在 2015 年 1.0 版正式發布之後，2016、2017、2018 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球迷稱作 Rip City 的波特蘭舉行。由於歷史悠久，加上 Rust 社群在美國較為活躍，許多 Rust Core Team 成員都會共襄盛舉，這場研討會是 Rust 開發者絕對不能錯過的盛事。
+RustConf 歷年來皆由 Tilde Inc. 旗下的 Skylight 主辦，Skylight 是一個 Rails profiler in production 的解決方案，產品中關鍵的模組用了不少 Rust。
+好了，介紹完背景，這篇文章主要是紀錄小弟我「在 YouTube 上」觀看演講的心得分享，當然，RustConf 除了主要的演講軌，還有不少場邊工作坊等小活動，這就留給看倌明年到實地考察啦！
+目錄  這篇文章僅為部分心得，陸續更新中。
+    不負責任中譯講題 內容摘要     ✅ Rust 慣老闆們如何管理 Rust 社群 回顧 Rust 過去一年成就，現在如何治理 Rust 團隊與社群，又遭遇什麼困難   ✅ Rust 大法好，統一資料科學沒煩惱 資料科學工具 Weld 底層 JIT compiler 與 Runtime 技術選型與演進過程   ✅ 鏽媳婦也得見公婆的臉書 Facebook 內部的 Rust 生態現況與如何推廣   ✅ Constant Evaluation 的五十道陰影 const eval 目前開發狀況與未來藍圖   ✅ 用 Rust 後依舊慢的 Electron MongDB Compass 用 Rust + WASM 開發 Electron 心得    Opening Keynote 回到目錄</description>
+    </item>
     
     <item>
       <title>向上管理的設計模式</title>
@@ -324,7 +337,8 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
 特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
 brew install carthage  如果還沒有裝 homebrew，請來這下載
  建立一個 Carfile，列出欲使用的模組，例如：
-  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0  在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
+github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。
+ 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries</description>
     </item>
     
     <item>
@@ -336,7 +350,8 @@ brew install carthage  如果還沒有裝 homebrew，請來這下載
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。
 （撰於 2017-02-06，基於 Swift 3.1）
 Declaration 宣告變數使用 var，宣告常數使用 let
- 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable  let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678  慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
+ 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable
+let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678   慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
  Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
 let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&amp;#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
  宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。  Fundamental data type Swift Standard Library 定義了許多基本型別：</description>

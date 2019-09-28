@@ -5,10 +5,23 @@
     <link>https://weihanglo.tw/tags/rust/</link>
     <description>Recent content in Rust on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 30 Sep 2018 11:07:45 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Sep 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RustConf 2019 雲參訪錄（1）</title>
+      <link>https://weihanglo.tw/posts/2019/rustconf-2019-1/</link>
+      <pubDate>Sun, 29 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2019/rustconf-2019-1/</guid>
+      <description>RustConf 是 Rust 社群年度最重要的研討會之一，從 Rust 在 2015 年 1.0 版正式發布之後，2016、2017、2018 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球迷稱作 Rip City 的波特蘭舉行。由於歷史悠久，加上 Rust 社群在美國較為活躍，許多 Rust Core Team 成員都會共襄盛舉，這場研討會是 Rust 開發者絕對不能錯過的盛事。
+RustConf 歷年來皆由 Tilde Inc. 旗下的 Skylight 主辦，Skylight 是一個 Rails profiler in production 的解決方案，產品中關鍵的模組用了不少 Rust。
+好了，介紹完背景，這篇文章主要是紀錄小弟我「在 YouTube 上」觀看演講的心得分享，當然，RustConf 除了主要的演講軌，還有不少場邊工作坊等小活動，這就留給看倌明年到實地考察啦！
+目錄  這篇文章僅為部分心得，陸續更新中。
+    不負責任中譯講題 內容摘要     ✅ Rust 慣老闆們如何管理 Rust 社群 回顧 Rust 過去一年成就，現在如何治理 Rust 團隊與社群，又遭遇什麼困難   ✅ Rust 大法好，統一資料科學沒煩惱 資料科學工具 Weld 底層 JIT compiler 與 Runtime 技術選型與演進過程   ✅ 鏽媳婦也得見公婆的臉書 Facebook 內部的 Rust 生態現況與如何推廣   ✅ Constant Evaluation 的五十道陰影 const eval 目前開發狀況與未來藍圖   ✅ 用 Rust 後依舊慢的 Electron MongDB Compass 用 Rust + WASM 開發 Electron 心得    Opening Keynote 回到目錄</description>
+    </item>
     
     <item>
       <title>Rust: Ownership and References</title>

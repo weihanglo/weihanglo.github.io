@@ -23,7 +23,7 @@ Definition 想像一下，有個需求是要交換兩個變數儲存的值，現
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Swift'><meta property='article:tag' content='Generics'><meta property='article:published_time' content='2017-05-08T22:28:09&#43;08:00'/><meta property='article:modified_time' content='2017-05-08T22:28:09&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.58.3" />
 
   <title>理解 Swift Generics • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/swift-generics/'>
@@ -172,7 +172,7 @@ if (!doNotTrack) {
   print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>type<span style="color:#e6db74">(</span>of: phone<span style="color:#e6db74">))</span><span style="color:#e6db74"> is calling&#34;</span>)
 }</code></pre></div>
 <p>透過 Generic Functions 可以將 <code>call(_:)</code> 改成支援任何 data types 的泛型版本，</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">call</span>&lt;Phone<span style="color:#f92672">&gt;</span>(by phone: Phone) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">call</span>&lt;Phone&gt;(by phone: Phone) {
   print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>type<span style="color:#e6db74">(</span>of: phone<span style="color:#e6db74">))</span><span style="color:#e6db74"> is calling&#34;</span>)
 }</code></pre></div>
 <p>跟在 function name 後的 <code>&lt;Phone&gt;</code> 就是 Swift 的泛型語法，角括號 <code>&lt;&gt;</code> 內的 <code>Phone</code> 是虛擬的 type，官方名稱為 <strong>Type Parameters</strong>。這個 <code>&lt;Phone&gt;</code> 泛型有幾個特性：</p>
@@ -197,7 +197,7 @@ if (!doNotTrack) {
 <h2 id="generic-types">Generic Types</h2>
 
 <p>除了 function 以外，Swift 的 first class citizens（struct、enum、class）、<strong>initializers</strong>，以及 <strong>typelias</strong> 都支援泛型宣告功能，這裡直接使用官方的 <code>Stack</code> 例子：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Stack</span>&lt;Element<span style="color:#f92672">&gt;</span> {                   <span style="color:#75715e">// 1</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Stack</span>&lt;Element&gt; {                   <span style="color:#75715e">// 1</span>
   <span style="color:#66d9ef">var</span> items = [Element]()                 <span style="color:#75715e">// 2</span>
   <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">_</span> item: Element) {   <span style="color:#75715e">// 3</span>
     items.append(item)
@@ -215,9 +215,9 @@ if (!doNotTrack) {
 </ul>
 
 <p>定義完成後，若希望使用 <code>Stack</code> 這個 generic type 時，我們必須明確告訴 compiler 這個 <code>Stack</code> instance 會儲存何種型別，寫法如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> stack0 = Stack&lt;String<span style="color:#f92672">&gt;</span>()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> stack0 = Stack&lt;String&gt;()
 <span style="color:#75715e">// or</span>
-<span style="color:#66d9ef">var</span> stack1: Stack&lt;String<span style="color:#f92672">&gt;</span> = Stack()</code></pre></div>
+<span style="color:#66d9ef">var</span> stack1: Stack&lt;String&gt; = Stack()</code></pre></div>
 <p>當 generic type 被實例化，會稱該實例的泛型宣告（如本例的 <code>&lt;String&gt;</code>）為 <strong>Type Arguments</strong>，如同一般函式帶入引數的概念，原本虛擬的 type parameter 的 placeholder，將完全被 type argument 取代。此即 Generic Types 的用法，與 Generic Functions 如出一轍。</p>
 
 <blockquote>
@@ -227,7 +227,7 @@ if (!doNotTrack) {
 <h2 id="type-constraints">Type Constraints</h2>
 
 <p>有時候，演算法可能需要傳入的型別有實作特定方法，泛型可以透過設置 <strong>Type Constraints</strong>，確保傳入型別符合需求，簡單的範例如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myFunction</span>&lt;T: SomeClass, U: SomeProtocol<span style="color:#f92672">&gt;</span>(someT: T, someU: U) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myFunction</span>&lt;T: SomeClass, U: SomeProtocol&gt;(someT: T, someU: U) {
   <span style="color:#75715e">// Here is function body</span>
 }</code></pre></div>
 <p>上例中有兩處新語法：</p>
@@ -245,15 +245,15 @@ if (!doNotTrack) {
 <span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">SamsungNote7</span>: HeadphoneJack {}
 <span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">AsusZenfone</span>: Chargeable, HeadphoneJack {}</code></pre></div>
 <p>再定義三個 generic functions，但每個 functions 都有相對應的 type constraints，確保傳入的型別符合要求。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">charge</span>&lt;Phone: Chargeable<span style="color:#f92672">&gt;</span>(phone: Phone) {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">charge</span>&lt;Phone: Chargeable&gt;(phone: Phone) {
   print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>type<span style="color:#e6db74">(</span>of: phone<span style="color:#e6db74">))</span><span style="color:#e6db74"> is charging&#34;</span>)
 }
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">listenMusic</span>&lt;Phone: HeadphoneJack<span style="color:#f92672">&gt;</span>(phone: Phone) {
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">listenMusic</span>&lt;Phone: HeadphoneJack&gt;(phone: Phone) {
   print(<span style="color:#e6db74">&#34;Listen music with </span><span style="color:#e6db74">\(</span>type<span style="color:#e6db74">(</span>of: phone<span style="color:#e6db74">))</span><span style="color:#e6db74">&#34;</span>)
 }
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">listenMusicWhileCharging</span>&lt;Phone: Chargeable <span style="color:#f92672">&amp;</span> HeadphoneJack<span style="color:#f92672">&gt;</span>(phone: Phone) {
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">listenMusicWhileCharging</span>&lt;Phone: Chargeable <span style="color:#f92672">&amp;</span> HeadphoneJack&gt;(phone: Phone) {
   print(<span style="color:#e6db74">&#34;Listen music with </span><span style="color:#e6db74">\(</span>type<span style="color:#e6db74">(</span>of: phone<span style="color:#e6db74">))</span><span style="color:#e6db74"> while charging&#34;</span>)
 }</code></pre></div>
 <blockquote>
@@ -283,11 +283,11 @@ listenMusicWhileCharging(phone: note7)</code></pre></div>
 <p>到此，我們來看看泛型宣告的完整語法。</p>
 
 <p>依照 Swift 官方說詞，泛型的宣告叫做 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-parameter-clause" target="_blank">Generic Parameter Clause</a>，是由角括號 <code>&lt;&gt;</code> 將 Generic Parameter 包裹起來，若有多個 parameters，則以 <code>,</code>（comma-separated）分隔。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">&lt;GenericA, GenericB, GenericC<span style="color:#f92672">&gt;</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">&lt;GenericA, GenericB, GenericC&gt;</code></pre></div>
 <p>而每個 Generic Parameters 除了虛擬 type name（官方：<strong>Type Parameter</strong>），還可有 optional 的 <strong>Type Constraints</strong>。</p>
 
 <p>最後，Generic Parameter Clause 語法大致會像這樣：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">&lt;GenericA, GenericB: SomeClass, GenericC: SomeProtocol<span style="color:#f92672">&gt;</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">&lt;GenericA, GenericB: SomeClass, GenericC: SomeProtocol&gt;</code></pre></div>
 <blockquote>
 <p>Generic Parameter Clause 用在宣告型別，若對應泛型實例化，有 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-argument-clause" target="_blank">Generic Argument Clause</a>，例如建構 Dictionary：<code>let a = Dictionary&lt;String, [Double]&gt;()</code>。將指定的實際型別帶入對應位置即可。</p>
 </blockquote>
@@ -367,18 +367,18 @@ SomeStruct().multiply(<span style="color:#ae81ff">1.5</span>)
 <h2 id="generic-where-clauses">Generic Where Clauses</h2>
 
 <p>在 Type Constraints  一節，提到使用 Type Constraints 限制傳入的型別，Swift 的泛型也有另外一個可讀性、彈性更高，更接近自然語言的 syntax —— <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/swift/grammar/generic-where-clause" target="_blank">Generic Where Clauses</a>。以下兩種寫法等價：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lessThan</span>&lt;T: Comparable<span style="color:#f92672">&gt;</span>(x: T, y: T) -&gt; Bool {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lessThan</span>&lt;T: Comparable&gt;(x: T, y: T) -&gt; Bool {
   <span style="color:#66d9ef">return</span> x <span style="color:#f92672">&lt;</span> y
 }
 <span style="color:#75715e">// is equivalent to</span>
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lessThan</span>&lt;T<span style="color:#f92672">&gt;</span>(x: T, y: T) -&gt; Bool <span style="color:#66d9ef">where</span> T: Comparable  {
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lessThan</span>&lt;T&gt;(x: T, y: T) -&gt; Bool <span style="color:#66d9ef">where</span> T: Comparable  {
   <span style="color:#66d9ef">return</span> x <span style="color:#f92672">&lt;</span> y
 }
 
 lessThan(<span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">1234</span>)</code></pre></div>
 <p>某些情境下，需確認「兩個泛型引數為相同型別」，才能進行操作，例如比較兩個 Sequence 是否完全一樣，可如下宣告：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// 在兩個 Sequence 擁有相同 Element 才能執行的 function</span>
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>&lt;S1: Sequence, S2: Sequence<span style="color:#f92672">&gt;</span>(s1: S1, s2: S2) <span style="color:#66d9ef">where</span> S1.Iterator.Element == S2.Iterator.Element, S1.Iterator.Element: Comparable {
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>&lt;S1: Sequence, S2: Sequence&gt;(s1: S1, s2: S2) <span style="color:#66d9ef">where</span> S1.Iterator.Element == S2.Iterator.Element, S1.Iterator.Element: Comparable {
   <span style="color:#75715e">// skip the implementation</span>
 }</code></pre></div>
 <p>從上兩例中，我們可以理解 <strong>Generic Where Clause</strong> 相關特性如下：</p>

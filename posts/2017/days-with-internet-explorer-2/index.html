@@ -21,7 +21,7 @@
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='article:section' content='posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Web Access Right'><meta property='article:published_time' content='2017-12-09T18:48:48&#43;08:00'/><meta property='article:modified_time' content='2017-12-09T18:48:48&#43;08:00'/><meta name='twitter:card' content='summary_large_image'><meta property='twitter:image' content='https://weihanglo.tw/build-websites-for-web.png'><meta property='twitter:image:alt' content='Modified from Webcompat.com'>
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.58.3" />
 
   <title>與 IE 相處的日子二：淺談網頁相容性 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/'>
@@ -229,7 +229,7 @@ if (!doNotTrack) {
 <span style="color:#a6e22e">base</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;href&#39;</span>, <span style="color:#a6e22e">baseURL</span>)
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">head</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;head&#39;</span>)
 <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">firstElementChild</span>) <span style="color:#75715e">// IE has no `prepend` method.
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <blockquote>
 <p>在導入 polyfill 之前，記得先想清楚專案的環境，別導入一整包卻只用到一兩個 method。</p>
 </blockquote>
@@ -366,7 +366,7 @@ if (!doNotTrack) {
 <span style="color:#a6e22e">getComputedStyle</span>(<span style="color:#a6e22e">div</span>).<span style="color:#a6e22e">backgroundPosition</span>
 <span style="color:#75715e">// Other: &#34;0% calc(-20px + 100%)
 </span><span style="color:#75715e">// IE: &#34;0% 0%&#34;
-</span><span style="color:#75715e"></span></code></pre></div>
+</span></code></pre></div>
 <p>總之，在 IE／Edge 的世界裡，別太相信 <code>getComputedStyle</code> 會自動更新這種鬼話。</p>
 
 <h3 id="iframe-不支援-data-uri">iframe 不支援 Data URI</h3>
@@ -641,7 +641,7 @@ if (!doNotTrack) {
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/internet-explorer/'>Internet Explorer</a>, <a class='tag' href='/tags/front-end/'>Front-end</a>, <a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/web-compatibility/'>Web Compatibility</a>, <a class='tag' href='/tags/web-access-right/'>Web Access Right</a></div>
+<span class='screen-reader-text'>Tags: </span>, <a class='tag' href='/tags/front-end/'>Front-end</a>, <a class='tag' href='/tags/javascript/'>JavaScript</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">

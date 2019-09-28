@@ -5,89 +5,17 @@
     <link>https://weihanglo.tw/tags/</link>
     <description>Recent content in Tags on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 31 May 2018 23:38:59 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Sep 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Algorithms</title>
-      <link>https://weihanglo.tw/tags/algorithms/</link>
-      <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
+      <title>Rust</title>
+      <link>https://weihanglo.tw/tags/rust/</link>
+      <pubDate>Sun, 29 Sep 2019 00:00:00 +0800</pubDate>
       
-      <guid>https://weihanglo.tw/tags/algorithms/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Async Function</title>
-      <link>https://weihanglo.tw/tags/async-function/</link>
-      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/async-function/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Asynchronous I/O</title>
-      <link>https://weihanglo.tw/tags/asynchronous-i-o/</link>
-      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/asynchronous-i-o/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Big O</title>
-      <link>https://weihanglo.tw/tags/big-o/</link>
-      <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/big-o/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Binary Data</title>
-      <link>https://weihanglo.tw/tags/binary-data/</link>
-      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/binary-data/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Browser Testing</title>
-      <link>https://weihanglo.tw/tags/browser-testing/</link>
-      <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/browser-testing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Canvas</title>
-      <link>https://weihanglo.tw/tags/canvas/</link>
-      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/canvas/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Carthage</title>
-      <link>https://weihanglo.tw/tags/carthage/</link>
-      <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/carthage/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Concurrency</title>
-      <link>https://weihanglo.tw/tags/concurrency/</link>
-      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/concurrency/</guid>
+      <guid>https://weihanglo.tw/tags/rust/</guid>
       <description></description>
     </item>
     
@@ -101,191 +29,11 @@
     </item>
     
     <item>
-      <title>Endianness</title>
-      <link>https://weihanglo.tw/tags/endianness/</link>
-      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/endianness/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Error Handling</title>
-      <link>https://weihanglo.tw/tags/error-handling/</link>
-      <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/error-handling/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Front-end</title>
-      <link>https://weihanglo.tw/tags/front-end/</link>
-      <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/front-end/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Generator</title>
-      <link>https://weihanglo.tw/tags/generator/</link>
-      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/generator/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Generics</title>
-      <link>https://weihanglo.tw/tags/generics/</link>
-      <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/generics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Golang</title>
-      <link>https://weihanglo.tw/tags/golang/</link>
-      <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>HLS</title>
       <link>https://weihanglo.tw/tags/hls/</link>
       <pubDate>Sun, 27 Jan 2019 12:31:29 +0800</pubDate>
       
       <guid>https://weihanglo.tw/tags/hls/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Internet Explorer</title>
-      <link>https://weihanglo.tw/tags/internet-explorer/</link>
-      <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/internet-explorer/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Interview</title>
-      <link>https://weihanglo.tw/tags/interview/</link>
-      <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/interview/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Iterator Pattern</title>
-      <link>https://weihanglo.tw/tags/iterator-pattern/</link>
-      <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/iterator-pattern/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JavaScript</title>
-      <link>https://weihanglo.tw/tags/javascript/</link>
-      <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Memory Alignment</title>
-      <link>https://weihanglo.tw/tags/memory-alignment/</link>
-      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/memory-alignment/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mobile App Development</title>
-      <link>https://weihanglo.tw/tags/mobile-app-development/</link>
-      <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/mobile-app-development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Node.js</title>
-      <link>https://weihanglo.tw/tags/node.js/</link>
-      <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/node.js/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Observer Pattern</title>
-      <link>https://weihanglo.tw/tags/observer-pattern/</link>
-      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/observer-pattern/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Podcasts</title>
-      <link>https://weihanglo.tw/tags/podcasts/</link>
-      <pubDate>Mon, 09 Jul 2018 23:48:41 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/podcasts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Promise</title>
-      <link>https://weihanglo.tw/tags/promise/</link>
-      <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/promise/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>React Native</title>
-      <link>https://weihanglo.tw/tags/react-native/</link>
-      <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/react-native/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ReactiveX</title>
-      <link>https://weihanglo.tw/tags/reactivex/</link>
-      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/reactivex/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://weihanglo.tw/tags/rust/</link>
-      <pubDate>Sun, 30 Sep 2018 11:07:45 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Source Reading</title>
-      <link>https://weihanglo.tw/tags/source-reading/</link>
-      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/source-reading/</guid>
       <description></description>
     </item>
     
@@ -299,20 +47,65 @@
     </item>
     
     <item>
-      <title>Swift</title>
-      <link>https://weihanglo.tw/tags/swift/</link>
-      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
+      <title>Golang</title>
+      <link>https://weihanglo.tw/tags/golang/</link>
+      <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
       
-      <guid>https://weihanglo.tw/tags/swift/</guid>
+      <guid>https://weihanglo.tw/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Terminal</title>
-      <link>https://weihanglo.tw/tags/terminal/</link>
-      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
+      <title>Podcasts</title>
+      <link>https://weihanglo.tw/tags/podcasts/</link>
+      <pubDate>Mon, 09 Jul 2018 23:48:41 +0800</pubDate>
       
-      <guid>https://weihanglo.tw/tags/terminal/</guid>
+      <guid>https://weihanglo.tw/tags/podcasts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Algorithms</title>
+      <link>https://weihanglo.tw/tags/algorithms/</link>
+      <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/algorithms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Big O</title>
+      <link>https://weihanglo.tw/tags/big-o/</link>
+      <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/big-o/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Front-end</title>
+      <link>https://weihanglo.tw/tags/front-end/</link>
+      <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/front-end/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Interview</title>
+      <link>https://weihanglo.tw/tags/interview/</link>
+      <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/interview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Asynchronous I/O</title>
+      <link>https://weihanglo.tw/tags/asynchronous-i/o/</link>
+      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/asynchronous-i/o/</guid>
       <description></description>
     </item>
     
@@ -335,11 +128,20 @@
     </item>
     
     <item>
-      <title>Visual Studio Code</title>
-      <link>https://weihanglo.tw/tags/visual-studio-code/</link>
-      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
+      <title>Internet Explorer</title>
+      <link>https://weihanglo.tw/tags/internet-explorer/</link>
+      <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
       
-      <guid>https://weihanglo.tw/tags/visual-studio-code/</guid>
+      <guid>https://weihanglo.tw/tags/internet-explorer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://weihanglo.tw/tags/javascript/</link>
+      <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/javascript/</guid>
       <description></description>
     </item>
     
@@ -362,11 +164,209 @@
     </item>
     
     <item>
+      <title>Canvas</title>
+      <link>https://weihanglo.tw/tags/canvas/</link>
+      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/canvas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Source Reading</title>
+      <link>https://weihanglo.tw/tags/source-reading/</link>
+      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/source-reading/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terminal</title>
+      <link>https://weihanglo.tw/tags/terminal/</link>
+      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/terminal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Code</title>
+      <link>https://weihanglo.tw/tags/visual-studio-code/</link>
+      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/visual-studio-code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Xterm.js</title>
       <link>https://weihanglo.tw/tags/xterm.js/</link>
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
       
       <guid>https://weihanglo.tw/tags/xterm.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Binary Data</title>
+      <link>https://weihanglo.tw/tags/binary-data/</link>
+      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/binary-data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Endianness</title>
+      <link>https://weihanglo.tw/tags/endianness/</link>
+      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/endianness/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Memory Alignment</title>
+      <link>https://weihanglo.tw/tags/memory-alignment/</link>
+      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/memory-alignment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Observer Pattern</title>
+      <link>https://weihanglo.tw/tags/observer-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/observer-pattern/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ReactiveX</title>
+      <link>https://weihanglo.tw/tags/reactivex/</link>
+      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/reactivex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Swift</title>
+      <link>https://weihanglo.tw/tags/swift/</link>
+      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/swift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Iterator Pattern</title>
+      <link>https://weihanglo.tw/tags/iterator-pattern/</link>
+      <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/iterator-pattern/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mobile App Development</title>
+      <link>https://weihanglo.tw/tags/mobile-app-development/</link>
+      <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/mobile-app-development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>React Native</title>
+      <link>https://weihanglo.tw/tags/react-native/</link>
+      <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/react-native/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Browser Testing</title>
+      <link>https://weihanglo.tw/tags/browser-testing/</link>
+      <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/browser-testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Async Function</title>
+      <link>https://weihanglo.tw/tags/async-function/</link>
+      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/async-function/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Concurrency</title>
+      <link>https://weihanglo.tw/tags/concurrency/</link>
+      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/concurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Generator</title>
+      <link>https://weihanglo.tw/tags/generator/</link>
+      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/generator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Promise</title>
+      <link>https://weihanglo.tw/tags/promise/</link>
+      <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/promise/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Generics</title>
+      <link>https://weihanglo.tw/tags/generics/</link>
+      <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/generics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Error Handling</title>
+      <link>https://weihanglo.tw/tags/error-handling/</link>
+      <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/error-handling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Node.js</title>
+      <link>https://weihanglo.tw/tags/node.js/</link>
+      <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/node.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Carthage</title>
+      <link>https://weihanglo.tw/tags/carthage/</link>
+      <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/carthage/</guid>
       <description></description>
     </item>
     

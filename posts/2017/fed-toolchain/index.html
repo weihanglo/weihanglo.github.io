@@ -19,7 +19,7 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Node.js'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-03-10T15:36:46&#43;08:00'/><meta property='article:modified_time' content='2017-03-10T15:36:46&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.58.3" />
 
   <title>大前端時代的工具箱 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/fed-toolchain/'>
@@ -383,8 +383,8 @@ nvm install v7.7.1 --reinstall-packages-from<span style="color:#f92672">=</span>
 
 <ul>
 <li>全域模式 <code>--global</code>：安裝的模組通常是常用的指令列程式，例如 npm 本身。</li>
-<li>本地模式：用來安裝與 project 相依的模組，會在 project 根目錄產生一個 <code>node_modules</code> 存放相依模組。</li>
-</ul>
+
+<li><p>本地模式：用來安裝與 project 相依的模組，會在 project 根目錄產生一個 <code>node_modules</code> 存放相依模組。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 創建一個 npm 模組環境（互動式產生 package.json）</span>
 npm init
 
@@ -419,7 +419,9 @@ npm update bluebird
 npm update
 
 <span style="color:#75715e"># 更新所有全員安裝的套件</span>
-npm update --global</code></pre></div>
+npm update --global</code></pre></div></li>
+</ul>
+
 <blockquote>
 <p>Facebook、Google 幾個大頭在 2016 年 10 月 開源了新一代的 Node.js 套件管理工具 <a href="https://yarnpkg.com/" target="_blank">Yarn</a>，在速度、體驗、介面上皆略勝 npm 一籌。Yarn 也會自動產生 <code>yarn.lock</code> 檔案，精確記錄相依模組的版號，在套件管理上更安全安心，有興趣的童鞋可嘗試看看。</p>
 </blockquote>
@@ -774,8 +776,7 @@ $EDITOR test/test.js</code></pre></div>
     <span style="color:#75715e">// 在這個 block 內每個 test case 之後執行
 </span><span style="color:#75715e"></span>  });
 });
-</code></pre></div></blockquote>
-
+</code></pre></div>
 <p>有需要非同步（異步）的測試，請</p>
 
 <ol>
@@ -785,63 +786,75 @@ $EDITOR test/test.js</code></pre></div>
 </ol>
 
 <p>這裡以 <code>Promise</code> 為例：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">describe</span>(<span style="color:#e6db74">&#39;Async Tests&#39;</span>, <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">it</span>(<span style="color:#e6db74">&#39;should complete in the furture&#39;</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">done</span>) { <span style="color:#75715e">// 加入 done 參數
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">someAsyncPromiseTest</span>()  <span style="color:#75715e">// 一個異步的 Promise
-</span><span style="color:#75715e"></span>    .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">result</span>) =&gt; {
-      <span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">ok</span>(<span style="color:#a6e22e">result</span>);    <span style="color:#75715e">// 測試斷言
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">done</span>();               <span style="color:#75715e">// 調用 done，通知 test runner 成功執行 async task
-</span><span style="color:#75715e"></span>    })
-    .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span>, (<span style="color:#a6e22e">err</span>) =&gt; {
-      <span style="color:#a6e22e">done</span>(<span style="color:#a6e22e">err</span>);            <span style="color:#75715e">// 調用 done 並傳入 error，通知 test runner 執行異常
-</span><span style="color:#75715e"></span>    })
-  });  
-});
 
-<span style="color:#75715e">// 由於 `done` 是一個函式，上式也可簡寫成
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">describe</span>(<span style="color:#e6db74">&#39;Async Tests&#39;</span>, <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">it</span>(<span style="color:#e6db74">&#39;should complete in the furture&#39;</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">done</span>) {
-    <span style="color:#a6e22e">someAsyncPromiseTest</span>()
-    .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">result</span>) =&gt; {
-      <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">should</span>.<span style="color:#a6e22e">equal</span>(<span style="color:#e6db74">&#39;well done&#39;</span>);
-      <span style="color:#a6e22e">done</span>();          
+<p>```javascript
+describe(&lsquo;Async Tests&rsquo;, function () {
+  it(&lsquo;should complete in the furture&rsquo;, function (done) { // 加入 done 參數
+    someAsyncPromiseTest()  // 一個異步的 Promise
+    .then((result) =&gt; {
+      assert.ok(result);    // 測試斷言
+      done();               // 調用 done，通知 test runner 成功執行 async task
     })
-    .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">done</span>); <span style="color:#75715e">// 直接傳入 done！
-</span><span style="color:#75715e"></span>  });  
-});
-</code></pre></div>
-<blockquote>
-<p>如果需要非同步的 hooks，同樣加入 <code>done</code> 參數，並調用 done。</p>
+    .catch(err, (err) =&gt; {
+      done(err);            // 調用 done 並傳入 error，通知 test runner 執行異常
+    })
+  });<br />
+});</p>
 </blockquote>
 
-<p>其他相關 mocha 語法 API，<a href="https://mochajs.org/" target="_blank">mocha 網站</a>寫得非常清楚。有關斷言的寫法，也可直接參考 <a href="http://chaijs.com/" target="_blank">chai 官網</a>。</p>
+<p>// 由於 <code>done</code> 是一個函式，上式也可簡寫成
+describe(&lsquo;Async Tests&rsquo;, function () {
+  it(&lsquo;should complete in the furture&rsquo;, function (done) {
+    someAsyncPromiseTest()
+    .then((result) =&gt; {
+      result.should.equal(&lsquo;well done&rsquo;);
+      done();<br />
+    })
+    .catch(done); // 直接傳入 done！
+  });<br />
+});</p>
 
-<h3 id="靜態程式語法檢查">靜態程式語法檢查</h3>
+<pre><code>
+&gt; 如果需要非同步的 hooks，同樣加入 `done` 參數，並調用 done。
 
-<p>使用<a href="https://en.wikipedia.org/wiki/Integrated_development_environment" target="_blank">整合開發環境（IDE）</a>的童鞋，想必對<a href="https://en.wikipedia.org/wiki/Lint_(software)" target="_blank">靜態語法檢查</a>有深刻體會。使用靜態語法檢查，會對程式碼撰寫的風格有所限制，但同時可以可防止許多 <a href="https://en.wikipedia.org/wiki/Code_smell" target="_blank">bad code smell</a>，例如：</p>
+其他相關 mocha 語法 API，[mocha 網站][mocha]寫得非常清楚。有關斷言的寫法，也可直接參考 [chai 官網][chai]。
 
-<ul>
-<li><a href="https://eslint.org/docs/rules/handle-callback-err" target="_blank">一定要處理 error</a></li>
-<li><a href="https://eslint.org/docs/rules/no-const-assign" target="_blank">避免修改以 const 宣告的變數</a></li>
-<li><a href="https://eslint.org/docs/rules/no-unexpected-multiline" target="_blank">不要用 <code>(</code> <code>/</code> <code>.</code> <code>,</code> 等符號當開頭</a>（不寫分號唯一會遇到的問題！）</li>
-</ul>
+### 靜態程式語法檢查
 
-<p>Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 <a href="https://eslint.org/" target="_blank">ESLint</a> 作範例。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 安裝 eslint</span>
-npm install --save-dev eslint
+使用[整合開發環境（IDE）][ide]的童鞋，想必對[靜態語法檢查][lint]有深刻體會。使用靜態語法檢查，會對程式碼撰寫的風格有所限制，但同時可以可防止許多 [bad code smell][code-smell]，例如：
 
-<span style="color:#75715e"># 互動式建置 `.eslint.js` 配置文件</span>
-./node_modules/.bin/eslint --init
+- [一定要處理 error][eslint-handle-callback-err]
+- [避免修改以 const 宣告的變數][eslint-no-const-assign]
+- [不要用 `(` `/` `.` `,` 等符號當開頭][eslint-no-unexpected-multiline]（不寫分號唯一會遇到的問題！）
 
-<span style="color:#75715e"># 之後就可以直接用 eslint 來檢查你的程式碼了</span>
-./node_modules/.bin/eslint path/to/your/file.js</code></pre></div>
-<blockquote>
-<p>同樣地，可以在 <code>package.json</code> 加入一個 run-script，方便隨時 lint</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#f92672">:</span> {
-    <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;lint&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;eslint .; exit 0;&#34;</span> <span style="color:#75715e">// 有錯誤的話 eslint exit code 是 1， 我們手動 exit 0 以避免 npm 報錯。
-</span><span style="color:#75715e"></span>  }
-</code></pre></div></blockquote>
+Javascript 的 linter 有非常多套，這裡選用目前最流行、客製化程度最高的 [ESLint][eslint] 作範例。
+
+</code></pre>
+
+<p>bash</p>
+
+<h1 id="安裝-eslint">安裝 eslint</h1>
+
+<p>npm install &ndash;save-dev eslint</p>
+
+<h1 id="互動式建置-eslint-js-配置文件">互動式建置 <code>.eslint.js</code> 配置文件</h1>
+
+<p>./node_modules/.bin/eslint &ndash;init</p>
+
+<h1 id="之後就可以直接用-eslint-來檢查你的程式碼了">之後就可以直接用 eslint 來檢查你的程式碼了</h1>
+
+<p>./node_modules/.bin/eslint path/to/your/file.js</p>
+
+<pre><code>
+&gt; 同樣地，可以在 `package.json` 加入一個 run-script，方便隨時 lint
+</code></pre>
+
+<p>javascript
+  &ldquo;scripts&rdquo;: {
+    // &hellip;
+    &ldquo;lint&rdquo;: &ldquo;eslint .; exit 0;&rdquo; // 有錯誤的話 eslint exit code 是 1， 我們手動 exit 0 以避免 npm 報錯。
+  }
+  ```</p>
 
 <!--  -->
 

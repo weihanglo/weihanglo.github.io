@@ -23,7 +23,7 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Swift'><meta property='article:tag' content='Error Handling'><meta property='article:published_time' content='2017-04-10T16:36:33&#43;08:00'/><meta property='article:modified_time' content='2017-04-10T16:36:33&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.58.3" />
 
   <title>理解 Swift 的 Error Handling • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/swift-error-handling/'>
@@ -291,7 +291,7 @@ if (!doNotTrack) {
 <p>當你<strong>非常有信心</strong>錯誤不會發生，可以使用 <code>try!</code> 停止錯誤往下傳遞。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// 接續前一個例子</span>
 <span style="color:#75715e">// `x` 是一個 Int，如果 someThrowingFunction 拋出錯誤，則會得到 runtime error。</span>
-<span style="color:#66d9ef">let</span> x = <span style="color:#66d9ef">try</span><span style="color:#f92672">!</span> someThrowingFunction()</code></pre></div>
+<span style="color:#66d9ef">let</span> x = <span style="color:#66d9ef">try</span>! someThrowingFunction()</code></pre></div>
 <h2 id="other-handling-keywords">Other Handling Keywords</h2>
 
 <p>到此，我們介紹了 <code>do</code>、<code>catch</code>、<code>try</code>、<code>throw</code>、<code>throws</code>，這裡接著介紹 <code>rethrows</code>、<code>defer</code> 與 <code>Error</code>。</p>
@@ -322,7 +322,7 @@ if (!doNotTrack) {
 }</code></pre></div>
 <p>我們可以看到，許多與函數式程式設計相關 methods，都有帶 <code>rethrows</code> 的 signatures，例如 <code>Collection</code> 的 <code>map()</code> 與 <code>index(where:)</code>，讓處理集合時，可以將錯誤傳遞到正確的作用域。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">Collection</span> : Sequence {
-  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">map</span>&lt;T<span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">_</span> transform: (Element) <span style="color:#66d9ef">throws</span> -&gt; T) <span style="color:#66d9ef">rethrows</span> -&gt; [T]
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">map</span>&lt;T&gt;(<span style="color:#66d9ef">_</span> transform: (Element) <span style="color:#66d9ef">throws</span> -&gt; T) <span style="color:#66d9ef">rethrows</span> -&gt; [T]
 
   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">index</span>(<span style="color:#66d9ef">where</span> predicate: (<span style="color:#66d9ef">Self</span>.Iterator.Element) <span style="color:#66d9ef">throws</span> -&gt; Bool) <span style="color:#66d9ef">rethrows</span> -&gt; <span style="color:#66d9ef">Self</span>.Index?
 }</code></pre></div>
@@ -422,7 +422,7 @@ if (!doNotTrack) {
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/swift/'>Swift</a>, <a class='tag' href='/tags/error-handling/'>Error Handling</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/swift/'>Swift</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
