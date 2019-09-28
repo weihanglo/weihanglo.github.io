@@ -38,7 +38,7 @@ RustConf 歷年來皆由 [Tilde Inc.][tilde] 旗下的 [Skylight][skylight] 主�
 [回到目錄](#目錄)
 
 - 講者：Steve Klabnik & Florian Gilcher ([@steveklabnik](https://github.com/steveklabnik) & [@skade](https://github.com/skade))
-- 難度：⭑⭐︎⭐︎
+- 難度：入門
 - [演講連結](https://youtu.be/FSrQX4uYuOM)
 
 由 Rust Core Team 給的開場 Keynote，主軸有兩個：
@@ -93,7 +93,7 @@ Rust 開源專案越來越大，管理工作顯得越來越重要，Core Team �
 [回到目錄](#目錄)
 
 - 講者：Shoumik Palkar ([@sppalkia](https://github.com/sppalkia))
-- 難度：⭑⭑⭑
+- 難度：入門
 - [演講連結](https://youtu.be/AZsgdCEQjFo)
 - [專案連結](https://weld.rs)
 - [專訪連結](https://notamonadtutorial.com/weld-accelerating-numpy-scikit-and-pandas-as-much-as-100x-with-rust-and-llvm-12ec1c630a1)
@@ -205,7 +205,7 @@ Rust 為什麼適合做高效能的 JIT compiler 和 runtime？
 [回到目錄](#目錄)
 
 - 講者：Jeremy Fitzhardinge ([@jsgf](https://github.com/jsgf))
-- 難度：⭑⭐︎⭐︎
+- 難度：入門
 - [演講連結](https://youtu.be/kylqq8pEgRs)
 
 這場演講是來自 Facebook 的講者，講述 Rust 在 Facebook 內部的各種面向，主要包括開發環境、工程師回饋、目前使用的場景，演講內容其實蠻多都是已知的優缺點，但是從一個 Facebook 僱員口中說出來份量就是不一樣，不過演講的風格我不太能接受就是。
@@ -250,7 +250,7 @@ Facebook 有嚴格的程式碼品管，從 Code Review、Static Analysis，到 T
 - 用了 Rust 後就沒有 memory corruption，但仍有 stack overflows
 - C++ binding 或是 FFI 來的 core dumps 無所不在
 
-而在 Facebook 使用 Rust 最多是動態語言的使用者，尤其是 Python 社群，Node.js/JavaScript 社群也高度關注 Rust 動態。蠻多一部分是寫 CLI app，都大推 clap.rs + structors。
+而在 Facebook 使用 Rust 最多是動態語言的使用者，尤其是 Python 社群，Node.js/JavaScript 社群也高度關注 Rust 動態。蠻多一部分是寫 CLI app，都大推 clap.rs + structopt。
 
 其他語言來的使用者，大部分的心聲如下：
 
@@ -273,7 +273,7 @@ Facebook 有嚴格的程式碼品管，從 Code Review、Static Analysis，到 T
 [回到目錄](#目錄)
 
 - 講者：Oliver Schneider ([@oli-obk](https://github.com/oli-obk))
-- 難度：⭑⭑⭑
+- 難度：進階
 - [演講連結](https://youtu.be/wkXNm_qo8aY)
 
 這場演講是我聽了這幾場 talk 中數一數二難，除了講者帶了很多觀念但沒有太深入講解外，講題本身和不同語言／記憶體模型／編譯器等領域知識要求都頗高，C++ 和 `send`/`sync` 的運作原理不熟可能會有點辛苦。
@@ -326,7 +326,7 @@ const OK: &MostNonHeapType = ...;
 
 這種 move 不合法，但在指標後面就合法的行為，是不是很像 `Send + Sync`？沒錯，const heap allocation導入了 `ConstSafe` 、`ConstRefSafe` 兩種新型別，用處理 multi-threading 那一套方法來解決 const eval 的問題。
 
-講者提及 C++ 20 才有 heap alloc const eval 的標準提案，英文 C++ 覺得這種作法太危險，只能在 computation 期間用到，但 final product 不能有任何 heap pointer，這是非法的。而 Rust 和 C++ 不一樣，我們其實可以有 heap alloc，只要他躲在 ref 後面就行了，例如下面這個 `String` 就會實作 `ConstRefSafe`（類似 `Sync`）。
+講者提及 C++ 20 才有 heap alloc const eval 的標準提案，因為 C++ 覺得這種作法太危險，只能在 computation 期間用到，但 final product 不能有任何 heap pointer，這是非法的。而 Rust 和 C++ 不一樣，我們其實可以有 heap alloc，只要他躲在 ref 後面就行了，例如下面這個 `String` 就會實作 `ConstRefSafe`（類似 `Sync`）。
 
 ```rust
 unsafe impl ConstRefSafe for String {}
@@ -404,7 +404,7 @@ let _: [(); {
 [回到目錄](#目錄)
 
 - 講者：Irina Shestak ([@lrlna](https://github.com/lrlna))
-- 難度：⭑⭑⭐︎
+- 難度：中階
 - [演講連結](https://youtu.be/lLzFJenzBng)
 - [專案連結](https://github.com/mongodb-js/mongodb-schema)
 
@@ -462,4 +462,4 @@ let _: [(); {
 - [開戰：或許你不需要 Rust 就可以加速你的 JS](https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html)
 - [反擊：加速其實不需要黑魔法](https://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)
 
-> 後記：MongoDb Compass 爛透了，本來在 Robo 3T 一秒可以查詢的 query 用 Compass 一直 timeout，簡直整個繡掉耶 Compass。
+> 後記：MongoDb Compass 慢死了，本來在 Robo 3T 一秒可以查詢的 query 用 Compass 一直 timeout，簡直整個鏽掉。
