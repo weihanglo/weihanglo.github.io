@@ -434,7 +434,7 @@ if (!doNotTrack) {
 <li>C++ binding 或是 FFI 來的 core dumps 無所不在</li>
 </ul>
 
-<p>而在 Facebook 使用 Rust 最多是動態語言的使用者，尤其是 Python 社群，Node.js/JavaScript 社群也高度關注 Rust 動態。蠻多一部分是寫 CLI app，都大推 clap.rs + structors。</p>
+<p>而在 Facebook 使用 Rust 最多是動態語言的使用者，尤其是 Python 社群，Node.js/JavaScript 社群也高度關注 Rust 動態。蠻多一部分是寫 CLI app，都大推 clap.rs + structopt。</p>
 
 <p>其他語言來的使用者，大部分的心聲如下：</p>
 
@@ -516,7 +516,7 @@ drop(x) <span style="color:#75715e">// 我們無法得知誰會呼叫這個 drop
 </code></pre></div>
 <p>這種 move 不合法，但在指標後面就合法的行為，是不是很像 <code>Send + Sync</code>？沒錯，const heap allocation導入了 <code>ConstSafe</code> 、<code>ConstRefSafe</code> 兩種新型別，用處理 multi-threading 那一套方法來解決 const eval 的問題。</p>
 
-<p>講者提及 C++ 20 才有 heap alloc const eval 的標準提案，英文 C++ 覺得這種作法太危險，只能在 computation 期間用到，但 final product 不能有任何 heap pointer，這是非法的。而 Rust 和 C++ 不一樣，我們其實可以有 heap alloc，只要他躲在 ref 後面就行了，例如下面這個 <code>String</code> 就會實作 <code>ConstRefSafe</code>（類似 <code>Sync</code>）。</p>
+<p>講者提及 C++ 20 才有 heap alloc const eval 的標準提案，因為 C++ 覺得這種作法太危險，只能在 computation 期間用到，但 final product 不能有任何 heap pointer，這是非法的。而 Rust 和 C++ 不一樣，我們其實可以有 heap alloc，只要他躲在 ref 後面就行了，例如下面這個 <code>String</code> 就會實作 <code>ConstRefSafe</code>（類似 <code>Sync</code>）。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">impl</span> ConstRefSafe <span style="color:#66d9ef">for</span> String {}
 </code></pre></div>
 <p>Rust 太安全了，只要照著 <code>Send</code> 和 <code>Sync</code> 的經驗再次開放，大致上就能完成 heap alloc in const eval，以下是 <code>ConstRefSafe</code> 目前的定義：</p>
