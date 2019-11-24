@@ -1,9 +1,10 @@
 # Weihang Lo's Blog
 
-[![Travis](https://img.shields.io/travis/weihanglo/weihanglo.github.io.svg)](https://travis-ci.org/weihanglo/weihanglo.github.io)
+[![Travis](https://github.com/weihanglo/weihanglo.github.io/workflows/CD/badge.svg)](https://github.com/weihanglo/weihanglo.github.io/actions?query=workflow%3ACD)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)][cc-by-nc-sa]
 
 My Personal Blog. Powered by [Hugo](https://gohugo.io/).
+
 
 ## Deploy to Github Pages (master branch)
 
