@@ -23,5 +23,5 @@ hugo
 
 echo "Updating master branch"
 cd public && git add --all && \
-    git commit -m "Publishing via publish.sh at $(date)" && \
+    git commit -m "Published via publish.sh at $(date)" && \
     git push
