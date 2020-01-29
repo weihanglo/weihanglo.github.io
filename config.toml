@@ -66,7 +66,6 @@ page = "" # Twitter page username
 titleSeparator = "•"
 
 [params.social]
-email = "weihanglotw@gmail.com"
 facebook = "weihanglo"
 github = "weihanglo"
 linkedin = "weihanglo"
@@ -74,7 +73,7 @@ twitter = "weihanglo"
 telegram = "weihanglo"
 
 [params.social.config]
-platforms = ["github","facebook","twitter","email","linkedin", "telegram"]
+platforms = ["github","facebook","twitter","linkedin", "telegram"]
 
 [params.comments]
 enable = false
