@@ -1,8 +1,9 @@
 ---
-title: WWW 0x05
+title: "WWW 0x05: 若單體服務是屎，微服務就是許多屎"
 date: 2020-02-22T00:00:00+08:00
 tags:
   - Weekly
+  - Microservice
 ---
 
 這裡是 WWW 第伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。

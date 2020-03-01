@@ -1,8 +1,12 @@
 ---
-title: WWW 0x01
+title: "WWW 0x01: 有個部署「部署「部署 K8s 」」的工具"
 date: 2020-01-25T00:00:11+08:00
 tags:
   - Weekly
+  - C++
+  - DevOps
+  - Kubernetes
+  - Front-end
 ---
 
 這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。

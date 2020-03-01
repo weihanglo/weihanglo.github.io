@@ -1,5 +1,5 @@
 ---
-title: WWW 0x00
+title: "WWW 0x00: Rust 有個靜態 GC"
 date: 2020-01-18T00:00:00+08:00
 tags:
   - Weekly
@@ -40,7 +40,7 @@ tags:
 
 不過這並非 lock-free 的實作，Mutex 鎖仍然有不少效能改善空間，等我看懂 lock-free threadpool 再來分享。
 
-## [The Case for Writing Network Drivers inHigh-Level Programming Languages](https://www.net.in.tum.de/fileadmin/bibtex/publications/papers/the-case-for-writing-network-drivers-in-high-level-languages.pdf)
+## [The Case for Writing Network Drivers in High-Level Programming Languages](https://www.net.in.tum.de/fileadmin/bibtex/publications/papers/the-case-for-writing-network-drivers-in-high-level-languages.pdf)
 
 慕尼黑工大寫了一系列論文，用各種語言實作 Network driver，實作細節包含 DMA 到封包傳遞，Rust 的效能接近 C 在意料之中，比較令我驚訝的是 C# 效能好得誇張。
 

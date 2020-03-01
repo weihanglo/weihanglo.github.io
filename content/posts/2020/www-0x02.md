@@ -1,8 +1,10 @@
 ---
-title: WWW 0x02
+title: "WWW 0x02: Distroless Docker for distressed human"
 date: 2020-02-01T00:00:11+08:00
 tags:
   - Weekly
+  - Rust
+  - DevOps
 ---
 
 這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。

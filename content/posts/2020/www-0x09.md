@@ -1,8 +1,10 @@
 ---
-title: WWW 0x09
+title: "WWW 0x09: 到底要不要擔心 blocking"
 date: 2020-03-21T00:00:00+08:00
 tags:
   - Weekly
+  - Asynchronous
+  - System Programming
 ---
 
 > A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he
