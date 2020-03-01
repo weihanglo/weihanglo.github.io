@@ -5,9 +5,7 @@ copyright = ""
 
 theme = "minimo"
 
-disqusShortname = "weihang-lo"
-googleAnalytics = "UA-118441906-2"
-Paginate = 10
+Paginate = 1000
 preserveTaxonomyNames = true
 enableRobotsTXT = true # generate robots.txt
 # Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
