@@ -4,7 +4,7 @@ date: 2018-01-05T08:44:43+08:00
 tags:
   - Rust
   - Tokio
-  - Asynchronous I/O
+  - Asynchronous
   - Translation
 ---
 
