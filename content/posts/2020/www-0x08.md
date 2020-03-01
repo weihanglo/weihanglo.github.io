@@ -1,8 +1,10 @@
 ---
-title: WWW 0x08
+title: "WWW 0x08: 你的 Helm chart 安全嗎"
 date: 2020-03-14T00:00:00+08:00
 tags:
   - Weekly
+  - FOSS
+  - Kubernetes
 ---
 
 > organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
