@@ -42,7 +42,7 @@ _（撰於 2020-03-23，基於 Kubernetes 1.17，但 Api Versions 太多請自�
 - **Scale-up：** 檢查 metrics，發現過了 threshold 就增加 deployment 的 replicas
 - **Scale-down：** 檢查 metrics，發現過了 threshold 就減少 deployment 的 replicas
 - 在 scale up/down 之後都會等個三五分鐘穩定後，再開始檢查 metric（如果突然爆漲應該來不及？）
-- 可以設定 external metrics 來觸發 autoscaling
+- 可以設定 custom/external metrics 來觸發 autoscaling
 - ⚠️ v2beta2 以上的 HPA 才有 metrics 可以檢查，v1 只能檢查 CPU utilization
 
 ![](https://d33wubrfki0l68.cloudfront.net/4fe1ef7265a93f5f564bd3fbb0269ebd10b73b4e/1775d/images/docs/horizontal-pod-autoscaler.svg)
@@ -52,11 +52,11 @@ _（撰於 2020-03-23，基於 Kubernetes 1.17，但 Api Versions 太多請自�
 - `maxReplicas`：恩，字面上的意思
 - `minReplicas`：autoscaler 可以設定的最小 replicas 值，預設為 1
 - `scaleTargetRef`：要 scale 的 resource，通常設定為 deployment 等 scheduler（statefulset 不行）
-- `metrics`：設定 scaling 要檢查的 metrics，有點複雜，可以設定
-  1. **Resource：** 目標資源的 Memory/CPU 等
-  2. **Object：** 例如 Ingress hit-per-seconds
-  3. **Pod：** pod 內部的 metrics，和 Resource 不同在於 memory 是 K8s controller 可見，Pod 內部是 Pod 自己可見
-  4. **External：** 外部的 metrics，例如 load balancer，K8s 的 metrics 使用 Prometheus 格式，所以大膽向外求援吧
+- `metrics`：設定 scaling 要檢查的 metrics，跟 `metrics.k8s.io` 這些 API object 有關，可設定
+  1. **Resource：** 目標資源的 Memory/CPU 等，通常透過 metrics-server 建立
+  2. **Pod：** pod 上的 metrics，不同的是 Resource 預先定義好了，但 Pod 則是可以而外傭 `custom.metrics.k8s.io` API 來定義
+  3. **Object：** 和 Pod 類似，是其他在同個 namespace 下面的 Resource Object 的 metrics，例如 Ingress hit-per-seconds
+  4. **External：** 外部的 metrics，例如 load balancer，我們可以透過 [prometheus-adapter](https://github.com/DirectXMan12/k8s-prometheus-adapter) 將 Prometheus 的 metrics 格式轉換為 metrics API 的格式，所以大膽向外求援吧
 
 如果想玩玩 HPA，請參考[官方文件走過一遍](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)，但千萬不要在正式環境亂玩 😈。
 
