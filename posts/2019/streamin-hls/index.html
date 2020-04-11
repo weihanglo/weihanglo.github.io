@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='最近開始研究很夯的直播技術，一般常見的直播方案為 HLS 以及 RTMP 等，本篇將介紹 Apple 強迫使用 大力支持的 HLS 協議。
@@ -11,7 +9,7 @@
 Workflow HLS 原理非常簡單：
  將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 .ts 檔）。 建立索引檔（index file，為 .m3u8 檔）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。 透過 HTTP 給予 client 對應的 Response（.m3u8、.ts）。 Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。 該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。   簡單來講，就是取得 .m3u8 播放列表，按照順序播放 .ts 檔，全部放完再請求下一個 .m3u8 playlist，週而復始。
  Features HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：
-Adaptability and Availability .'>
+Adaptability and Availability .m3u8 這個 Playlist 檔除了指向影音串流片段路徑，也可以指向其他 Playlist 的路徑。標準架構是有一個 Master Playlist 指向其他的 Media Playlist（真正包含 .'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='HLS 串流協議二三事 • Weihang Lo'>
@@ -22,47 +20,28 @@ Adaptability and Availability .'>
 Workflow HLS 原理非常簡單：
  將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 .ts 檔）。 建立索引檔（index file，為 .m3u8 檔）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。 透過 HTTP 給予 client 對應的 Response（.m3u8、.ts）。 Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。 該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。   簡單來講，就是取得 .m3u8 播放列表，按照順序播放 .ts 檔，全部放完再請求下一個 .m3u8 playlist，週而復始。
  Features HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：
-Adaptability and Availability .'>
+Adaptability and Availability .m3u8 這個 Playlist 檔除了指向影音串流片段路徑，也可以指向其他 Playlist 的路徑。標準架構是有一個 Master Playlist 指向其他的 Media Playlist（真正包含 .'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2019/streamin-hls/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='HLS'><meta property='article:tag' content='Streaming'><meta property='article:published_time' content='2019-01-27T12:31:29&#43;08:00'/><meta property='article:modified_time' content='2019-01-27T12:31:29&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.3" />
+<meta name="generator" content="Hugo 0.68.3" />
 
   <title>HLS 串流協議二三事 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2019/streamin-hls/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-118441906-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
 
 </head>
-
-
 <body class='page type-posts'>
 
-  <div class='site'>
-
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     
     <ul><li class='item'>
@@ -75,7 +54,9 @@ if (!doNotTrack) {
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
@@ -95,8 +76,7 @@ if (!doNotTrack) {
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -131,114 +111,77 @@ if (!doNotTrack) {
   
 
   <div class='container entry-content'>
-  
-
-<p>最近開始研究很夯的直播技術，一般常見的直播方案為 <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank">HLS</a> 以及 <a href="https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol" target="_blank">RTMP</a> 等，本篇將介紹 Apple <del>強迫使用</del> 大力支持的 HLS 協議。</p>
-
+  <p>最近開始研究很夯的直播技術，一般常見的直播方案為 <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming">HLS</a> 以及 <a href="https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol">RTMP</a> 等，本篇將介紹 Apple <del>強迫使用</del> 大力支持的 HLS 協議。</p>
 <p><em>（撰於 2017-04-10）</em></p>
-
 <blockquote>
 <p>本文是兩年前的舊文，剛好最近又開始碰串流，所以拿出來獻醜一下。</p>
 </blockquote>
-
 <h2 id="overview">Overview</h2>
-
 <p><strong>HLS</strong> 的全名為 <strong>HTTP Live Streaming</strong>，是一個由 Apple 提出並實作。HLS 是基於 HTTP 的串流協議，實作起來平易近人。如果你想要實作串流但又不想要太複雜的後台配置、或是串流須經加密驗證，HLS 會是一個不錯的解決方案。</p>
-
 <h2 id="workflow">Workflow</h2>
-
 <p>HLS 原理非常簡單：</p>
-
 <ol>
-<li>將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 <a href="https://en.wikipedia.org/wiki/MPEG_transport_stream" target="_blank">.ts 檔</a>）。</li>
-<li>建立索引檔（index file，為 <a href="https://en.wikipedia.org/wiki/M3U" target="_blank">.m3u8 檔</a>）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。</li>
+<li>將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 <a href="https://en.wikipedia.org/wiki/MPEG_transport_stream">.ts 檔</a>）。</li>
+<li>建立索引檔（index file，為 <a href="https://en.wikipedia.org/wiki/M3U">.m3u8 檔</a>）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。</li>
 <li>透過 HTTP 給予 client 對應的 Response（<strong>.m3u8</strong>、<strong>.ts</strong>）。</li>
 <li>Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。</li>
 <li>該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。</li>
 </ol>
-
 <blockquote>
 <p>簡單來講，就是取得 <strong>.m3u8</strong> 播放列表，按照順序播放 <strong>.ts</strong> 檔，全部放完再請求下一個 <strong>.m3u8</strong> playlist，週而復始。</p>
 </blockquote>
-
 <h2 id="features">Features</h2>
-
 <p>HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：</p>
-
 <h3 id="adaptability-and-availability">Adaptability and Availability</h3>
-
-<p><code>.m3u8</code> 這個 Playlist 檔除了指向影音串流片段路徑，也可以指向其他 Playlist 的路徑。標準架構是有一個 <strong>Master Playlist</strong> 指向其他的 <strong>Media Playlist</strong>（真正包含 <strong>.ts</strong> 的播放列表），達到<a href="https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming" target="_blank">自適應串流</a>的結果。</p>
-
+<p><code>.m3u8</code> 這個 Playlist 檔除了指向影音串流片段路徑，也可以指向其他 Playlist 的路徑。標準架構是有一個 <strong>Master Playlist</strong> 指向其他的 <strong>Media Playlist</strong>（真正包含 <strong>.ts</strong> 的播放列表），達到<a href="https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming">自適應串流</a>的結果。</p>
 <blockquote>
 <p>自適應串流：根據使用者的頻寬與 CPU 負載，調整至不同 bitrate／影音品質（高清、普清）的串流，使串流體驗更加快速、穩定。</p>
 </blockquote>
-
-<p><img src="https://github.com/videojs/videojs-contrib-hls/raw/master/docs/hls-format.png" alt="" /></p>
-
+<p><img src="https://github.com/videojs/videojs-contrib-hls/raw/master/docs/hls-format.png" alt=""></p>
 <p>除了可以調整不同 bitrate，<code>.m3u8</code> Playlist 尚可提供多個同內容但來源相異的串流，多個 server 同時待命，讓可憐的魯蛇工程師不再為 server 掛掉加班救台灣。</p>
-
 <h3 id="based-on-http-protocol">Based on HTTP Protocol</h3>
-
 <p>HLS 基於 HTTP Protocol，得以彌補其他非 HTTP-based 串流協議的缺點：</p>
-
 <ul>
 <li><strong>無須專門協議</strong>，可穿越大部分的 router／NAT／Firewall。</li>
 <li>Server／Client 實作容易（支援 HTTP request/response 的 server 即可）。</li>
 <li>可利用 HTTP-based CDN 作為 distribution server。</li>
 </ul>
-
 <h3 id="content-protection">Content Protection</h3>
-
 <p>HLS 有提供影音串流片段（Media Segments）個別加密，每個加密的片段需包含 <strong>#EXT-X-KEY</strong> tag，指向 decryption key 進行解碼。取得 decryption key 的方法則未加以限制，可有不同的認證／傳輸方式，端看如何實作（當然，建議使用 HTTPS 傳輸 key）。</p>
-
 <h3 id="two-session-types">Two Session Types</h3>
-
-<p>HLS 分為兩種 session：<strong>Video on Demand（VOD）</strong>與 <strong>Live Sessions</strong>，除了一般的影音串流，更有直播模式可選擇，在此我們先將兩者粗分為 <strong>Static Mode</strong> 和 <strong>Live Mode</strong>。</p>
-
+<p>HLS 分為兩種 session：**Video on Demand（VOD）**與 <strong>Live Sessions</strong>，除了一般的影音串流，更有直播模式可選擇，在此我們先將兩者粗分為 <strong>Static Mode</strong> 和 <strong>Live Mode</strong>。</p>
 <ul>
-<li><p><strong>VOD（Static Mode）</strong>:又稱為<strong>隨選視訊／視頻點播</strong>，是播放一個靜態、非直播的影音，相較於一般 H5 的 video tag 或 mp4，擁有動態切換 bitrate（自適應串流）以及驗證加密等技術。</p></li>
-
-<li><p><strong>Live Sessions（Live Mode）</strong>：顧名思義，就是一般認知的直播，如果 Playlist 不包含 <code>#EXT-X-ENDLIST</code> Tag，Client 將處於 live session，會不斷加載新的 index file（<strong>.m3u8</strong>）。</p></li>
+<li>
+<p><strong>VOD（Static Mode）</strong>:又稱為<strong>隨選視訊／視頻點播</strong>，是播放一個靜態、非直播的影音，相較於一般 H5 的 video tag 或 mp4，擁有動態切換 bitrate（自適應串流）以及驗證加密等技術。</p>
+</li>
+<li>
+<p><strong>Live Sessions（Live Mode）</strong>：顧名思義，就是一般認知的直播，如果 Playlist 不包含 <code>#EXT-X-ENDLIST</code> Tag，Client 將處於 live session，會不斷加載新的 index file（<strong>.m3u8</strong>）。</p>
+</li>
 </ul>
-
 <h2 id="architecture">Architecture</h2>
-
 <p>概念上，HLS 的實作分為三個重要角色：</p>
-
 <ul>
 <li><strong>Server Component</strong> -&gt; 負責影音前置作業的 server</li>
 <li><strong>Distribution Component</strong> -&gt; 負責 serving file 的 HTTP server</li>
 <li><strong>Client Software</strong> -&gt; 負責發送、接收、解析、並呈現串流的 client</li>
 </ul>
-
 <p>蘋果親爹對該三角色的示意圖如下：</p>
-
-<p><img src="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/art/transport_stream_2x.png" alt="HLS Basic" /></p>
-
+<p><img src="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/art/transport_stream_2x.png" alt="HLS Basic"></p>
 <p>以下介紹圖中三個要角的內容：</p>
-
 <h3 id="server-component">Server Component</h3>
-
-<p>如圖所示，主要工作就是：「接受影音輸入，並將影音轉碼為 <a href="https://en.wikipedia.org/wiki/MPEG_transport_stream" target="_blank">MPEG-2 Transport Stream</a> 格式、最後分割為方便傳輸小片段」。此外，server 在切割片段時，必須產生對應的 Playlist（<strong>.m3u8</strong>），Playlist 內含有影音片段的有序播放列表。若檔案經過加密，server 需替 Playlist 注入對應的 <strong>#EXT-X-KEY</strong> tag，指明 decryption Key 的 URI。</p>
-
+<p>如圖所示，主要工作就是：「接受影音輸入，並將影音轉碼為 <a href="https://en.wikipedia.org/wiki/MPEG_transport_stream">MPEG-2 Transport Stream</a> 格式、最後分割為方便傳輸小片段」。此外，server 在切割片段時，必須產生對應的 Playlist（<strong>.m3u8</strong>），Playlist 內含有影音片段的有序播放列表。若檔案經過加密，server 需替 Playlist 注入對應的 <strong>#EXT-X-KEY</strong> tag，指明 decryption Key 的 URI。</p>
 <h3 id="distribution-component">Distribution Component</h3>
-
 <p>就是一個 HTTP web Server，不需為了發送資料而自定義模組，透過簡單的 Request／Response，向 Clients 發送對應的影音媒體檔案。這個 HTTP Server 僅需簡單的配置，如將 MIME type 限制在 <strong>.m3u8</strong> 與 <strong>.ts</strong> 檔案。</p>
-
 <h3 id="client-software">Client Software</h3>
-
 <p>Client 的職責為解析索引檔（<strong>.m3u8</strong>），並依照索引檔提供的 URL 下載串流影音檔（<strong>.ts</strong>），串流檔下載足夠量時，組裝影音檔並呈現給用戶。</p>
-
 <p>在有需要時，Client 需實作切換不同品質／來源的串流源。若檔案經加密，Client 需依照索引檔的 URI 下載 decryption key 解密，並在必要時呈現認證畫面。</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
-<li><a href="https://developer.apple.com/streaming/" target="_blank">Apple - Streaming</a></li>
-<li><a href="https://tools.ietf.org/html/draft-pantos-http-live-streaming" target="_blank">IETF Drafts - HTTP Live Streaming</a></li>
-<li><a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank">Wiki - HTTP Live Streaming</a></li>
-<li><a href="https://en.wikipedia.org/wiki/M3U" target="_blank">Wiki - M3U</a></li>
-<li><a href="https://www.jianshu.com/p/2ce402a485ca" target="_blank">HTTP Live Streaming (HLS) - 概念</a></li>
+<li><a href="https://developer.apple.com/streaming/">Apple - Streaming</a></li>
+<li><a href="https://tools.ietf.org/html/draft-pantos-http-live-streaming">IETF Drafts - HTTP Live Streaming</a></li>
+<li><a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming">Wiki - HTTP Live Streaming</a></li>
+<li><a href="https://en.wikipedia.org/wiki/M3U">Wiki - M3U</a></li>
+<li><a href="https://www.jianshu.com/p/2ce402a485ca">HTTP Live Streaming (HLS) - 概念</a></li>
 </ul>
 
 </div>
@@ -320,15 +263,6 @@ if (!doNotTrack) {
 </svg>
 </a>
       </li><li>
-        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -349,16 +283,16 @@ if (!doNotTrack) {
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2019 Weihang Lo </p>
+  <p> &copy; 2017-2020 Weihang Lo </p>
 </div>
 
         </div>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

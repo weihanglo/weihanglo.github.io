@@ -1,66 +1,39 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
 （撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
-特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8&#43;, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
-brew install carthage  如果還沒有裝 homebrew，請來這下載
- 建立一個 Carfile，列出欲使用的模組，例如：
-github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。
- 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries'>
+特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8&#43;, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手 從終端環境安裝 Carthage  brew install carthage  如果還沒有裝 homebrew，請來這下載
+  建立一個 Carfile，列出欲使用的模組，例如：  github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Carthage 套件管理工具 • Weihang Lo'>
 <meta property='og:description' content='Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
 （撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
-特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8&#43;, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
-brew install carthage  如果還沒有裝 homebrew，請來這下載
- 建立一個 Carfile，列出欲使用的模組，例如：
-github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。
- 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries'>
+特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8&#43;, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手 從終端環境安裝 Carthage  brew install carthage  如果還沒有裝 homebrew，請來這下載
+  建立一個 Carfile，列出欲使用的模組，例如：  github &#34;Alamofire/Alamofire&#34; ~&gt; 4.4 github &#34;ReactiveX/RxSwift&#34; ~&gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&gt; General =&gt; Linked Frameworks and Libraries 在 app target =&gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2017/carthage-intro/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Carthage'><meta property='article:tag' content='Swift'><meta property='article:published_time' content='2017-03-05T08:45:57&#43;08:00'/><meta property='article:modified_time' content='2017-03-05T08:45:57&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.3" />
+<meta name="generator" content="Hugo 0.68.3" />
 
   <title>Carthage 套件管理工具 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/carthage-intro/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-118441906-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
 
 </head>
-
-
 <body class='page type-posts'>
 
-  <div class='site'>
-
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     
     <ul><li class='item'>
@@ -73,7 +46,9 @@ if (!doNotTrack) {
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
@@ -93,8 +68,7 @@ if (!doNotTrack) {
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -129,50 +103,40 @@ if (!doNotTrack) {
   
 
   <div class='container entry-content'>
-  
-
-<p><a href="https://github.com/Carthage/Carthage" target="_blank">Carthage</a> 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 <a href="https://cocoapods.org/" target="_blank">CocoaPods</a> 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。</p>
-
+  <p><a href="https://github.com/Carthage/Carthage">Carthage</a> 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 <a href="https://cocoapods.org/">CocoaPods</a> 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。</p>
 <p><em>（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）</em></p>
-
-<!-- more -->
-
+<!-- raw HTML omitted -->
 <h2 id="特色">特色</h2>
-
 <ul>
 <li>時代潮流：Written in Swift! (v.s. CocoaPods in <em>Ruby</em>)</li>
 <li>主流現代：iOS 8+, dynamic framework only</li>
 <li>去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。</li>
 <li>非入侵式：不會修改 Xcode 相關配置，耦合性低。</li>
 </ul>
-
 <h2 id="快速上手">快速上手</h2>
-
-<ol>
-<li><p>從終端環境安裝 Carthage</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install carthage</code></pre></div>
-<blockquote>
-<p>如果還沒有裝 homebrew，<a href="https://brew.sh/" target="_blank">請來這下載</a></p>
-</blockquote></li>
-
-<li><p>建立一個 <code>Carfile</code>，列出欲使用的模組，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">github <span style="color:#e6db74">&#34;Alamofire/Alamofire&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span>
-github <span style="color:#e6db74">&#34;ReactiveX/RxSwift&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span></code></pre></div></li>
-
-<li><p>在終端環境輸入 <code>carthage update</code>，Carthage 將自動下載所有相依模組至 <code>Carthage/Checkouts</code> 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。</p></li>
-
-<li><p>將 <code>Carthage/Build</code> 資料夾內編譯好的 frameworks 拖拉進你的 <strong>app target</strong> =&gt; <strong>General</strong> =&gt; <strong>Linked Frameworks and Libraries</strong></p></li>
-
-<li><p>在 <strong>app target</strong> =&gt; <strong>Build Phases</strong> 下新增一個 <strong>New Run Script Phase</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 自動將 framework 複製到 target app 的 bundle中</span>
-/usr/local/bin/carthage copy-frameworks</code></pre></div></li>
+<ol start="0">
+<li>從終端環境安裝 Carthage</li>
 </ol>
-
-<p>並在 <strong>Input Files</strong> 加入相依的 frameworks 路徑，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">  <span style="color:#66d9ef">$(</span>SRCROOT<span style="color:#66d9ef">)</span>/Carthage/Build/iOS/Alamofire.framework
-  <span style="color:#66d9ef">$(</span>SRCROOT<span style="color:#66d9ef">)</span>/Carthage/Build/iOS/RxSwift.framework</code></pre></div>
-<h2 id="cartfile-版號語法簡介">Cartfile 版號語法簡介</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install carthage
+</code></pre></div><blockquote>
+<p>如果還沒有裝 homebrew，<a href="https://brew.sh/">請來這下載</a></p>
+</blockquote>
+<ol>
+<li>建立一個 <code>Carfile</code>，列出欲使用的模組，例如：</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">github <span style="color:#e6db74">&#34;Alamofire/Alamofire&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span>
+github <span style="color:#e6db74">&#34;ReactiveX/RxSwift&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span>
+</code></pre></div><ol start="2">
+<li>在終端環境輸入 <code>carthage update</code>，Carthage 將自動下載所有相依模組至 <code>Carthage/Checkouts</code> 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。</li>
+<li>將 <code>Carthage/Build</code> 資料夾內編譯好的 frameworks 拖拉進你的 <strong>app target</strong> =&gt; <strong>General</strong> =&gt; <strong>Linked Frameworks and Libraries</strong></li>
+<li>在 <strong>app target</strong> =&gt; <strong>Build Phases</strong> 下新增一個 <strong>New Run Script Phase</strong></li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 自動將 framework 複製到 target app 的 bundle中</span>
+/usr/local/bin/carthage copy-frameworks
+</code></pre></div><p>並在 <strong>Input Files</strong> 加入相依的 frameworks 路徑，例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">$(</span>SRCROOT<span style="color:#66d9ef">)</span>/Carthage/Build/iOS/Alamofire.framework
+<span style="color:#66d9ef">$(</span>SRCROOT<span style="color:#66d9ef">)</span>/Carthage/Build/iOS/RxSwift.framework
+</code></pre></div><h2 id="cartfile-版號語法簡介">Cartfile 版號語法簡介</h2>
 <p>Cartfile 版號語法與 Podfile 雷同：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># 版號 &gt;= 3.1.2</span>
 github <span style="color:#e6db74">&#34;ReactiveX/RxSwift&#34;</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">.</span><span style="color:#ae81ff">1</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2</span>
@@ -193,11 +157,9 @@ github <span style="color:#e6db74">&#34;jspahrsummers/xcconfigs&#34;</span> <spa
 git <span style="color:#e6db74">&#34;https://agitserver.com/swift-test/swift-test.git&#34;</span> <span style="color:#e6db74">&#34;develop&#34;</span>
 
 <span style="color:#75715e"># 本地 local Git Repository</span>
-git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <span style="color:#e6db74">&#34;branch&#34;</span></code></pre></div>
-<h2 id="常見議題">常見議題</h2>
-
-<h3 id="q-carthage-資料夾裡面究竟有啥">Q：Carthage 資料夾裡面究竟有啥？</h3>
-
+git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <span style="color:#e6db74">&#34;branch&#34;</span>
+</code></pre></div><h2 id="常見議題">常見議題</h2>
+<h3 id="qcarthage-資料夾裡面究竟有啥">Q：Carthage 資料夾裡面究竟有啥？</h3>
 <pre><code>Carthage/
 ├── Build/
 │   ├── iOS/
@@ -212,56 +174,41 @@ git <span style="color:#e6db74">&#34;file:///directory/to/project&#34;</span> <s
     │   ├── ... Alamofire clone 下來的原始碼
     └── SnapKit/
         └── ... SnapKit clone 下來的原始碼
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>Carthage/Build: 打包好的 framework（pre-built 或是從 checkouts build 出來的）</li>
 <li>Carthage/Checkouts: 所有相依模組的 source code</li>
 </ul>
-
-<h3 id="q-如何避免-carthage-udpate-取得的模組版號不同">Q：如何避免 <code>carthage udpate</code> 取得的模組版號不同？</h3>
-
-<p>Carthage 提供一個鎖定文件 <code>Cartfile.resolved</code>，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，<code>Cartfile.resolved</code> 即會自動更新。可預防部分模組版號沒有完全遵循 <a href="https://semver.org/lang/zh-TW/" target="_blank">語意化版本（SEMVER）</a> 時產生的問題。</p>
-
+<h3 id="q如何避免-carthage-udpate-取得的模組版號不同">Q：如何避免 <code>carthage udpate</code> 取得的模組版號不同？</h3>
+<p>Carthage 提供一個鎖定文件 <code>Cartfile.resolved</code>，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，<code>Cartfile.resolved</code> 即會自動更新。可預防部分模組版號沒有完全遵循 <a href="https://semver.org/lang/zh-TW/">語意化版本（SEMVER）</a> 時產生的問題。</p>
 <p>建議將 <code>Cartfile.resolved</code> 提交至版本管理系統中。之後將遠端儲存庫 clone 下來，只需要執行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">carthage bootstrap</code></pre></div>
-<p>就可以取得與提交時版號完全相同的模組了。</p>
-
-<h3 id="q-我不想提交-carthage-資料夾到-git-server-怎辦">Q：我不想提交 Carthage 資料夾到 Git Server，怎辦？</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">carthage bootstrap
+</code></pre></div><p>就可以取得與提交時版號完全相同的模組了。</p>
+<h3 id="q我不想提交-carthage-資料夾到-git-server怎辦">Q：我不想提交 Carthage 資料夾到 Git Server，怎辦？</h3>
 <p>一般而言，我們會將 Carthage 加入 Project 的 <code>.gitignore</code> 中：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># in .gitignore</span>
-Carthage</code></pre></div>
-<p>除非另有需求，不然 <code>Cartfile.resolve</code> 應足以還原 project 與提交時相同版號的模組環境。</p>
-
-<h3 id="q-我需要開發用但非-project-相關的模組-該如何">Q：我需要開發用但非 Project 相關的模組，該如何？</h3>
-
+Carthage
+</code></pre></div><p>除非另有需求，不然 <code>Cartfile.resolve</code> 應足以還原 project 與提交時相同版號的模組環境。</p>
+<h3 id="q我需要開發用但非-project-相關的模組該如何">Q：我需要開發用但非 Project 相關的模組，該如何？</h3>
 <p>Carthage 提供另一個 <code>Cartfile.private</code>，配置方法與 <code>Cartfile</code> 相同。<code>Cartfile.private</code> 內的相依模組不會被作為主模組的 dependency。可用來配置開發用模組，譬如使用 testing framework。</p>
-
-<h3 id="q-如何只提供-binary-framework-不開放-source-code">Q：如何只提供 binary framework，不開放 source code？</h3>
-
-<p>Carthage 提供的來源除了 Git 以外，事實上<a href="https://github.com/Carthage/Carthage/commit/3a151a413350b980c68b2f1be8ca234e7947d575" target="_blank">最近才提供 binary</a> 這個選項。</p>
-
+<h3 id="q如何只提供-binary-framework不開放-source-code">Q：如何只提供 binary framework，不開放 source code？</h3>
+<p>Carthage 提供的來源除了 Git 以外，事實上<a href="https://github.com/Carthage/Carthage/commit/3a151a413350b980c68b2f1be8ca234e7947d575">最近才提供 binary</a> 這個選項。</p>
 <p><strong>Cartfile</strong> 範例如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">binary <span style="color:#e6db74">&#34;https://example.com/release/ExampleFramework.json&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span></code></pre></div>
-<p>這裡的 json 檔應描述該 framework 對應版號的下載路徑，配置範例如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">binary <span style="color:#e6db74">&#34;https://example.com/release/ExampleFramework.json&#34;</span> <span style="color:#f92672">~&gt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">.</span><span style="color:#ae81ff">4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span>
+</code></pre></div><p>這裡的 json 檔應描述該 framework 對應版號的下載路徑，配置範例如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     <span style="color:#f92672">&#34;1.3.5&#34;</span>: <span style="color:#e6db74">&#34;https://example.com/release/1.3.5/framework.zip&#34;</span>,
     <span style="color:#f92672">&#34;1.4.3&#34;</span>: <span style="color:#e6db74">&#34;https://example.com/release/1.4.3/framework.tar.gz&#34;</span>
-}</code></pre></div>
-<p>除此之外，目前只接受 <code>https</code> url 連結，且 version 只能對應<a href="https://semver.org/lang/zh-TW/" target="_blank">語意化版本</a>， Git branch／tag／commit 都暫時無法使用。</p>
-
-<h3 id="q-如何同時修改相依模組的-code-並在-run-時同步更新嗎">Q：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？</h3>
-
+}
+</code></pre></div><p>除此之外，目前只接受 <code>https</code> url 連結，且 version 只能對應<a href="https://semver.org/lang/zh-TW/">語意化版本</a>， Git branch／tag／commit 都暫時無法使用。</p>
+<h3 id="q如何同時修改相依模組的-code並在-run-時同步更新嗎">Q：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？</h3>
 <p>可以，請新增一個 <strong>Run Script</strong> build phase，在 Run App 後會自動 build 新的 framework：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/usr/local/bin/carthage build --platform <span style="color:#e6db74">&#34;</span>$PLATFORM_NAME<span style="color:#e6db74">&#34;</span> --project-directory <span style="color:#e6db74">&#34;</span>$SRCROOT<span style="color:#e6db74">&#34;</span></code></pre></div>
-<p><strong>！！！！！注意！！！！！</strong></p>
-
-<p>所有在 Carthage/checkouts 內的 source 隨時可能改變。如果確定需要改動相依模組，請利用 <a href="https://github.com/Carthage/Carthage#using-submodules-for-dependencies" target="_blank">carthage 指令將相依模組加入 Git submodules</a>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/usr/local/bin/carthage build --platform <span style="color:#e6db74">&#34;</span>$PLATFORM_NAME<span style="color:#e6db74">&#34;</span> --project-directory <span style="color:#e6db74">&#34;</span>$SRCROOT<span style="color:#e6db74">&#34;</span>
+</code></pre></div><p><strong>！！！！！注意！！！！！</strong></p>
+<p>所有在 Carthage/checkouts 內的 source 隨時可能改變。如果確定需要改動相依模組，請利用 <a href="https://github.com/Carthage/Carthage#using-submodules-for-dependencies">carthage 指令將相依模組加入 Git submodules</a>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">carthage update --use-submodules
 <span style="color:#75715e"># or</span>
-carthage checkout --use-submodules</code></pre></div>
-<p>之後就可以直接操作 Git submodules 了！</p>
+carthage checkout --use-submodules
+</code></pre></div><p>之後就可以直接操作 Git submodules 了！</p>
 
 </div>
 
@@ -342,15 +289,6 @@ carthage checkout --use-submodules</code></pre></div>
 </svg>
 </a>
       </li><li>
-        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -371,16 +309,16 @@ carthage checkout --use-submodules</code></pre></div>
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2019 Weihang Lo </p>
+  <p> &copy; 2017-2020 Weihang Lo </p>
 </div>
 
         </div>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

@@ -1,21 +1,183 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Weihang Lo</title>
     <link>https://weihanglo.tw/tags/</link>
     <description>Recent content in Tags on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 29 Sep 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Kubernetes</title>
+      <link>https://weihanglo.tw/tags/kubernetes/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Privacy</title>
+      <link>https://weihanglo.tw/tags/privacy/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rust</title>
       <link>https://weihanglo.tw/tags/rust/</link>
-      <pubDate>Sun, 29 Sep 2019 00:00:00 +0800</pubDate>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
       
       <guid>https://weihanglo.tw/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Weekly</title>
+      <link>https://weihanglo.tw/tags/weekly/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/weekly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Assembly</title>
+      <link>https://weihanglo.tw/tags/assembly/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/assembly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://weihanglo.tw/tags/golang/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DevOps</title>
+      <link>https://weihanglo.tw/tags/devops/</link>
+      <pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Asynchronous</title>
+      <link>https://weihanglo.tw/tags/asynchronous/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/asynchronous/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>System Programming</title>
+      <link>https://weihanglo.tw/tags/system-programming/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/system-programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FOSS</title>
+      <link>https://weihanglo.tw/tags/foss/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/foss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data structure</title>
+      <link>https://weihanglo.tw/tags/data-structure/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/data-structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RDBMS</title>
+      <link>https://weihanglo.tw/tags/rdbms/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/rdbms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Concurrency</title>
+      <link>https://weihanglo.tw/tags/concurrency/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/concurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://weihanglo.tw/tags/python/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebAssembly</title>
+      <link>https://weihanglo.tw/tags/webassembly/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/webassembly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Microservice</title>
+      <link>https://weihanglo.tw/tags/microservice/</link>
+      <pubDate>Sat, 22 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/microservice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Performance</title>
+      <link>https://weihanglo.tw/tags/performance/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://weihanglo.tw/tags/c&#43;&#43;/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Front-end</title>
+      <link>https://weihanglo.tw/tags/front-end/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/tags/front-end/</guid>
       <description></description>
     </item>
     
@@ -47,15 +209,6 @@
     </item>
     
     <item>
-      <title>Golang</title>
-      <link>https://weihanglo.tw/tags/golang/</link>
-      <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Podcasts</title>
       <link>https://weihanglo.tw/tags/podcasts/</link>
       <pubDate>Mon, 09 Jul 2018 23:48:41 +0800</pubDate>
@@ -83,29 +236,11 @@
     </item>
     
     <item>
-      <title>Front-end</title>
-      <link>https://weihanglo.tw/tags/front-end/</link>
-      <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/front-end/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Interview</title>
       <link>https://weihanglo.tw/tags/interview/</link>
       <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
       
       <guid>https://weihanglo.tw/tags/interview/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Asynchronous I/O</title>
-      <link>https://weihanglo.tw/tags/asynchronous-i/o/</link>
-      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/asynchronous-i/o/</guid>
       <description></description>
     </item>
     
@@ -304,15 +439,6 @@
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
       
       <guid>https://weihanglo.tw/tags/async-function/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Concurrency</title>
-      <link>https://weihanglo.tw/tags/concurrency/</link>
-      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/tags/concurrency/</guid>
       <description></description>
     </item>
     

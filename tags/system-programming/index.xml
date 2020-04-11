@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>System Programming on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/system-programming/</link>
+    <description>Recent content in System Programming on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.tw/tags/system-programming/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WWW 0x09: 到底要不要擔心 blocking</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
+      <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;quot;. has Now problems. two he
+— Davidlohr Bueso
+ 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Stop worrying about blocking: the new async-std runtime, inspired by Go async-std 是 Rust 非同步生態中兩雄之一，欲與 tokio 爭天下。這次的實驗性更新受到 Go 語言啟發，實作了新的 scheduler，主要特點有：
+ 更快更好更自適應 自動偵測 blocking task 並將其卸載到其他執行緒，避免阻塞 使用者可在 async context 內呼叫 blocking task 而不阻塞  要點重申：你不需函式是 blocking 還是 non-blockging，全丟到 async 裡面呼叫吧！async-std 的 runtime 會偵測，然後幫你解決一切。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x03: What Color is Your Function?</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
+      <description>你的 function 是什麼顏色？
+ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Using Rust in Windows 相較於 Microsoft 近期在 Rust 社群動作不斷，這篇文章相對平實，不過也藏了許多有趣事實。
+ Microsoft 覺得 Cargo 不能容易配合既有的 build system，這個其實和 Google 使用 Bazel 和 Facebook 自己搞 tool 一樣，超巨頭的工作環境太特殊了。不過也提及正在與社群接觸，微軟真的開始關注 Rust 了。 提到了 Rust 很適合做 C 的 safe wrapper，其實這個也是官方死靈書提及的作法，bindgen 真心方便。 對熟悉 C++ 的開發者而言，Rust 學習成本比想像中低了很多，一兩天配合 Rust 好用的周邊工具就可以寫出 idiomatic Rust，這和 RustConf 2019 上 Facebook 僱員的說法一致。 看到最後才發現作者是 Hyper-V team 成員，再聯想到 AWS 用 Rust 寫的 Firecracker 作為 Fargate 和 Lambda 底層的 micro vm，不難想像這些大公司用 C++寫底層的底層員工生活多苦 。  What Color is Your Function?</description>
+    </item>
+    
+  </channel>
+</rss>

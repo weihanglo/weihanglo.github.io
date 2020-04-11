@@ -1,14 +1,98 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rust on Weihang Lo</title>
     <link>https://weihanglo.tw/tags/rust/</link>
     <description>Recent content in Rust on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 29 Sep 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WWW 0x0C: 未具名</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
+      <description>既然疫情嚴重，連假就在家加班吧！
+— Weihang Lo 2020.4
+ 這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Words Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：
+ 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。
+The Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：
+ follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
+      <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
+      <description>Zoom 很讚，host 可以看你有沒有認真
+— Zoom: Attendee attention tracking
+ 這裡是 WWW 第十一期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+What future does the captical of Japan carry?  Note: 東京不算是日本的「法定」首都
+ 這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。
+Using Zoom? Here are the privacy issues you need to be aware of 因為疫情緣故，最近 Zoom 很夯，剛好有篇文章寫到 Zoom 有很多噁心有趣的 feature：
+ host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」  推薦有空看看這篇文章，尤其是「How you can protect your data」一節。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
+      <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;quot;. has Now problems. two he
+— Davidlohr Bueso
+ 這裡是 WWW 第十期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+The Missing Semester of Your CS Education 這是近期看過最實用導向的大學課程了！由 MIT 博士生授課，但不教死板又混亂的計算機科學，而是貼近開發者，異常實際的工具和技巧。
+雖然內容對部分業界人士來說可能略淺，例如 metaprogramming 居然是在講 build system 和 makefile，不過學資訊的學生不一定熟稔，非常適合作為進入業界前先修的「失落的課程」。我自己印象最深刻的是「 &amp;hellip;if you start a command with a leading space it won’t be added to you shell history. 」真的是嚇歪我的毛，推薦大家翻翻看看。
+ 順便提一下 JonHoo 是我有認真在看的 live-coder。嗯，應該猜的到他寫什麼語言</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
+      <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Why is Rust the Most Loved Programming Language? 又到了推坑 Rust 的時間！這次，Intellij Rust 和 Rust Analyzer 的作者想聊聊為什麼 Rust 值得「最受喜愛的程式語言」的稱號，節錄我覺得蠻有共鳴的點：
+  Intellij Rust：用 Kotlin 寫的 Jetbrains IDE Rust Plugin Rust Analyzer：新一代的 Rust IDE language server    Keyword First Syntax：搜尋 foo 函式只要文字搜尋 fn foo 就解決，有利於一般人開發，更使得 IDE 的 parser 更容易開發 Crates：Rust 的 crate 是一個編譯單元，但並沒有 global shared namespace，取而代之的是每個 crate 都會是你的 dependant crate 的一個 property，解決了 lib 命名衝突問題 Eq 並非多型：以前從來沒想過這個問題，但的確不同型別的比較直接 compile error 很合理，不過代價是需要寫一堆 as usize 😂 Trivial Data Types：透過 #[derive(.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x04: Not feeling the async pressure</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
+      <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+&amp;ldquo;Performance Matters&amp;rdquo; by Emery Berger 最近滿紅的一個關於 performance measurement 的 影片，講者演講功力深厚，把嚴肅 performance analysis/profiling 議題以輕鬆的口吻娓娓道出，非常推薦。
+節錄一些我覺得有趣的點：
+ 以 CPU 和 transistor 的發展闡述為什麼現代程式越來越注重效能 解釋 Performance Analysis 和 Performance Profiling 有什麼差別 Performance Analysis 是需要統計而且不是 eyeball statistics，然後要排除環境變因 想做 Performance Profiling 可以從另一個角度開始：讓其他不想測試的部分「變慢」  Why Discord is switching from Go to Rust  簡體中文譯文
+ 標題乍看下有點聳動，其實內容很平實，完整交代來龍去脈：
+ 背景：Discord ReadState 服務架構和資料結構 問題：高度手動最佳化的 Go 實作仍有兩分鐘一次的 GC spike，測試好幾個 Go 版本都沒解決 行動：用沒有 GC 的 Rust 重寫，公司內其他團隊也有成功案例 成果：各項指標皆勝原本 Go 實作，但有強調不要腦衝什麼都 RiiR   紫色是 Go，藍色是還沒升級 Tokio 0.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x02: Distroless Docker for distressed human</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x02/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x02/</guid>
+      <description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+How to Review a Pull Request 這份是 Rust 的 crates.io（類似 PyPI 和 rubygems）如何審閱拉取請求的文件， 和 Google 那份不太一樣，更貼近專案一點，節錄重點：
+ 先拉到自己的本地分支，看看 PR 是否達到他宣稱的療效（檢查一般行為） 嘗試用各種手段打爆他（檢查 edge case） 如果有任何失敗，請寫清楚重新產生錯誤的流程 再來就是理解這個修改到底合不合理，是不是其實不需要  這篇 review guideline 短短的，剩下的自己看囉。
+Distroless Docker: Containerizing Apps, not VMs - Matthew Moore 本文是 Google 雇員介紹 Distroless Image 演講的重點摘要，對容器化和 Docker 最佳化有興趣的朋友千萬別錯過。
+ Distroless GitHub Repo 在此
+ Q：何謂 Distroless Image
+Distroless 的 distro 是指 Linux 發行版（distro），加了一個 less 就是替 docker image 瘦身，只留 app source 和 runtime 需要的 dependencies，把發行版中不必要的東西都幹掉。</description>
+    </item>
     
     <item>
       <title>RustConf 2019 雲參訪錄（1）</title>
@@ -42,7 +126,7 @@ Ownership and References While a program runs, it need a way to manage memory .<
       <guid>https://weihanglo.tw/posts/2018/rust-vs-go/</guid>
       <description>本文譯自 Julio Merino 的 Rust vs. Go。Julio Merino 目前是 G 社僱員，在 G 社工作超過 8 年，無論工作內外，都接觸開發不少 Go 語言，並撰寫 Rust 點評系列文，來聽聽他對 Rust 與 Go 的想法吧。
 Thanks Julio Merino for this awesome article!
- 歡迎來到「Rust 點評」系列特別篇，也是我在系列文開始就承諾撰寫的主題，將探討一個難以忽視的大哉問：Rust 與 Go 孰優孰劣？
+  歡迎來到「Rust 點評」系列特別篇，也是我在系列文開始就承諾撰寫的主題，將探討一個難以忽視的大哉問：Rust 與 Go 孰優孰劣？
 這麼比較並沒有根據，所以不會有標準答案。我認為人們會把這兩種語言作伙比較只因為它們幾乎同時釋出，而且 Rust 的釋出像是在回應 Go。除此之外，兩種語言都被認為聚焦在系統軟體上（system software），但其實它們大相徑庭，就算都專注系統軟體，各自目標的軟體類型也不盡相同。
 Go 可以視為「做對了的 C」或是「Python 的替代品」。Go 在開發網路伺服器與自動化工具的領域發光發熱。Rust 專注在正確與安全性，定位在 C++ 與 Haskell 之間，如同之前提及，可以視為「務實的 Haskell」。儘管 Rust 的語言抽象程度很高，它仍承諾這些抽象是零成本（zero-cost abstraction），也就是說，它應該擅長寫任何系統專案。
 這篇個人點評基於我用兩種語言寫了相同的專案 sandboxfs。最初實作是用 Go，而我開發了另一個用 Rust 的實驗性改寫（還沒有完全檢驗），兩個實作都通過相同的測試套件（test suite）。除了透過這次改寫來學習語言，也因為當我分析 Go 實作版本的效能時，發現熱點總是在 Go 的執行環境（runtime），我想要嘗試看看簡單的 Rust 改寫後效能能否長進，而情況似乎就是如此。隨著這次改寫，我很訝異原本的 Go 實作版本有不少潛在的並行（concurrency）漏洞，因為許多 Rust 並不允許我利用相同的設計改寫。</description>
@@ -58,7 +142,8 @@ Go 可以視為「做對了的 C」或是「Python 的替代品」。Go 在開�
 Thanks David Simmons for this awesome article!
  Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，可實現比傳統同步 I/O 更好的延伸性、效能與資源利用）。可惜的是，Tokio 過於精密的抽象設計，招致難以學習的惡名。即使我讀完教程後，依然不認為自己充分內化這些抽象層，以便推斷實際發生的事情。
 從前的非同步 I/O 相關開發經驗甚至阻礙我學習 Tokio。我習慣使用作業系統提供的 selection 工具（例如 Linux epoll）當作起點，再轉移至 dispatch、state machine 等等。倘若直接從 Tokio 抽象層出發，卻沒有清楚了解 epoll_wait() 在何處及如何發生，我會覺得難以連結每個概念。Tokio 與 future-driven 的方法就好像一個黑盒子。
-我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。</description>
+我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。
+首先，有些重要的聲明。請注意，Tokio 正快速開發中，這裡所見所聞可能不久就會過時。這個研究中我用了 tokio-core 0.</description>
     </item>
     
   </channel>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.tw/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WWW 0x0C: 未具名</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
+      <description>既然疫情嚴重，連假就在家加班吧！
+— Weihang Lo 2020.4
+ 這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Words Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：
+ 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。
+The Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：
+ follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
+      <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
+      <description>Zoom 很讚，host 可以看你有沒有認真
+— Zoom: Attendee attention tracking
+ 這裡是 WWW 第十一期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+What future does the captical of Japan carry?  Note: 東京不算是日本的「法定」首都
+ 這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。
+Using Zoom? Here are the privacy issues you need to be aware of 因為疫情緣故，最近 Zoom 很夯，剛好有篇文章寫到 Zoom 有很多噁心有趣的 feature：
+ host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」  推薦有空看看這篇文章，尤其是「How you can protect your data」一節。</description>
+    </item>
+    
+    <item>
+      <title>Kuberenetes Autoscaling 相關知識小整理</title>
+      <link>https://weihanglo.tw/posts/2020/k8s-autoscaling/</link>
+      <pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/k8s-autoscaling/</guid>
+      <description>K8s 有好用的 autoscaling 功能，但你知道除了 pod 之外，node 也可以 auto scaling 嗎？帥，你知道就不用分享了啊 🚬
+本文以重點整理的方式，先介紹目前常見的 Autoscaler，再介紹一些防止 pod 被亂殺的 config。
+（撰於 2020-03-23，基於 Kubernetes 1.17，但 Api Versions 太多請自行查閱手冊）
+讓我們歡迎第一位 Autoscaler 出場！
+Cluster Autoscaler（CA） 負責調整 node-pool 的 node size scaling，屬於 cluster level autoscaler。
+ 白話文：開新機器，關沒路用的機器 😈
+  Scale-up： 有 pod 的狀態是 unschedulable 時 Scale-down： 觀察 pod 總共的 memory/CPU request 是否 &amp;lt; 50%（非真實的 resource utilization）+ 沒有其他 pod/node 的條件限制 可設定 min/maxi poolsize（GKE），自己管理的叢集可以設定更多參數 會參照 PriorityClass 來調控 pod，但就是僅僅設立一條貧窮截止線，當前是 -10 ，autoscaler 不會因為低於此線的 pod 而去 scale-up，需要 scale-down 也不會理會 node 裡面是否有這種 pod 部分設定設不好會讓 CA 沒辦法 scaling  CA 要關 node 然後 evict pod 時違反 pod affinity/anti-affinity 和 PodDisruptionBudget 在 node 加上 annotation 可防止被 scale down：&amp;quot;cluster-autoscaler.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
+      <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
+&amp;ndash; M. Conway
+ 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+My FOSS Story 這篇文章是 Rust 社群非常有名的 Andrew Gallant (@burntsushi) 所撰，講述了他自身與 FOSS 的糾葛。文章裡面許多篇幅在描述 FOSS 中的負面事情，不過這也是開源社群較少提及和處理的一塊。這篇文章也可以視為是 burntsushi 針對最近 Rust 社群最大的 web framework Actix 的作者退出開源界的有感而發。節錄一些我覺得可以帶著走的實用想法：
+ 設立界線：開源即政治，網路上就是有一堆酸民，就算沒有，也有太多太多 issue 和 PR 壓得我們喘不過氣，把開源工作和個人生活切割開來，設立界線和停損點，自己的活自己安排。 遵循「比例原則」：如果提出一個問題卻僅寥寥幾行，就用寥寥幾行回覆吧。 問題重現：良好的問題回報能搭配簡單重現方式最棒，如果沒辦法，那就帶著作者一起 debug 吧！  作者最後雖然表列許多負面行為，但也說了 FOSS 仍然有許多有趣的經驗和美好。信任為開源之本，希望這篇文章能帶給 FOSS 界打滾的我們更多啟發。
+Uncharted territory – discovering vulnerabilities in public Helm Charts ⚠️⚠️⚠️ 你的 Helm chart 安全嗎 ⚠️⚠️⚠️</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x06: Life is short. I hate GIL</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
+      <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+WebAssembly Isolation with Tyler McMullen 聽了一集個人覺得不難但蠻有內容的 Podcast，主要在講 Isolation 和 WebAssembly 相關的知識，我覺得 web developer 都很值得稍微聽一下，內容包含：
+ 概要提點了 VM vs. Container 等各種 Isolation 的差異 WASM 如何 isolation workloads：限制 jump instruction 跳到任意的地方 etc. Fastly 為什麼要使用 WASM： 一個請求本來可能要起 container，但 container 啟動時間還是不夠快，WASM 的 isolation 可以提供安全快速的環境 WASM 使用 linear memory model：和一般的 virtual memory 不同，memory space 是連續性一個 block，需要用到更多再與系統 / 瀏覽器請求 WASM 還在解決的問題：與外部世界互動的標準還沒完整， 但可以參考 Fastly 和 Mozilla 等幾個大廠訂定的 WASI（WebAssembly System Interface） WASM 目前 function pointer 只能用 dynamic dispatch，對要求極極極高效能的應用場景較不吃香 市面上的 WASM runtime：lucet、wasmtime（個人補充 wasmer）   Note: Fastly 是市面上前十大的 CDN provider（約第六）</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
+      <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了
+ move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
+ YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description>
+    </item>
+    
+  </channel>
+</rss>

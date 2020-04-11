@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tokio on Weihang Lo</title>
@@ -20,7 +20,8 @@
 Thanks David Simmons for this awesome article!
  Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，可實現比傳統同步 I/O 更好的延伸性、效能與資源利用）。可惜的是，Tokio 過於精密的抽象設計，招致難以學習的惡名。即使我讀完教程後，依然不認為自己充分內化這些抽象層，以便推斷實際發生的事情。
 從前的非同步 I/O 相關開發經驗甚至阻礙我學習 Tokio。我習慣使用作業系統提供的 selection 工具（例如 Linux epoll）當作起點，再轉移至 dispatch、state machine 等等。倘若直接從 Tokio 抽象層出發，卻沒有清楚了解 epoll_wait() 在何處及如何發生，我會覺得難以連結每個概念。Tokio 與 future-driven 的方法就好像一個黑盒子。
-我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。</description>
+我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。
+首先，有些重要的聲明。請注意，Tokio 正快速開發中，這裡所見所聞可能不久就會過時。這個研究中我用了 tokio-core 0.</description>
     </item>
     
   </channel>

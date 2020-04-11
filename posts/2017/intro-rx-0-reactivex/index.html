@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！
@@ -25,42 +23,23 @@ Declarative: better coding style Rx 除了統一非同步程式的 API 之外，
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='ReactiveX'><meta property='article:tag' content='Design Patterns'><meta property='article:published_time' content='2017-08-15T09:22:37&#43;08:00'/><meta property='article:modified_time' content='2017-08-15T09:22:37&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.3" />
+<meta name="generator" content="Hugo 0.68.3" />
 
   <title>Rx 入門零：ReactiveX • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-118441906-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
 
 </head>
-
-
 <body class='page type-posts'>
 
-  <div class='site'>
-
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     
     <ul><li class='item'>
@@ -73,7 +52,9 @@ if (!doNotTrack) {
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
@@ -93,8 +74,7 @@ if (!doNotTrack) {
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -129,84 +109,52 @@ if (!doNotTrack) {
   
 
   <div class='container entry-content'>
-  
-
-<p><img src="https://i.imgur.com/2oGARle.png" alt="" /></p>
-
+  <p><img src="https://i.imgur.com/2oGARle.png" alt=""></p>
 <p>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計理念。期盼讀完後，人人心中都能有 Reactive 的思維！</p>
-
 <p><em>（撰於 2017-08-15）</em></p>
-
-<!-- more -->
-
+<!-- raw HTML omitted -->
 <h2 id="why-use-rx">Why use Rx</h2>
-
-<p><a href="https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22" target="_blank">狂熱驅動開發（Hype Driven Development）</a> 是當前軟體工程界的奇特現象，每當一個新概念新技術出來，不乏有人大力吹捧。這次，小弟同樣被狂熱驅動，要來吹捧 <a href="reactivex.io" target="_blank">ReactiveX（Rx）</a>的設計理念，但在開始推坑之前，我們仍須問自己：「為什麼要用 Rx？Rx 想解決什麼問題？ 」知道一個技術的應用範圍，遠比只會拿著新玩具揮舞來得重要。</p>
-
+<p><a href="https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22">狂熱驅動開發（Hype Driven Development）</a> 是當前軟體工程界的奇特現象，每當一個新概念新技術出來，不乏有人大力吹捧。這次，小弟同樣被狂熱驅動，要來吹捧 <a href="reactivex.io">ReactiveX（Rx）</a>的設計理念，但在開始推坑之前，我們仍須問自己：「為什麼要用 Rx？Rx 想解決什麼問題？ 」知道一個技術的應用範圍，遠比只會拿著新玩具揮舞來得重要。</p>
 <h3 id="asynchronous-unified-asynchronous-apis">Asynchronous: unified asynchronous APIs</h3>
-
 <p>時至今日，軟體工程越來越複雜，無論前端或後端工程、大量的非同步（asynchronous）操作散落於程式各處，各種不同的非同步 API 如 Promise、async／await、callback function 混雜在一起，讓開發一個穩定的非同步程式變得難上加難。若考慮例外捕捉／處理，非同步的程式就會更加複雜了。</p>
-
 <p>如果採用的 Rx，一切的資料或事件都會轉換為 <strong>Observable</strong>，透過 Observable，就可以在<strong>統一的 API 操作非同步的程式了</strong>。這就是 ReactiveX 的核心價值：<strong>An API for asynchronous programming with observable streams</strong>。</p>
-
 <h3 id="declarative-better-coding-style">Declarative: better coding style</h3>
-
-<p>Rx 除了統一非同步程式的 API 之外，另外一大特色即是採用<a href="https://en.wikipedia.org/wiki/Declarative_programming" target="_blank">聲明式程式設計典範（Declarative Programming Paradigm）</a>，相較於傳統<a href="https://en.wikipedia.org/wiki/Imperative_programming" target="_blank">命令式設計（Imperative Programming）</a>，聲明式的程式設計更能專注於程式<strong>要做什麼</strong>（What to do），而非命令程式語言<strong>該怎麼做</strong>（How to do），也減少了許多人為因素的錯誤（例如忘記調用 <code>update</code> 導致頁面未更新）。</p>
-
-<p>就拿網頁前端工程最熱門的兩大框架 <a href="https://facebook.github.io/react/" target="_blank">ReactJS</a> 與 <a href="https://vuejs.org/" target="_blank">VueJS</a> 來說，都是 Declarative 的最佳實踐案例，也帶動整個軟體工程界對 Declarative 與 Imperative 程式設計的比較與反思。</p>
-
+<p>Rx 除了統一非同步程式的 API 之外，另外一大特色即是採用<a href="https://en.wikipedia.org/wiki/Declarative_programming">聲明式程式設計典範（Declarative Programming Paradigm）</a>，相較於傳統<a href="https://en.wikipedia.org/wiki/Imperative_programming">命令式設計（Imperative Programming）</a>，聲明式的程式設計更能專注於程式<strong>要做什麼</strong>（What to do），而非命令程式語言<strong>該怎麼做</strong>（How to do），也減少了許多人為因素的錯誤（例如忘記調用 <code>update</code> 導致頁面未更新）。</p>
+<p>就拿網頁前端工程最熱門的兩大框架 <a href="https://facebook.github.io/react/">ReactJS</a> 與 <a href="https://vuejs.org/">VueJS</a> 來說，都是 Declarative 的最佳實踐案例，也帶動整個軟體工程界對 Declarative 與 Imperative 程式設計的比較與反思。</p>
 <h3 id="ubiquitous-exists-in-major-programming-languages">Ubiquitous: exists in major programming languages</h3>
-
-<p>Rx 並不是某個語言的函式庫，Rx 本質上是一個程式設計的思想，有人稱他為 <a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank">Reactive Programming</a>，有人覺得 Rx 有函數式程式設計的味道，應該稱為 <a href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank">Functional Reactive Programming</a>，我們姑且就稱他為 Rx。正因為 Rx 沒有語言上的限制，幾乎所有主流語言都有對應的實作，例如：</p>
-
+<p>Rx 並不是某個語言的函式庫，Rx 本質上是一個程式設計的思想，有人稱他為 <a href="https://en.wikipedia.org/wiki/Reactive_programming">Reactive Programming</a>，有人覺得 Rx 有函數式程式設計的味道，應該稱為 <a href="https://en.wikipedia.org/wiki/Functional_reactive_programming">Functional Reactive Programming</a>，我們姑且就稱他為 Rx。正因為 Rx 沒有語言上的限制，幾乎所有主流語言都有對應的實作，例如：</p>
 <ul>
-<li><a href="https://github.com/ReactiveX/RxJava" target="_blank">RxJava</a> <img src="https://img.shields.io/github/stars/reactivex/rxjava.svg?style=social&amp;label=Star" alt="" /> 與他的夥伴 <a href="https://github.com/ReactiveX/RxAndroid" target="_blank">RxAndroid</a> <img src="https://img.shields.io/github/stars/reactivex/rxandroid.svg?style=social&amp;label=Star" alt="" /></li>
-<li>以 TypeScript 開發的 <a href="https://github.com/ReactiveX/RxJS" target="_blank">RxJS 5</a> <img src="https://img.shields.io/github/stars/reactivex/rxjs.svg?style=social&amp;label=Star" alt="" /> 與舊版的 <a href="https://github.com/Reactive-Extensions/RxJS" target="_blank">RxJS</a> <img src="https://img.shields.io/github/stars/reactive-extensions/rxjs.svg?style=social&amp;label=Star" alt="" /></li>
-<li><a href="https://github.com/ReactiveX/RxSwift" target="_blank">RxSwift</a> <img src="https://img.shields.io/github/stars/reactivex/rxswift.svg?style=social&amp;label=Star" alt="" /> 以及早期非常熱門的 <a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank">ReactiveCocoa</a> <img src="https://img.shields.io/github/stars/ReactiveCocoa/ReactiveCocoa.svg?style=social&amp;label=Star" alt="" /></li>
+<li><a href="https://github.com/ReactiveX/RxJava">RxJava</a> <img src="https://img.shields.io/github/stars/reactivex/rxjava.svg?style=social&amp;label=Star" alt=""> 與他的夥伴 <a href="https://github.com/ReactiveX/RxAndroid">RxAndroid</a> <img src="https://img.shields.io/github/stars/reactivex/rxandroid.svg?style=social&amp;label=Star" alt=""></li>
+<li>以 TypeScript 開發的 <a href="https://github.com/ReactiveX/RxJS">RxJS 5</a> <img src="https://img.shields.io/github/stars/reactivex/rxjs.svg?style=social&amp;label=Star" alt=""> 與舊版的 <a href="https://github.com/Reactive-Extensions/RxJS">RxJS</a> <img src="https://img.shields.io/github/stars/reactive-extensions/rxjs.svg?style=social&amp;label=Star" alt=""></li>
+<li><a href="https://github.com/ReactiveX/RxSwift">RxSwift</a> <img src="https://img.shields.io/github/stars/reactivex/rxswift.svg?style=social&amp;label=Star" alt=""> 以及早期非常熱門的 <a href="https://github.com/ReactiveCocoa/ReactiveCocoa">ReactiveCocoa</a> <img src="https://img.shields.io/github/stars/ReactiveCocoa/ReactiveCocoa.svg?style=social&amp;label=Star" alt=""></li>
 <li>其他諸如 Python、Ruby、C#、Kotlin、Go 等，族繁不及備載。</li>
 </ul>
-
 <p>除了語言上沒有限制，從 backend 到 frontend，都可以是 Rx 的應用場景，是個名副其實的 fundamental library。</p>
-
 <h3 id="promising-more-and-more-usage">Promising: more and more usage</h3>
-
-<p>ReactiveX 早先是由 Microsoft 開發的開源專案，越來越多語言支持後，也越來越多大型公司開始採用與開發，例如 RxJava 最早就是 <a href="https://www.slideshare.net/InfoQ/functional-reactive-programming-in-the-netflix-api" target="_blank">Netflix 的開源專案</a>，Google 的 <a href="https://angular.io" target="_blank">Angular</a> 也大量使用 RxJS。知名募資網站 Kickstarter 在其<a href="https://github.com/kickstarter" target="_blank">開源 App 專案</a>中也廣用 ReactiveX 技術。其他諸如 Airbnb、Github、Trello 都有導入 Rx 的技術。再者，<a href="https://tc39.github.io/proposal-observable/" target="_blank">Observable 的提案已經進入 Stage 1</a>，我相信 Observable 終將納入 ECMAScript 標準中。</p>
-
+<p>ReactiveX 早先是由 Microsoft 開發的開源專案，越來越多語言支持後，也越來越多大型公司開始採用與開發，例如 RxJava 最早就是 <a href="https://www.slideshare.net/InfoQ/functional-reactive-programming-in-the-netflix-api">Netflix 的開源專案</a>，Google 的 <a href="https://angular.io">Angular</a> 也大量使用 RxJS。知名募資網站 Kickstarter 在其<a href="https://github.com/kickstarter">開源 App 專案</a>中也廣用 ReactiveX 技術。其他諸如 Airbnb、Github、Trello 都有導入 Rx 的技術。再者，<a href="https://tc39.github.io/proposal-observable/">Observable 的提案已經進入 Stage 1</a>，我相信 Observable 終將納入 ECMAScript 標準中。</p>
 <p>事實上，小弟並不擔心 Rx 這門技術走向盡頭與否，因為 Rx 是程式思維，而非單一函式庫，了解不同的寫作範式，對程式設計絕對有莫大幫助。</p>
-
 <h2 id="under-the-hood">Under the hood</h2>
-
 <p>Rx 揉合了許多程式設計思想，使得很多想法變得可能，例如：</p>
-
 <ul>
 <li>統一同步非同步操作的例外／錯誤處理（unify exception handling）</li>
 <li>事件、資料都以資料流（data stream）呈現，讓不同的來源可被重新組合（composable）</li>
 <li>捨棄 stateful 的狀態管理，一切都是資料流（less statefull）</li>
 </ul>
-
 <p>Rx 能實現這些想法，主要歸功於以下三個重要的核心概念：</p>
-
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank">Observer pattern</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Iterator_pattern" target="_blank">Iterator pattern</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">Functional programming</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer pattern</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Iterator_pattern">Iterator pattern</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Functional_programming">Functional programming</a></li>
 </ul>
-
 <p><strong>Observer pattern</strong> 替 Rx 提供了 Reactive programming 的基礎，監聽資料流的變化，推送給訂閱者。</p>
-
 <p><strong>Iterator pattern</strong> 則替 Observer pattern 加上兩個不可或缺的特性，</p>
-
 <ul>
 <li>可通知訂閱者資料流已達末端，沒有資料了。</li>
 <li>可通知訂閱者有錯誤發生。</li>
 </ul>
-
 <p>這兩特性打造 Rx 最重要的概念「<strong>Observable</strong>」，Observable 類似一般的 <strong>Iterable</strong>，唯一的差異就是資料的流向，傳統 Iterable 是將資料 <strong>pull</strong> 下來，而 Observable 則是將資料 <strong>push</strong> 給訂閱者。除此之外，<strong>任何 Iterable 上的操作，都可以在 Observable 上操作</strong>。</p>
-
 <p>最後，借助 <strong>Functional Programming</strong> 的典範，Rx 多樣化的 operators 就好比數學上的函式，可任意組合、轉換與重用相同的 data stream，並利用 operator chaining 串連所有的運算，讓程式邏輯不用再充斥著 temporary variable。</p>
-
 <h2 id="conclusion">Conclusion</h2>
-
 <p>本篇主要介紹 Rx 欲解決的問題域，並理解 Rx 三大核心概念。之後，我們會利用幾個篇幅，簡單介紹 Iterator Pattern、Observer Pattern，以及 Functional Programming。</p>
 
 </div>
@@ -219,7 +167,7 @@ if (!doNotTrack) {
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/reactivex/'>ReactiveX</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/reactivex/'>ReactiveX</a>, <a class='tag' href='/tags/design-patterns/'>Design Patterns</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -288,15 +236,6 @@ if (!doNotTrack) {
 </svg>
 </a>
       </li><li>
-        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -317,16 +256,16 @@ if (!doNotTrack) {
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2019 Weihang Lo </p>
+  <p> &copy; 2017-2020 Weihang Lo </p>
 </div>
 
         </div>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

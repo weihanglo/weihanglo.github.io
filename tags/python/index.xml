@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/python/</link>
+    <description>Recent content in Python on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.tw/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WWW 0x06: Life is short. I hate GIL</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
+      <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+WebAssembly Isolation with Tyler McMullen 聽了一集個人覺得不難但蠻有內容的 Podcast，主要在講 Isolation 和 WebAssembly 相關的知識，我覺得 web developer 都很值得稍微聽一下，內容包含：
+ 概要提點了 VM vs. Container 等各種 Isolation 的差異 WASM 如何 isolation workloads：限制 jump instruction 跳到任意的地方 etc. Fastly 為什麼要使用 WASM： 一個請求本來可能要起 container，但 container 啟動時間還是不夠快，WASM 的 isolation 可以提供安全快速的環境 WASM 使用 linear memory model：和一般的 virtual memory 不同，memory space 是連續性一個 block，需要用到更多再與系統 / 瀏覽器請求 WASM 還在解決的問題：與外部世界互動的標準還沒完整， 但可以參考 Fastly 和 Mozilla 等幾個大廠訂定的 WASI（WebAssembly System Interface） WASM 目前 function pointer 只能用 dynamic dispatch，對要求極極極高效能的應用場景較不吃香 市面上的 WASM runtime：lucet、wasmtime（個人補充 wasmer）   Note: Fastly 是市面上前十大的 CDN provider（約第六）</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='既然疫情嚴重，連假就在家加班吧！
+— Weihang Lo 2020.4
+ 這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Words Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：
+ 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。
+The Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：
+ follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：'>
+<meta name='theme-color' content='#ffcd00'>
+
+<meta property='og:title' content='WWW 0x0C: 未具名 • Weihang Lo'>
+<meta property='og:description' content='既然疫情嚴重，連假就在家加班吧！
+— Weihang Lo 2020.4
+ 這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Words Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：
+ 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。
+The Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：
+ follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：'>
+<meta property='og:url' content='https://weihanglo.tw/posts/2020/www-0x0c/'>
+<meta property='og:site_name' content='Weihang Lo'>
+<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Weekly'><meta property='article:tag' content='Rust'><meta property='article:tag' content='Kubernetes'><meta property='article:tag' content='Privacy'><meta property='article:published_time' content='2020-04-11T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2020-04-11T00:00:00&#43;08:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.68.3" />
+
+  <title>WWW 0x0C: 未具名 • Weihang Lo</title>
+  <link rel='canonical' href='https://weihanglo.tw/posts/2020/www-0x0c/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
+
+  
+
+</head>
+<body class='page type-posts'>
+
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/posts/'>Posts</a>
+      </li><li class='item'>
+        <a href='/tags/'>Tags</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Weihang Lo</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>WWW 0x0C: 未具名</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-04-11T00:00:00&#43;08:00'>2020, Apr 11</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+One min read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  <blockquote>
+<p>既然疫情嚴重，連假就在家加班吧！</p>
+<p>— Weihang Lo 2020.4</p>
+</blockquote>
+<p>這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。</p>
+<h2 id="words-are-hard---an-essay-on-communicating-with-non-programmershttpadventuresmichaelfbryancompostswords-are-hard"><a href="http://adventures.michaelfbryan.com/posts/words-are-hard/">Words Are Hard - An Essay on Communicating With Non-Programmers</a></h2>
+<p>以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：</p>
+<ul>
+<li>避免用過多行話</li>
+<li>放尊重點，不要擺出紆尊降貴的姿態</li>
+<li>給技術解釋加些人性生動的類比</li>
+<li>視覺化圖表比口語更易理解</li>
+<li>承認自己不熟，但可花時間研究</li>
+</ul>
+<p>願我們一起打破工程師古怪又難溝通的刻板印象。</p>
+<h2 id="the-raft-consensus-algorithmhttpsraftgithubio"><a href="https://raft.github.io/">The Raft Consensus Algorithm</a></h2>
+<p><img src="https://raft.github.io/logo/annie-solo.png" alt=""></p>
+<p>最近嘗試貢獻 <a href="https://tikv.org">TiKV</a>，順便複習一下 Raft 共識演算法
+Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：</p>
+<ul>
+<li><code>follower</code>：所有非 leader 的 server 都是 follower</li>
+<li><code>leader</code>：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader</li>
+<li><code>candidate</code>：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」</li>
+</ul>
+<p>而 Raft 主要有兩個的步驟：</p>
+<ul>
+<li><strong>Leader Election</strong>：從 follower 中投票選出 leader，可以處理 split vote</li>
+<li><strong>Log Replication</strong>：將 state machine 以 log 形式複製到每個 server，大多數的 server 回覆後才會 commit change</li>
+</ul>
+<p>不贅述了，<a href="http://thesecretlivesofdata.com/raft/">這個簡單的動畫教學</a>很清楚點出 Raft 最重要的核心元件，當然自己看<a href="https://raft.github.io/raft.pdf">論文</a> 😈。</p>
+<h2 id="we-need-tool-support-for-keyset-paginationhttpsuse-the-index-lukecomno-offset"><a href="https://use-the-index-luke.com/no-offset">We need tool support for keyset pagination</a></h2>
+<p><a href="https://use-the-index-luke.com/no-offset"><img src="https://use-the-index-luke.com/static/no-offset-banner-300x250.white.zOfUqF4s.png" alt=""></a></p>
+<p>這篇文章的重點只有一個：不要使用 offset 來做分頁。原因如下：</p>
+<ul>
+<li>offset 的 SQL 標準定義是先 fetch 所有 row，再丟棄被 offset 掉的 row</li>
+<li>承上，小 offset 效能影響不大，高 offset 就很慘</li>
+<li>若在計算 offset 時，同時 insert 新 row，就可能拿到重複的 row</li>
+<li>不論 SQL 還是 NoSQL database 都可能受影響</li>
+</ul>
+<p>哪些 SQL 可能會有這樣問題:</p>
+<ul>
+<li><code>OFFSET</code> keyword</li>
+<li>雙參數的 <code>LIMIT [offset, ] limit</code></li>
+<li>一些用 row-numbering 來篩選 lower-bound，如 <code>ROW_NUMBER()</code>、<code>ROWNUM</code></li>
+</ul>
+<p>作者想表達的是，這並非 Database 的鍋，而是 framework 應使用其他 pagination 方法，例如 keyset pagination，也就是傳入上一分頁最後一組 key，來找下一分頁。當然，並非所有情境都適合這種分頁模式，且要改善程式分頁效能之前，請先做 benchmark，阿彌陀佛。</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/weekly/'>Weekly</a>, <a class='tag' href='/tags/rust/'>Rust</a>, <a class='tag' href='/tags/kubernetes/'>Kubernetes</a>, <a class='tag' href='/tags/privacy/'>Privacy</a></div>
+
+  </div><div style="text-align: center; padding-top: 2em;">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="cc-by-nc-sa-4">
+  </a>
+</div>
+
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/2020/www-0x0b/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://t.me/weihanglo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020 Weihang Lo </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

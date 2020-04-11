@@ -1,14 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Front-end on Weihang Lo</title>
     <link>https://weihanglo.tw/tags/front-end/</link>
     <description>Recent content in Front-end on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 15 Mar 2018 10:44:17 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/tags/front-end/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
+      <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了
+ move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
+ YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description>
+    </item>
     
     <item>
       <title>2018 前端工程師面試心得</title>
@@ -25,7 +37,7 @@
 求職需求 由於前東家是上櫃公司，規模不小，制度完善，但也稍缺彈性，所以求職希望以新創公司為主。
 以下依優先順序排列，薪資等基本需求不列入：
  新創團隊或具有新創氛圍 技術討論風氣盛。 有能力相仿或更強的 co-worker，不必自幹。 工作流程明確。 重視軟體品質（CI／CD、單元測試）。 同事年齡相近。 對社會有正面意義。  應徵企業列表 以下是這段時間我有去應徵的企業，如果你對細節沒興趣，可以直接 end。
- CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume   職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機</description>
+ CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume  職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機</description>
     </item>
     
     <item>
@@ -37,7 +49,7 @@
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
 （撰於 2017-12-09，基於各種莫名其妙的狀況)
  對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
- 目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者  結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
+ 目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者   結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
  語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &amp;lt;button&amp;gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight  語意化 HTML5 標籤  Issue：不支援語意化 tag 就算了，部分 tag 如 &amp;lt;main&amp;gt;、&amp;lt;article&amp;gt; 還會變成 inline elements Platform：IE 11  先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！</description>
     </item>
     
@@ -75,7 +87,7 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
-Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!</description>
+Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements   Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines   Conclusion  Issues Fullscreen breaks my layout!</description>
     </item>
     
     <item>
@@ -113,8 +125,8 @@ Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A+ 組�
       <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
 （撰於 2017-03-10）
-Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具  NPM 套件模組管理工具  package.json NPM 常用指令  預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel  自動化工具／打包工具  Gulp Webpack  程式碼品質  測試 靜態程式語法檢查  小結 Reference  （以下環境皆以 macOS 為例）
-Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.js 推出後，Javascript 程式碼可以在伺服器端運行，模組（module）和套件（package）的觀念和生態圈也隨之建立。程式碼的交流／複用更為便利。</description>
+Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具   NPM 套件模組管理工具  package.json NPM 常用指令   預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel   自動化工具／打包工具  Gulp Webpack   程式碼品質  測試 靜態程式語法檢查   小結 Reference  （以下環境皆以 macOS 為例）
+Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.</description>
     </item>
     
   </channel>

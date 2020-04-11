@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Swift on Weihang Lo</title>
@@ -20,7 +20,7 @@
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
     </item>
     
     <item>
@@ -73,11 +73,8 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
       <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
 （撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
-特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
-brew install carthage  如果還沒有裝 homebrew，請來這下載
- 建立一個 Carfile，列出欲使用的模組，例如：
-github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。
- 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries</description>
+特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手 從終端環境安裝 Carthage  brew install carthage  如果還沒有裝 homebrew，請來這下載
+  建立一個 Carfile，列出欲使用的模組，例如：  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
     </item>
     
     <item>
@@ -88,9 +85,8 @@ github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;React
       <guid>https://weihanglo.tw/posts/2017/swift-quick-note/</guid>
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。
 （撰於 2017-02-06，基於 Swift 3.1）
-Declaration 宣告變數使用 var，宣告常數使用 let
- 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable
-let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678   慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
+ Declaration 宣告變數使用 var，宣告常數使用 let
+ 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable  let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678  慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
  Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
 let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&amp;#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
  宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。  Fundamental data type Swift Standard Library 定義了許多基本型別：</description>
@@ -104,7 +100,7 @@ let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&am
       <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。
 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
- Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
+  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
 Weihang Lo &amp;ndash; Daily Trash Talk
  厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，
 第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。

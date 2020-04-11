@@ -1,58 +1,37 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
-Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!'>
+Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements   Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines   Conclusion  Issues Fullscreen breaks my layout!'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='與 IE 相處的日子 • Weihang Lo'>
 <meta property='og:description' content='近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
-Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!'>
+Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements   Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines   Conclusion  Issues Fullscreen breaks my layout!'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2017/days-with-internet-explorer/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Internet Explorer'><meta property='article:tag' content='Front-end'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Web Compatibility'><meta property='article:tag' content='Browser Testing'><meta property='article:published_time' content='2017-07-15T11:36:04&#43;08:00'/><meta property='article:modified_time' content='2017-07-15T11:36:04&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.3" />
+<meta name="generator" content="Hugo 0.68.3" />
 
   <title>與 IE 相處的日子 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/days-with-internet-explorer/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-118441906-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
 
 </head>
-
-
 <body class='page type-posts'>
 
-  <div class='site'>
-
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     
     <ul><li class='item'>
@@ -65,7 +44,9 @@ if (!doNotTrack) {
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
@@ -85,8 +66,7 @@ if (!doNotTrack) {
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -121,21 +101,13 @@ if (!doNotTrack) {
   
 
   <div class='container entry-content'>
-  
-
-<p><img src="https://i.imgur.com/VEgmWpv.jpg" alt="" /></p>
-
+  <p><img src="https://i.imgur.com/VEgmWpv.jpg" alt=""></p>
 <p>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，<strong>「沒碰過 IE，別說你會做前端」</strong>，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。</p>
-
 <p><em>（撰於 2017-07-15，基於 IE 11／Edge 15）</em></p>
-
-<!-- more -->
-
+<!-- raw HTML omitted -->
 <h2 id="contents">Contents</h2>
-
 <ul>
 <li><a href="#Issues">Issues</a>
-
 <ul>
 <li><a href="#Fullscreen-breaks-my-layout">Fullscreen breaks my layout!</a></li>
 <li><a href="#Can-an-image-fit-its-container-with-aspect-ratio">Can an image fit its container with aspect ratio?</a></li>
@@ -145,39 +117,33 @@ if (!doNotTrack) {
 <li><a href="#How-an-element-removes-itself">How an element removes itself?</a></li>
 <li><a href="#Same-CSS-weird-flexbox-behavior">Same CSS, weird flexbox behavior</a></li>
 <li><a href="#EXTRA-Read-the-fxxking-standard-before-using-custom-elements">(EXTRA) Read the fxxking standard before using custom elements</a></li>
-</ul></li>
+</ul>
+</li>
 <li><a href="#Tools-for-dealing-with-compatible-issues">Tools for dealing with compatible issues</a>
-
 <ul>
 <li><a href="#Compatible-tables">Compatible tables</a></li>
 <li><a href="#Cross-browser-testing-services">Cross browser testing services</a></li>
 <li><a href="#Virtual-machines">Virtual machines</a></li>
-</ul></li>
+</ul>
+</li>
 <li><a href="#Conclusion">Conclusion</a></li>
 </ul>
-
 <h2 id="issues">Issues</h2>
-
 <h3 id="fullscreen-breaks-my-layout">Fullscreen breaks my layout!</h3>
-
 <ul>
 <li>Issue：使用 Web fullscreen API 放大至全螢幕時，整個 document 寬度剩不到一半。</li>
 <li>Platform：IE 11</li>
 </ul>
-
-<p>第一個先來簡單的 fullscreen API！雖然 <a href="https://caniuse.com/#feat=fullscreen" target="_blank">fullscreen API 還沒有去掉 prefix</a>，不過這個 bug 說實在也太大了！沒關係，加個 width 解決，簡單明瞭！</p>
+<p>第一個先來簡單的 fullscreen API！雖然 <a href="https://caniuse.com/#feat=fullscreen">fullscreen API 還沒有去掉 prefix</a>，不過這個 bug 說實在也太大了！沒關係，加個 width 解決，簡單明瞭！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">html</span> {
   <span style="color:#66d9ef">min-width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
-}</code></pre></div>
-<h3 id="can-an-image-fit-its-container-with-aspect-ratio">Can an image fit its container with aspect ratio?</h3>
-
+}
+</code></pre></div><h3 id="can-an-image-fit-its-container-with-aspect-ratio">Can an image fit its container with aspect ratio?</h3>
 <ul>
 <li>Issue：沒實作 <code>object-fit</code>、<code>object-position</code> 這兩個 CSS feature。</li>
-<li>Platform：<a href="https://caniuse.com/#feat=object-fit" target="_blank">IE 11／Edge 15（據說 Edge 16 實作了？）</a></li>
+<li>Platform：<a href="https://caniuse.com/#feat=object-fit">IE 11／Edge 15（據說 Edge 16 實作了？）</a></li>
 </ul>
-
 <p>IE 沒支援一直是 <code>object-fit</code> 的一大硬傷，許多 polyfill 也做得不是很完全，但我們還有歷久不衰的 <code>background</code> style，善用 <code>background-size</code> 與 <code>background-position</code> 就可以做到這些效果。</p>
-
 <p>需注意的是，<code>background</code> options 並沒有 <code>onload</code> 的 callback，許多 progressive image loading 效果可能無法使用。我們可以利用一個 detached <code>&lt;img&gt;</code> element 先讀取圖檔至 memory， <code>onload</code> 時再 assign 到 <code>backgroundImage</code> 中，雖然這樣有點醜，反正你都要 call <code>onload</code> 了，是有差醜這點喔 XD</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">preload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Image</span>()
 <span style="color:#a6e22e">preload</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
@@ -185,31 +151,25 @@ if (!doNotTrack) {
   <span style="color:#a6e22e">real</span>.<span style="color:#a6e22e">backgroundImage</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`url(&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">preload</span>.<span style="color:#a6e22e">src</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;)`</span>
 }
 <span style="color:#a6e22e">preload</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uri/to/a/large/image&#39;</span>
-</code></pre></div>
-<h3 id="do-you-know-your-id">Do you know your <code>id</code>?</h3>
-
+</code></pre></div><h3 id="do-you-know-your-id">Do you know your <code>id</code>?</h3>
 <ul>
 <li>Issue：<code>XMLDocument</code> 缺乏 <code>Element#id</code> 的 API。</li>
 <li>Platform：IE 11／Edge 15</li>
 </ul>
-
 <p>也就是說，<code>id</code> attribute 對 IE 們來說，並非特殊的 property，僅為普通的 attribute，所以 <strong>ID selector</strong> <code>#someid</code>，或是 <code>someElement.id</code> 這類 API 通通不能用。</p>
-
 <p>解法嗎？用 attribute 代替啊！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">image</span>#myid { <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">none</span>; }
 <span style="color:#75715e">/* become */</span>
-<span style="color:#f92672">image</span><span style="color:#f92672">[</span><span style="color:#f92672">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myid&#34;</span><span style="color:#f92672">]</span> { <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">none</span>; }</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>).<span style="color:#a6e22e">id</span>
+<span style="color:#f92672">image</span><span style="color:#f92672">[</span><span style="color:#f92672">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myid&#34;</span><span style="color:#f92672">]</span> { <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">none</span>; }
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>).<span style="color:#a6e22e">id</span>
 <span style="color:#75715e">/* become */</span>
 document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;img&#39;</span>).<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;id&#39;</span>)
-</code></pre></div>
-<h3 id="where-are-my-children">Where are my <code>children</code>?</h3>
-
+</code></pre></div><h3 id="where-are-my-children">Where are my <code>children</code>?</h3>
 <ul>
 <li>Issue：<code>XMLDocument</code> 缺乏 <code>Element#children</code> 的 getter API。</li>
 <li>Platform：IE 11／Edge 15</li>
 </ul>
-
-<p>這 Issue 滿討厭的，通常我們只想取得 <code>Element</code>，在 IE 卻被迫遍歷 <code>childNodes</code> 過濾出 <code>nodeType === 1</code> 的 node。MDN 上有可用的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/children#Polyfill" target="_blank">polyfill</a>，但本人每次跑 mocha 測試都會拋出 <code>Illegal Invocation</code>，看起來是 <code>this.childNodes</code> getter 的 <code>this</code> binding 錯誤？有點莫名，只好稍微繞點路修改一下，反正都做 polyfill 了，不差這些醜 code。以下做個參考：</p>
+<p>這 Issue 滿討厭的，通常我們只想取得 <code>Element</code>，在 IE 卻被迫遍歷 <code>childNodes</code> 過濾出 <code>nodeType === 1</code> 的 node。MDN 上有可用的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/children#Polyfill">polyfill</a>，但本人每次跑 mocha 測試都會拋出 <code>Illegal Invocation</code>，看起來是 <code>this.childNodes</code> getter 的 <code>this</code> binding 錯誤？有點莫名，只好稍微繞點路修改一下，反正都做 polyfill 了，不差這些醜 code。以下做個參考：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// Node#children/Element#children polyfill (for Edge 15, IE 11)
 </span><span style="color:#75715e">//
 </span><span style="color:#75715e">// From: https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/children
@@ -241,18 +201,14 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
     })
   }
 })(<span style="color:#75715e">/* window.Node || */</span> window.<span style="color:#a6e22e">Element</span>) <span style="color:#75715e">// 加 `Node` 是給 SVG 使用，on demand 囉
-</span></code></pre></div>
-<h3 id="give-me-some-animated-svg">Give me some animated SVG</h3>
-
+</span></code></pre></div><h3 id="give-me-some-animated-svg">Give me some animated SVG</h3>
 <ul>
 <li>Issue：IE 們沒有實作 SVG SMIL animation。</li>
-<li>Platform：<a href="https://caniuse.com/#feat=svg-smil" target="_blank">IE 11／Edge 15</a></li>
+<li>Platform：<a href="https://caniuse.com/#feat=svg-smil">IE 11／Edge 15</a></li>
 </ul>
-
-<p>雖然說被偉大的 Google 給 <a href="https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/5o0yiO440LM%5B126-150%5D" target="_blank">deprecate</a> 了，但也遭受不少反彈聲音，在 Web animation API 還沒普及之前，我們可以利用 <strong>inline css animation</strong> 來實現簡單的動畫效果。例如無腦的的 loading（首次親手寫 SVG，獻醜了）。</p>
-
+<p>雖然說被偉大的 Google 給 <a href="https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/5o0yiO440LM%5B126-150%5D">deprecate</a> 了，但也遭受不少反彈聲音，在 Web animation API 還沒普及之前，我們可以利用 <strong>inline css animation</strong> 來實現簡單的動畫效果。例如無腦的的 loading（首次親手寫 SVG，獻醜了）。</p>
 <blockquote>
-<p>順便提一下，Edge/IE 的 <a href="https://caniuse.com/#feat=transforms2d" target="_blank">CSS transform 並不支援 SVG</a>，僅能透過 transform attribute 來達成效果。Poor IE！</p>
+<p>順便提一下，Edge/IE 的 <a href="https://caniuse.com/#feat=transforms2d">CSS transform 並不支援 SVG</a>，僅能透過 transform attribute 來達成效果。Poor IE！</p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-svg" data-lang="svg"><span style="color:#f92672">&lt;svg</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;0px&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;0px&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;24px&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;30px&#34;</span> <span style="color:#a6e22e">viewBox=</span><span style="color:#e6db74">&#34;0 0 20 20&#34;</span><span style="color:#f92672">&gt;</span>
   <span style="color:#f92672">&lt;style</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;text/css&#34;</span><span style="color:#f92672">&gt;</span>
@@ -271,19 +227,15 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
   <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;#333&#34;</span> <span style="color:#a6e22e">opacity=</span><span style="color:#e6db74">&#34;0.2&#34;</span><span style="color:#f92672">&gt;&lt;/rect&gt;</span>
   <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;8&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;#333&#34;</span>  <span style="color:#a6e22e">opacity=</span><span style="color:#e6db74">&#34;0.2&#34;</span><span style="color:#f92672">&gt;&lt;/rect&gt;</span>
   <span style="color:#f92672">&lt;rect</span> <span style="color:#a6e22e">x=</span><span style="color:#e6db74">&#34;16&#34;</span> <span style="color:#a6e22e">y=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">width=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">height=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">fill=</span><span style="color:#e6db74">&#34;#333&#34;</span>  <span style="color:#a6e22e">opacity=</span><span style="color:#e6db74">&#34;0.2&#34;</span><span style="color:#f92672">&gt;&lt;/rect&gt;</span>
-<span style="color:#f92672">&lt;/svg&gt;</span></code></pre></div>
-<h3 id="how-an-element-removes-itself">How an element removes itself?</h3>
-
+<span style="color:#f92672">&lt;/svg&gt;</span>
+</code></pre></div><h3 id="how-an-element-removes-itself">How an element removes itself?</h3>
 <ul>
 <li>Issue：IE 的 DOM Node 缺乏 <code>remove</code> method，無法自殺（<strong>自殺不能解決問題，珍惜生命，遠離 IE</strong>）</li>
 <li>Platform：IE 11</li>
 </ul>
-
-<p>這個坑大大的掛在 <a href="https://caniuse.com/#feat=childnode-remove" target="_blank">Can I use</a> 裡，但也只有用到才會發現，如果你是 Mac 用戶，調試 IE 很辛苦，最後發現是這種狗屎 bug，這輩子鐵定再也不碰任何 M 社出品的玩意兒（結果卻用 VS Code 打這篇文章 XD）。</p>
-
-<p>解法很簡單，如果 codebase 不大的話，將 <code>el.remove()</code> 改成 <code>el.parentNode.removeChild(el)</code> 即可輕鬆解決。如果你想本人一樣，最近工作上使用 <a href="https://www.webcomponents.org/" target="_blank">Web Components</a>，必須 import <a href="https://html.spec.whatwg.org/multipage/scripting.html#custom-elements" target="_blank">Custom Elements</a> 的 polyfill，寫了 support IE 11，卻<a href="https://github.com/webcomponents/custom-elements/blob/master/src/Patch/Interface/ChildNode.js#L104" target="_blank">偷偷調用 <code>remove</code> API</a>，你玩我嗎？</p>
-
-<p>既然<a href="https://github.com/webcomponents/custom-elements/issues/103" target="_blank">官方沒有任何要修改的動靜</a>，自己加個 Polyfill 總行了吧？</p>
+<p>這個坑大大的掛在 <a href="https://caniuse.com/#feat=childnode-remove">Can I use</a> 裡，但也只有用到才會發現，如果你是 Mac 用戶，調試 IE 很辛苦，最後發現是這種狗屎 bug，這輩子鐵定再也不碰任何 M 社出品的玩意兒（結果卻用 VS Code 打這篇文章 XD）。</p>
+<p>解法很簡單，如果 codebase 不大的話，將 <code>el.remove()</code> 改成 <code>el.parentNode.removeChild(el)</code> 即可輕鬆解決。如果你想本人一樣，最近工作上使用 <a href="https://www.webcomponents.org/">Web Components</a>，必須 import <a href="https://html.spec.whatwg.org/multipage/scripting.html#custom-elements">Custom Elements</a> 的 polyfill，寫了 support IE 11，卻<a href="https://github.com/webcomponents/custom-elements/blob/master/src/Patch/Interface/ChildNode.js#L104">偷偷調用 <code>remove</code> API</a>，你玩我嗎？</p>
+<p>既然<a href="https://github.com/webcomponents/custom-elements/issues/103">官方沒有任何要修改的動靜</a>，自己加個 Polyfill 總行了吧？</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// Element#remove polyfill (for IE 11)
 </span><span style="color:#75715e">// (MUST import before custom-elements polyfill)
 </span><span style="color:#75715e">// from:https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/remove()/remove().md
@@ -299,84 +251,55 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
     })
   })
 })([<span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#a6e22e">CharacterData</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#a6e22e">DocumentType</span>.<span style="color:#a6e22e">prototype</span>])
-</code></pre></div>
-<h3 id="same-css-weird-flexbox-behavior">Same CSS, weird flexbox behavior</h3>
-
+</code></pre></div><h3 id="same-css-weird-flexbox-behavior">Same CSS, weird flexbox behavior</h3>
 <ul>
 <li>Issue：各種 flexbox 的 bug</li>
 <li>Platform：IE 11</li>
 </ul>
-
-<p>眾所週知，IE 的 <strong>flexbox</strong> 實現有許多 bug，本人也遇到不少，幸好碼農們也整理出 <a href="https://github.com/philipwalton/flexbugs" target="_blank">bug list</a> 供大家避坑，這裡就不多做解釋了。</p>
-
+<p>眾所週知，IE 的 <strong>flexbox</strong> 實現有許多 bug，本人也遇到不少，幸好碼農們也整理出 <a href="https://github.com/philipwalton/flexbugs">bug list</a> 供大家避坑，這裡就不多做解釋了。</p>
 <h3 id="extra-read-the-fxxking-standard-before-using-custom-elements">(EXTRA) Read the fxxking standard before using custom elements</h3>
-
 <ul>
 <li>Issue：在 custom elements connected 前，不要對他操作 DOM（appendChild、setAttribute）。</li>
 <li>Platform：Chrome 54+</li>
 </ul>
-
-<p>這其實不算是 bug，而是一個標準，Chrome 實實在在地做出來了，<strong>polyfill</strong> 卻沒有檢查這些 requirements。根據 <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element-conformance" target="_blank">Custom elements constructor 的標準</a>，</p>
-
+<p>這其實不算是 bug，而是一個標準，Chrome 實實在在地做出來了，<strong>polyfill</strong> 卻沒有檢查這些 requirements。根據 <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element-conformance">Custom elements constructor 的標準</a>，</p>
 <blockquote>
 <p>The element must not gain any attributes or children, as this violates the expectations of consumers who use the <code>createElement</code> or <code>createElementNS</code> methods.</p>
 </blockquote>
-
 <p>我們不能在 constructor 中有任何 attribute／childNodes 的操作，也不應涉及設計 render 相關動作，官方標準建議可以在 <code>constructor</code> 中做：</p>
-
 <ul>
 <li>Setup event listeners.</li>
 <li>Setup default/initial values.</li>
 <li>Setup <strong>shadow root</strong>.</li>
 <li>Truly one-time initializaiton.（因為 <code>connectedCallback</code> 很可能跑不只一次）</li>
 </ul>
-
 <p>實務上，大部分的工作都會延遲到 <code>connectedCallback</code>，尤其當這個 elements 以互動／呈現為主，<code>constrcutor</code> 反而僅剩加 flag 防止二次渲染，以及一些 private field 的設定。</p>
-
 <p>其實 web components 的 polyfill 坑也不少，希望未來有一天能夠普及（但 attribute 不能傳遞 function context 就難受想哭）。</p>
-
 <h2 id="tools-for-dealing-with-compatible-issues">Tools for dealing with compatible issues</h2>
-
 <p>為了相容各大瀏覽器，前端工程比想像中更加複雜，往往設計好一些 feature，卻因為相容性問題，被迫對架構做出修正。如果你手上的專案不需要支援這些老舊的瀏覽器，恭喜你，這種機遇不是人人都有！如果你跟本人同樣不幸，只能為了需求妥協，這邊推薦幾個好物參考用，希望能節省各位的加班費。</p>
-
 <h3 id="compatible-tables">Compatible tables</h3>
-
 <p>有時候不知道某個 feature 在各平台上支援程度如何，一般我們會看兩個網站：</p>
-
 <ul>
-<li><a href="https://caniuse.com/" target="_blank">Can I use&hellip; Support tables for HTML5, CSS3, etc</a></li>
-<li><a href="https://kangax.github.io/compat-table/es6/" target="_blank">ECMAScript 6 compatibility table</a></li>
+<li><a href="https://caniuse.com/">Can I use&hellip; Support tables for HTML5, CSS3, etc</a></li>
+<li><a href="https://kangax.github.io/compat-table/es6/">ECMAScript 6 compatibility table</a></li>
 </ul>
-
-<p>前者專注在 Browser support 的 Web API，許多 CSS 或 DOM 的 feature 都有詳細的資訊，不過有時關鍵字搜尋不易找到。當然還有<a href="https://www.google.com.tw/search?q=caniuse+plugin" target="_blank">各種 Plugin</a> 或 <a href="https://github.com/sgentle/caniuse-cmd" target="_blank">commandline tool</a> 可以安裝。</p>
-
+<p>前者專注在 Browser support 的 Web API，許多 CSS 或 DOM 的 feature 都有詳細的資訊，不過有時關鍵字搜尋不易找到。當然還有<a href="https://www.google.com.tw/search?q=caniuse+plugin">各種 Plugin</a> 或 <a href="https://github.com/sgentle/caniuse-cmd">commandline tool</a> 可以安裝。</p>
 <p>後者就比較陽春一點，沒有實用的搜尋功能，但一些 JavaScript 基礎語法就要靠它了解支援程度。例如 Array 的各種 fuctional methods，我從來都不記得哪個在哪裡有實作。（不過 Babel／TypeScript 大火，還有人在管 JS 相容性嗎 XD）</p>
-
 <h3 id="cross-browser-testing-services">Cross browser testing services</h3>
-
 <p>跨瀏覽器測試是前端工程最為複雜惱人的部分之一，各家瀏覽器在每個平台上都有不同的表現，一般企業很難有齊全的測試環境，所以就有許多 <strong>cross browser testing services</strong> 興起，比較有名的幾家如：</p>
-
 <ul>
-<li><a href="https://saucelabs.com/" target="_blank">SauceLabs</a></li>
-<li><a href="https://www.browserstack.com" target="_blank">BrowserStack</a></li>
+<li><a href="https://saucelabs.com/">SauceLabs</a></li>
+<li><a href="https://www.browserstack.com">BrowserStack</a></li>
 </ul>
-
 <p>透過這些跨平台測試工具，可以全面檢測自家的 codebase，減少建置 infrastructure 的負擔，加上他們都有豐富的 API 與文件，整合 CI／CD 更為方便，價格有不會太貴，個人認為開發前端的公司考慮一下。</p>
-
 <blockquote>
 <p>因為 Mozilla 與 Microsoft 有跟 BrowserStack 合作，目前測試 Edge、Firefox 都完全免費，所以本人就像牆頭草一樣選擇 BrowserStack 了。</p>
 </blockquote>
-
 <h3 id="virtual-machines">Virtual machines</h3>
-
 <p>如果買不起上面的 testing services，這邊有個省錢（但很累人）的方法，就是使用 <strong>VirtualBox</strong> + <strong>Windows 10 Insider Preview</strong> 測試 Edge 和 IE，Insider Preview 只要註冊就可以用了！</p>
-
 <p>因為怕被黑，細節就不多講，還是建議大家直接使用正版，或是買別人的測試服務吧。</p>
-
 <h2 id="conclusion">Conclusion</h2>
-
 <p>俗諺有云：「IE 是前端工程的墳墓」，與 IE 交往，切勿急躁，想清楚，多溝通，有時候她鬧點彆扭就讓著吧，不要疾病亂投 polyfill，破壞<del>你與 IE 之間的愛</del>架構絕對更痛苦。</p>
-
 <p>往後若有其他 IE 相容性的 Issue，本文會再繼續更新。</p>
 
 </div>
@@ -389,7 +312,7 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span>, <a class='tag' href='/tags/front-end/'>Front-end</a>, <a class='tag' href='/tags/javascript/'>JavaScript</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/internet-explorer/'>Internet Explorer</a>, <a class='tag' href='/tags/front-end/'>Front-end</a>, <a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/web-compatibility/'>Web Compatibility</a>, <a class='tag' href='/tags/browser-testing/'>Browser Testing</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -458,15 +381,6 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
 </svg>
 </a>
       </li><li>
-        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -487,16 +401,16 @@ document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2019 Weihang Lo </p>
+  <p> &copy; 2017-2020 Weihang Lo </p>
 </div>
 
         </div>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

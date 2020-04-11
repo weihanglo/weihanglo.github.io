@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
 <meta name='theme-color' content='#ffcd00'>
 
 <meta property='og:title' content='Rx 入門二：觀察者模式 • Weihang Lo'>
@@ -16,47 +14,28 @@ Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 �
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
 <meta property='og:url' content='https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/'>
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Design Patterns'><meta property='article:tag' content='Observer Pattern'><meta property='article:tag' content='Swift'><meta property='article:tag' content='ReactiveX'><meta property='article:published_time' content='2017-08-15T16:32:39&#43;08:00'/><meta property='article:modified_time' content='2017-08-15T16:32:39&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.3" />
+<meta name="generator" content="Hugo 0.68.3" />
 
   <title>Rx 入門二：觀察者模式 • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-118441906-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
 
 </head>
-
-
 <body class='page type-posts'>
 
-  <div class='site'>
-
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     
     <ul><li class='item'>
@@ -69,7 +48,9 @@ if (!doNotTrack) {
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
@@ -89,8 +70,7 @@ if (!doNotTrack) {
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -125,90 +105,73 @@ if (!doNotTrack) {
   
 
   <div class='container entry-content'>
-  
-
-<p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>（觀察者模式）。</p>
-
+  <p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>（觀察者模式）。</p>
 <p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
-
-<!-- more -->
-
+<!-- raw HTML omitted -->
 <h2 id="definition">Definition</h2>
-
-<p><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank">觀察者模式（Observer pattern）</a>定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。</p>
-
+<p><a href="https://en.wikipedia.org/wiki/Observer_pattern">觀察者模式（Observer pattern）</a>定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。</p>
 <h2 id="application">Application</h2>
-
-<p>Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 <code>dispatchEvent</code> 及 <code>EventListener</code> 達成 observer pattern。Cocoa programming 有著名的 <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" target="_blank">Key-Value Observing</a> 來觀察物件上特定 key 的 value 變化。</p>
-
+<p>Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 <code>dispatchEvent</code> 及 <code>EventListener</code> 達成 observer pattern。Cocoa programming 有著名的 <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html">Key-Value Observing</a> 來觀察物件上特定 key 的 value 變化。</p>
 <h2 id="pros-and-cons">Pros and Cons</h2>
-
 <ul>
 <li>Pros
-
 <ul>
 <li>只要介面符合，任何物件都可以是 Observer。</li>
 <li>可確認該狀態變化是由該 subject 通知，有較高的控制權。</li>
 <li>熱門且容易理解的設計模式。</li>
-</ul></li>
+</ul>
+</li>
 <li>Cons
-
 <ul>
 <li>Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。</li>
 <li>Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。</li>
 <li>部份實作並無法保證不同的 observer 接收到通知的時間順序。</li>
 <li>承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="first-attempt">First attempt</h2>
-
 <p>Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 <strong>Property Observer</strong> 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</p>
-
 <blockquote>
-<p>不示範 KVO 是因為 <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0161-key-paths.md" target="_blank">Swift 4 KVC 又大改了</a>！這次 keyPath 不再是易出錯的 string，改為實實在在的 KeyPath 型別，期待一下吧。</p>
+<p>不示範 KVO 是因為 <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0161-key-paths.md">Swift 4 KVC 又大改了</a>！這次 keyPath 不再是易出錯的 string，改為實實在在的 KeyPath 型別，期待一下吧。</p>
 </blockquote>
-
 <p>首先，我們先建立一個 protocol，裡面有幾個 requirements，<code>willChange</code>、<code>didChange</code> 會在 subject 狀態變更時調用。由於需要獨立辨識每個的 observer，所以會是一個 class-only protocol，才能透過 <code>===</code> identity operator 比較 reference。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// 建立一個 protocol 給 observer 實作，subject 會呼叫</span>
 <span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">PropertyObserver</span>: AnyObject { <span style="color:#75715e">// class-only</span>
   <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">willChange</span>(to newValue: Any?)
   <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">didChange</span>(from oldValue: Any?)
-}</code></pre></div>
-<p>再來，我們建立 <code>Subject</code> 型別，裡面有</p>
-
+}
+</code></pre></div><p>再來，我們建立 <code>Subject</code> 型別，裡面有</p>
 <ul>
 <li><code>observers</code> array，管理所有觀察者（需注意 memory leak，必要時可利用 weak reference wrapper）。</li>
 <li>一個用來示範的 <code>name</code> property，實作 <code>willSet</code>、<code>didSet</code> 兩個 property observer，裡面分別調用 <code>PropertyObserver</code> 的 <code>willChange</code> 與 <code>didChange</code> 方法。</li>
-
-<li><p><code>add</code> 與 <code>remove</code> 兩個對應的新增／移除 observer 的方法。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Subject</span> {
-<span style="color:#75715e">// 建立一個 observers array</span>
-<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> observers: [PropertyObserver] = []
-
-<span style="color:#75715e">// 利用 Swift 自帶的 property observer，通知每個 observer</span>
-<span style="color:#66d9ef">var</span> name: String = <span style="color:#e6db74">&#34;empty&#34;</span> {
-<span style="color:#66d9ef">willSet</span> {
-  observers.forEach { $0.willChange(to: newValue) }
-}
-<span style="color:#66d9ef">didSet</span> {
-  observers.forEach { $0.didChange(from: oldValue) }
-}
-}
-
-<span style="color:#75715e">// 新增 observer</span>
-<span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(observer: PropertyObserver) {
-observers.append(observer)
-}
-
-<span style="color:#75715e">// 移除 observer</span>
-<span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">remove</span>(observer: PropertyObserver) {
-observers = observers.filter { $0 <span style="color:#f92672">!==</span> observer }
-}
-}</code></pre></div></li>
+<li><code>add</code> 與 <code>remove</code> 兩個對應的新增／移除 observer 的方法。</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Subject</span> {
+  <span style="color:#75715e">// 建立一個 observers array</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> observers: [PropertyObserver] = []
 
-<p>最後，我們實作 <code>Observer</code>。</p>
+  <span style="color:#75715e">// 利用 Swift 自帶的 property observer，通知每個 observer</span>
+  <span style="color:#66d9ef">var</span> name: String = <span style="color:#e6db74">&#34;empty&#34;</span> {
+    <span style="color:#66d9ef">willSet</span> {
+      observers.forEach { $0.willChange(to: newValue) }
+    }
+    <span style="color:#66d9ef">didSet</span> {
+      observers.forEach { $0.didChange(from: oldValue) }
+    }
+  }
+
+  <span style="color:#75715e">// 新增 observer</span>
+  <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(observer: PropertyObserver) {
+    observers.append(observer)
+  }
+
+  <span style="color:#75715e">// 移除 observer</span>
+  <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">remove</span>(observer: PropertyObserver) {
+    observers = observers.filter { $0 <span style="color:#f92672">!==</span> observer }
+  }
+}
+</code></pre></div><p>最後，我們實作 <code>Observer</code>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span>: PropertyObserver {
   <span style="color:#66d9ef">let</span> name: String <span style="color:#75715e">// Demo 用</span>
   <span style="color:#66d9ef">init</span>(name: string) { <span style="color:#66d9ef">self</span>.name = name }
@@ -218,8 +181,8 @@ observers = observers.filter { $0 <span style="color:#f92672">!==</span> observe
   <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">didChange</span>(from oldValue: Any?) {
     print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>name<span style="color:#e6db74">)</span><span style="color:#e6db74"> did change from </span><span style="color:#e6db74">\(</span>oldValue ?? <span style="color:#e6db74">&#34;nil&#34;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">.&#34;</span>)
   }
-}</code></pre></div>
-<p>測試看看吧！</p>
+}
+</code></pre></div><p>測試看看吧！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> subject = Subject()
 <span style="color:#66d9ef">var</span> observerA = Observer(name: <span style="color:#e6db74">&#34;A&#34;</span>)
 <span style="color:#66d9ef">var</span> observerB = Observer(name: <span style="color:#e6db74">&#34;B&#34;</span>)
@@ -236,77 +199,69 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
 <span style="color:#75715e">/// B did change from empty.</span>
 <span style="color:#75715e">/// ---------- Remove observerA ----------</span>
 <span style="color:#75715e">/// B will change to 4321.</span>
-<span style="color:#75715e">/// B did change from 1234.</span></code></pre></div>
-<p>以上的是非常簡單的 Observer pattern 實作，但也有許多缺陷，例如：</p>
-
+<span style="color:#75715e">/// B did change from 1234.</span>
+</code></pre></div><p>以上的是非常簡單的 Observer pattern 實作，但也有許多缺陷，例如：</p>
 <ul>
 <li>不易指定 property，互相都需要了解內部屬性。</li>
 <li>僅能從 Subject 移除 observer，observer 無法主動停止觀察。</li>
 <li>一定要建立完整的 Observer，才能觀察變化。</li>
 </ul>
-
 <h2 id="second-attempt">Second attempt</h2>
-
 <p>根據上述缺點，我們可以從幾個面向加強：</p>
-
 <ul>
 <li>Subject 的 observer 可以是 closure，解耦 <code>willChange</code> 與 <code>didChange</code>。</li>
 <li><code>Subject.add</code> 之後可回傳一個 <code>Disposable</code> 的物件，讓觀察者可以透過這個物件停止觀察。</li>
 </ul>
-
 <p>首先，建立一個新的 <code>Disposable</code> protocol，包含 <code>dispose</code> method，可以自行停止觀察。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">Disposable</span> {
   <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dispose</span>()
-}</code></pre></div>
-<p>再來是新的 <code>Subject</code>，這邊比較多繁瑣的實作細節，主要實作：</p>
-
+}
+</code></pre></div><p>再來是新的 <code>Subject</code>，這邊比較多繁瑣的實作細節，主要實作：</p>
 <ul>
 <li><code>observers</code> 改成兩個 <code>willChangeObservers</code>、<code>didChangeObservers</code> array，分別存放不同的觀察者。</li>
 <li><code>Observer</code> 的型別改為 closure，讓調用者更易於使用。</li>
-
-<li><p><code>observe</code> 要傳入欲觀察的對應 <code>ObservationType</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
-<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ObservationType</span> {
-<span style="color:#66d9ef">case</span> willChange
-<span style="color:#66d9ef">case</span> didChange
-}
-<span style="color:#66d9ef">typealias</span> Observation = Int
-<span style="color:#66d9ef">typealias</span> Observer = (Any?) -&gt; Void
-
-<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">var</span> id = <span style="color:#ae81ff">0</span>
-<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> willChangeObservers: [(Observation, Observer)] = []
-<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> didChangeObservers: [(Observation, Observer)] = []
-
-<span style="color:#66d9ef">var</span> name: String = <span style="color:#e6db74">&#34;empty&#34;</span> {
-<span style="color:#66d9ef">willSet</span> { willChangeObservers.forEach { $0.<span style="color:#ae81ff">1</span>(newValue) } }
-<span style="color:#66d9ef">didSet</span> { didChangeObservers.forEach { $0.<span style="color:#ae81ff">1</span>(oldValue) } }
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">observe</span>(type: ObservationType, with closure: @escaping Observer) -&gt; ClosureDisposable {
-Subject.id <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">switch</span> type {
-<span style="color:#66d9ef">case</span> .willChange: willChangeObservers.append((Subject.id, closure))
-<span style="color:#66d9ef">case</span> .didChange: didChangeObservers.append((Subject.id, closure))
-}
-<span style="color:#66d9ef">return</span> ClosureDisposable(owner: <span style="color:#66d9ef">self</span>, id: Subject.id, type: type)
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">remove</span>(observer: ClosureDisposable) {
-<span style="color:#66d9ef">switch</span> observer.type {
-<span style="color:#66d9ef">case</span> .willChange:
-  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = willChangeObservers.index(<span style="color:#66d9ef">where</span>: { $0.<span style="color:#ae81ff">0</span> == observer.id }) {
-    willChangeObservers.remove(at: index)
-  }
-<span style="color:#66d9ef">case</span> .didChange:
-  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = didChangeObservers.index(<span style="color:#66d9ef">where</span>: { $0.<span style="color:#ae81ff">0</span> == observer.id }) {
-    didChangeObservers.remove(at: index)
-  }
-}
-}
-}</code></pre></div></li>
+<li><code>observe</code> 要傳入欲觀察的對應 <code>ObservationType</code>。</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
+  <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ObservationType</span> {
+    <span style="color:#66d9ef">case</span> willChange
+    <span style="color:#66d9ef">case</span> didChange
+  }
+  <span style="color:#66d9ef">typealias</span> Observation = Int
+  <span style="color:#66d9ef">typealias</span> Observer = (Any?) -&gt; Void
 
-<p>這裡實作前面的 <code>Disposable</code>，為了符合 <code>Subject</code> 的需求，我們暴露 <code>Observation</code> 與 <code>ObservationType</code> 給 <code>ClosureDisposable</code>。<br />
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">var</span> id = <span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> willChangeObservers: [(Observation, Observer)] = []
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> didChangeObservers: [(Observation, Observer)] = []
+
+  <span style="color:#66d9ef">var</span> name: String = <span style="color:#e6db74">&#34;empty&#34;</span> {
+    <span style="color:#66d9ef">willSet</span> { willChangeObservers.forEach { $0.<span style="color:#ae81ff">1</span>(newValue) } }
+    <span style="color:#66d9ef">didSet</span> { didChangeObservers.forEach { $0.<span style="color:#ae81ff">1</span>(oldValue) } }
+  }
+
+  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">observe</span>(type: ObservationType, with closure: @escaping Observer) -&gt; ClosureDisposable {
+    Subject.id <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">switch</span> type {
+    <span style="color:#66d9ef">case</span> .willChange: willChangeObservers.append((Subject.id, closure))
+    <span style="color:#66d9ef">case</span> .didChange: didChangeObservers.append((Subject.id, closure))
+    }
+    <span style="color:#66d9ef">return</span> ClosureDisposable(owner: <span style="color:#66d9ef">self</span>, id: Subject.id, type: type)
+  }
+
+  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">remove</span>(observer: ClosureDisposable) {
+    <span style="color:#66d9ef">switch</span> observer.type {
+    <span style="color:#66d9ef">case</span> .willChange:
+      <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = willChangeObservers.index(<span style="color:#66d9ef">where</span>: { $0.<span style="color:#ae81ff">0</span> == observer.id }) {
+        willChangeObservers.remove(at: index)
+      }
+    <span style="color:#66d9ef">case</span> .didChange:
+      <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = didChangeObservers.index(<span style="color:#66d9ef">where</span>: { $0.<span style="color:#ae81ff">0</span> == observer.id }) {
+        didChangeObservers.remove(at: index)
+      }
+    }
+  }
+}
+</code></pre></div><p>這裡實作前面的 <code>Disposable</code>，為了符合 <code>Subject</code> 的需求，我們暴露 <code>Observation</code> 與 <code>ObservationType</code> 給 <code>ClosureDisposable</code>。<br>
 實務上，可再訂定更詳細的泛型，或直接將 Disposable 的實際型別定義在 <code>Subject</code> 的 nested class。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClosureDisposable</span>: Disposable {
   <span style="color:#66d9ef">private</span>(<span style="color:#66d9ef">set</span>) <span style="color:#66d9ef">weak</span> <span style="color:#66d9ef">var</span> owner: Subject?
@@ -320,8 +275,8 @@ Subject.id <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</
   <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dispose</span>() {
     owner?.remove(observer: <span style="color:#66d9ef">self</span>)
   }
-}</code></pre></div>
-<p>最後，讓我們來看看結果吧！</p>
+}
+</code></pre></div><p>最後，讓我們來看看結果吧！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> subject = Subject()
 
 <span style="color:#66d9ef">let</span> observerA = subject.observe(type: .willChange) { val <span style="color:#66d9ef">in</span>
@@ -348,26 +303,18 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
 <span style="color:#75715e">/// B will change to 1234</span>
 <span style="color:#75715e">/// C did change to empty</span>
 <span style="color:#75715e">/// ---------- Remove observerB &amp; C ----------</span>
-<span style="color:#75715e">/// A will change to 4321</span></code></pre></div>
-<p>這是我們的第二次嘗試，雖然仍有 <code>ClosureDisposable</code> 與 <code>Subject</code> 耦合性的問題，也暴露太多類別的細節。不過對比第一次，對外接口使用 closure 來綁定 subject，勉強稱得上乾淨利落。</p>
-
+<span style="color:#75715e">/// A will change to 4321</span>
+</code></pre></div><p>這是我們的第二次嘗試，雖然仍有 <code>ClosureDisposable</code> 與 <code>Subject</code> 耦合性的問題，也暴露太多類別的細節。不過對比第一次，對外接口使用 closure 來綁定 subject，勉強稱得上乾淨利落。</p>
 <h2 id="pub-sub-pattern">Pub-sub pattern</h2>
-
-<p>一些狀況下，若需要完全解耦合，或許 <a href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern" target="_blank">Pub-sub pattern</a> 會比 observer pattern 更適合。</p>
-
+<p>一些狀況下，若需要完全解耦合，或許 <a href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern">Pub-sub pattern</a> 會比 observer pattern 更適合。</p>
 <p><strong>Pub-sub pattern</strong>（Publish-subscribe，訂閱／發佈模式）是一種訊息傳遞設計模式，概念是利用中介 message 做為 publisher（對應 subject）及 subscriber（對應 observer）的溝通橋樑，subscriber 只需訂閱特定 message，而 publisher 則僅負責發佈（broadcast）message。兩者耦合性低，可作為 observer pattern 替代品，但程式也容易變得更複雜。</p>
-
-<p>實務上，Cocoa 的 <code>NSNotification</code> 是徹底實踐 pub-sub pattern 的範例；以高效著稱的 in-memory database <a href="https://redis.io/" target="_blank">Redis</a> 也有強大的 Pub／Sub 功能。此外，Modern web app 的狀態管理架構兩大陣營 <a href="https://redux.js.org/" target="_blank">Redux</a> 與 <a href="https://mobx.js.org/" target="_blank">MobX</a>，也可以視為 pub-sub pattern 與 observer pattern 的對抗。</p>
-
+<p>實務上，Cocoa 的 <code>NSNotification</code> 是徹底實踐 pub-sub pattern 的範例；以高效著稱的 in-memory database <a href="https://redis.io/">Redis</a> 也有強大的 Pub／Sub 功能。此外，Modern web app 的狀態管理架構兩大陣營 <a href="https://redux.js.org/">Redux</a> 與 <a href="https://mobx.js.org/">MobX</a>，也可以視為 pub-sub pattern 與 observer pattern 的對抗。</p>
 <h2 id="conclusion">Conclusion</h2>
-
 <p>Swift 的 Property observer 讓實作 observer 的門檻降低了，很多有趣的實現，例如 Cocoa Bindings，在 iOS 上變得更簡潔更 Swifty。了解 observer pattern 與組件間的通訊運作原理，勢必能夠帶來更多不同的設計架構，Rx 就是如此孕育而生。</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank">Wiki: Observer pattern</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern" target="_blank">Wiki: Publish-subscribe pattern</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Observer_pattern">Wiki: Observer pattern</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern">Wiki: Publish-subscribe pattern</a></li>
 </ul>
 
 </div>
@@ -380,7 +327,7 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span>, <a class='tag' href='/tags/swift/'>Swift</a>, <a class='tag' href='/tags/reactivex/'>ReactiveX</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/design-patterns/'>Design Patterns</a>, <a class='tag' href='/tags/observer-pattern/'>Observer Pattern</a>, <a class='tag' href='/tags/swift/'>Swift</a>, <a class='tag' href='/tags/reactivex/'>ReactiveX</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -449,15 +396,6 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
 </svg>
 </a>
       </li><li>
-        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -478,16 +416,16 @@ subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2019 Weihang Lo </p>
+  <p> &copy; 2017-2020 Weihang Lo </p>
 </div>
 
         </div>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

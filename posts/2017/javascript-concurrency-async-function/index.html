@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！
@@ -21,42 +19,23 @@ Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7
 <meta property='og:site_name' content='Weihang Lo'>
 <meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Concurrency'><meta property='article:tag' content='Async Function'><meta property='article:tag' content='Generator'><meta property='article:tag' content='Front-end'><meta property='article:published_time' content='2017-06-18T12:45:34&#43;08:00'/><meta property='article:modified_time' content='2017-06-18T12:45:34&#43;08:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.3" />
+<meta name="generator" content="Hugo 0.68.3" />
 
   <title>現代化的 JavaScript 併發 - Async Functions • Weihang Lo</title>
   <link rel='canonical' href='https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/'>
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.4267b3fa.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#ffcd00;}
 </style>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-118441906-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
 
 </head>
-
-
 <body class='page type-posts'>
 
-  <div class='site'>
-
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     
     <ul><li class='item'>
@@ -69,7 +48,9 @@ if (!doNotTrack) {
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
@@ -89,8 +70,7 @@ if (!doNotTrack) {
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -125,18 +105,11 @@ if (!doNotTrack) {
   
 
   <div class='container entry-content'>
-  
-
-<p>在前一篇介紹 <a href="https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/" target="_blank">JavaScript Concurrency 的文章</a>中，Promise 提供開發者安全統一的標準 API，透過 <code>thenable</code> 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！</p>
-
+  <p>在前一篇介紹 <a href="https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/">JavaScript Concurrency 的文章</a>中，Promise 提供開發者安全統一的標準 API，透過 <code>thenable</code> 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！</p>
 <p><em>（撰於 2017-06-17，基於 ECMAScript 7+）</em></p>
-
-<!-- more -->
-
+<!-- raw HTML omitted -->
 <h2 id="introduction">Introduction</h2>
-
-<p><a href="https://tc39.github.io/ecmascript-asyncawait/" target="_blank">Async Functions</a> 在去年進入 Stage 4，正式成為 ECMAScript 7 標準，這對 JS 社群無疑是一大利多。截至目前為止（2017.6），實作 Async Functions 的環境有：</p>
-
+<p><a href="https://tc39.github.io/ecmascript-asyncawait/">Async Functions</a> 在去年進入 Stage 4，正式成為 ECMAScript 7 標準，這對 JS 社群無疑是一大利多。截至目前為止（2017.6），實作 Async Functions 的環境有：</p>
 <ul>
 <li>Node.js 7.6.0 (without <code>--harmony</code>)</li>
 <li>Chrome 55</li>
@@ -144,64 +117,51 @@ if (!doNotTrack) {
 <li>Safari 10.1</li>
 <li>Edge 15</li>
 </ul>
-
-<p>可以看到<a href="https://caniuse.com/#search=async%20functions" target="_blank">當前 Release 版的 Desktop browser 都可以用了</a>。</p>
-
+<p>可以看到<a href="https://caniuse.com/#search=async%20functions">當前 Release 版的 Desktop browser 都可以用了</a>。</p>
 <p>從此我們不會在 callback hell 中迷失自我，不需在 <code>then</code> 中塞一堆 <code>console.log</code>，也不需使用蹩足的 generator 語法。ES7 的 <code>async function</code> 完成我們對非同步程式的想像。</p>
-
 <p><strong>真的有這麼好康嗎？</strong></p>
-
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function" target="_blank">MDN</a> 點出 async function 的定位。</p>
-
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">MDN</a> 點出 async function 的定位。</p>
 <blockquote>
 <p>The purpose of async/await functions is to simplify the behavior of using promises synchronously and to perform some behavior on a group of Promises. Just like Promises are similar to structured callbacks, async/await is similar to combining generators and promises.</p>
 </blockquote>
-
 <p>Async functions 的目的在於簡化多個 promise 操作，不需要再串聯一堆 <code>then</code>。如果我們將 Promises 比喻為好讀版的 callbacks，那 async／await 就是 generator + promise 的綜合體，因此，<strong>我們仍需學習 promise 以及 generator 等概念</strong>。</p>
-
 <p>話不多說，一起快速了解 generator 吧！</p>
-
 <h2 id="generator-with-async-operations">Generator With Async Operations</h2>
-
-<p>在 async／await 還沒出世之前，generator function 是非同步程式設計的最新潮的替代品，TJ 的 <a href="https://github.com/tj/co" target="_blank">co</a> 與 Facebook 的 <a href="https://github.com/facebook/regenerator" target="_blank">regenerator</a> 這兩個 libraries 都擁有高人氣。藉由 <a href="https://en.wikipedia.org/wiki/Coroutine" target="_blank">Coroutine（協程）</a> suspend／resume 的機制，讓開發非同步 JS 可以避開多線程煩人的 context-switch、dead lock，能用很直觀的方式撰寫程式。當然，coroutine 仍是在同個 thread 上面執行，並非真實的 parallel computing，不過 browser 這種常出現 I／O 的場景中，coroutine 已綽綽有餘了。</p>
-
+<p>在 async／await 還沒出世之前，generator function 是非同步程式設計的最新潮的替代品，TJ 的 <a href="https://github.com/tj/co">co</a> 與 Facebook 的 <a href="https://github.com/facebook/regenerator">regenerator</a> 這兩個 libraries 都擁有高人氣。藉由 <a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine（協程）</a> suspend／resume 的機制，讓開發非同步 JS 可以避開多線程煩人的 context-switch、dead lock，能用很直觀的方式撰寫程式。當然，coroutine 仍是在同個 thread 上面執行，並非真實的 parallel computing，不過 browser 這種常出現 I／O 的場景中，coroutine 已綽綽有餘了。</p>
 <p><strong>我只是想了解 async function 怎麼用，為什麼還要學 coroutine 和 generator？不會太複雜嗎？</strong></p>
-
 <p>別緊張，接下來將淺淺帶過 generator 概念。本人同樣不喜歡 generator 醜陋的 <code>*</code>，<code>*</code> 只該留給最愛的 pointer。介紹 generator 之前，先來了解 ES6 的 <strong>Iterable</strong> 與 <strong>Iterator</strong> 吧 XD！（不是說好快速瞭解 generator 嗎⋯⋯）</p>
-
-<h3 id="iterable-iterator">Iterable &amp; Iterator</h3>
-
-<p>ES6 除了引入標準的 <code>Promise</code> object 以外，另一重大的語法變革就是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">Iterator</a> 與 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">Generator</a>。熟悉 C++、Swift、Java 或 Python 3 的朋友應該非常熟悉 iterable／iterator 等名詞。在 JavaScript中，名詞解釋大致如下：</p>
-
+<h3 id="iterable--iterator">Iterable &amp; Iterator</h3>
+<p>ES6 除了引入標準的 <code>Promise</code> object 以外，另一重大的語法變革就是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator">Iterator</a> 與 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator">Generator</a>。熟悉 C++、Swift、Java 或 Python 3 的朋友應該非常熟悉 iterable／iterator 等名詞。在 JavaScript中，名詞解釋大致如下：</p>
 <ul>
-<li><strong>iterable</strong> 是指可迭代的物件，也就是可丟進 loop 運作的物件，會產生 <strong>iterator</strong>，但不一定是 <a href="https://en.wikipedia.org/wiki/Sequence" target="_blank">sequence</a> 或 <a href="https://en.wikipedia.org/wiki/Container_(abstract_data_type)" target="_blank">container</a>。</li>
+<li><strong>iterable</strong> 是指可迭代的物件，也就是可丟進 loop 運作的物件，會產生 <strong>iterator</strong>，但不一定是 <a href="https://en.wikipedia.org/wiki/Sequence">sequence</a> 或 <a href="https://en.wikipedia.org/wiki/Container_(abstract_data_type)">container</a>。</li>
 <li><strong>iterator</strong> 就是鼎鼎大名的迭代器，如同指針般迭代東西（通常是 <strong>iterable</strong> 提供的值）。</li>
 </ul>
-
 <p>日常會遇到的 iterable 應該會長這樣：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">iterable</span>) {}
 <span style="color:#a6e22e">iterable</span>.<span style="color:#a6e22e">forEach</span>()
 <span style="color:#a6e22e">iterable</span>.<span style="color:#a6e22e">map</span>()
-</code></pre></div>
-<p>這些 <strong>iterable</strong> 有共通特性，就像下面的 list 一樣又臭又長。</p>
-
+</code></pre></div><p>這些 <strong>iterable</strong> 有共通特性，就像下面的 list 一樣又臭又長。</p>
 <ul>
 <li>有一個 <code>[Symbol.iterator]</code> method，
-
 <ul>
-<li><code>[Symbol.iterator]</code> 會回傳一個 <strong>iterator</strong> object，</li>
+<li><code>[Symbol.iterator]</code> 會回傳一個 <strong>iterator</strong> object，
+<ul>
 <li><strong>iterator</strong> 上要有 <code>next</code> method，
-
 <ul>
-<li><code>next</code> method 會回傳一個 object 記錄 iteration 當前狀態，其有兩個 property，</li>
+<li><code>next</code> method 會回傳一個 object 記錄 iteration 當前狀態，其有兩個 property，
+<ul>
 <li><code>done</code>：當次 iteration 是否結束的 boolean flag</li>
 <li><code>value</code>：當次 iteration 的 return value</li>
-</ul></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p>看了這種 nested list，是不是眼睛都茫了，想立馬關掉這篇廢文呢？別怕，常用的 <code>Array</code> 和 ES6 的 <code>Map</code>、<code>Set</code> 等都是內建的 iterable，我們不需自己辛苦實作；而 plain <code>Object</code> 雖非 iterable，但也有 <code>Object.entries</code> 等方法供我們轉換成 iterable 呢。</p>
-
 <p>我們來看一個簡單 Iterator 實作：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">infiniteLoop</span> <span style="color:#f92672">=</span> {}
 <span style="color:#a6e22e">infiniteLoop</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () { <span style="color:#75715e">// 實作 iterator 建構 funtion
@@ -218,14 +178,11 @@ if (!doNotTrack) {
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">infiniteLoop</span>) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">v</span>)
 }
-</code></pre></div>
-<blockquote>
-<p>有興趣了解相關 protocols，可以<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">看此</a>。</p>
+</code></pre></div><blockquote>
+<p>有興趣了解相關 protocols，可以<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator">看此</a>。</p>
 </blockquote>
-
 <h3 id="generator">Generator</h3>
-
-<p>上一節最後，我們從頭打造了一個 Iterator，看起來十分不易，其實 iterator 實作繁瑣，是每種語言皆然，<a href="https://stackoverflow.com/a/7542261" target="_blank">連 Python 3 也不例外</a>，於是，<strong>generator</strong> 就誕生了。 Generator 基於 iterator 概念之上，利用<del>簡單明瞭</del>的語法，讓建構 iterator 不必這麼痛苦。我們將前一節的例子改成 generator 試試看。</p>
+<p>上一節最後，我們從頭打造了一個 Iterator，看起來十分不易，其實 iterator 實作繁瑣，是每種語言皆然，<a href="https://stackoverflow.com/a/7542261">連 Python 3 也不例外</a>，於是，<strong>generator</strong> 就誕生了。 Generator 基於 iterator 概念之上，利用<del>簡單明瞭</del>的語法，讓建構 iterator 不必這麼痛苦。我們將前一節的例子改成 generator 試試看。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">genFunc</span> () { <span style="color:#75715e">// `*` 宣告一個 generator function，即是 iterator factory
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
   <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {
@@ -240,25 +197,19 @@ if (!doNotTrack) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">value</span>)
   <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">next</span>()
 }
-</code></pre></div>
-<p>乍看之下，似乎沒比 iterator 簡單，而且又多了 <code>function*</code> 和 <code>yield</code>，是要嚇死人嗎？這裡的重點並非語法，而是一開始提及的 <a href="https://en.wikipedia.org/wiki/Coroutine" target="_blank">Coroutine</a>概念。這種 coroutine 的概念與一般逐行執行的程式不同，運作流程如下：</p>
-
+</code></pre></div><p>乍看之下，似乎沒比 iterator 簡單，而且又多了 <code>function*</code> 和 <code>yield</code>，是要嚇死人嗎？這裡的重點並非語法，而是一開始提及的 <a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine</a>概念。這種 coroutine 的概念與一般逐行執行的程式不同，運作流程如下：</p>
 <ol>
 <li>執行到 <code>yield</code>，暫停。</li>
 <li>將執行權交給外部，等待外部 call <code>next</code>。</li>
 <li>外部 call <code>next</code>，回到步驟一繼續執行。</li>
 </ol>
-
 <p>套在我們的例子中，就是：</p>
-
 <ul>
 <li>當每次 <code>genFunc</code> 執行到 <code>yield</code> 時，會停下來，</li>
 <li>將程式執行權交給外部 caller，</li>
 <li>等到外部調用者再次 call <code>next</code> method，<code>genFunc</code> 再接著執行。</li>
 </ul>
-
 <p>簡而言之，<strong>「Generator 是 coroutine 的一種形式，是一個 pause／resume 的執行流程」</strong>。但這樣到底與非同步程式設計有啥鬼關係？</p>
-
 <p>重點在於「透過 coroutine 將程式執行權交給外部 caller」，這可好玩了，如果我們讓 <code>yield</code> 返回一個 promise，程式執行權就會回到 caller 上，而 caller 不僅有程式執行權，可以執行其他程式片段，也可以取得非同步操作的結果。想像中的程式碼長這樣：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 想像中的程式碼
 </span><span style="color:#75715e">// fetch 是一個 promise-based 非同步 function
@@ -268,8 +219,7 @@ if (!doNotTrack) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>)
 }
-</code></pre></div>
-<p>看起來非常驚人！可惜這是虛擬的程式碼，<code>a</code>、<code>b</code> 都是一個 Promise，需要利用 <code>then</code> method 取得 resolve value。不過，JS 社群當然不會放過 generator 這個裝逼的好工具，大神們透過各種奇淫巧技，讓我得以利用 generator 優美地寫出 synchronously asynchronous code，以下這個例子便是透過 <code>spawn</code> 自動執行 <code>next</code> 的 helper function 達成。</p>
+</code></pre></div><p>看起來非常驚人！可惜這是虛擬的程式碼，<code>a</code>、<code>b</code> 都是一個 Promise，需要利用 <code>then</code> method 取得 resolve value。不過，JS 社群當然不會放過 generator 這個裝逼的好工具，大神們透過各種奇淫巧技，讓我得以利用 generator 優美地寫出 synchronously asynchronous code，以下這個例子便是透過 <code>spawn</code> 自動執行 <code>next</code> 的 helper function 達成。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// Helper Function
 </span><span style="color:#75715e">// from: Jake Archibald - JavaScript Promises: an Introduction
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">spawn</span> (<span style="color:#a6e22e">generatorFunc</span>) {
@@ -299,44 +249,35 @@ if (!doNotTrack) {
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;b&#39;</span>) <span style="color:#75715e">// 等待 fetch(&#39;b&#39;)，並將結果 assign to b
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>)
 })
-</code></pre></div>
-<p>這就是 async generator 的實作，很美，但過程十分嚇人。</p>
-
+</code></pre></div><p>這就是 async generator 的實作，很美，但過程十分嚇人。</p>
 <blockquote>
 <p>Note：Coroutine（協程）比較明確的定義是，指執行權從一個 coroutine 交至另外一個 coroutine，不過概念上類似，這裡借用一下，特此說明。</p>
 </blockquote>
-
 <h2 id="debut-of-async-functions">Debut of Async Functions</h2>
-
 <p>使用上面這些燒腦的東西，雖達成任務，不過太疊床架屋，抽象概念難以消化。這時候就該主角 <strong>Async Function</strong> 登場！可以將 async functions 想像為 generator + promise，不過更直接的講法是：<strong>「Async Function 是內置 <code>spawn</code> 的 generator function」</strong>。</p>
-
 <p>接下來，將前面使用 <code>spawn</code> 執行的 generator function 改寫成 async function。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 利用 `async` keyword 宣告 一個 async function
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span> () {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;a&#39;</span>) <span style="color:#75715e">// 使用 `await` 等待 fetch(&#39;a&#39;)，並將結果 assign to a
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;a&#39;</span>) <span style="color:#75715e">// 使用 `await` 等待 fetch(&#39;a&#39;)，並將結果 assign to a
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>)
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;b&#39;</span>) <span style="color:#75715e">// 使用 `await` 等待 fetch(&#39;b&#39;)，並將結果 assign to b
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;b&#39;</span>) <span style="color:#75715e">// 使用 `await` 等待 fetch(&#39;b&#39;)，並將結果 assign to b
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>)
 }
 
 <span style="color:#75715e">// 執行 async function，不需自己寫 `spawn`，如同正常的 function call。
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">run</span>()
-</code></pre></div>
-<p>Async functions 使用語意清楚的 <code>async</code>／<code>await</code> 取代 <code>function*</code>／<code>yield</code>，除此之外，幾乎與 generator 版本一模一樣。其差異如下：</p>
-
+</code></pre></div><p>Async functions 使用語意清楚的 <code>async</code>／<code>await</code> 取代 <code>function*</code>／<code>yield</code>，除此之外，幾乎與 generator 版本一模一樣。其差異如下：</p>
 <ul>
 <li>不需額外的 helper function 來執行，一般的 function call 即可。</li>
 <li>回傳值為 promise。（相比於 generator 回傳 iterator，async function 復用／組合性較高）</li>
 </ul>
-
 <h3 id="usage">Usage</h3>
-
 <p>使用方法如下，非常簡單：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myAsyncFunc</span> () {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myAsyncFunc</span> () {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span>
   <span style="color:#66d9ef">try</span> { <span style="color:#75715e">// 慣例使用 try-catch 處理錯誤
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchA</span>() <span style="color:#75715e">// async operation
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchB</span>() <span style="color:#75715e">// async operation
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetchA</span>() <span style="color:#75715e">// async operation
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetchB</span>() <span style="color:#75715e">// async operation
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>}
   } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
     <span style="color:#75715e">// 將 error 吃掉
@@ -344,71 +285,63 @@ if (!doNotTrack) {
   }
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
 }
-</code></pre></div>
-<h3 id="await">Await</h3>
-
+</code></pre></div><h3 id="await">Await</h3>
 <p><code>await</code> 是用來等待 Promise resolution 的運算子，語法與特性如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#a6e22e">rv</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">expression</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#a6e22e">rv</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">expression</span>
 <span style="color:#75715e">// rv -&gt; return value of await expression
-</span></code></pre></div>
-<ul>
+</span></code></pre></div><ul>
 <li>僅能用在 async function 內部。</li>
 <li>expression 若是 promise 以外的 value，直接返回該 value</li>
 <li>expression 若接 promise object，則等待該 promise resolution。
-
 <ul>
 <li>若 promise fulfilled，直接返回該 value。</li>
 <li>若 promise rejected，拋出 Error 到 async function context 中（不被 promise 本身吃掉）。</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>這裡要注意的是，<code>await</code> 會等待 promise resolution 後才 return value，所以行為與 synchronous code 一致。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// async arrow function
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fun</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">resolve</span>()
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fun</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">resolve</span>()
   <span style="color:#75715e">// 等待 a 處理完畢，再往下執行
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">process</span>()
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">process</span>()
   <span style="color:#75715e">// 等待 b 處理完畢，再往下執行
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">process</span>()
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">process</span>()
   <span style="color:#75715e">// 返回最終的結果 c
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
 }
-</code></pre></div>
-<h3 id="return-value">Return Value</h3>
-
+</code></pre></div><h3 id="return-value">Return Value</h3>
 <p>我們知道，Async function 的 return value 會是一個 promise，那這個 promise 什麼時候會 fulfill，什麼時候會被 reject 呢？</p>
-
 <p>情況其實不複雜，整理如下：</p>
-
 <ol>
-<li><code>return</code> 語句會使 async function 直接 resolve，不再往下執行。
-
+<li><code>return</code> 語句會使 async function 直接 resolve，不再往下執行。</li>
+</ol>
 <ul>
 <li>若 <code>return</code> 一個 promise，則以該 promise 為 return value。</li>
 <li>若 <code>return</code> 一個非 promise 的 value，則以 <code>Promise.resolve</code> 包裹該 value。</li>
-</ul></li>
+</ul>
+<ol start="2">
 <li>function context 內部拋出任何 <strong>error</strong>，都會直接 reject，不再往下執行。</li>
 </ol>
-
 <p>舉幾個簡單例子：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 直接拋出 Error
 </span><span style="color:#75715e">// Return 的 promise 是 rejected 狀態
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throwDirectly</span> () {
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throwDirectly</span> () {
   <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Rejected!&#39;</span>)
 }
 
 <span style="color:#75715e">// 從 await 表達式中拋出錯誤
 </span><span style="color:#75715e">// await 會把 promise 中的 error 向外傳遞到 async function context 中
 </span><span style="color:#75715e">// Return 的 promise 是 rejected 狀態
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throwFromAwait</span> () {
-  <span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Rejected!&#39;</span>))
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throwFromAwait</span> () {
+  <span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Rejected!&#39;</span>))
 }
 
 <span style="color:#75715e">// 透過 try-catch 處理錯誤，錯誤不繼續傳遞
 </span><span style="color:#75715e">// Return 的 promise 不會被 reject
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleError</span> () {
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleError</span> () {
   <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Rejected!&#39;</span>))
+    <span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">reject</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Rejected!&#39;</span>))
   } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
     <span style="color:#75715e">// Explicitly swallow errors
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Got error: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
@@ -416,7 +349,7 @@ if (!doNotTrack) {
 }
 
 <span style="color:#75715e">// 利用其他流程控制語句，達到 early return 的效果
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">earlyReturn</span> () {
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">earlyReturn</span> () {
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">someRuleFulfill</span>) {
     <span style="color:#75715e">// 直接 return value，外部會收到 `Promise.resolve(&#39;Return Value&#39;)`
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Return Value&#39;</span>
@@ -425,122 +358,103 @@ if (!doNotTrack) {
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// No need to: `return await heavyAsyncProcess()`
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">heavyAsyncProcess</span>()
 }
-</code></pre></div>
-<p>看完範例，我們可以得知 Async function 的錯誤處理模式與一般的 function 如出一轍，即「由 context 的執行情形來決定何時 return，何時該 throw Error」。</p>
-
+</code></pre></div><p>看完範例，我們可以得知 Async function 的錯誤處理模式與一般的 function 如出一轍，即「由 context 的執行情形來決定何時 return，何時該 throw Error」。</p>
 <p>另外，Async function 的 return value 與 Error 傳到 caller context 時會以 promise 包裹。不會讓整個 call frame 掛掉，但也如同 promise 對錯誤比較 silent，所以再次提醒，慣例會在 async function 內部透過 <strong>try-catch</strong> 處理錯誤，不讓錯誤傳遞過遠，好比 promise 最後必會掛個 catch 處理錯誤。</p>
-
 <h3 id="declarations">Declarations</h3>
-
 <p>Async function 既然是 function，想必有許多不同的宣告方式，在此將常用的方式列出來。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// function declaration
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">asyncFunc</span> () {}
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">asyncFunc</span> () {}
 
 <span style="color:#75715e">// IIFE (Immediately Invoked Function Expression)
-</span><span style="color:#75715e"></span>(<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> () {<span style="color:#75715e">/* ... */</span>}())
+</span><span style="color:#75715e"></span>(<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> () {<span style="color:#75715e">/* ... */</span>}())
 
 <span style="color:#75715e">// ES6 Arrow Function
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myAsync</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {}
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myAsync</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {}
 
 <span style="color:#75715e">// An object props
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
-  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">myAsync</span> () {},
+  <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">myAsync</span> () {},
   <span style="color:#a6e22e">otherProp</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1234</span>
 }
 
 <span style="color:#75715e">// A method of a class
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
-  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">myAsync</span> () {}
+  <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">myAsync</span> () {}
 }
-</code></pre></div>
-<h2 id="advanced-usage">Advanced Usage</h2>
-
+</code></pre></div><h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="sequential-operation">Sequential Operation</h3>
-
-<p>還記得<a href="https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/" target="_blank">上一篇文章</a>，我們利用 <code>Array#reduce</code> 與 <code>Array#forEach</code> 實作 serial operation 嗎？雖然 promise + functional programming 看起來很有逼格，但又多了一層抽象理解層次。藉由 async function  <code>await</code> 的特性，我們可以寫出很直觀 sequential operations，避開那些 hack。</p>
+<p>還記得<a href="https://weihanglo.github.io/posts/2017/javascript-concurrency-promise/">上一篇文章</a>，我們利用 <code>Array#reduce</code> 與 <code>Array#forEach</code> 實作 serial operation 嗎？雖然 promise + functional programming 看起來很有逼格，但又多了一層抽象理解層次。藉由 async function  <code>await</code> 的特性，我們可以寫出很直觀 sequential operations，避開那些 hack。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 直觀的同步操作，每個 await 皆會等 promise resolution 再往下執行
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">processInSequence</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">url</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resA</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;a&#39;</span>)
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resB</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">processInSequence</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">url</span>) =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;a&#39;</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">resA</span>, <span style="color:#a6e22e">resB</span>}
 }
-</code></pre></div>
-<p>透過 <code>for</code> loop，也可達成 sequential 的效果。</p>
+</code></pre></div><p>透過 <code>for</code> loop，也可達成 sequential 的效果。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 利用 for loop，iterate 所有 url，逐一等待 promise resolution
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInSequence</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInSequence</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> []
   <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">url</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">urls</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">json</span>)
   }
 }
-</code></pre></div>
-<h3 id="parallel-operation">Parallel Operation</h3>
-
+</code></pre></div><h3 id="parallel-operation">Parallel Operation</h3>
 <p>如果 <code>await</code> 會阻塞該 context（正確說來是轉移執行權），那我如何設計 parallel operation 呢？</p>
-
 <p>非常簡單，那就提前讓 promise 開始執行嘛！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 平行執行兩個 promise
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">operationInParallel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">operationInParallel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
   <span style="color:#75715e">// 不加 await，一次執行兩個 promise
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;a&#39;</span>)
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   <span style="color:#75715e">// 加上 await，耐心等待 promise 的結果
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resA</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">pA</span>
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resB</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">pB</span>
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">pA</span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">pB</span>
   <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">resA</span>, <span style="color:#a6e22e">resB</span>]
 }
-</code></pre></div>
-<p>自幹兩個 promises 很不直觀？不然我們改用 <code>Promise.all</code>。</p>
+</code></pre></div><p>自幹兩個 promises 很不直觀？不然我們改用 <code>Promise.all</code>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 使用 Promise.all await 多個 promises
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promiseAllInParallel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">all</span>([
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promiseAllInParallel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">all</span>([
     <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;a&#39;</span>),
     <span style="color:#a6e22e">getAsyncResult</span>(<span style="color:#e6db74">&#39;b&#39;</span>)
   ])
 }
-</code></pre></div>
-<p>蛤！<code>Promise.all</code> 又出現了！使用 async function 不就是為了拋棄 promise 嗎？很抱歉，在有更清楚的語言特性出現前，只能選擇這種方式，畢竟 async funciton 整個 tech stack 就是建立於 promise 之上。</p>
-
+</code></pre></div><p>蛤！<code>Promise.all</code> 又出現了！使用 async function 不就是為了拋棄 promise 嗎？很抱歉，在有更清楚的語言特性出現前，只能選擇這種方式，畢竟 async funciton 整個 tech stack 就是建立於 promise 之上。</p>
 <p>如果是多個 promise，也可以利用 <code>Array#map</code> 建立新的 context（function scope）來實作 parallel operation，這種方式看起來也稍微 hack，不過仍是本著 async function 的概念。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// 利用 `Array#map` 實作 parallel operations
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInParallel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">jsonPromises</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; { <span style="color:#75715e">// 建立新的 async function context
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">rul</span>) <span style="color:#75715e">// await 只會在這個 context 內等待
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchInParallel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">jsonPromises</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">url</span> =&gt; { <span style="color:#75715e">// 建立新的 async function context
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">rul</span>) <span style="color:#75715e">// await 只會在這個 context 內等待
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
   })
   <span style="color:#75715e">// 我們可以按順序地印出結果
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">jsonPromise</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">jsonPromises</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">jsonPromise</span>) <span style="color:#75715e">// 等待個別 promise resolution
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">jsonPromise</span>) <span style="color:#75715e">// 等待個別 promise resolution
 </span><span style="color:#75715e"></span>  }
 }
-</code></pre></div>
-<h3 id="promise-race">Promise.race</h3>
-
+</code></pre></div><h3 id="promiserace">Promise.race</h3>
 <p>想模擬 <code>Promise.race</code>，該如何實作？就直接用 <code>Promise.race</code> 吧。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getFirstResolutionInParallel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getFirstResolutionInParallel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
   <span style="color:#75715e">// 利用 Promise.race 取得第一個 resolution (either reject or fulfill) 的 promise
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">race</span>(<span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">race</span>(<span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">url</span> =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
   }))
 }
-</code></pre></div>
-<h3 id="first-fulfillment">First Fulfillment</h3>
-
+</code></pre></div><h3 id="first-fulfillment">First Fulfillment</h3>
 <p>在前一篇 Promise 文章中，我們 invert <code>onRejected</code> <code>onFulfilled</code> 兩個 callback，取得首個 fullfillment result。那在 async function 該如何實作呢？</p>
-
 <p>當然，我們可以直接拿 Promise 做一樣的事，不過時代在走，人要進步，讓我們嘗試使用 <code>try-catch</code> 吧！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// from Stackoverflow https://stackoverflow.com/a/39941616
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invert</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span> =&gt; <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">rej</span>) =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">rej</span>, <span style="color:#a6e22e">res</span>))
 
 <span style="color:#75715e">// 利用 try catch 實作 get first fullfillment（但仍須借助 Promise 的 API）
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">firstFulfillmentInParallel</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">firstFulfillmentInParallel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">urls</span> =&gt; {
   <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">all</span>(
-      <span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
+    <span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">all</span>(
+      <span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">url</span> =&gt; {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()
       }).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">invert</span>)
     )
@@ -548,51 +462,40 @@ if (!doNotTrack) {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span> <span style="color:#75715e">// 直接返回 inversion 的 fulfillment
 </span><span style="color:#75715e"></span>  }
 }
-</code></pre></div>
-<p>雖然有達到目的，但 fulfillment 卻是從 <code>catch</code> block 返回，實作漸漸不直觀了。</p>
-
+</code></pre></div><p>雖然有達到目的，但 fulfillment 卻是從 <code>catch</code> block 返回，實作漸漸不直觀了。</p>
 <h2 id="async-interation">Async Interation</h2>
-
 <p>我們知道，async function 原理上是 generator 的 syntax sugar，利用 iterator 與 <code>yield</code> 轉換控制權，達成 asynchronous operation 效果，但是 <code>iterator.next</code> 這個 method 卻只有 synchronous 版本，有些場景（例如 streaming）需要非同步的 iterator 來取得 streaming data，這時候就該 <strong>async interator</strong> 出場了。</p>
-
-<p><a href="https://github.com/tc39/proposal-async-iteration" target="_blank">這個提議</a>目前已在 Stage 3 了，即將納入標準，可以開始瞭解它了。</p>
-
+<p><a href="https://github.com/tc39/proposal-async-iteration">這個提議</a>目前已在 Stage 3 了，即將納入標準，可以開始瞭解它了。</p>
 <p>話不多說，附上提議的範例程式碼，感受一下吧！</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// for-await-of loop
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#66d9ef">await</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">line</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">readLines</span>(<span style="color:#a6e22e">filePath</span>)) {
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">await</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">line</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">readLines</span>(<span style="color:#a6e22e">filePath</span>)) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">line</span>);
 }
 
 <span style="color:#75715e">// Async generator functions
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">readLines</span>(<span style="color:#a6e22e">path</span>) {
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fileOpen</span>(<span style="color:#a6e22e">path</span>);
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">readLines</span>(<span style="color:#a6e22e">path</span>) {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fileOpen</span>(<span style="color:#a6e22e">path</span>);
 
   <span style="color:#66d9ef">try</span> {
     <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">EOF</span>) {
-      <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">readLine</span>();
+      <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">readLine</span>();
     }
   } <span style="color:#66d9ef">finally</span> {
-    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">close</span>();
+    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">close</span>();
   }
 }
-</code></pre></div>
-<h2 id="further-reading">Further Reading</h2>
-
-<p>比起 promises，async functions 相對沒這麼多文獻供參考，想要入門，依然推薦阮大大的 <a href="http://es6.ruanyifeng.com/#docs/async" target="_blank">ECMAScript 6 入门：async 函数</a>，真的是非常豐富的 ES6 大全。當然，<a href="https://developers.google.com/web/fundamentals/getting-started/primers/async-functions" target="_blank">Google Web Fundamentals</a> 也值得一看，但沒有 Promise 篇含金量這麼高就是了。</p>
-
-<p>Medium 上也有許多作者在評論 async functions，<a href="https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9" target="_blank">Hacker Noon 這篇推坑文</a>比較了 promise 與 async function 的優劣，算是蠻清楚的入門文，看看 async function 是否符合妳的期待。另外，也有人寫了不少篇<del>批判</del>反思 async function 的文章，<a href="https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8" target="_blank">這篇告訴你還是需要理解 promise</a> 才能以正確的姿勢使用 async／await，另一篇則告訴你，<a href="https://medium.com/@bluepnume/even-with-async-await-you-probably-still-need-promises-9b259854c161" target="_blank">promise 還是比較厲害</a>的啦。</p>
-
+</code></pre></div><h2 id="further-reading">Further Reading</h2>
+<p>比起 promises，async functions 相對沒這麼多文獻供參考，想要入門，依然推薦阮大大的 <a href="http://es6.ruanyifeng.com/#docs/async">ECMAScript 6 入门：async 函数</a>，真的是非常豐富的 ES6 大全。當然，<a href="https://developers.google.com/web/fundamentals/getting-started/primers/async-functions">Google Web Fundamentals</a> 也值得一看，但沒有 Promise 篇含金量這麼高就是了。</p>
+<p>Medium 上也有許多作者在評論 async functions，<a href="https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9">Hacker Noon 這篇推坑文</a>比較了 promise 與 async function 的優劣，算是蠻清楚的入門文，看看 async function 是否符合妳的期待。另外，也有人寫了不少篇<del>批判</del>反思 async function 的文章，<a href="https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8">這篇告訴你還是需要理解 promise</a> 才能以正確的姿勢使用 async／await，另一篇則告訴你，<a href="https://medium.com/@bluepnume/even-with-async-await-you-probably-still-need-promises-9b259854c161">promise 還是比較厲害</a>的啦。</p>
 <p>當然，沒有任何 unit tests，就算程式碼可讀性再高，仍然非常脆弱，所以，別花太多時間看這些新技術，乖乖地補上缺漏的 tests 比較實在 XD。</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
-<li><a href="https://developer.mozilla.org/" target="_blank">Mozilla Developer Network</a></li>
-<li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/async-functions" target="_blank">Google Web Fundamentals: Async functions - making promises friendly</a></li>
-<li><a href="http://es6.ruanyifeng.com/#docs/generator-async" target="_blank">ECMAScript 6 入门：Generator 函数的异步应用</a></li>
-<li><a href="http://es6.ruanyifeng.com/#docs/async" target="_blank">ECMAScript 6 入门：async 函数</a></li>
-<li><a href="https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8" target="_blank">Daniel Brain: Understand promises before you start using async/await</a></li>
-<li><a href="https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9" target="_blank">Haker Noon: 6 Reasons Why JavaScript’s Async/Await Blows Promises Away</a></li>
+<li><a href="https://developer.mozilla.org/">Mozilla Developer Network</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/async-functions">Google Web Fundamentals: Async functions - making promises friendly</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/generator-async">ECMAScript 6 入门：Generator 函数的异步应用</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/async">ECMAScript 6 入门：async 函数</a></li>
+<li><a href="https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8">Daniel Brain: Understand promises before you start using async/await</a></li>
+<li><a href="https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9">Haker Noon: 6 Reasons Why JavaScript’s Async/Await Blows Promises Away</a></li>
 </ul>
 
 </div>
@@ -605,7 +508,7 @@ if (!doNotTrack) {
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/concurrency/'>Concurrency</a>, <a class='tag' href='/tags/generator/'>Generator</a>, <a class='tag' href='/tags/front-end/'>Front-end</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/javascript/'>JavaScript</a>, <a class='tag' href='/tags/concurrency/'>Concurrency</a>, <a class='tag' href='/tags/async-function/'>Async Function</a>, <a class='tag' href='/tags/generator/'>Generator</a>, <a class='tag' href='/tags/front-end/'>Front-end</a></div>
 
   </div><div style="text-align: center; padding-top: 2em;">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -674,15 +577,6 @@ if (!doNotTrack) {
 </svg>
 </a>
       </li><li>
-        <a href='mailto:weihanglotw@gmail.com' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
         <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
           <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -703,16 +597,16 @@ if (!doNotTrack) {
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2017-2019 Weihang Lo </p>
+  <p> &copy; 2017-2020 Weihang Lo </p>
 </div>
 
         </div>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.59f76c44.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

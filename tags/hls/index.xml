@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HLS on Weihang Lo</title>
@@ -23,7 +23,7 @@
 Workflow HLS 原理非常簡單：
  將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 .ts 檔）。 建立索引檔（index file，為 .m3u8 檔）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。 透過 HTTP 給予 client 對應的 Response（.m3u8、.ts）。 Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。 該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。   簡單來講，就是取得 .m3u8 播放列表，按照順序播放 .ts 檔，全部放完再請求下一個 .m3u8 playlist，週而復始。
  Features HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：
-Adaptability and Availability .</description>
+Adaptability and Availability .m3u8 這個 Playlist 檔除了指向影音串流片段路徑，也可以指向其他 Playlist 的路徑。標準架構是有一個 Master Playlist 指向其他的 Media Playlist（真正包含 .</description>
     </item>
     
   </channel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Source Reading on Weihang Lo</title>
@@ -29,7 +29,7 @@ Old Performance Issue The integrated terminal in VS Code is powered by another p
       <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。
 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
- Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
+  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
 Weihang Lo &amp;ndash; Daily Trash Talk
  厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，
 第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。

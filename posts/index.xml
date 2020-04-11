@@ -1,14 +1,206 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Weihang Lo</title>
     <link>https://weihanglo.tw/posts/</link>
     <description>Recent content in Posts on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 29 Sep 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://weihanglo.tw/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WWW 0x0C: 未具名</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
+      <description>既然疫情嚴重，連假就在家加班吧！
+— Weihang Lo 2020.4
+ 這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Words Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：
+ 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。
+The Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：
+ follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
+      <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
+      <description>Zoom 很讚，host 可以看你有沒有認真
+— Zoom: Attendee attention tracking
+ 這裡是 WWW 第十一期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+What future does the captical of Japan carry?  Note: 東京不算是日本的「法定」首都
+ 這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。
+Using Zoom? Here are the privacy issues you need to be aware of 因為疫情緣故，最近 Zoom 很夯，剛好有篇文章寫到 Zoom 有很多噁心有趣的 feature：
+ host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」  推薦有空看看這篇文章，尤其是「How you can protect your data」一節。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
+      <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;quot;. has Now problems. two he
+— Davidlohr Bueso
+ 這裡是 WWW 第十期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+The Missing Semester of Your CS Education 這是近期看過最實用導向的大學課程了！由 MIT 博士生授課，但不教死板又混亂的計算機科學，而是貼近開發者，異常實際的工具和技巧。
+雖然內容對部分業界人士來說可能略淺，例如 metaprogramming 居然是在講 build system 和 makefile，不過學資訊的學生不一定熟稔，非常適合作為進入業界前先修的「失落的課程」。我自己印象最深刻的是「 &amp;hellip;if you start a command with a leading space it won’t be added to you shell history. 」真的是嚇歪我的毛，推薦大家翻翻看看。
+ 順便提一下 JonHoo 是我有認真在看的 live-coder。嗯，應該猜的到他寫什麼語言</description>
+    </item>
+    
+    <item>
+      <title>Kuberenetes Autoscaling 相關知識小整理</title>
+      <link>https://weihanglo.tw/posts/2020/k8s-autoscaling/</link>
+      <pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/k8s-autoscaling/</guid>
+      <description>K8s 有好用的 autoscaling 功能，但你知道除了 pod 之外，node 也可以 auto scaling 嗎？帥，你知道就不用分享了啊 🚬
+本文以重點整理的方式，先介紹目前常見的 Autoscaler，再介紹一些防止 pod 被亂殺的 config。
+（撰於 2020-03-23，基於 Kubernetes 1.17，但 Api Versions 太多請自行查閱手冊）
+讓我們歡迎第一位 Autoscaler 出場！
+Cluster Autoscaler（CA） 負責調整 node-pool 的 node size scaling，屬於 cluster level autoscaler。
+ 白話文：開新機器，關沒路用的機器 😈
+  Scale-up： 有 pod 的狀態是 unschedulable 時 Scale-down： 觀察 pod 總共的 memory/CPU request 是否 &amp;lt; 50%（非真實的 resource utilization）+ 沒有其他 pod/node 的條件限制 可設定 min/maxi poolsize（GKE），自己管理的叢集可以設定更多參數 會參照 PriorityClass 來調控 pod，但就是僅僅設立一條貧窮截止線，當前是 -10 ，autoscaler 不會因為低於此線的 pod 而去 scale-up，需要 scale-down 也不會理會 node 裡面是否有這種 pod 部分設定設不好會讓 CA 沒辦法 scaling  CA 要關 node 然後 evict pod 時違反 pod affinity/anti-affinity 和 PodDisruptionBudget 在 node 加上 annotation 可防止被 scale down：&amp;quot;cluster-autoscaler.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x09: 到底要不要擔心 blocking</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
+      <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;quot;. has Now problems. two he
+— Davidlohr Bueso
+ 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Stop worrying about blocking: the new async-std runtime, inspired by Go async-std 是 Rust 非同步生態中兩雄之一，欲與 tokio 爭天下。這次的實驗性更新受到 Go 語言啟發，實作了新的 scheduler，主要特點有：
+ 更快更好更自適應 自動偵測 blocking task 並將其卸載到其他執行緒，避免阻塞 使用者可在 async context 內呼叫 blocking task 而不阻塞  要點重申：你不需函式是 blocking 還是 non-blockging，全丟到 async 裡面呼叫吧！async-std 的 runtime 會偵測，然後幫你解決一切。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
+      <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
+&amp;ndash; M. Conway
+ 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+My FOSS Story 這篇文章是 Rust 社群非常有名的 Andrew Gallant (@burntsushi) 所撰，講述了他自身與 FOSS 的糾葛。文章裡面許多篇幅在描述 FOSS 中的負面事情，不過這也是開源社群較少提及和處理的一塊。這篇文章也可以視為是 burntsushi 針對最近 Rust 社群最大的 web framework Actix 的作者退出開源界的有感而發。節錄一些我覺得可以帶著走的實用想法：
+ 設立界線：開源即政治，網路上就是有一堆酸民，就算沒有，也有太多太多 issue 和 PR 壓得我們喘不過氣，把開源工作和個人生活切割開來，設立界線和停損點，自己的活自己安排。 遵循「比例原則」：如果提出一個問題卻僅寥寥幾行，就用寥寥幾行回覆吧。 問題重現：良好的問題回報能搭配簡單重現方式最棒，如果沒辦法，那就帶著作者一起 debug 吧！  作者最後雖然表列許多負面行為，但也說了 FOSS 仍然有許多有趣的經驗和美好。信任為開源之本，希望這篇文章能帶給 FOSS 界打滾的我們更多啟發。
+Uncharted territory – discovering vulnerabilities in public Helm Charts ⚠️⚠️⚠️ 你的 Helm chart 安全嗎 ⚠️⚠️⚠️</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
+      <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
+      <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Why is Rust the Most Loved Programming Language? 又到了推坑 Rust 的時間！這次，Intellij Rust 和 Rust Analyzer 的作者想聊聊為什麼 Rust 值得「最受喜愛的程式語言」的稱號，節錄我覺得蠻有共鳴的點：
+  Intellij Rust：用 Kotlin 寫的 Jetbrains IDE Rust Plugin Rust Analyzer：新一代的 Rust IDE language server    Keyword First Syntax：搜尋 foo 函式只要文字搜尋 fn foo 就解決，有利於一般人開發，更使得 IDE 的 parser 更容易開發 Crates：Rust 的 crate 是一個編譯單元，但並沒有 global shared namespace，取而代之的是每個 crate 都會是你的 dependant crate 的一個 property，解決了 lib 命名衝突問題 Eq 並非多型：以前從來沒想過這個問題，但的確不同型別的比較直接 compile error 很合理，不過代價是需要寫一堆 as usize 😂 Trivial Data Types：透過 #[derive(.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x06: Life is short. I hate GIL</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
+      <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+WebAssembly Isolation with Tyler McMullen 聽了一集個人覺得不難但蠻有內容的 Podcast，主要在講 Isolation 和 WebAssembly 相關的知識，我覺得 web developer 都很值得稍微聽一下，內容包含：
+ 概要提點了 VM vs. Container 等各種 Isolation 的差異 WASM 如何 isolation workloads：限制 jump instruction 跳到任意的地方 etc. Fastly 為什麼要使用 WASM： 一個請求本來可能要起 container，但 container 啟動時間還是不夠快，WASM 的 isolation 可以提供安全快速的環境 WASM 使用 linear memory model：和一般的 virtual memory 不同，memory space 是連續性一個 block，需要用到更多再與系統 / 瀏覽器請求 WASM 還在解決的問題：與外部世界互動的標準還沒完整， 但可以參考 Fastly 和 Mozilla 等幾個大廠訂定的 WASI（WebAssembly System Interface） WASM 目前 function pointer 只能用 dynamic dispatch，對要求極極極高效能的應用場景較不吃香 市面上的 WASM runtime：lucet、wasmtime（個人補充 wasmer）   Note: Fastly 是市面上前十大的 CDN provider（約第六）</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x05: 若單體服務是屎，微服務就是許多屎</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x05/</link>
+      <pubDate>Sat, 22 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x05/</guid>
+      <description>這裡是 WWW 第伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Microservices: From Design to Deployment 這是 microservices.io 的作者在 NGINX blog 上面的系列文章，雖然是 2015 年的舊文，從起源、問題，和模式來理解微服務依然詳實，看完絕對驚呼：原來現在 Cloud Native 世界這麼混亂是有些道理！
+ Note：不知道為什麼作者很愛提到 Netflix 各種微服務的專案，不過 Netflix 的 Java 開源微服務工具數量之多還真大開眼界
+ 以下分別摘要每個主題：
+Introduction to Microservices 簡介什麼是微服務，有什麼優缺點，並介紹微服務架構下常見元件，鋪陳給接下來的系列文，總之是個不想看可跳過的篇章。
+Building Microservices: Using an API Gateway 介紹 API gateway 為什麼存在：統一微服務一致對外的介面，解耦客戶端與微服務們，但缺點是 API gateway 需要更多 operational cost，也要維持 hign availibility。
+實作 API gateway 要注意以下幾點：
+ Performance：所有請求都會通過 gateway，所以效能和擴充性一定要好 Reactive Programming 模式：gateway 需要集合各種請求，善用 Reactive programming 模式很有幫助 Service Invocation：微服務之間就是 IPC（inter-process communication），如何透過不同模式相互 invoke 很重要，下一章會詳述 Service Discovery：如何讓服務之間互相知道彼此，就是「服務發現」的工作了，分為 client-side 和 service-side discovery，之後有專文說明 Partial Failures：微服務之間不像單體服務可以用簡單的 transaction 處理錯誤並 rollback，處理部分錯誤，保持 CAP 的 consistency 是個重要課題  Building Microservices: Inter‑Process Communication in a Microservices Architecture 介紹微服務間 IPC（inter‑process communication）的方法與模式，這是系列文中最接近實作層面的文章，很棒。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x04: Not feeling the async pressure</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
+      <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+&amp;ldquo;Performance Matters&amp;rdquo; by Emery Berger 最近滿紅的一個關於 performance measurement 的 影片，講者演講功力深厚，把嚴肅 performance analysis/profiling 議題以輕鬆的口吻娓娓道出，非常推薦。
+節錄一些我覺得有趣的點：
+ 以 CPU 和 transistor 的發展闡述為什麼現代程式越來越注重效能 解釋 Performance Analysis 和 Performance Profiling 有什麼差別 Performance Analysis 是需要統計而且不是 eyeball statistics，然後要排除環境變因 想做 Performance Profiling 可以從另一個角度開始：讓其他不想測試的部分「變慢」  Why Discord is switching from Go to Rust  簡體中文譯文
+ 標題乍看下有點聳動，其實內容很平實，完整交代來龍去脈：
+ 背景：Discord ReadState 服務架構和資料結構 問題：高度手動最佳化的 Go 實作仍有兩分鐘一次的 GC spike，測試好幾個 Go 版本都沒解決 行動：用沒有 GC 的 Rust 重寫，公司內其他團隊也有成功案例 成果：各項指標皆勝原本 Go 實作，但有強調不要腦衝什麼都 RiiR   紫色是 Go，藍色是還沒升級 Tokio 0.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x03: What Color is Your Function?</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
+      <description>你的 function 是什麼顏色？
+ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Using Rust in Windows 相較於 Microsoft 近期在 Rust 社群動作不斷，這篇文章相對平實，不過也藏了許多有趣事實。
+ Microsoft 覺得 Cargo 不能容易配合既有的 build system，這個其實和 Google 使用 Bazel 和 Facebook 自己搞 tool 一樣，超巨頭的工作環境太特殊了。不過也提及正在與社群接觸，微軟真的開始關注 Rust 了。 提到了 Rust 很適合做 C 的 safe wrapper，其實這個也是官方死靈書提及的作法，bindgen 真心方便。 對熟悉 C++ 的開發者而言，Rust 學習成本比想像中低了很多，一兩天配合 Rust 好用的周邊工具就可以寫出 idiomatic Rust，這和 RustConf 2019 上 Facebook 僱員的說法一致。 看到最後才發現作者是 Hyper-V team 成員，再聯想到 AWS 用 Rust 寫的 Firecracker 作為 Fargate 和 Lambda 底層的 micro vm，不難想像這些大公司用 C++寫底層的底層員工生活多苦 。  What Color is Your Function?</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x02: Distroless Docker for distressed human</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x02/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x02/</guid>
+      <description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+How to Review a Pull Request 這份是 Rust 的 crates.io（類似 PyPI 和 rubygems）如何審閱拉取請求的文件， 和 Google 那份不太一樣，更貼近專案一點，節錄重點：
+ 先拉到自己的本地分支，看看 PR 是否達到他宣稱的療效（檢查一般行為） 嘗試用各種手段打爆他（檢查 edge case） 如果有任何失敗，請寫清楚重新產生錯誤的流程 再來就是理解這個修改到底合不合理，是不是其實不需要  這篇 review guideline 短短的，剩下的自己看囉。
+Distroless Docker: Containerizing Apps, not VMs - Matthew Moore 本文是 Google 雇員介紹 Distroless Image 演講的重點摘要，對容器化和 Docker 最佳化有興趣的朋友千萬別錯過。
+ Distroless GitHub Repo 在此
+ Q：何謂 Distroless Image
+Distroless 的 distro 是指 Linux 發行版（distro），加了一個 less 就是替 docker image 瘦身，只留 app source 和 runtime 需要的 dependencies，把發行版中不必要的東西都幹掉。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
+      <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了
+ move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
+ YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x00: Rust 有個靜態 GC</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x00/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x00/</guid>
+      <description>如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。
+傑森 - 2020
+ 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Rust has a static garbage collector 雖然這篇作者是 Rust 核心成員，文章鋪陳也是為了褒 Rust，但內文講到 static typed 與 dynamic typed lang 的權衡比較，還有各種 GC 和記憶體管理的精實介紹，覺得蠻值得一讀，第一次聽到 escape analysis 也是驚呼了一下，不就是 GC 版 RAII 嗎！
+Starship 小又快的 shell prompt
+ config 超簡單 支援顯示 Node.js/Ruby/Python/Rust/Go/AWS/K8s/&amp;hellip; 非常多環境 支援 Git rebase/merge stage 還有 status/branch 還有自帶很醜的顏色  如果覺得 oh-my-zsh 太肥的同學可以來試試看，個人用了半年沒出什麼問題。
+A simple C thread pool implementation 看到一個很簡單的 300 行 threadpool in C 實作，想分享一下：</description>
+    </item>
     
     <item>
       <title>RustConf 2019 雲參訪錄（1）</title>
@@ -51,7 +243,7 @@ RustConf 歷年來皆由 Tilde Inc. 旗下的 Skylight 主辦，Skylight 是一�
 Workflow HLS 原理非常簡單：
  將欲串流的影音媒體檔案進行對應編碼切割為一系列的影音串流片段（media segment，一般為 .ts 檔）。 建立索引檔（index file，為 .m3u8 檔）作為 HLS 的播放列表（playlist），指向多個影音串流片段的路徑 。 透過 HTTP 給予 client 對應的 Response（.m3u8、.ts）。 Client 請求並解析索引檔，即可開始串流，按照播放列表逐一下載播放串流片段。 該索引檔的播放列表（playlist）播完後，再請求新的索引檔，繼續串流。   簡單來講，就是取得 .m3u8 播放列表，按照順序播放 .ts 檔，全部放完再請求下一個 .m3u8 playlist，週而復始。
  Features HLS 定義許多機制，讓串流得以在各種惡劣的網路連線環境下生存。以下列出幾個 HLS 的重要特色：
-Adaptability and Availability .</description>
+Adaptability and Availability .m3u8 這個 Playlist 檔除了指向影音串流片段路徑，也可以指向其他 Playlist 的路徑。標準架構是有一個 Master Playlist 指向其他的 Media Playlist（真正包含 .</description>
     </item>
     
     <item>
@@ -73,7 +265,7 @@ Ownership and References While a program runs, it need a way to manage memory .<
       <guid>https://weihanglo.tw/posts/2018/rust-vs-go/</guid>
       <description>本文譯自 Julio Merino 的 Rust vs. Go。Julio Merino 目前是 G 社僱員，在 G 社工作超過 8 年，無論工作內外，都接觸開發不少 Go 語言，並撰寫 Rust 點評系列文，來聽聽他對 Rust 與 Go 的想法吧。
 Thanks Julio Merino for this awesome article!
- 歡迎來到「Rust 點評」系列特別篇，也是我在系列文開始就承諾撰寫的主題，將探討一個難以忽視的大哉問：Rust 與 Go 孰優孰劣？
+  歡迎來到「Rust 點評」系列特別篇，也是我在系列文開始就承諾撰寫的主題，將探討一個難以忽視的大哉問：Rust 與 Go 孰優孰劣？
 這麼比較並沒有根據，所以不會有標準答案。我認為人們會把這兩種語言作伙比較只因為它們幾乎同時釋出，而且 Rust 的釋出像是在回應 Go。除此之外，兩種語言都被認為聚焦在系統軟體上（system software），但其實它們大相徑庭，就算都專注系統軟體，各自目標的軟體類型也不盡相同。
 Go 可以視為「做對了的 C」或是「Python 的替代品」。Go 在開發網路伺服器與自動化工具的領域發光發熱。Rust 專注在正確與安全性，定位在 C++ 與 Haskell 之間，如同之前提及，可以視為「務實的 Haskell」。儘管 Rust 的語言抽象程度很高，它仍承諾這些抽象是零成本（zero-cost abstraction），也就是說，它應該擅長寫任何系統專案。
 這篇個人點評基於我用兩種語言寫了相同的專案 sandboxfs。最初實作是用 Go，而我開發了另一個用 Rust 的實驗性改寫（還沒有完全檢驗），兩個實作都通過相同的測試套件（test suite）。除了透過這次改寫來學習語言，也因為當我分析 Go 實作版本的效能時，發現熱點總是在 Go 的執行環境（runtime），我想要嘗試看看簡單的 Rust 改寫後效能能否長進，而情況似乎就是如此。隨著這次改寫，我很訝異原本的 Go 實作版本有不少潛在的並行（concurrency）漏洞，因為許多 Rust 並不允許我利用相同的設計改寫。</description>
@@ -88,7 +280,8 @@ Go 可以視為「做對了的 C」或是「Python 的替代品」。Go 在開�
       <description>As a non-native English speaker, I often try several methods to improve my English skills. Listening to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
 Therefore, I pick some of my favorite podcasts about software engineering to share with you. Enjoy these awesome shows and don&amp;rsquo;t forget to give them some feedback.
 (written on 2018-07-09)
-Software Engineering Daily</description>
+Software Engineering Daily 
+If you are not afraid of information explosion, you may love Software Engineering Daily (SE Daily).</description>
     </item>
     
     <item>
@@ -126,7 +319,7 @@ Software Engineering Daily</description>
 求職需求 由於前東家是上櫃公司，規模不小，制度完善，但也稍缺彈性，所以求職希望以新創公司為主。
 以下依優先順序排列，薪資等基本需求不列入：
  新創團隊或具有新創氛圍 技術討論風氣盛。 有能力相仿或更強的 co-worker，不必自幹。 工作流程明確。 重視軟體品質（CI／CD、單元測試）。 同事年齡相近。 對社會有正面意義。  應徵企業列表 以下是這段時間我有去應徵的企業，如果你對細節沒興趣，可以直接 end。
- CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume   職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機</description>
+ CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume  職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機</description>
     </item>
     
     <item>
@@ -139,7 +332,8 @@ Software Engineering Daily</description>
 Thanks David Simmons for this awesome article!
  Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，可實現比傳統同步 I/O 更好的延伸性、效能與資源利用）。可惜的是，Tokio 過於精密的抽象設計，招致難以學習的惡名。即使我讀完教程後，依然不認為自己充分內化這些抽象層，以便推斷實際發生的事情。
 從前的非同步 I/O 相關開發經驗甚至阻礙我學習 Tokio。我習慣使用作業系統提供的 selection 工具（例如 Linux epoll）當作起點，再轉移至 dispatch、state machine 等等。倘若直接從 Tokio 抽象層出發，卻沒有清楚了解 epoll_wait() 在何處及如何發生，我會覺得難以連結每個概念。Tokio 與 future-driven 的方法就好像一個黑盒子。
-我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。</description>
+我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。
+首先，有些重要的聲明。請注意，Tokio 正快速開發中，這裡所見所聞可能不久就會過時。這個研究中我用了 tokio-core 0.</description>
     </item>
     
     <item>
@@ -151,7 +345,7 @@ Thanks David Simmons for this awesome article!
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
 （撰於 2017-12-09，基於各種莫名其妙的狀況)
  對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
- 目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者  結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
+ 目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者   結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
  語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &amp;lt;button&amp;gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight  語意化 HTML5 標籤  Issue：不支援語意化 tag 就算了，部分 tag 如 &amp;lt;main&amp;gt;、&amp;lt;article&amp;gt; 還會變成 inline elements Platform：IE 11  先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！</description>
     </item>
     
@@ -190,7 +384,7 @@ Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffe
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。  Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。   First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
     </item>
     
     <item>
@@ -256,7 +450,7 @@ What is the event loop? JavaScript 是單執行緒（單線程）的程式語言
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
-Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements  Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines  Conclusion  Issues Fullscreen breaks my layout!</description>
+Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements   Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines   Conclusion  Issues Fullscreen breaks my layout!</description>
     </item>
     
     <item>
@@ -322,8 +516,8 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
       <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
 （撰於 2017-03-10）
-Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具  NPM 套件模組管理工具  package.json NPM 常用指令  預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel  自動化工具／打包工具  Gulp Webpack  程式碼品質  測試 靜態程式語法檢查  小結 Reference  （以下環境皆以 macOS 為例）
-Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.js 推出後，Javascript 程式碼可以在伺服器端運行，模組（module）和套件（package）的觀念和生態圈也隨之建立。程式碼的交流／複用更為便利。</description>
+Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具   NPM 套件模組管理工具  package.json NPM 常用指令   預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel   自動化工具／打包工具  Gulp Webpack   程式碼品質  測試 靜態程式語法檢查   小結 Reference  （以下環境皆以 macOS 為例）
+Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.</description>
     </item>
     
     <item>
@@ -334,11 +528,8 @@ Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine�
       <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。
 （撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）
-特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手  從終端環境安裝 Carthage
-brew install carthage  如果還沒有裝 homebrew，請來這下載
- 建立一個 Carfile，列出欲使用的模組，例如：
-github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。
- 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries</description>
+特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手 從終端環境安裝 Carthage  brew install carthage  如果還沒有裝 homebrew，請來這下載
+  建立一個 Carfile，列出欲使用的模組，例如：  github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;ReactiveX/RxSwift&amp;#34; ~&amp;gt; 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target =&amp;gt; General =&amp;gt; Linked Frameworks and Libraries 在 app target =&amp;gt; Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：</description>
     </item>
     
     <item>
@@ -349,9 +540,8 @@ github &amp;#34;Alamofire/Alamofire&amp;#34; ~&amp;gt; 4.4 github &amp;#34;React
       <guid>https://weihanglo.tw/posts/2017/swift-quick-note/</guid>
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。
 （撰於 2017-02-06，基於 Swift 3.1）
-Declaration 宣告變數使用 var，宣告常數使用 let
- 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable
-let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678   慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
+ Declaration 宣告變數使用 var，宣告常數使用 let
+ 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable  let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678  慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
  Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
 let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&amp;#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
  宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。  Fundamental data type Swift Standard Library 定義了許多基本型別：</description>
@@ -365,7 +555,7 @@ let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&am
       <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。
 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
- Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
+  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
 Weihang Lo &amp;ndash; Daily Trash Talk
  厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，
 第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。

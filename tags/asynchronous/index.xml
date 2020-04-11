@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asynchronous on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/asynchronous/</link>
+    <description>Recent content in Asynchronous on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://weihanglo.tw/tags/asynchronous/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WWW 0x09: 到底要不要擔心 blocking</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
+      <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;quot;. has Now problems. two he
+— Davidlohr Bueso
+ 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Stop worrying about blocking: the new async-std runtime, inspired by Go async-std 是 Rust 非同步生態中兩雄之一，欲與 tokio 爭天下。這次的實驗性更新受到 Go 語言啟發，實作了新的 scheduler，主要特點有：
+ 更快更好更自適應 自動偵測 blocking task 並將其卸載到其他執行緒，避免阻塞 使用者可在 async context 內呼叫 blocking task 而不阻塞  要點重申：你不需函式是 blocking 還是 non-blockging，全丟到 async 裡面呼叫吧！async-std 的 runtime 會偵測，然後幫你解決一切。</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x04: Not feeling the async pressure</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
+      <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+&amp;ldquo;Performance Matters&amp;rdquo; by Emery Berger 最近滿紅的一個關於 performance measurement 的 影片，講者演講功力深厚，把嚴肅 performance analysis/profiling 議題以輕鬆的口吻娓娓道出，非常推薦。
+節錄一些我覺得有趣的點：
+ 以 CPU 和 transistor 的發展闡述為什麼現代程式越來越注重效能 解釋 Performance Analysis 和 Performance Profiling 有什麼差別 Performance Analysis 是需要統計而且不是 eyeball statistics，然後要排除環境變因 想做 Performance Profiling 可以從另一個角度開始：讓其他不想測試的部分「變慢」  Why Discord is switching from Go to Rust  簡體中文譯文
+ 標題乍看下有點聳動，其實內容很平實，完整交代來龍去脈：
+ 背景：Discord ReadState 服務架構和資料結構 問題：高度手動最佳化的 Go 實作仍有兩分鐘一次的 GC spike，測試好幾個 Go 版本都沒解決 行動：用沒有 GC 的 Rust 重寫，公司內其他團隊也有成功案例 成果：各項指標皆勝原本 Go 實作，但有強調不要腦衝什麼都 RiiR   紫色是 Go，藍色是還沒升級 Tokio 0.</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x03: What Color is Your Function?</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
+      <description>你的 function 是什麼顏色？
+ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+Using Rust in Windows 相較於 Microsoft 近期在 Rust 社群動作不斷，這篇文章相對平實，不過也藏了許多有趣事實。
+ Microsoft 覺得 Cargo 不能容易配合既有的 build system，這個其實和 Google 使用 Bazel 和 Facebook 自己搞 tool 一樣，超巨頭的工作環境太特殊了。不過也提及正在與社群接觸，微軟真的開始關注 Rust 了。 提到了 Rust 很適合做 C 的 safe wrapper，其實這個也是官方死靈書提及的作法，bindgen 真心方便。 對熟悉 C++ 的開發者而言，Rust 學習成本比想像中低了很多，一兩天配合 Rust 好用的周邊工具就可以寫出 idiomatic Rust，這和 RustConf 2019 上 Facebook 僱員的說法一致。 看到最後才發現作者是 Hyper-V team 成員，再聯想到 AWS 用 Rust 寫的 Firecracker 作為 Fargate 和 Lambda 底層的 micro vm，不難想像這些大公司用 C++寫底層的底層員工生活多苦 。  What Color is Your Function?</description>
+    </item>
+    
+    <item>
+      <title>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架</title>
+      <link>https://weihanglo.tw/posts/2018/tokio-internals/</link>
+      <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2018/tokio-internals/</guid>
+      <description>本文譯自 Tokio internals: Understanding Rust&amp;rsquo;s asynchronous I/O framework from the bottom up。
+Thanks David Simmons for this awesome article!
+ Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，可實現比傳統同步 I/O 更好的延伸性、效能與資源利用）。可惜的是，Tokio 過於精密的抽象設計，招致難以學習的惡名。即使我讀完教程後，依然不認為自己充分內化這些抽象層，以便推斷實際發生的事情。
+從前的非同步 I/O 相關開發經驗甚至阻礙我學習 Tokio。我習慣使用作業系統提供的 selection 工具（例如 Linux epoll）當作起點，再轉移至 dispatch、state machine 等等。倘若直接從 Tokio 抽象層出發，卻沒有清楚了解 epoll_wait() 在何處及如何發生，我會覺得難以連結每個概念。Tokio 與 future-driven 的方法就好像一個黑盒子。
+我決定不繼續由上而下的方法學習 Tokio，反其道而行，而是透過閱讀原始碼，確切理解具體實作是如何驅動從 epoll 事件到 Future::poll() 消耗 I/O 的整個過程。我不會深入高層次的 Tokio 與 futures 使用細節，現有的教程 有更完整詳細的內容。除了簡短的小結，我也不會探討一般性的非同步 I/O 問題，畢竟這些問題都可寫個獨立的主題了。我的目標是有信心讓 futures 與 Tokio 以我所認知的方式執行。
+首先，有些重要的聲明。請注意，Tokio 正快速開發中，這裡所見所聞可能不久就會過時。這個研究中我用了 tokio-core 0.</description>
+    </item>
+    
+  </channel>
+</rss>
