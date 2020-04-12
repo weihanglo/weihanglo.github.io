@@ -1,27 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Observer Pattern on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/observer-pattern/</link>
-    <description>Recent content in Observer Pattern on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/observer-pattern/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Rx 入門二：觀察者模式</title>
-      <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
-      <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
-      <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Observer Pattern on Weihang Lo</title><link>https://weihanglo.tw/tags/observer-pattern/</link><description>Recent content in Observer Pattern on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/observer-pattern/index.xml" rel="self" type="application/rss+xml"/><item><title>Rx 入門二：觀察者模式</title><link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link><pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid><description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description>
-    </item>
-    
-  </channel>
-</rss>
+Pros and Cons Pros 只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。 Cons Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。 First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</description></item></channel></rss>

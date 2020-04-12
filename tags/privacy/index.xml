@@ -1,44 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Privacy on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/privacy/</link>
-    <description>Recent content in Privacy on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x0C: 未具名</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
-      <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
-      <description>既然疫情嚴重，連假就在家加班吧！
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Privacy on Weihang Lo</title><link>https://weihanglo.tw/tags/privacy/</link><description>Recent content in Privacy on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/privacy/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x0C: 未具名</title><link>https://weihanglo.tw/posts/2020/www-0x0c/</link><pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid><description>既然疫情嚴重，連假就在家加班吧！
 — Weihang Lo 2020.4
- 這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+這裡是 WWW 第十二期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 Words Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：
- 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。
+避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究 願我們一起打破工程師古怪又難溝通的刻板印象。
 The Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：
- follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：</description>
-    </item>
-    
-    <item>
-      <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
-      <description>Zoom 很讚，host 可以看你有沒有認真
+follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」 而 Raft 主要有兩個的步驟：</description></item><item><title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title><link>https://weihanglo.tw/posts/2020/www-0x0b/</link><pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid><description>Zoom 很讚，host 可以看你有沒有認真
 — Zoom: Attendee attention tracking
- 這裡是 WWW 第十一期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-What future does the captical of Japan carry?  Note: 東京不算是日本的「法定」首都
- 這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。
+這裡是 WWW 第十一期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+What future does the captical of Japan carry? Note: 東京不算是日本的「法定」首都
+這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。
 Using Zoom? Here are the privacy issues you need to be aware of 因為疫情緣故，最近 Zoom 很夯，剛好有篇文章寫到 Zoom 有很多噁心有趣的 feature：
- host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」  推薦有空看看這篇文章，尤其是「How you can protect your data」一節。</description>
-    </item>
-    
-  </channel>
-</rss>
+host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」 推薦有空看看這篇文章，尤其是「How you can protect your data」一節。</description></item></channel></rss>

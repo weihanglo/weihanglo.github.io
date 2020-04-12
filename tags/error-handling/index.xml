@@ -1,28 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Error Handling on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/error-handling/</link>
-    <description>Recent content in Error Handling on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 10 Apr 2017 16:36:33 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/error-handling/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>理解 Swift 的 Error Handling</title>
-      <link>https://weihanglo.tw/posts/2017/swift-error-handling/</link>
-      <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid>
-      <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Error Handling on Weihang Lo</title><link>https://weihanglo.tw/tags/error-handling/</link><description>Recent content in Error Handling on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Mon, 10 Apr 2017 16:36:33 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/error-handling/index.xml" rel="self" type="application/rss+xml"/><item><title>理解 Swift 的 Error Handling</title><link>https://weihanglo.tw/posts/2017/swift-error-handling/</link><pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid><description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情況，例如網路請求，若只簡單返回 nil，調用者並無法得知是 404，抑或 500。為了解決這個問題，我們必須緊緊抱住錯誤／例外處理的大腿。
 （撰於 2017-04-10，基於 Swift 3.1）
 Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了解什麼是例外處理。維基百科道：
- &amp;hellip;is the process of responding to the occurrence, during computation, of exceptions – anomalous or exceptional conditions requiring special processing – often changing the normal flow of program execution.
- 簡單來說，就是某些例外狀況，需要特別的處理，這個處理過程就稱為例外處理，而這個處理常伴隨程式流程轉移改變。
-寫習慣 C++／Objective-C 的同學，想必很排斥寫 try-catch 這種吃效能、又易出錯的例外處理，明明 if&amp;hellip;else 就能打遍天下嘛！而喜歡 Python／Ruby 的朋友對 raise 和各種 Exceptions 一定不陌生，甚至 Python 底層的 iterator 都是用 StopIteration Exception 實作。依照各個程式語言的設計，例外處理大致分為兩類：</description>
-    </item>
-    
-  </channel>
-</rss>
+&amp;hellip;is the process of responding to the occurrence, during computation, of exceptions – anomalous or exceptional conditions requiring special processing – often changing the normal flow of program execution.
+簡單來說，就是某些例外狀況，需要特別的處理，這個處理過程就稱為例外處理，而這個處理常伴隨程式流程轉移改變。
+寫習慣 C++／Objective-C 的同學，想必很排斥寫 try-catch 這種吃效能、又易出錯的例外處理，明明 if&amp;hellip;else 就能打遍天下嘛！而喜歡 Python／Ruby 的朋友對 raise 和各種 Exceptions 一定不陌生，甚至 Python 底層的 iterator 都是用 StopIteration Exception 實作。依照各個程式語言的設計，例外處理大致分為兩類：</description></item></channel></rss>

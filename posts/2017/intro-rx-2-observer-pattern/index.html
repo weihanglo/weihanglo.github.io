@@ -1,433 +1,150 @@
-<!DOCTYPE html>
-<html lang='en'><head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
-<meta name='theme-color' content='#ffcd00'>
-
-<meta property='og:title' content='Rx 入門二：觀察者模式 • Weihang Lo'>
-<meta property='og:description' content='本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。"><meta name=theme-color content="#ffcd00"><meta property="og:title" content="Rx 入門二：觀察者模式 • Weihang Lo"><meta property="og:description" content="本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 觀察者模式（Observer pattern）定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。
 Application Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 dispatchEvent 及 EventListener 達成 observer pattern。Cocoa programming 有著名的 Key-Value Observing 來觀察物件上特定 key 的 value 變化。
-Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。'>
-<meta property='og:url' content='https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/'>
-<meta property='og:site_name' content='Weihang Lo'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Design Patterns'><meta property='article:tag' content='Observer Pattern'><meta property='article:tag' content='Swift'><meta property='article:tag' content='ReactiveX'><meta property='article:published_time' content='2017-08-15T16:32:39&#43;08:00'/><meta property='article:modified_time' content='2017-08-15T16:32:39&#43;08:00'/><meta name='twitter:card' content='summary'>
-
-<meta name="generator" content="Hugo 0.68.3" />
-
-  <title>Rx 入門二：觀察者模式 • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/'>
-  
-  
-  <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
-:root{--color-accent:#ffcd00;}
-</style>
-
-  
-
-</head>
-<body class='page type-posts'>
-
-  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    
-    <ul><li class='item'>
-        <a href='/'>Home</a>
-      </li><li class='item'>
-        <a href='/posts/'>Posts</a>
-      </li><li class='item'>
-        <a href='/tags/'>Tags</a>
-      </li><li class='item'>
-        <a href='/about/'>About</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
-        <div class='container'></div>
-      </div>
-
-      <header id='header' class='header site-header'>
-        <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>Weihang Lo</p><p class='desc site-desc'></p>
-          </div>
-        </div>
-      </header>
-
-      <main id='content'>
-
-
-<article lang='en' class='entry'>
-  <header class='header entry-header'>
-  <div class='container sep-after'>
-    <div class='header-info'>
-      <h1 class='title'>Rx 入門二：觀察者模式</h1>
-      
-
-    </div>
-    <div class='entry-meta'>
-  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-<span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2017-08-15T16:32:39&#43;08:00'>2017, Aug 15</time>
-</span>
-
-  
-  
-<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 15 15"/>
-  
-</svg>
-4 mins read
-</span>
-
-
-</div>
-
-
-  </div>
-</header>
-
-  
-  
-
-  <div class='container entry-content'>
-  <p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>（觀察者模式）。</p>
-<p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
-<!-- raw HTML omitted -->
-<h2 id="definition">Definition</h2>
-<p><a href="https://en.wikipedia.org/wiki/Observer_pattern">觀察者模式（Observer pattern）</a>定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。</p>
-<h2 id="application">Application</h2>
-<p>Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 <code>dispatchEvent</code> 及 <code>EventListener</code> 達成 observer pattern。Cocoa programming 有著名的 <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html">Key-Value Observing</a> 來觀察物件上特定 key 的 value 變化。</p>
-<h2 id="pros-and-cons">Pros and Cons</h2>
-<ul>
-<li>Pros
-<ul>
-<li>只要介面符合，任何物件都可以是 Observer。</li>
-<li>可確認該狀態變化是由該 subject 通知，有較高的控制權。</li>
-<li>熱門且容易理解的設計模式。</li>
-</ul>
-</li>
-<li>Cons
-<ul>
-<li>Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。</li>
-<li>Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。</li>
-<li>部份實作並無法保證不同的 observer 接收到通知的時間順序。</li>
-<li>承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。</li>
-</ul>
-</li>
-</ul>
-<h2 id="first-attempt">First attempt</h2>
-<p>Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 <strong>Property Observer</strong> 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</p>
-<blockquote>
-<p>不示範 KVO 是因為 <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0161-key-paths.md">Swift 4 KVC 又大改了</a>！這次 keyPath 不再是易出錯的 string，改為實實在在的 KeyPath 型別，期待一下吧。</p>
-</blockquote>
-<p>首先，我們先建立一個 protocol，裡面有幾個 requirements，<code>willChange</code>、<code>didChange</code> 會在 subject 狀態變更時調用。由於需要獨立辨識每個的 observer，所以會是一個 class-only protocol，才能透過 <code>===</code> identity operator 比較 reference。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// 建立一個 protocol 給 observer 實作，subject 會呼叫</span>
-<span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">PropertyObserver</span>: AnyObject { <span style="color:#75715e">// class-only</span>
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">willChange</span>(to newValue: Any?)
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">didChange</span>(from oldValue: Any?)
+Pros and Cons  Pros  只要介面符合，任何物件都可以是 Observer。 可確認該狀態變化是由該 subject 通知，有較高的控制權。 熱門且容易理解的設計模式。   Cons  Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。 Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。 部份實作並無法保證不同的 observer 接收到通知的時間順序。 承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。    First attempt Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 Property Observer 是最好的實作方式了。以下示範 property observer 實作 observer pattern。"><meta property="og:url" content="https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/"><meta property="og:site_name" content="Weihang Lo"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="Design Patterns"><meta property="article:tag" content="Observer Pattern"><meta property="article:tag" content="Swift"><meta property="article:tag" content="ReactiveX"><meta property="article:published_time" content="2017-08-15T16:32:39+08:00"><meta property="article:modified_time" content="2017-08-15T16:32:39+08:00"><meta name=twitter:card content="summary"><meta name=generator content="Hugo 0.62.2"><title>Rx 入門二：觀察者模式 • Weihang Lo</title><link rel=canonical href=https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/><link rel=icon href=/favicon.ico><link rel=stylesheet href=/assets/css/main.6a060eb7.css><link rel=stylesheet href=/css/custom.css><style>:root{--color-accent:#ffcd00}</style></head><body class="page type-posts"><div class=site><a class=screen-reader-text href=#content>Skip to Content</a><div class=main><nav id=main-menu class="menu main-menu" aria-label="Main Menu"><div class=container><ul><li class=item><a href=/>Home</a></li><li class=item><a href=/posts/>Posts</a></li><li class=item><a href=/tags/>Tags</a></li><li class=item><a href=/about/>About</a></li></ul></div></nav><div class=header-widgets><div class=container></div></div><header id=header class="header site-header"><div class="container sep-after"><div class=header-info><p class="site-title title">Weihang Lo</p><p class="desc site-desc"></p></div></div></header><main id=content><article lang=en class=entry><header class="header entry-header"><div class="container sep-after"><div class=header-info><h1 class=title>Rx 入門二：觀察者模式</h1></div><div class=entry-meta><span class=posted-on><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class=screen-reader-text>Posted on</span>
+<time class=entry-date datetime=2017-08-15T16:32:39+08:00>2017, Aug 15</time></span>
+<span class=reading-time><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg>4 mins read</span></div></div></header><div class="container entry-content"><p>本篇介紹 Rx 另一個重要的基礎概念 <strong>Observer pattern</strong>（觀察者模式）。</p><p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p><h2 id=definition>Definition</h2><p><a href=https://en.wikipedia.org/wiki/Observer_pattern>觀察者模式（Observer pattern）</a>定義出一對多的相依關係，一個目標物件（subject）負責管理所有相依的觀察者（observer），「當 subject 自身的狀態發生變化時，自動通知所有觀察者」。</p><h2 id=application>Application</h2><p>Observer pattern 是一個非常泛用的設計模式，幾乎各種語言都有類似的設計。例 DOM Event 架構利用 <code>dispatchEvent</code> 及 <code>EventListener</code> 達成 observer pattern。Cocoa programming 有著名的 <a href=https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html>Key-Value Observing</a> 來觀察物件上特定 key 的 value 變化。</p><h2 id=pros-and-cons>Pros and Cons</h2><ul><li>Pros<ul><li>只要介面符合，任何物件都可以是 Observer。</li><li>可確認該狀態變化是由該 subject 通知，有較高的控制權。</li><li>熱門且容易理解的設計模式。</li></ul></li><li>Cons<ul><li>Subject 和 Observer 通常必須知道彼此之間的部分屬性，有較緊的耦合性。</li><li>Subject 管理所有 observer，容易因 reference cycle 產生 memory leak。</li><li>部份實作並無法保證不同的 observer 接收到通知的時間順序。</li><li>承上，因此 thread-safe 與 asynchronous 的 observer pattern 不容易實作。</li></ul></li></ul><h2 id=first-attempt>First attempt</h2><p>Swift 中實作 observer pattern 非常容易，除了透過 Objective-C 傳統的 Key-value observing 以外，直觀的 <strong>Property Observer</strong> 是最好的實作方式了。以下示範 property observer 實作 observer pattern。</p><blockquote><p>不示範 KVO 是因為 <a href=https://github.com/apple/swift-evolution/blob/master/proposals/0161-key-paths.md>Swift 4 KVC 又大改了</a>！這次 keyPath 不再是易出錯的 string，改為實實在在的 KeyPath 型別，期待一下吧。</p></blockquote><p>首先，我們先建立一個 protocol，裡面有幾個 requirements，<code>willChange</code>、<code>didChange</code> 會在 subject 狀態變更時調用。由於需要獨立辨識每個的 observer，所以會是一個 class-only protocol，才能透過 <code>===</code> identity operator 比較 reference。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>建</span><span style=color:#75715e>立</span><span style=color:#75715e>一</span><span style=color:#75715e>個</span><span style=color:#75715e> </span><span style=color:#75715e>p</span><span style=color:#75715e>r</span><span style=color:#75715e>o</span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e>c</span><span style=color:#75715e>o</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>給</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e> </span><span style=color:#75715e>實</span><span style=color:#75715e>作</span><span style=color:#75715e>，</span><span style=color:#75715e>s</span><span style=color:#75715e>u</span><span style=color:#75715e>b</span><span style=color:#75715e>j</span><span style=color:#75715e>e</span><span style=color:#75715e>c</span><span style=color:#75715e>t</span><span style=color:#75715e> </span><span style=color:#75715e>會</span><span style=color:#75715e>呼</span><span style=color:#75715e>叫</span>
+<span style=color:#66d9ef>protocol</span> <span style=color:#a6e22e>PropertyObserver</span>: AnyObject { <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>l</span><span style=color:#75715e>a</span><span style=color:#75715e>s</span><span style=color:#75715e>s</span><span style=color:#75715e>-</span><span style=color:#75715e>o</span><span style=color:#75715e>n</span><span style=color:#75715e>l</span><span style=color:#75715e>y</span>
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>willChange</span>(to newValue: Any?)
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>didChange</span>(from oldValue: Any?)
 }
-</code></pre></div><p>再來，我們建立 <code>Subject</code> 型別，裡面有</p>
-<ul>
-<li><code>observers</code> array，管理所有觀察者（需注意 memory leak，必要時可利用 weak reference wrapper）。</li>
-<li>一個用來示範的 <code>name</code> property，實作 <code>willSet</code>、<code>didSet</code> 兩個 property observer，裡面分別調用 <code>PropertyObserver</code> 的 <code>willChange</code> 與 <code>didChange</code> 方法。</li>
-<li><code>add</code> 與 <code>remove</code> 兩個對應的新增／移除 observer 的方法。</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Subject</span> {
-  <span style="color:#75715e">// 建立一個 observers array</span>
-  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> observers: [PropertyObserver] = []
+</code></pre></div><p>再來，我們建立 <code>Subject</code> 型別，裡面有</p><ul><li><code>observers</code> array，管理所有觀察者（需注意 memory leak，必要時可利用 weak reference wrapper）。</li><li>一個用來示範的 <code>name</code> property，實作 <code>willSet</code>、<code>didSet</code> 兩個 property observer，裡面分別調用 <code>PropertyObserver</code> 的 <code>willChange</code> 與 <code>didChange</code> 方法。</li><li><code>add</code> 與 <code>remove</code> 兩個對應的新增／移除 observer 的方法。</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Subject</span> {
+  <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>建</span><span style=color:#75715e>立</span><span style=color:#75715e>一</span><span style=color:#75715e>個</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>s</span><span style=color:#75715e> </span><span style=color:#75715e>a</span><span style=color:#75715e>r</span><span style=color:#75715e>r</span><span style=color:#75715e>a</span><span style=color:#75715e>y</span>
+  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>var</span> observers: [PropertyObserver] = []
 
-  <span style="color:#75715e">// 利用 Swift 自帶的 property observer，通知每個 observer</span>
-  <span style="color:#66d9ef">var</span> name: String = <span style="color:#e6db74">&#34;empty&#34;</span> {
-    <span style="color:#66d9ef">willSet</span> {
+  <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>利</span><span style=color:#75715e>用</span><span style=color:#75715e> </span><span style=color:#75715e>S</span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>f</span><span style=color:#75715e>t</span><span style=color:#75715e> </span><span style=color:#75715e>自</span><span style=color:#75715e>帶</span><span style=color:#75715e>的</span><span style=color:#75715e> </span><span style=color:#75715e>p</span><span style=color:#75715e>r</span><span style=color:#75715e>o</span><span style=color:#75715e>p</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>t</span><span style=color:#75715e>y</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>，</span><span style=color:#75715e>通</span><span style=color:#75715e>知</span><span style=color:#75715e>每</span><span style=color:#75715e>個</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span>
+  <span style=color:#66d9ef>var</span> name: String = <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>empty</span><span style=color:#e6db74>&#34;</span> {
+    <span style=color:#66d9ef>willSet</span> {
       observers.forEach { $0.willChange(to: newValue) }
     }
-    <span style="color:#66d9ef">didSet</span> {
+    <span style=color:#66d9ef>didSet</span> {
       observers.forEach { $0.didChange(from: oldValue) }
     }
   }
 
-  <span style="color:#75715e">// 新增 observer</span>
-  <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(observer: PropertyObserver) {
+  <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>新</span><span style=color:#75715e>增</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span>
+  <span style=color:#66d9ef>mutating</span> <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>add</span>(observer: PropertyObserver) {
     observers.append(observer)
   }
 
-  <span style="color:#75715e">// 移除 observer</span>
-  <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">remove</span>(observer: PropertyObserver) {
-    observers = observers.filter { $0 <span style="color:#f92672">!==</span> observer }
+  <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>移</span><span style=color:#75715e>除</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span>
+  <span style=color:#66d9ef>mutating</span> <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>remove</span>(observer: PropertyObserver) {
+    observers = observers.filter { $0 <span style=color:#f92672>!==</span> observer }
   }
 }
-</code></pre></div><p>最後，我們實作 <code>Observer</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span>: PropertyObserver {
-  <span style="color:#66d9ef">let</span> name: String <span style="color:#75715e">// Demo 用</span>
-  <span style="color:#66d9ef">init</span>(name: string) { <span style="color:#66d9ef">self</span>.name = name }
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">willChange</span>(to newValue: Any?) {
-    print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>name<span style="color:#e6db74">)</span><span style="color:#e6db74"> will change to </span><span style="color:#e6db74">\(</span>newValue ?? <span style="color:#e6db74">&#34;nil&#34;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">.&#34;</span>)
+</code></pre></div><p>最後，我們實作 <code>Observer</code>。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Observer</span>: PropertyObserver {
+  <span style=color:#66d9ef>let</span> name: String <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>D</span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>用</span>
+  <span style=color:#66d9ef>init</span>(name: string) { <span style=color:#66d9ef>self</span>.name = name }
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>willChange</span>(to newValue: Any?) {
+    print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>\(</span>name<span style=color:#e6db74>)</span><span style=color:#e6db74> will change to </span><span style=color:#e6db74>\(</span>newValue ?? <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>nil</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>)</span><span style=color:#e6db74>.</span><span style=color:#e6db74>&#34;</span>)
   }
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">didChange</span>(from oldValue: Any?) {
-    print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>name<span style="color:#e6db74">)</span><span style="color:#e6db74"> did change from </span><span style="color:#e6db74">\(</span>oldValue ?? <span style="color:#e6db74">&#34;nil&#34;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">.&#34;</span>)
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>didChange</span>(from oldValue: Any?) {
+    print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>\(</span>name<span style=color:#e6db74>)</span><span style=color:#e6db74> did change from </span><span style=color:#e6db74>\(</span>oldValue ?? <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>nil</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>)</span><span style=color:#e6db74>.</span><span style=color:#e6db74>&#34;</span>)
   }
 }
-</code></pre></div><p>測試看看吧！</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> subject = Subject()
-<span style="color:#66d9ef">var</span> observerA = Observer(name: <span style="color:#e6db74">&#34;A&#34;</span>)
-<span style="color:#66d9ef">var</span> observerB = Observer(name: <span style="color:#e6db74">&#34;B&#34;</span>)
+</code></pre></div><p>測試看看吧！</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>var</span> subject = Subject()
+<span style=color:#66d9ef>var</span> observerA = Observer(name: <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>A</span><span style=color:#e6db74>&#34;</span>)
+<span style=color:#66d9ef>var</span> observerB = Observer(name: <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>B</span><span style=color:#e6db74>&#34;</span>)
 subject.add(observer: observerA)
 subject.add(observer: observerB)
-subject.name = <span style="color:#e6db74">&#34;1234&#34;</span>
-print(<span style="color:#e6db74">&#34;---------- Remove observerA ----------&#34;</span>)
+subject.name = <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>1234</span><span style=color:#e6db74>&#34;</span>
+print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>---------- Remove observerA ----------</span><span style=color:#e6db74>&#34;</span>)
 subject.remove(observer: observerA)
-subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
+subject.name = <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>4321</span><span style=color:#e6db74>&#34;</span>
 
-<span style="color:#75715e">/// A will change to 1234.</span>
-<span style="color:#75715e">/// B will change to 1234.</span>
-<span style="color:#75715e">/// A did change from empty.</span>
-<span style="color:#75715e">/// B did change from empty.</span>
-<span style="color:#75715e">/// ---------- Remove observerA ----------</span>
-<span style="color:#75715e">/// B will change to 4321.</span>
-<span style="color:#75715e">/// B did change from 1234.</span>
-</code></pre></div><p>以上的是非常簡單的 Observer pattern 實作，但也有許多缺陷，例如：</p>
-<ul>
-<li>不易指定 property，互相都需要了解內部屬性。</li>
-<li>僅能從 Subject 移除 observer，observer 無法主動停止觀察。</li>
-<li>一定要建立完整的 Observer，才能觀察變化。</li>
-</ul>
-<h2 id="second-attempt">Second attempt</h2>
-<p>根據上述缺點，我們可以從幾個面向加強：</p>
-<ul>
-<li>Subject 的 observer 可以是 closure，解耦 <code>willChange</code> 與 <code>didChange</code>。</li>
-<li><code>Subject.add</code> 之後可回傳一個 <code>Disposable</code> 的物件，讓觀察者可以透過這個物件停止觀察。</li>
-</ul>
-<p>首先，建立一個新的 <code>Disposable</code> protocol，包含 <code>dispose</code> method，可以自行停止觀察。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">protocol</span> <span style="color:#a6e22e">Disposable</span> {
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dispose</span>()
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>A</span><span style=color:#75715e> </span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>l</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>2</span><span style=color:#75715e>3</span><span style=color:#75715e>4</span><span style=color:#75715e>.</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>B</span><span style=color:#75715e> </span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>l</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>2</span><span style=color:#75715e>3</span><span style=color:#75715e>4</span><span style=color:#75715e>.</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>A</span><span style=color:#75715e> </span><span style=color:#75715e>d</span><span style=color:#75715e>i</span><span style=color:#75715e>d</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>f</span><span style=color:#75715e>r</span><span style=color:#75715e>o</span><span style=color:#75715e>m</span><span style=color:#75715e> </span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>p</span><span style=color:#75715e>t</span><span style=color:#75715e>y</span><span style=color:#75715e>.</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>B</span><span style=color:#75715e> </span><span style=color:#75715e>d</span><span style=color:#75715e>i</span><span style=color:#75715e>d</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>f</span><span style=color:#75715e>r</span><span style=color:#75715e>o</span><span style=color:#75715e>m</span><span style=color:#75715e> </span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>p</span><span style=color:#75715e>t</span><span style=color:#75715e>y</span><span style=color:#75715e>.</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e> </span><span style=color:#75715e>R</span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>o</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>A</span><span style=color:#75715e> </span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>B</span><span style=color:#75715e> </span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>l</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>4</span><span style=color:#75715e>3</span><span style=color:#75715e>2</span><span style=color:#75715e>1</span><span style=color:#75715e>.</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>B</span><span style=color:#75715e> </span><span style=color:#75715e>d</span><span style=color:#75715e>i</span><span style=color:#75715e>d</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>f</span><span style=color:#75715e>r</span><span style=color:#75715e>o</span><span style=color:#75715e>m</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>2</span><span style=color:#75715e>3</span><span style=color:#75715e>4</span><span style=color:#75715e>.</span>
+</code></pre></div><p>以上的是非常簡單的 Observer pattern 實作，但也有許多缺陷，例如：</p><ul><li>不易指定 property，互相都需要了解內部屬性。</li><li>僅能從 Subject 移除 observer，observer 無法主動停止觀察。</li><li>一定要建立完整的 Observer，才能觀察變化。</li></ul><h2 id=second-attempt>Second attempt</h2><p>根據上述缺點，我們可以從幾個面向加強：</p><ul><li>Subject 的 observer 可以是 closure，解耦 <code>willChange</code> 與 <code>didChange</code>。</li><li><code>Subject.add</code> 之後可回傳一個 <code>Disposable</code> 的物件，讓觀察者可以透過這個物件停止觀察。</li></ul><p>首先，建立一個新的 <code>Disposable</code> protocol，包含 <code>dispose</code> method，可以自行停止觀察。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>protocol</span> <span style=color:#a6e22e>Disposable</span> {
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>dispose</span>()
 }
-</code></pre></div><p>再來是新的 <code>Subject</code>，這邊比較多繁瑣的實作細節，主要實作：</p>
-<ul>
-<li><code>observers</code> 改成兩個 <code>willChangeObservers</code>、<code>didChangeObservers</code> array，分別存放不同的觀察者。</li>
-<li><code>Observer</code> 的型別改為 closure，讓調用者更易於使用。</li>
-<li><code>observe</code> 要傳入欲觀察的對應 <code>ObservationType</code>。</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
-  <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ObservationType</span> {
-    <span style="color:#66d9ef">case</span> willChange
-    <span style="color:#66d9ef">case</span> didChange
+</code></pre></div><p>再來是新的 <code>Subject</code>，這邊比較多繁瑣的實作細節，主要實作：</p><ul><li><code>observers</code> 改成兩個 <code>willChangeObservers</code>、<code>didChangeObservers</code> array，分別存放不同的觀察者。</li><li><code>Observer</code> 的型別改為 closure，讓調用者更易於使用。</li><li><code>observe</code> 要傳入欲觀察的對應 <code>ObservationType</code>。</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Subject</span> {
+  <span style=color:#66d9ef>enum</span> <span style=color:#a6e22e>ObservationType</span> {
+    <span style=color:#66d9ef>case</span> willChange
+    <span style=color:#66d9ef>case</span> didChange
   }
-  <span style="color:#66d9ef">typealias</span> Observation = Int
-  <span style="color:#66d9ef">typealias</span> Observer = (Any?) -&gt; Void
+  <span style=color:#66d9ef>typealias</span> Observation = Int
+  <span style=color:#66d9ef>typealias</span> Observer = (Any?) -&gt; Void
 
-  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">var</span> id = <span style="color:#ae81ff">0</span>
-  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> willChangeObservers: [(Observation, Observer)] = []
-  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> didChangeObservers: [(Observation, Observer)] = []
+  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>var</span> id = <span style=color:#ae81ff>0</span>
+  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>var</span> willChangeObservers: [(Observation, Observer)] = []
+  <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>var</span> didChangeObservers: [(Observation, Observer)] = []
 
-  <span style="color:#66d9ef">var</span> name: String = <span style="color:#e6db74">&#34;empty&#34;</span> {
-    <span style="color:#66d9ef">willSet</span> { willChangeObservers.forEach { $0.<span style="color:#ae81ff">1</span>(newValue) } }
-    <span style="color:#66d9ef">didSet</span> { didChangeObservers.forEach { $0.<span style="color:#ae81ff">1</span>(oldValue) } }
+  <span style=color:#66d9ef>var</span> name: String = <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>empty</span><span style=color:#e6db74>&#34;</span> {
+    <span style=color:#66d9ef>willSet</span> { willChangeObservers.forEach { $0.<span style=color:#ae81ff>1</span>(newValue) } }
+    <span style=color:#66d9ef>didSet</span> { didChangeObservers.forEach { $0.<span style=color:#ae81ff>1</span>(oldValue) } }
   }
 
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">observe</span>(type: ObservationType, with closure: @escaping Observer) -&gt; ClosureDisposable {
-    Subject.id <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#66d9ef">switch</span> type {
-    <span style="color:#66d9ef">case</span> .willChange: willChangeObservers.append((Subject.id, closure))
-    <span style="color:#66d9ef">case</span> .didChange: didChangeObservers.append((Subject.id, closure))
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>observe</span>(type: ObservationType, with closure: @escaping Observer) -&gt; ClosureDisposable {
+    Subject.id <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>
+    <span style=color:#66d9ef>switch</span> type {
+    <span style=color:#66d9ef>case</span> .willChange: willChangeObservers.append((Subject.id, closure))
+    <span style=color:#66d9ef>case</span> .didChange: didChangeObservers.append((Subject.id, closure))
     }
-    <span style="color:#66d9ef">return</span> ClosureDisposable(owner: <span style="color:#66d9ef">self</span>, id: Subject.id, type: type)
+    <span style=color:#66d9ef>return</span> ClosureDisposable(owner: <span style=color:#66d9ef>self</span>, id: Subject.id, type: type)
   }
 
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">remove</span>(observer: ClosureDisposable) {
-    <span style="color:#66d9ef">switch</span> observer.type {
-    <span style="color:#66d9ef">case</span> .willChange:
-      <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = willChangeObservers.index(<span style="color:#66d9ef">where</span>: { $0.<span style="color:#ae81ff">0</span> == observer.id }) {
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>remove</span>(observer: ClosureDisposable) {
+    <span style=color:#66d9ef>switch</span> observer.type {
+    <span style=color:#66d9ef>case</span> .willChange:
+      <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>let</span> index = willChangeObservers.index(<span style=color:#66d9ef>where</span>: { $0.<span style=color:#ae81ff>0</span> == observer.id }) {
         willChangeObservers.remove(at: index)
       }
-    <span style="color:#66d9ef">case</span> .didChange:
-      <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = didChangeObservers.index(<span style="color:#66d9ef">where</span>: { $0.<span style="color:#ae81ff">0</span> == observer.id }) {
+    <span style=color:#66d9ef>case</span> .didChange:
+      <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>let</span> index = didChangeObservers.index(<span style=color:#66d9ef>where</span>: { $0.<span style=color:#ae81ff>0</span> == observer.id }) {
         didChangeObservers.remove(at: index)
       }
     }
   }
 }
-</code></pre></div><p>這裡實作前面的 <code>Disposable</code>，為了符合 <code>Subject</code> 的需求，我們暴露 <code>Observation</code> 與 <code>ObservationType</code> 給 <code>ClosureDisposable</code>。<br>
-實務上，可再訂定更詳細的泛型，或直接將 Disposable 的實際型別定義在 <code>Subject</code> 的 nested class。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClosureDisposable</span>: Disposable {
-  <span style="color:#66d9ef">private</span>(<span style="color:#66d9ef">set</span>) <span style="color:#66d9ef">weak</span> <span style="color:#66d9ef">var</span> owner: Subject?
-  <span style="color:#66d9ef">let</span> id: Subject.Observation
-  <span style="color:#66d9ef">let</span> type: Subject.ObservationType
-  <span style="color:#66d9ef">init</span>(owner: Subject, id: Subject.Observation, type: Subject.ObservationType) {
-    <span style="color:#66d9ef">self</span>.owner = owner
-    <span style="color:#66d9ef">self</span>.id = id
-    <span style="color:#66d9ef">self</span>.type = type
+</code></pre></div><p>這裡實作前面的 <code>Disposable</code>，為了符合 <code>Subject</code> 的需求，我們暴露 <code>Observation</code> 與 <code>ObservationType</code> 給 <code>ClosureDisposable</code>。<br>實務上，可再訂定更詳細的泛型，或直接將 Disposable 的實際型別定義在 <code>Subject</code> 的 nested class。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ClosureDisposable</span>: Disposable {
+  <span style=color:#66d9ef>private</span>(<span style=color:#66d9ef>set</span>) <span style=color:#66d9ef>weak</span> <span style=color:#66d9ef>var</span> owner: Subject?
+  <span style=color:#66d9ef>let</span> id: Subject.Observation
+  <span style=color:#66d9ef>let</span> type: Subject.ObservationType
+  <span style=color:#66d9ef>init</span>(owner: Subject, id: Subject.Observation, type: Subject.ObservationType) {
+    <span style=color:#66d9ef>self</span>.owner = owner
+    <span style=color:#66d9ef>self</span>.id = id
+    <span style=color:#66d9ef>self</span>.type = type
   }
-  <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dispose</span>() {
-    owner?.remove(observer: <span style="color:#66d9ef">self</span>)
+  <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>dispose</span>() {
+    owner?.remove(observer: <span style=color:#66d9ef>self</span>)
   }
 }
-</code></pre></div><p>最後，讓我們來看看結果吧！</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> subject = Subject()
+</code></pre></div><p>最後，讓我們來看看結果吧！</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>var</span> subject = Subject()
 
-<span style="color:#66d9ef">let</span> observerA = subject.observe(type: .willChange) { val <span style="color:#66d9ef">in</span>
-  print(<span style="color:#e6db74">&#34;A will change to </span><span style="color:#e6db74">\(</span>val ?? <span style="color:#e6db74">&#34;&#34;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+<span style=color:#66d9ef>let</span> observerA = subject.observe(type: .willChange) { val <span style=color:#66d9ef>in</span>
+  print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>A will change to </span><span style=color:#e6db74>\(</span>val ?? <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>)</span><span style=color:#e6db74>&#34;</span>)
 }
 
-<span style="color:#66d9ef">let</span> observerB = subject.observe(type: .willChange) { val <span style="color:#66d9ef">in</span>
-  print(<span style="color:#e6db74">&#34;B will change to </span><span style="color:#e6db74">\(</span>val ?? <span style="color:#e6db74">&#34;&#34;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+<span style=color:#66d9ef>let</span> observerB = subject.observe(type: .willChange) { val <span style=color:#66d9ef>in</span>
+  print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>B will change to </span><span style=color:#e6db74>\(</span>val ?? <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>)</span><span style=color:#e6db74>&#34;</span>)
 }
 
-<span style="color:#66d9ef">let</span> observerC = subject.observe(type: .didChange) { val <span style="color:#66d9ef">in</span>
-  print(<span style="color:#e6db74">&#34;C did change to </span><span style="color:#e6db74">\(</span>val ?? <span style="color:#e6db74">&#34;&#34;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+<span style=color:#66d9ef>let</span> observerC = subject.observe(type: .didChange) { val <span style=color:#66d9ef>in</span>
+  print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>C did change to </span><span style=color:#e6db74>\(</span>val ?? <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>)</span><span style=color:#e6db74>&#34;</span>)
 }
 
-subject.name = <span style="color:#e6db74">&#34;1234&#34;</span>
-print(<span style="color:#e6db74">&#34;---------- Remove observerB &amp; C ----------&#34;</span>)
-<span style="color:#75715e">// subject 移除觀察</span>
+subject.name = <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>1234</span><span style=color:#e6db74>&#34;</span>
+print(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>---------- Remove observerB &amp; C ----------</span><span style=color:#e6db74>&#34;</span>)
+<span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>s</span><span style=color:#75715e>u</span><span style=color:#75715e>b</span><span style=color:#75715e>j</span><span style=color:#75715e>e</span><span style=color:#75715e>c</span><span style=color:#75715e>t</span><span style=color:#75715e> </span><span style=color:#75715e>移</span><span style=color:#75715e>除</span><span style=color:#75715e>觀</span><span style=color:#75715e>察</span>
 subject.remove(observer: observerB)
-<span style="color:#75715e">// Observer 使用 dispose 主動停止觀察</span>
+<span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>O</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e> </span><span style=color:#75715e>使</span><span style=color:#75715e>用</span><span style=color:#75715e> </span><span style=color:#75715e>d</span><span style=color:#75715e>i</span><span style=color:#75715e>s</span><span style=color:#75715e>p</span><span style=color:#75715e>o</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>主</span><span style=color:#75715e>動</span><span style=color:#75715e>停</span><span style=color:#75715e>止</span><span style=color:#75715e>觀</span><span style=color:#75715e>察</span>
 observerC.dispose()
-subject.name = <span style="color:#e6db74">&#34;4321&#34;</span>
+subject.name = <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>4321</span><span style=color:#e6db74>&#34;</span>
 
-<span style="color:#75715e">/// A will change to 1234</span>
-<span style="color:#75715e">/// B will change to 1234</span>
-<span style="color:#75715e">/// C did change to empty</span>
-<span style="color:#75715e">/// ---------- Remove observerB &amp; C ----------</span>
-<span style="color:#75715e">/// A will change to 4321</span>
-</code></pre></div><p>這是我們的第二次嘗試，雖然仍有 <code>ClosureDisposable</code> 與 <code>Subject</code> 耦合性的問題，也暴露太多類別的細節。不過對比第一次，對外接口使用 closure 來綁定 subject，勉強稱得上乾淨利落。</p>
-<h2 id="pub-sub-pattern">Pub-sub pattern</h2>
-<p>一些狀況下，若需要完全解耦合，或許 <a href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern">Pub-sub pattern</a> 會比 observer pattern 更適合。</p>
-<p><strong>Pub-sub pattern</strong>（Publish-subscribe，訂閱／發佈模式）是一種訊息傳遞設計模式，概念是利用中介 message 做為 publisher（對應 subject）及 subscriber（對應 observer）的溝通橋樑，subscriber 只需訂閱特定 message，而 publisher 則僅負責發佈（broadcast）message。兩者耦合性低，可作為 observer pattern 替代品，但程式也容易變得更複雜。</p>
-<p>實務上，Cocoa 的 <code>NSNotification</code> 是徹底實踐 pub-sub pattern 的範例；以高效著稱的 in-memory database <a href="https://redis.io/">Redis</a> 也有強大的 Pub／Sub 功能。此外，Modern web app 的狀態管理架構兩大陣營 <a href="https://redux.js.org/">Redux</a> 與 <a href="https://mobx.js.org/">MobX</a>，也可以視為 pub-sub pattern 與 observer pattern 的對抗。</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Swift 的 Property observer 讓實作 observer 的門檻降低了，很多有趣的實現，例如 Cocoa Bindings，在 iOS 上變得更簡潔更 Swifty。了解 observer pattern 與組件間的通訊運作原理，勢必能夠帶來更多不同的設計架構，Rx 就是如此孕育而生。</p>
-<h2 id="reference">Reference</h2>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Observer_pattern">Wiki: Observer pattern</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern">Wiki: Publish-subscribe pattern</a></li>
-</ul>
-
-</div>
-
-  
-<footer class='entry-footer'>
-  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
-  <line x1="7" y1="7" x2="7" y2="7"/>
-  
-</svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/design-patterns/'>Design Patterns</a>, <a class='tag' href='/tags/observer-pattern/'>Observer Pattern</a>, <a class='tag' href='/tags/swift/'>Swift</a>, <a class='tag' href='/tags/reactivex/'>ReactiveX</a></div>
-
-  </div><div style="text-align: center; padding-top: 2em;">
-  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="cc-by-nc-sa-4">
-  </a>
-</div>
-
-</footer>
-
-
-</article>
-
-<nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/2017/intro-rx-1-iterator-pattern/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
-  
-</svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Rx 入門一：迭代器模式</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/posts/2017/binary-data-manipulations-in-javascript/'>
-        <span class='screen-reader-text'>Next post: </span>使用 JavaScript 處理二進位資料<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
-    </div></div>
-</nav>
-
-
-
-
-      </main>
-
-      <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-  <rect x="2" y="9" width="4" height="12"/>
-  <circle cx="4" cy="4" r="2"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://t.me/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
-  <p> &copy; 2017-2020 Weihang Lo </p>
-</div>
-
-        </div>
-      </footer>
-
-    </div>
-  </div><script>window.__assets_js_src="/assets/js/"</script>
-
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
-
-</body>
-
-</html>
-
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>A</span><span style=color:#75715e> </span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>l</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>2</span><span style=color:#75715e>3</span><span style=color:#75715e>4</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>B</span><span style=color:#75715e> </span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>l</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>2</span><span style=color:#75715e>3</span><span style=color:#75715e>4</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>C</span><span style=color:#75715e> </span><span style=color:#75715e>d</span><span style=color:#75715e>i</span><span style=color:#75715e>d</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>p</span><span style=color:#75715e>t</span><span style=color:#75715e>y</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e> </span><span style=color:#75715e>R</span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>o</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>o</span><span style=color:#75715e>b</span><span style=color:#75715e>s</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>v</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>B</span><span style=color:#75715e> </span><span style=color:#75715e>&amp;</span><span style=color:#75715e> </span><span style=color:#75715e>C</span><span style=color:#75715e> </span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span><span style=color:#75715e>-</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>A</span><span style=color:#75715e> </span><span style=color:#75715e>w</span><span style=color:#75715e>i</span><span style=color:#75715e>l</span><span style=color:#75715e>l</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>h</span><span style=color:#75715e>a</span><span style=color:#75715e>n</span><span style=color:#75715e>g</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e> </span><span style=color:#75715e>4</span><span style=color:#75715e>3</span><span style=color:#75715e>2</span><span style=color:#75715e>1</span>
+</code></pre></div><p>這是我們的第二次嘗試，雖然仍有 <code>ClosureDisposable</code> 與 <code>Subject</code> 耦合性的問題，也暴露太多類別的細節。不過對比第一次，對外接口使用 closure 來綁定 subject，勉強稱得上乾淨利落。</p><h2 id=pub-sub-pattern>Pub-sub pattern</h2><p>一些狀況下，若需要完全解耦合，或許 <a href=https://en.wikipedia.org/wiki/Publish-subscribe_pattern>Pub-sub pattern</a> 會比 observer pattern 更適合。</p><p><strong>Pub-sub pattern</strong>（Publish-subscribe，訂閱／發佈模式）是一種訊息傳遞設計模式，概念是利用中介 message 做為 publisher（對應 subject）及 subscriber（對應 observer）的溝通橋樑，subscriber 只需訂閱特定 message，而 publisher 則僅負責發佈（broadcast）message。兩者耦合性低，可作為 observer pattern 替代品，但程式也容易變得更複雜。</p><p>實務上，Cocoa 的 <code>NSNotification</code> 是徹底實踐 pub-sub pattern 的範例；以高效著稱的 in-memory database <a href=https://redis.io/>Redis</a> 也有強大的 Pub／Sub 功能。此外，Modern web app 的狀態管理架構兩大陣營 <a href=https://redux.js.org/>Redux</a> 與 <a href=https://mobx.js.org/>MobX</a>，也可以視為 pub-sub pattern 與 observer pattern 的對抗。</p><h2 id=conclusion>Conclusion</h2><p>Swift 的 Property observer 讓實作 observer 的門檻降低了，很多有趣的實現，例如 Cocoa Bindings，在 iOS 上變得更簡潔更 Swifty。了解 observer pattern 與組件間的通訊運作原理，勢必能夠帶來更多不同的設計架構，Rx 就是如此孕育而生。</p><h2 id=reference>Reference</h2><ul><li><a href=https://en.wikipedia.org/wiki/Observer_pattern>Wiki: Observer pattern</a></li><li><a href=https://en.wikipedia.org/wiki/Publish-subscribe_pattern>Wiki: Publish-subscribe pattern</a></li></ul></div><footer class=entry-footer><div class="container sep-before"><div class=tags><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2H12l8.59 8.59A2 2 0 0120.59 13.41z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=screen-reader-text>Tags: </span><a class=tag href=/tags/design-patterns/>Design Patterns</a>, <a class=tag href=/tags/observer-pattern/>Observer Pattern</a>, <a class=tag href=/tags/swift/>Swift</a>, <a class=tag href=/tags/reactivex/>ReactiveX</a></div></div><div style=text-align:center;padding-top:2em><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/><img src=https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png alt=cc-by-nc-sa-4></a></div></footer></article><nav class=entry-nav><div class=container><div class="prev-entry sep-before"><a href=/posts/2017/intro-rx-1-iterator-pattern/><span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 18 4 12 10 6"/></svg>Previous</span>
+<span class=screen-reader-text>Previous post: </span>Rx 入門一：迭代器模式</a></div><div class="next-entry sep-before"><a href=/posts/2017/binary-data-manipulations-in-javascript/><span class=screen-reader-text>Next post: </span>使用 JavaScript 處理二進位資料<span aria-hidden=true>Next<svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></a></div></div></nav></main><footer id=footer class=footer><div class="container sep-before"><section class="widget widget-social_menu sep-after"><nav aria-label="Social Menu"><ul><li><a href=https://github.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Github account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77a5.44 5.44.0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=https://facebook.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Facebook account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a></li><li><a href=https://twitter.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Twitter account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg></a></li><li><a href=https://linkedin.com/in/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Linkedin account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li><li><a href=https://t.me/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Telegram account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="m22.05 1.577c-.393-.016-.784.08-1.117.235-.484.186-4.92 1.902-9.41 3.64C9.263 6.325 7.005 7.198 5.267 7.867 3.53 8.537 2.222 9.035 2.153 9.059c-.46.16-1.082.362-1.61.984-.79581202 1.058365.21077405 1.964825 1.004 2.499 1.76.564 3.58 1.102 5.087 1.608.556 1.96 1.09 3.927 1.618 5.89.174.394.553.54.944.544l-.002.02s.307.03.606-.042c.3-.07.677-.244 1.02-.565.377-.354 1.4-1.36 1.98-1.928l4.37 3.226.035.02s.484.34 1.192.388c.354.024.82-.044 1.22-.337.403-.294.67-.767.795-1.307.374-1.63 2.853-13.427 3.276-15.38L23.676 4.725C23.972 3.625 23.863 2.617 23.18 2.02 22.838 1.723 22.444 1.593 22.05 1.576z"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2017-2020 Weihang Lo</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.67d669ac.js></script><script src=/js/custom.js></script></body></html>

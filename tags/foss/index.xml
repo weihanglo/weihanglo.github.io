@@ -1,28 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>FOSS on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/foss/</link>
-    <description>Recent content in FOSS on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 14 Mar 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/foss/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
-      <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
-      <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FOSS on Weihang Lo</title><link>https://weihanglo.tw/tags/foss/</link><description>Recent content in FOSS on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 14 Mar 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/foss/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x08: 你的 Helm chart 安全嗎</title><link>https://weihanglo.tw/posts/2020/www-0x08/</link><pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x08/</guid><description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
 &amp;ndash; M. Conway
- 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 My FOSS Story 這篇文章是 Rust 社群非常有名的 Andrew Gallant (@burntsushi) 所撰，講述了他自身與 FOSS 的糾葛。文章裡面許多篇幅在描述 FOSS 中的負面事情，不過這也是開源社群較少提及和處理的一塊。這篇文章也可以視為是 burntsushi 針對最近 Rust 社群最大的 web framework Actix 的作者退出開源界的有感而發。節錄一些我覺得可以帶著走的實用想法：
- 設立界線：開源即政治，網路上就是有一堆酸民，就算沒有，也有太多太多 issue 和 PR 壓得我們喘不過氣，把開源工作和個人生活切割開來，設立界線和停損點，自己的活自己安排。 遵循「比例原則」：如果提出一個問題卻僅寥寥幾行，就用寥寥幾行回覆吧。 問題重現：良好的問題回報能搭配簡單重現方式最棒，如果沒辦法，那就帶著作者一起 debug 吧！  作者最後雖然表列許多負面行為，但也說了 FOSS 仍然有許多有趣的經驗和美好。信任為開源之本，希望這篇文章能帶給 FOSS 界打滾的我們更多啟發。
-Uncharted territory – discovering vulnerabilities in public Helm Charts ⚠️⚠️⚠️ 你的 Helm chart 安全嗎 ⚠️⚠️⚠️</description>
-    </item>
-    
-  </channel>
-</rss>
+設立界線：開源即政治，網路上就是有一堆酸民，就算沒有，也有太多太多 issue 和 PR 壓得我們喘不過氣，把開源工作和個人生活切割開來，設立界線和停損點，自己的活自己安排。 遵循「比例原則」：如果提出一個問題卻僅寥寥幾行，就用寥寥幾行回覆吧。 問題重現：良好的問題回報能搭配簡單重現方式最棒，如果沒辦法，那就帶著作者一起 debug 吧！ 作者最後雖然表列許多負面行為，但也說了 FOSS 仍然有許多有趣的經驗和美好。信任為開源之本，希望這篇文章能帶給 FOSS 界打滾的我們更多啟發。
+Uncharted territory – discovering vulnerabilities in public Helm Charts ⚠️⚠️⚠️ 你的 Helm chart 安全嗎 ⚠️⚠️⚠️</description></item></channel></rss>

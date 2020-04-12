@@ -1,34 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Front-end on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/front-end/</link>
-    <description>Recent content in Front-end on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/front-end/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
-      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
-      <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Front-end on Weihang Lo</title><link>https://weihanglo.tw/tags/front-end/</link><description>Recent content in Front-end on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/front-end/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title><link>https://weihanglo.tw/posts/2020/www-0x01/</link><pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x01/</guid><description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了
- move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
- YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description>
-    </item>
-    
-    <item>
-      <title>2018 前端工程師面試心得</title>
-      <link>https://weihanglo.tw/posts/2018/2018-interviews/</link>
-      <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2018/2018-interviews/</guid>
-      <description>這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。
+move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了 Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
+YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事 這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description></item><item><title>2018 前端工程師面試心得</title><link>https://weihanglo.tw/posts/2018/2018-interviews/</link><pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate><guid>https://weihanglo.tw/posts/2018/2018-interviews/</guid><description>這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。
 （撰於 2018-03-15）
 背景 森林系畢業，沒參與過任何資工必修課，是個大四才起步的自學傻子，啟蒙語言是 R。大四時協助教授建置 Linux server 並擔任 server admin。畢業前進入業界擔任 iOS 開發實習生，並在畢業後轉正職，2017 年 Q3 才開始全職開發前端工程。正職工作經驗約 1.5 年。
 我的優勢是學習力旺盛、有 native app 開發經驗、熟悉且熱愛 Linux 和 command-line、熟悉電子書市場與相關技術、善於溝通傾聽而不堅持己見、喜愛分享所學所見。
@@ -36,98 +9,31 @@ How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，�
 希望我的背景能給同樣境遇的朋友一些參照。
 求職需求 由於前東家是上櫃公司，規模不小，制度完善，但也稍缺彈性，所以求職希望以新創公司為主。
 以下依優先順序排列，薪資等基本需求不列入：
- 新創團隊或具有新創氛圍 技術討論風氣盛。 有能力相仿或更強的 co-worker，不必自幹。 工作流程明確。 重視軟體品質（CI／CD、單元測試）。 同事年齡相近。 對社會有正面意義。  應徵企業列表 以下是這段時間我有去應徵的企業，如果你對細節沒興趣，可以直接 end。
- CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取  CakeResume  職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷  若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機</description>
-    </item>
-    
-    <item>
-      <title>與 IE 相處的日子二：淺談網頁相容性</title>
-      <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
-      <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
-      <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
+新創團隊或具有新創氛圍 技術討論風氣盛。 有能力相仿或更強的 co-worker，不必自幹。 工作流程明確。 重視軟體品質（CI／CD、單元測試）。 同事年齡相近。 對社會有正面意義。 應徵企業列表 以下是這段時間我有去應徵的企業，如果你對細節沒興趣，可以直接 end。
+CakeResume：錄取但婉拒 Hahow 好學校：錄取 Appier 沛星互動：錄取 CakeResume 職缺：全端工程師 應徵方式：使用 CakeResume 投遞 CakeResume 的履歷 若是近年來想求職的朋友，想必對 CakeResume 不陌生，CakeResume 是線上履歷編輯平臺，利用拖拉元件的方式，快速搭建個性履歷，並提供企業刊登職缺。 動機</description></item><item><title>與 IE 相處的日子二：淺談網頁相容性</title><link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link><pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid><description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
 （撰於 2017-12-09，基於各種莫名其妙的狀況)
- 對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
- 目錄  相容性問題一覽 我能為網頁相容性做什麼  如果你是網頁使用者 如果你是網頁開發者   結語  相容性問題一覽 這邊列出這段紀錄的相容性問題：
- 語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &amp;lt;button&amp;gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight  語意化 HTML5 標籤  Issue：不支援語意化 tag 就算了，部分 tag 如 &amp;lt;main&amp;gt;、&amp;lt;article&amp;gt; 還會變成 inline elements Platform：IE 11  先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！</description>
-    </item>
-    
-    <item>
-      <title>How Is New Terminal In VS Code So Fast?</title>
-      <link>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
-      <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
-      <description>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &amp;ldquo;Integrated Terminal performance&amp;rdquo; section. Let&amp;rsquo;s check out what they&amp;rsquo;ve done!
+對相容性問題細節沒興趣的朋友，可直接跳到「我能為網頁相容性做什麼」這個章節。
+目錄 相容性問題一覽 我能為網頁相容性做什麼 如果你是網頁使用者 如果你是網頁開發者 結語 相容性問題一覽 這邊列出這段紀錄的相容性問題：
+語意化 HTML5 標籤 不支援 const 宣告 沒有 append 和 prepend convenience methods XHR 不支援 JSON CustomEvent 沒有建構函式 flex-grow 需要 absolute height &amp;lt;button&amp;gt; 上的 text-align 沒作用 Element 連結到 DOM 前 getComputedStyle 沒有預設值 style Computed Style 行為不一致 iframe 不支援 Data URI iframe 不支援 width 與 height style SCRIPT70: Permission denied TypedArray 少了些高階函式 不支援 custom namespace attribute selector scrollWidth 與 scrollHeight 搞反了 Multi-column layout 需給定 absolute column-width 過時的 writing-mode 標準 不穩定的 scrollWidth 與 scrollHeight 語意化 HTML5 標籤 Issue：不支援語意化 tag 就算了，部分 tag 如 &amp;lt;main&amp;gt;、&amp;lt;article&amp;gt; 還會變成 inline elements Platform：IE 11 先來個簡單的 issue。 這個 bug 默默記在心上就好，在 IE 仍苟延殘喘的年代，如要使用 semantic element，記得加上 display: block 吧！</description></item><item><title>How Is New Terminal In VS Code So Fast?</title><link>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link><pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid><description>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &amp;ldquo;Integrated Terminal performance&amp;rdquo; section. Let's check out what they've done!
 (written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
-Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &amp;ldquo;Xterm.js&amp;rdquo;, which is currently maintained by SourceLair and community contributors.</description>
-    </item>
-    
-    <item>
-      <title>試答 Cherny 所謂「最好的前端面試題」</title>
-      <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
-      <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
-      <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現代前端技術棧相差頗大。不過，一些核心概念還是挺重要的，在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
+Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &amp;ldquo;Xterm.js&amp;rdquo;, which is currently maintained by SourceLair and community contributors.</description></item><item><title>試答 Cherny 所謂「最好的前端面試題」</title><link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link><pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid><description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現代前端技術棧相差頗大。不過，一些核心概念還是挺重要的，在此分享小弟的答案，有任何錯誤，請各位不吝賜教。
 （撰於 2017-07-26）
 Concepts Be able to clearly explain these in words (no coding):
 What is Big O notation, and why is it useful? Big O notation 是用來分析演算法複雜度的漸近符號，可以簡單視為運算成本（時間、空間）與輸入資料量的趨勢函數，例如 f(x) = x^2 + 3x + 6。當輸入資料量增大時，函數的「最高次項」最具有決定性，因此可以之表示演算法在資料量夠大時，「最多」達到怎樣的趨勢（趨勢上界），例如上例的複雜度會是 f(n) = O(n^2)。（另有 Big-Theta、Big-Omega 分別描述「趨勢區間」與「趨勢下界」）
 Big O 以宏觀的角度來分析演算法，並利用簡單的數學式表示，令演算法效率分析有簡明、客觀的基準。
 What is the DOM? 全名為「Document Object Model」，是 W3C 的標準之一，定義如何將文件（XML／HTML document 等）映射至一樹狀結構中，每個節點都是一個物件，並帶有操作此 DOM node 的 API。
-What is the event loop? JavaScript 是單執行緒（單線程）的程式語言，任何龐大運算都可能阻塞整個程式，因此 JavaScript 設計了 message queue 配合一個不間斷的 event loop 來管理任務，當 call stack 沒有執行任何 task 時（程式閒置時），loop 便從 queue 中取第一個 message 至 call stack 調用。開發者可將 callback 加入 message queue 等待 loop 輪詢（polling），實現非同步程式，這就是 JavaScript event loop 的機制。</description>
-    </item>
-    
-    <item>
-      <title>與 IE 相處的日子</title>
-      <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link>
-      <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
-      <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
+What is the event loop? JavaScript 是單執行緒（單線程）的程式語言，任何龐大運算都可能阻塞整個程式，因此 JavaScript 設計了 message queue 配合一個不間斷的 event loop 來管理任務，當 call stack 沒有執行任何 task 時（程式閒置時），loop 便從 queue 中取第一個 message 至 call stack 調用。開發者可將 callback 加入 message queue 等待 loop 輪詢（polling），實現非同步程式，這就是 JavaScript event loop 的機制。</description></item><item><title>與 IE 相處的日子</title><link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link><pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid><description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，別說你會做前端」，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 （撰於 2017-07-15，基於 IE 11／Edge 15）
-Contents  Issues  Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements   Tools for dealing with compatible issues  Compatible tables Cross browser testing services Virtual machines   Conclusion  Issues Fullscreen breaks my layout!</description>
-    </item>
-    
-    <item>
-      <title>現代化的 JavaScript 併發 - Async Functions</title>
-      <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
-      <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
-      <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！
+Contents Issues Fullscreen breaks my layout! Can an image fit its container with aspect ratio? Do you know your id? Where are my children? Give me some animated SVG How an element removes itself? Same CSS, weird flexbox behavior (EXTRA) Read the fxxking standard before using custom elements Tools for dealing with compatible issues Compatible tables Cross browser testing services Virtual machines Conclusion Issues Fullscreen breaks my layout!</description></item><item><title>現代化的 JavaScript 併發 - Async Functions</title><link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link><pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid><description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性。不過，Promise 仍沒達到 JS 社群的目標「Write async code synchronously」。本篇文章將簡單最新的 Concurrency Solution「Async Functions」，利用同步的語法寫非同步的程式，整個人都變潮了呢！
 （撰於 2017-06-17，基於 ECMAScript 7+）
 Introduction Async Functions 在去年進入 Stage 4，正式成為 ECMAScript 7 標準，這對 JS 社群無疑是一大利多。截至目前為止（2017.6），實作 Async Functions 的環境有：
- Node.js 7.6.0 (without --harmony) Chrome 55 Firefox 52 Safari 10.1 Edge 15  可以看到當前 Release 版的 Desktop browser 都可以用了。
-從此我們不會在 callback hell 中迷失自我，不需在 then 中塞一堆 console.log，也不需使用蹩足的 generator 語法。ES7 的 async function 完成我們對非同步程式的想像。</description>
-    </item>
-    
-    <item>
-      <title>現代化的 JavaScript 併發 - Promises</title>
-      <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
-      <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
-      <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
+Node.js 7.6.0 (without --harmony) Chrome 55 Firefox 52 Safari 10.1 Edge 15 可以看到當前 Release 版的 Desktop browser 都可以用了。
+從此我們不會在 callback hell 中迷失自我，不需在 then 中塞一堆 console.log，也不需使用蹩足的 generator 語法。ES7 的 async function 完成我們對非同步程式的想像。</description></item><item><title>現代化的 JavaScript 併發 - Promises</title><link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link><pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid><description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（main thread）的負擔，讓其能即時響應使用者點擊等事件。反觀 web 端的霸主 JavaScript，卻是易被阻塞的單線程（single-threaded）語言，不過藉由 Event Loop 的設計，仍可達成非同步操作，線程不至完全阻塞，或多或少彌補了單線程的不足。
 眾所周知，Concurrency is hard！設計不良的非同步程式，絕對會讓你痛不欲生。本文將簡單介紹 Promise 這個現代 JavaScript Concurrency Features，讓 JS 新標準帶你從地獄回到另一個煉獄人間。
 （撰於 2017-06-12，基於 ECMAScript 6+）
 Definition Promise 是一個非同步操作的代理物件（proxy object），表示這個非同步操作在未來終將實現（或產生錯誤），並同時取得該操作的結果值。Promise 並不侷限在 JavaScript 中，它是一個概念，有時候又稱為 Deferred、Future，維基百科有詳盡的介紹。
 Features Promise 是 ES6 引入的標準之一，主要實踐了 Promise/A+ 組織訂定的標準，該標準平息了社群長期對 Promise 實作的爭論，使得各家的非同步操作終於有了相同的 API。以下是個人認為 ES6 Promise 的幾個重要特色：
- 截止當前（2017.6），Promise 在瀏覽器的支援程度已接近 90%。（主流瀏覽器僅 IE 11 不支援） 統一、可預期的 callback 調用與 error handling 流程。 callback 定義清楚完善，沒有重複調用或改變狀態的疑慮。 將有序的 promises 串連起來（promise chaining），解除 callback hell 問題。 可自由組合多個 promises（promise composition)，實作 sequential 或 paralleling 的 promise chain。  Terminology 開始之前，先了解 Promise 相關的術語：</description>
-    </item>
-    
-    <item>
-      <title>大前端時代的工具箱</title>
-      <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
-      <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
-      <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
+截止當前（2017.6），Promise 在瀏覽器的支援程度已接近 90%。（主流瀏覽器僅 IE 11 不支援） 統一、可預期的 callback 調用與 error handling 流程。 callback 定義清楚完善，沒有重複調用或改變狀態的疑慮。 將有序的 promises 串連起來（promise chaining），解除 callback hell 問題。 可自由組合多個 promises（promise composition)，實作 sequential 或 paralleling 的 promise chain。 Terminology 開始之前，先了解 Promise 相關的術語：</description></item><item><title>大前端時代的工具箱</title><link>https://weihanglo.tw/posts/2017/fed-toolchain/</link><pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid><description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹個人愛用現代常用的前端開發工具。
 （撰於 2017-03-10）
-Contents  Node.js  安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具   NPM 套件模組管理工具  package.json NPM 常用指令   預處理器／轉譯器  CSS 預處理器 CSS 後處理器 ES6+／Babel   自動化工具／打包工具  Gulp Webpack   程式碼品質  測試 靜態程式語法檢查   小結 Reference  （以下環境皆以 macOS 為例）
-Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.</description>
-    </item>
-    
-  </channel>
-</rss>
+Contents Node.js 安裝 Node.js Node.js 內建模組與變數 Node.js 版本管理工具 NPM 套件模組管理工具 package.json NPM 常用指令 預處理器／轉譯器 CSS 預處理器 CSS 後處理器 ES6+／Babel 自動化工具／打包工具 Gulp Webpack 程式碼品質 測試 靜態程式語法檢查 小結 Reference （以下環境皆以 macOS 為例）
+Node.js Node.js 是一個 Javascript 的運行環境，基於 Google V8 Engine。在 Node.js 尚未出現前，Javascript 只能運行在瀏覽器客戶端，功能受限於瀏覽器沙盒（sandbox）與廠商實作。Node.</description></item></channel></rss>

@@ -1,25 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Mobile App Development on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/mobile-app-development/</link>
-    <description>Recent content in Mobile App Development on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 30 Jul 2017 18:16:45 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/mobile-app-development/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Thoughts on React Native from an iOS developer</title>
-      <link>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</link>
-      <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</guid>
-      <description>About two month ago, I started making a React Native app &amp;ldquo;PyConTW 17&amp;rdquo; for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quite simple, but still took some efforts for me to build. As a complete React newbie, I would like to share some of my thoughts about React Native.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mobile App Development on Weihang Lo</title><link>https://weihanglo.tw/tags/mobile-app-development/</link><description>Recent content in Mobile App Development on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 30 Jul 2017 18:16:45 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/mobile-app-development/index.xml" rel="self" type="application/rss+xml"/><item><title>Thoughts on React Native from an iOS developer</title><link>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</link><pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</guid><description>About two month ago, I started making a React Native app &amp;ldquo;PyConTW 17&amp;rdquo; for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quite simple, but still took some efforts for me to build. As a complete React newbie, I would like to share some of my thoughts about React Native.
 (written on 2017-07-30, based on React Native 0.44.2)
- Disclaimer: I am a junior iOS developer (about 1 year experience) without any computer science degree.</description>
-    </item>
-    
-  </channel>
-</rss>
+Disclaimer: I am a junior iOS developer (about 1 year experience) without any computer science degree.</description></item></channel></rss>

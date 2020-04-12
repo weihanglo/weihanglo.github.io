@@ -1,23 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Big O on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/big-o/</link>
-    <description>Recent content in Big O on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 31 May 2018 23:38:59 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/big-o/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>漸進符號 Asymptotic Notation</title>
-      <link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link>
-      <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid>
-      <description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
- （撰於 2018-05-31）
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Big O on Weihang Lo</title><link>https://weihanglo.tw/tags/big-o/</link><description>Recent content in Big O on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Thu, 31 May 2018 23:38:59 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/big-o/index.xml" rel="self" type="application/rss+xml"/><item><title>漸進符號 Asymptotic Notation</title><link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link><pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate><guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid><description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
+（撰於 2018-05-31）
 日常生活中，你會如何描述處理事情的效率？
 「原來她五分鐘內可以吃掉一頭牛！」
 「房間這麼小你還能擺一堆雜物？還不快收拾！」
@@ -26,9 +8,5 @@
 「統計演算法內所需操作步驟的數目。」
 這是最簡單，最粗淺比較不同演算法效率的作法。
 用數學表示演算法效率 「計算步驟數目」很像中小學的數學題目：某公司有三個能力相異的工程師，有的工程師一天解決一個 bug，有的工程師連續工作後效率大幅滑落。每個工程師的除蟲效率可以畫成「bug 數 - 解決 bug 所需時數」函數，橫軸為待處理的臭蟲數，縱軸為解決臭蟲所需時數，如圖一與表所示。
-   時數 \(\log N\) \(N\) \(N \log N\)     \(N=5\) 2.236 5 8.046   \(N=30\) 5.477 30 102.036    不論從圖或表，我們都可以明確看出，當 bug 數目小時，每個工程師耗時差不多；當 bug 數目成長到一定程度時，效率好與效率差的工程師差距就很明顯了。
-我們把場景拉回演算法的範疇，再闡明一次。上述的除蟲效率函數關係，可以簡單視為為「輸入資料量 - 運算成本」關係之函數。例如 \(f(x)=x^2+3x+6\)。當輸入資料量增大時，成本也隨之上升，這個用來描述演算法執行成本與輸入資料量之關係的函數，我們稱之為該演算法的「複雜度」。</description>
-    </item>
-    
-  </channel>
-</rss>
+時數 \(\log N\) \(N\) \(N \log N\) \(N=5\) 2.236 5 8.046 \(N=30\) 5.477 30 102.036 不論從圖或表，我們都可以明確看出，當 bug 數目小時，每個工程師耗時差不多；當 bug 數目成長到一定程度時，效率好與效率差的工程師差距就很明顯了。
+我們把場景拉回演算法的範疇，再闡明一次。上述的除蟲效率函數關係，可以簡單視為為「輸入資料量 - 運算成本」關係之函數。例如 \(f(x)=x^2+3x+6\)。當輸入資料量增大時，成本也隨之上升，這個用來描述演算法執行成本與輸入資料量之關係的函數，我們稱之為該演算法的「複雜度」。</description></item></channel></rss>

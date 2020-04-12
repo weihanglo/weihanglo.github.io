@@ -1,26 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>C&#43;&#43; on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/c&#43;&#43;/</link>
-    <description>Recent content in C&#43;&#43; on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/c++/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
-      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
-      <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>C++ on Weihang Lo</title><link>https://weihanglo.tw/tags/c++/</link><description>Recent content in C++ on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/c++/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title><link>https://weihanglo.tw/posts/2020/www-0x01/</link><pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x01/</guid><description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了
- move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
- YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description>
-    </item>
-    
-  </channel>
-</rss>
+move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了 Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
+YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事 這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description></item></channel></rss>

@@ -1,28 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Performance on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/performance/</link>
-    <description>Recent content in Performance on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/performance/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x04: Not feeling the async pressure</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
-      <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
-      <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Performance on Weihang Lo</title><link>https://weihanglo.tw/tags/performance/</link><description>Recent content in Performance on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/performance/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x04: Not feeling the async pressure</title><link>https://weihanglo.tw/posts/2020/www-0x04/</link><pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x04/</guid><description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 &amp;ldquo;Performance Matters&amp;rdquo; by Emery Berger 最近滿紅的一個關於 performance measurement 的 影片，講者演講功力深厚，把嚴肅 performance analysis/profiling 議題以輕鬆的口吻娓娓道出，非常推薦。
 節錄一些我覺得有趣的點：
- 以 CPU 和 transistor 的發展闡述為什麼現代程式越來越注重效能 解釋 Performance Analysis 和 Performance Profiling 有什麼差別 Performance Analysis 是需要統計而且不是 eyeball statistics，然後要排除環境變因 想做 Performance Profiling 可以從另一個角度開始：讓其他不想測試的部分「變慢」  Why Discord is switching from Go to Rust  簡體中文譯文
- 標題乍看下有點聳動，其實內容很平實，完整交代來龍去脈：
- 背景：Discord ReadState 服務架構和資料結構 問題：高度手動最佳化的 Go 實作仍有兩分鐘一次的 GC spike，測試好幾個 Go 版本都沒解決 行動：用沒有 GC 的 Rust 重寫，公司內其他團隊也有成功案例 成果：各項指標皆勝原本 Go 實作，但有強調不要腦衝什麼都 RiiR   紫色是 Go，藍色是還沒升級 Tokio 0.</description>
-    </item>
-    
-  </channel>
-</rss>
+以 CPU 和 transistor 的發展闡述為什麼現代程式越來越注重效能 解釋 Performance Analysis 和 Performance Profiling 有什麼差別 Performance Analysis 是需要統計而且不是 eyeball statistics，然後要排除環境變因 想做 Performance Profiling 可以從另一個角度開始：讓其他不想測試的部分「變慢」 Why Discord is switching from Go to Rust 簡體中文譯文
+標題乍看下有點聳動，其實內容很平實，完整交代來龍去脈：
+背景：Discord ReadState 服務架構和資料結構 問題：高度手動最佳化的 Go 實作仍有兩分鐘一次的 GC spike，測試好幾個 Go 版本都沒解決 行動：用沒有 GC 的 Rust 重寫，公司內其他團隊也有成功案例 成果：各項指標皆勝原本 Go 實作，但有強調不要腦衝什麼都 RiiR 紫色是 Go，藍色是還沒升級 Tokio 0.</description></item></channel></rss>

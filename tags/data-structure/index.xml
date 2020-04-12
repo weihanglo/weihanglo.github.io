@@ -1,25 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Data structure on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/data-structure/</link>
-    <description>Recent content in Data structure on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 07 Mar 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/data-structure/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
-      <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
-      <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data structure on Weihang Lo</title><link>https://weihanglo.tw/tags/data-structure/</link><description>Recent content in Data structure on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 07 Mar 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/data-structure/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x07: 為什麼薯餅要炸兩次</title><link>https://weihanglo.tw/posts/2020/www-0x07/</link><pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x07/</guid><description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 Why is Rust the Most Loved Programming Language? 又到了推坑 Rust 的時間！這次，Intellij Rust 和 Rust Analyzer 的作者想聊聊為什麼 Rust 值得「最受喜愛的程式語言」的稱號，節錄我覺得蠻有共鳴的點：
-  Intellij Rust：用 Kotlin 寫的 Jetbrains IDE Rust Plugin Rust Analyzer：新一代的 Rust IDE language server    Keyword First Syntax：搜尋 foo 函式只要文字搜尋 fn foo 就解決，有利於一般人開發，更使得 IDE 的 parser 更容易開發 Crates：Rust 的 crate 是一個編譯單元，但並沒有 global shared namespace，取而代之的是每個 crate 都會是你的 dependant crate 的一個 property，解決了 lib 命名衝突問題 Eq 並非多型：以前從來沒想過這個問題，但的確不同型別的比較直接 compile error 很合理，不過代價是需要寫一堆 as usize 😂 Trivial Data Types：透過 #[derive(.</description>
-    </item>
-    
-  </channel>
-</rss>
+Intellij Rust：用 Kotlin 寫的 Jetbrains IDE Rust Plugin Rust Analyzer：新一代的 Rust IDE language server Keyword First Syntax：搜尋 foo 函式只要文字搜尋 fn foo 就解決，有利於一般人開發，更使得 IDE 的 parser 更容易開發 Crates：Rust 的 crate 是一個編譯單元，但並沒有 global shared namespace，取而代之的是每個 crate 都會是你的 dependant crate 的一個 property，解決了 lib 命名衝突問題 Eq 並非多型：以前從來沒想過這個問題，但的確不同型別的比較直接 compile error 很合理，不過代價是需要寫一堆 as usize 😂 Trivial Data Types：透過 #[derive(.</description></item></channel></rss>

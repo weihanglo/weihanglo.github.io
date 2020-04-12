@@ -1,30 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Microservice on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/microservice/</link>
-    <description>Recent content in Microservice on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 22 Feb 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/microservice/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x05: 若單體服務是屎，微服務就是許多屎</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x05/</link>
-      <pubDate>Sat, 22 Feb 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x05/</guid>
-      <description>這裡是 WWW 第伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microservice on Weihang Lo</title><link>https://weihanglo.tw/tags/microservice/</link><description>Recent content in Microservice on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 22 Feb 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/microservice/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x05: 若單體服務是屎，微服務就是許多屎</title><link>https://weihanglo.tw/posts/2020/www-0x05/</link><pubDate>Sat, 22 Feb 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x05/</guid><description>這裡是 WWW 第伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 Microservices: From Design to Deployment 這是 microservices.io 的作者在 NGINX blog 上面的系列文章，雖然是 2015 年的舊文，從起源、問題，和模式來理解微服務依然詳實，看完絕對驚呼：原來現在 Cloud Native 世界這麼混亂是有些道理！
- Note：不知道為什麼作者很愛提到 Netflix 各種微服務的專案，不過 Netflix 的 Java 開源微服務工具數量之多還真大開眼界
- 以下分別摘要每個主題：
+Note：不知道為什麼作者很愛提到 Netflix 各種微服務的專案，不過 Netflix 的 Java 開源微服務工具數量之多還真大開眼界
+以下分別摘要每個主題：
 Introduction to Microservices 簡介什麼是微服務，有什麼優缺點，並介紹微服務架構下常見元件，鋪陳給接下來的系列文，總之是個不想看可跳過的篇章。
 Building Microservices: Using an API Gateway 介紹 API gateway 為什麼存在：統一微服務一致對外的介面，解耦客戶端與微服務們，但缺點是 API gateway 需要更多 operational cost，也要維持 hign availibility。
 實作 API gateway 要注意以下幾點：
- Performance：所有請求都會通過 gateway，所以效能和擴充性一定要好 Reactive Programming 模式：gateway 需要集合各種請求，善用 Reactive programming 模式很有幫助 Service Invocation：微服務之間就是 IPC（inter-process communication），如何透過不同模式相互 invoke 很重要，下一章會詳述 Service Discovery：如何讓服務之間互相知道彼此，就是「服務發現」的工作了，分為 client-side 和 service-side discovery，之後有專文說明 Partial Failures：微服務之間不像單體服務可以用簡單的 transaction 處理錯誤並 rollback，處理部分錯誤，保持 CAP 的 consistency 是個重要課題  Building Microservices: Inter‑Process Communication in a Microservices Architecture 介紹微服務間 IPC（inter‑process communication）的方法與模式，這是系列文中最接近實作層面的文章，很棒。</description>
-    </item>
-    
-  </channel>
-</rss>
+Performance：所有請求都會通過 gateway，所以效能和擴充性一定要好 Reactive Programming 模式：gateway 需要集合各種請求，善用 Reactive programming 模式很有幫助 Service Invocation：微服務之間就是 IPC（inter-process communication），如何透過不同模式相互 invoke 很重要，下一章會詳述 Service Discovery：如何讓服務之間互相知道彼此，就是「服務發現」的工作了，分為 client-side 和 service-side discovery，之後有專文說明 Partial Failures：微服務之間不像單體服務可以用簡單的 transaction 處理錯誤並 rollback，處理部分錯誤，保持 CAP 的 consistency 是個重要課題 Building Microservices: Inter‑Process Communication in a Microservices Architecture 介紹微服務間 IPC（inter‑process communication）的方法與模式，這是系列文中最接近實作層面的文章，很棒。</description></item></channel></rss>

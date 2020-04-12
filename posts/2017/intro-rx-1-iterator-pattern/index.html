@@ -1,305 +1,56 @@
-<!DOCTYPE html>
-<html lang='en'><head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
 Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
-相反地， C 的 for (int i = 0; i &lt; n; i&#43;&#43;) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
-透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。'>
-<meta name='theme-color' content='#ffcd00'>
-
-<meta property='og:title' content='Rx 入門一：迭代器模式 • Weihang Lo'>
-<meta property='og:description' content='本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
+相反地， C 的 for (int i = 0; i < n; i++) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
+透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。"><meta name=theme-color content="#ffcd00"><meta property="og:title" content="Rx 入門一：迭代器模式 • Weihang Lo"><meta property="og:description" content="本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。
 （撰於 2017-08-15，基於 Swift 3.1）
 Definition 迭代器模式（Iterator pattern） 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。
 Application Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 for-in loop 都是 iterator pattern 的實作。我們可以說 Python 的 for x in iterable 符合 iterator pattern，因為 Python 將該 iterable 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 for x in Sequence 中 Sequence protocol 也有 iterator 介面，並提供了 default implementation。
-相反地， C 的 for (int i = 0; i &lt; n; i&#43;&#43;) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
-透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。'>
-<meta property='og:url' content='https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/'>
-<meta property='og:site_name' content='Weihang Lo'>
-<meta property='og:type' content='article'><meta property='article:section' content='posts'><meta property='article:tag' content='Design Patterns'><meta property='article:tag' content='Iterator Pattern'><meta property='article:tag' content='Swift'><meta property='article:tag' content='ReactiveX'><meta property='article:published_time' content='2017-08-15T13:06:59&#43;08:00'/><meta property='article:modified_time' content='2017-08-15T13:06:59&#43;08:00'/><meta name='twitter:card' content='summary'>
-
-<meta name="generator" content="Hugo 0.68.3" />
-
-  <title>Rx 入門一：迭代器模式 • Weihang Lo</title>
-  <link rel='canonical' href='https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/'>
-  
-  
-  <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
-:root{--color-accent:#ffcd00;}
-</style>
-
-  
-
-</head>
-<body class='page type-posts'>
-
-  <div class='site'><a class='screen-reader-text' href='#content'>Skip to Content</a><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    
-    <ul><li class='item'>
-        <a href='/'>Home</a>
-      </li><li class='item'>
-        <a href='/posts/'>Posts</a>
-      </li><li class='item'>
-        <a href='/tags/'>Tags</a>
-      </li><li class='item'>
-        <a href='/about/'>About</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
-        <div class='container'></div>
-      </div>
-
-      <header id='header' class='header site-header'>
-        <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>Weihang Lo</p><p class='desc site-desc'></p>
-          </div>
-        </div>
-      </header>
-
-      <main id='content'>
-
-
-<article lang='en' class='entry'>
-  <header class='header entry-header'>
-  <div class='container sep-after'>
-    <div class='header-info'>
-      <h1 class='title'>Rx 入門一：迭代器模式</h1>
-      
-
-    </div>
-    <div class='entry-meta'>
-  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-<span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2017-08-15T13:06:59&#43;08:00'>2017, Aug 15</time>
-</span>
-
-  
-  
-<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 15 15"/>
-  
-</svg>
-2 mins read
-</span>
-
-
-</div>
-
-
-  </div>
-</header>
-
-  
-  
-
-  <div class='container entry-content'>
-  <p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>（迭代器模式）。</p>
-<p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p>
-<!-- raw HTML omitted -->
-<h2 id="definition">Definition</h2>
-<p><a href="https://en.wikipedia.org/wiki/Iterator_pattern">迭代器模式（Iterator pattern）</a> 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。</p>
-<h2 id="application">Application</h2>
-<p>Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 <code>for-in</code> loop 都是 iterator pattern 的實作。我們可以說 Python 的 <code>for x in iterable</code> 符合 iterator pattern，因為 Python 將該 <code>iterable</code> 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 <code>for x in Sequence</code> 中 <code>Sequence</code> protocol 也有 iterator 介面，並提供了 default implementation。</p>
-<p>相反地， C 的 <code>for (int i = 0; i &lt; n; i++)</code> 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。</p>
-<p>透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 <code>map</code>、<code>reduce</code>、<code>filter</code> 等高階函數，即操作序列中的元素，完全與演算法解耦合。</p>
-<h2 id="requirements">Requirements</h2>
-<p>一般來說，要符合 iterator pattern 的實作，通常會有以下幾個介面：</p>
-<ol>
-<li>一個取得下一個 element 的方法，通常是 <code>next</code></li>
-<li>告知使用者是否仍有下個 element 的方法，各語言有自己對應的實作，如：</li>
-</ol>
-<ul>
-<li>拋出 Exception（Python）</li>
-<li>主動 call <code>hasNext</code> 方法（Java）</li>
-<li>回傳 flag 判斷迭代是否完成（JavaScript）</li>
-<li>直接回傳 <code>nil</code>（Swift）</li>
-</ul>
-<h2 id="iteratorprotocol--sequence">IteratorProtocol &amp; Sequence</h2>
-<p>在深入 iterator pattern 前，先來理解 Swift 最重要的兩個 protocol：<code>IteratorProtocol</code> 與 <code>Sequence</code>。</p>
-<p>Swift 實作 iterator 須符合 <a href="http://swiftdoc.org/v3.1/protocol/IteratorProtocol/">IteratorProtocol</a>，該 protocol 要求一個 <code>next</code> method。雖然簡單，但要實作 iterator pattern 也是滿繁瑣的。我們直接看例子。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// 宣告一個 countdown 用的 iterator struct，每次迭代時會將當前計數減一。</span>
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">CountdownIterator</span>: IteratorProtocol {
-    <span style="color:#66d9ef">var</span> count: Int
-    <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">next</span>() -&gt; Int? {
-        <span style="color:#66d9ef">guard</span> count <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span> }
-        count <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
-        <span style="color:#66d9ef">return</span> count
+相反地， C 的 for (int i = 0; i < n; i++) 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。
+透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 map、reduce、filter 等高階函數，即操作序列中的元素，完全與演算法解耦合。"><meta property="og:url" content="https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/"><meta property="og:site_name" content="Weihang Lo"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="Design Patterns"><meta property="article:tag" content="Iterator Pattern"><meta property="article:tag" content="Swift"><meta property="article:tag" content="ReactiveX"><meta property="article:published_time" content="2017-08-15T13:06:59+08:00"><meta property="article:modified_time" content="2017-08-15T13:06:59+08:00"><meta name=twitter:card content="summary"><meta name=generator content="Hugo 0.62.2"><title>Rx 入門一：迭代器模式 • Weihang Lo</title><link rel=canonical href=https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/><link rel=icon href=/favicon.ico><link rel=stylesheet href=/assets/css/main.6a060eb7.css><link rel=stylesheet href=/css/custom.css><style>:root{--color-accent:#ffcd00}</style></head><body class="page type-posts"><div class=site><a class=screen-reader-text href=#content>Skip to Content</a><div class=main><nav id=main-menu class="menu main-menu" aria-label="Main Menu"><div class=container><ul><li class=item><a href=/>Home</a></li><li class=item><a href=/posts/>Posts</a></li><li class=item><a href=/tags/>Tags</a></li><li class=item><a href=/about/>About</a></li></ul></div></nav><div class=header-widgets><div class=container></div></div><header id=header class="header site-header"><div class="container sep-after"><div class=header-info><p class="site-title title">Weihang Lo</p><p class="desc site-desc"></p></div></div></header><main id=content><article lang=en class=entry><header class="header entry-header"><div class="container sep-after"><div class=header-info><h1 class=title>Rx 入門一：迭代器模式</h1></div><div class=entry-meta><span class=posted-on><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class=screen-reader-text>Posted on</span>
+<time class=entry-date datetime=2017-08-15T13:06:59+08:00>2017, Aug 15</time></span>
+<span class=reading-time><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg>2 mins read</span></div></div></header><div class="container entry-content"><p>本篇介紹 Rx 的重要基礎概念 <strong>Iterator pattern</strong>（迭代器模式）。</p><p><em>（撰於 2017-08-15，基於 Swift 3.1）</em></p><h2 id=definition>Definition</h2><p><a href=https://en.wikipedia.org/wiki/Iterator_pattern>迭代器模式（Iterator pattern）</a> 提供一個迭代器，讓使用者透過特定方式走訪序列（sequence）中的元素，而不需知道底層的演算法。</p><h2 id=application>Application</h2><p>Iterator pattern 是最基本的設計模式之一，基本上大部分語言的 <code>for-in</code> loop 都是 iterator pattern 的實作。我們可以說 Python 的 <code>for x in iterable</code> 符合 iterator pattern，因為 Python 將該 <code>iterable</code> 封裝起來，使用者對 iterator 如何取得下一個 element 並不知情；Swift 的 <code>for x in Sequence</code> 中 <code>Sequence</code> protocol 也有 iterator 介面，並提供了 default implementation。</p><p>相反地， C 的 <code>for (int i = 0; i &lt; n; i++)</code> 通常不認為是 iterator pattern，因為使用者知道底層資料儲存在連續的記憶體空間中，也必須自行透過指針迭代。</p><p>透過 iterator 封裝的序列（或集合），讓調用者不需關係實作，只需使用統一的 for loop，或是 <code>map</code>、<code>reduce</code>、<code>filter</code> 等高階函數，即操作序列中的元素，完全與演算法解耦合。</p><h2 id=requirements>Requirements</h2><p>一般來說，要符合 iterator pattern 的實作，通常會有以下幾個介面：</p><ol><li>一個取得下一個 element 的方法，通常是 <code>next</code></li><li>告知使用者是否仍有下個 element 的方法，各語言有自己對應的實作，如：</li></ol><ul><li>拋出 Exception（Python）</li><li>主動 call <code>hasNext</code> 方法（Java）</li><li>回傳 flag 判斷迭代是否完成（JavaScript）</li><li>直接回傳 <code>nil</code>（Swift）</li></ul><h2 id=iteratorprotocol--sequence>IteratorProtocol & Sequence</h2><p>在深入 iterator pattern 前，先來理解 Swift 最重要的兩個 protocol：<code>IteratorProtocol</code> 與 <code>Sequence</code>。</p><p>Swift 實作 iterator 須符合 <a href=http://swiftdoc.org/v3.1/protocol/IteratorProtocol/>IteratorProtocol</a>，該 protocol 要求一個 <code>next</code> method。雖然簡單，但要實作 iterator pattern 也是滿繁瑣的。我們直接看例子。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>宣</span><span style=color:#75715e>告</span><span style=color:#75715e>一</span><span style=color:#75715e>個</span><span style=color:#75715e> </span><span style=color:#75715e>c</span><span style=color:#75715e>o</span><span style=color:#75715e>u</span><span style=color:#75715e>n</span><span style=color:#75715e>t</span><span style=color:#75715e>d</span><span style=color:#75715e>o</span><span style=color:#75715e>w</span><span style=color:#75715e>n</span><span style=color:#75715e> </span><span style=color:#75715e>用</span><span style=color:#75715e>的</span><span style=color:#75715e> </span><span style=color:#75715e>i</span><span style=color:#75715e>t</span><span style=color:#75715e>e</span><span style=color:#75715e>r</span><span style=color:#75715e>a</span><span style=color:#75715e>t</span><span style=color:#75715e>o</span><span style=color:#75715e>r</span><span style=color:#75715e> </span><span style=color:#75715e>s</span><span style=color:#75715e>t</span><span style=color:#75715e>r</span><span style=color:#75715e>u</span><span style=color:#75715e>c</span><span style=color:#75715e>t</span><span style=color:#75715e>，</span><span style=color:#75715e>每</span><span style=color:#75715e>次</span><span style=color:#75715e>迭</span><span style=color:#75715e>代</span><span style=color:#75715e>時</span><span style=color:#75715e>會</span><span style=color:#75715e>將</span><span style=color:#75715e>當</span><span style=color:#75715e>前</span><span style=color:#75715e>計</span><span style=color:#75715e>數</span><span style=color:#75715e>減</span><span style=color:#75715e>一</span><span style=color:#75715e>。</span>
+<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>CountdownIterator</span>: IteratorProtocol {
+    <span style=color:#66d9ef>var</span> count: Int
+    <span style=color:#66d9ef>mutating</span> <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>next</span>() -&gt; Int? {
+        <span style=color:#66d9ef>guard</span> count <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>else</span> { <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span> }
+        count <span style=color:#f92672>-=</span> <span style=color:#ae81ff>1</span>
+        <span style=color:#66d9ef>return</span> count
     }
 }
-</code></pre></div><p>其實這樣就做完我們的 iterator 了，我們可以嘗試使用 <code>while</code> loop 使用這個倒數計時器。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">var</span> it = CountdownIterator(count: <span style="color:#ae81ff">5</span>)
-<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">let</span> v = it.next() {
+</code></pre></div><p>其實這樣就做完我們的 iterator 了，我們可以嘗試使用 <code>while</code> loop 使用這個倒數計時器。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>var</span> it = CountdownIterator(count: <span style=color:#ae81ff>5</span>)
+<span style=color:#66d9ef>while</span> <span style=color:#66d9ef>let</span> v = it.next() {
   print(v)
 }
-<span style="color:#75715e">/// 4 3 2 1 0</span>
-</code></pre></div><p>不過通常我們會希望將 next 方法藏起來，利用簡單的 for-in loop 迭代，這時候就該 <a href="http://swiftdoc.org/v3.1/protocol/Sequence/">Sequence</a> protocol 出場。<strong>Sequence</strong> protocol 提供一個按序迭代的介面，讓調用者可好整以暇的使用。只要符合 <code>Comparable</code>、<code>Equatable</code> 等 protocol，Sequence 甚至提供許多方便的 default implementations。</p>
-<p>一般來說，Sequence 需有 iterator 的 associatedType，以及 <code>makeIterator</code> 方法，提供 sequence 製造 iterator 的介面。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Countdown</span>: Sequence {
-    <span style="color:#66d9ef">let</span> count: Int
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>4</span><span style=color:#75715e> </span><span style=color:#75715e>3</span><span style=color:#75715e> </span><span style=color:#75715e>2</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e> </span><span style=color:#75715e>0</span>
+</code></pre></div><p>不過通常我們會希望將 next 方法藏起來，利用簡單的 for-in loop 迭代，這時候就該 <a href=http://swiftdoc.org/v3.1/protocol/Sequence/>Sequence</a> protocol 出場。<strong>Sequence</strong> protocol 提供一個按序迭代的介面，讓調用者可好整以暇的使用。只要符合 <code>Comparable</code>、<code>Equatable</code> 等 protocol，Sequence 甚至提供許多方便的 default implementations。</p><p>一般來說，Sequence 需有 iterator 的 associatedType，以及 <code>makeIterator</code> 方法，提供 sequence 製造 iterator 的介面。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Countdown</span>: Sequence {
+    <span style=color:#66d9ef>let</span> count: Int
 
-    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">makeIterator</span>() -&gt; CountdownIterator {
-        <span style="color:#66d9ef">return</span> CountdownIterator(countdown: <span style="color:#66d9ef">self</span>.count)
+    <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>makeIterator</span>() -&gt; CountdownIterator {
+        <span style=color:#66d9ef>return</span> CountdownIterator(countdown: <span style=color:#66d9ef>self</span>.count)
 
     }
 }
 
-<span style="color:#66d9ef">let</span> countdown = Countdown(count: <span style="color:#ae81ff">5</span>)
-<span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> countdown {
+<span style=color:#66d9ef>let</span> countdown = Countdown(count: <span style=color:#ae81ff>5</span>)
+<span style=color:#66d9ef>for</span> i <span style=color:#66d9ef>in</span> countdown {
     print(i)
 }
-<span style="color:#75715e">/// 4 3 2 1 0</span>
-countdown.forEach { print($0) } <span style="color:#75715e">// ⚠️： Sequence 並沒有保證 repeated access</span>
-<span style="color:#75715e">/// 4 3 2 1 0</span>
-</code></pre></div><p>這些步驟看起來異常繁瑣，我們可以利用 Swift 提供的 default implementation 減少 trivial part。若同時符合 Sequence 與 IteratorProtocol，只要實作 <code>next</code>方法，則 Sequence 會自動產生 <code>makeIterator</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Countdown</span>: Sequence, IteratorProtocol {
-    <span style="color:#66d9ef">var</span> count: Int
-    <span style="color:#66d9ef">mutating</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">next</span>() -&gt; Int? {
-        <span style="color:#66d9ef">guard</span> count <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span> }
-        count <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
-        <span style="color:#66d9ef">return</span> count
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>4</span><span style=color:#75715e> </span><span style=color:#75715e>3</span><span style=color:#75715e> </span><span style=color:#75715e>2</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e> </span><span style=color:#75715e>0</span>
+countdown.forEach { print($0) } <span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>⚠</span><span style=color:#75715e>️</span><span style=color:#75715e>：</span><span style=color:#75715e> </span><span style=color:#75715e>S</span><span style=color:#75715e>e</span><span style=color:#75715e>q</span><span style=color:#75715e>u</span><span style=color:#75715e>e</span><span style=color:#75715e>n</span><span style=color:#75715e>c</span><span style=color:#75715e>e</span><span style=color:#75715e> </span><span style=color:#75715e>並</span><span style=color:#75715e>沒</span><span style=color:#75715e>有</span><span style=color:#75715e>保</span><span style=color:#75715e>證</span><span style=color:#75715e> </span><span style=color:#75715e>r</span><span style=color:#75715e>e</span><span style=color:#75715e>p</span><span style=color:#75715e>e</span><span style=color:#75715e>a</span><span style=color:#75715e>t</span><span style=color:#75715e>e</span><span style=color:#75715e>d</span><span style=color:#75715e> </span><span style=color:#75715e>a</span><span style=color:#75715e>c</span><span style=color:#75715e>c</span><span style=color:#75715e>e</span><span style=color:#75715e>s</span><span style=color:#75715e>s</span>
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>4</span><span style=color:#75715e> </span><span style=color:#75715e>3</span><span style=color:#75715e> </span><span style=color:#75715e>2</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e> </span><span style=color:#75715e>0</span>
+</code></pre></div><p>這些步驟看起來異常繁瑣，我們可以利用 Swift 提供的 default implementation 減少 trivial part。若同時符合 Sequence 與 IteratorProtocol，只要實作 <code>next</code>方法，則 Sequence 會自動產生 <code>makeIterator</code>。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Countdown</span>: Sequence, IteratorProtocol {
+    <span style=color:#66d9ef>var</span> count: Int
+    <span style=color:#66d9ef>mutating</span> <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>next</span>() -&gt; Int? {
+        <span style=color:#66d9ef>guard</span> count <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>else</span> { <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span> }
+        count <span style=color:#f92672>-=</span> <span style=color:#ae81ff>1</span>
+        <span style=color:#66d9ef>return</span> count
     }
 }
 
-<span style="color:#75715e">// 可以透過 default implementation 直接使用 `map` 方法！</span>
-Countdown(count: <span style="color:#ae81ff">5</span>).map { $0 <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> }
-<span style="color:#75715e">/// [20, 15, 10, 5, 0]</span>
-</code></pre></div><h2 id="collection-protocols">Collection protocols</h2>
-<p>Sequence protocol 僅提供迭代方法，並不能保證序列能否走訪多遍，也沒有提供 subscript（下標）。<a href="http://swiftdoc.org/v3.1/protocol/Collection/">Collection</a> protocol 提供 subscript 的容器介面，並建議實作 access elements 預期為 O(1) 複雜度。<br>
-不過實際情況因實作而異，例如 Doubly linked-list 遵循繼承自 Collection 的 <a href="http://swiftdoc.org/nightly/protocol/BidirectionalCollection/">BidirectionalCollection </a> protocol，卻無法如符合 <a href="http://swiftdoc.org/nightly/protocol/RandomAccessCollection/">RandomAccessCollection</a> 的 Array 一樣有 O(1) 的隨機存取操作。</p>
-<p>這些 Collection protocols 加強了 Iterator pattern 應用面的生產力，演算法能以更豐富的方式呈現給使用者。好比 Swift Standard Library 中的 Array、Dictionary 和 String 也都是實作 Collection protocol 的案例，而這些的集合實作就非常夠開發者使用了，幾乎不需考慮底層的演算法，更甚不必接觸任何 Iterator。</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Iterator pattern 封裝了許多演算法，讓使用者能夠專注在更高層次的邏輯上；iterator pattern 同時也提供迭代完畢的訊息，許多程式間通訊得以透過 iterator 完成不同的任務。近來很流行的 generator／coroutine 都是建立於 iterator pattern 上，Rx 的設計理念也是吸收 iterator pattern 的精華，提供 <code>Observable</code> <strong>no data available</strong> 與 <strong>error</strong> 的重要特性。</p>
-<h2 id="reference">Reference</h2>
-<ul>
-<li><a href="http://swiftdoc.org/">SwiftDoc.org</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Iterator_pattern">Wiki: Iterator pattern</a></li>
-</ul>
-
-</div>
-
-  
-<footer class='entry-footer'>
-  <div class='container sep-before'><div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
-  <line x1="7" y1="7" x2="7" y2="7"/>
-  
-</svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/design-patterns/'>Design Patterns</a>, <a class='tag' href='/tags/iterator-pattern/'>Iterator Pattern</a>, <a class='tag' href='/tags/swift/'>Swift</a>, <a class='tag' href='/tags/reactivex/'>ReactiveX</a></div>
-
-  </div><div style="text-align: center; padding-top: 2em;">
-  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="cc-by-nc-sa-4">
-  </a>
-</div>
-
-</footer>
-
-
-</article>
-
-<nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/posts/2017/intro-rx-0-reactivex/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
-  
-</svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Rx 入門零：ReactiveX</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/posts/2017/intro-rx-2-observer-pattern/'>
-        <span class='screen-reader-text'>Next post: </span>Rx 入門二：觀察者模式<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
-    </div></div>
-</nav>
-
-
-
-
-      </main>
-
-      <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://facebook.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://linkedin.com/in/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-  <rect x="2" y="9" width="4" height="12"/>
-  <circle cx="4" cy="4" r="2"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://t.me/weihanglo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Telegram account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
-  <p> &copy; 2017-2020 Weihang Lo </p>
-</div>
-
-        </div>
-      </footer>
-
-    </div>
-  </div><script>window.__assets_js_src="/assets/js/"</script>
-
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
-
-</body>
-
-</html>
-
+<span style=color:#75715e>//</span><span style=color:#75715e> </span><span style=color:#75715e>可</span><span style=color:#75715e>以</span><span style=color:#75715e>透</span><span style=color:#75715e>過</span><span style=color:#75715e> </span><span style=color:#75715e>d</span><span style=color:#75715e>e</span><span style=color:#75715e>f</span><span style=color:#75715e>a</span><span style=color:#75715e>u</span><span style=color:#75715e>l</span><span style=color:#75715e>t</span><span style=color:#75715e> </span><span style=color:#75715e>i</span><span style=color:#75715e>m</span><span style=color:#75715e>p</span><span style=color:#75715e>l</span><span style=color:#75715e>e</span><span style=color:#75715e>m</span><span style=color:#75715e>e</span><span style=color:#75715e>n</span><span style=color:#75715e>t</span><span style=color:#75715e>a</span><span style=color:#75715e>t</span><span style=color:#75715e>i</span><span style=color:#75715e>o</span><span style=color:#75715e>n</span><span style=color:#75715e> </span><span style=color:#75715e>直</span><span style=color:#75715e>接</span><span style=color:#75715e>使</span><span style=color:#75715e>用</span><span style=color:#75715e> </span><span style=color:#75715e>`</span><span style=color:#75715e>m</span><span style=color:#75715e>a</span><span style=color:#75715e>p</span><span style=color:#75715e>`</span><span style=color:#75715e> </span><span style=color:#75715e>方</span><span style=color:#75715e>法</span><span style=color:#75715e>！</span>
+Countdown(count: <span style=color:#ae81ff>5</span>).map { $0 <span style=color:#f92672>*</span> <span style=color:#ae81ff>5</span> }
+<span style=color:#75715e>//</span><span style=color:#75715e>/</span><span style=color:#75715e> </span><span style=color:#75715e>[</span><span style=color:#75715e>2</span><span style=color:#75715e>0</span><span style=color:#75715e>,</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>5</span><span style=color:#75715e>,</span><span style=color:#75715e> </span><span style=color:#75715e>1</span><span style=color:#75715e>0</span><span style=color:#75715e>,</span><span style=color:#75715e> </span><span style=color:#75715e>5</span><span style=color:#75715e>,</span><span style=color:#75715e> </span><span style=color:#75715e>0</span><span style=color:#75715e>]</span>
+</code></pre></div><h2 id=collection-protocols>Collection protocols</h2><p>Sequence protocol 僅提供迭代方法，並不能保證序列能否走訪多遍，也沒有提供 subscript（下標）。<a href=http://swiftdoc.org/v3.1/protocol/Collection/>Collection</a> protocol 提供 subscript 的容器介面，並建議實作 access elements 預期為 O(1) 複雜度。<br>不過實際情況因實作而異，例如 Doubly linked-list 遵循繼承自 Collection 的 <a href=http://swiftdoc.org/nightly/protocol/BidirectionalCollection/>BidirectionalCollection</a> protocol，卻無法如符合 <a href=http://swiftdoc.org/nightly/protocol/RandomAccessCollection/>RandomAccessCollection</a> 的 Array 一樣有 O(1) 的隨機存取操作。</p><p>這些 Collection protocols 加強了 Iterator pattern 應用面的生產力，演算法能以更豐富的方式呈現給使用者。好比 Swift Standard Library 中的 Array、Dictionary 和 String 也都是實作 Collection protocol 的案例，而這些的集合實作就非常夠開發者使用了，幾乎不需考慮底層的演算法，更甚不必接觸任何 Iterator。</p><h2 id=conclusion>Conclusion</h2><p>Iterator pattern 封裝了許多演算法，讓使用者能夠專注在更高層次的邏輯上；iterator pattern 同時也提供迭代完畢的訊息，許多程式間通訊得以透過 iterator 完成不同的任務。近來很流行的 generator／coroutine 都是建立於 iterator pattern 上，Rx 的設計理念也是吸收 iterator pattern 的精華，提供 <code>Observable</code> <strong>no data available</strong> 與 <strong>error</strong> 的重要特性。</p><h2 id=reference>Reference</h2><ul><li><a href=http://swiftdoc.org/>SwiftDoc.org</a></li><li><a href=https://en.wikipedia.org/wiki/Iterator_pattern>Wiki: Iterator pattern</a></li></ul></div><footer class=entry-footer><div class="container sep-before"><div class=tags><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2H12l8.59 8.59A2 2 0 0120.59 13.41z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=screen-reader-text>Tags: </span><a class=tag href=/tags/design-patterns/>Design Patterns</a>, <a class=tag href=/tags/iterator-pattern/>Iterator Pattern</a>, <a class=tag href=/tags/swift/>Swift</a>, <a class=tag href=/tags/reactivex/>ReactiveX</a></div></div><div style=text-align:center;padding-top:2em><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/><img src=https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png alt=cc-by-nc-sa-4></a></div></footer></article><nav class=entry-nav><div class=container><div class="prev-entry sep-before"><a href=/posts/2017/intro-rx-0-reactivex/><span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 18 4 12 10 6"/></svg>Previous</span>
+<span class=screen-reader-text>Previous post: </span>Rx 入門零：ReactiveX</a></div><div class="next-entry sep-before"><a href=/posts/2017/intro-rx-2-observer-pattern/><span class=screen-reader-text>Next post: </span>Rx 入門二：觀察者模式<span aria-hidden=true>Next<svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></a></div></div></nav></main><footer id=footer class=footer><div class="container sep-before"><section class="widget widget-social_menu sep-after"><nav aria-label="Social Menu"><ul><li><a href=https://github.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Github account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77a5.44 5.44.0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=https://facebook.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Facebook account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a></li><li><a href=https://twitter.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Twitter account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg></a></li><li><a href=https://linkedin.com/in/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Linkedin account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li><li><a href=https://t.me/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Telegram account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="m22.05 1.577c-.393-.016-.784.08-1.117.235-.484.186-4.92 1.902-9.41 3.64C9.263 6.325 7.005 7.198 5.267 7.867 3.53 8.537 2.222 9.035 2.153 9.059c-.46.16-1.082.362-1.61.984-.79581202 1.058365.21077405 1.964825 1.004 2.499 1.76.564 3.58 1.102 5.087 1.608.556 1.96 1.09 3.927 1.618 5.89.174.394.553.54.944.544l-.002.02s.307.03.606-.042c.3-.07.677-.244 1.02-.565.377-.354 1.4-1.36 1.98-1.928l4.37 3.226.035.02s.484.34 1.192.388c.354.024.82-.044 1.22-.337.403-.294.67-.767.795-1.307.374-1.63 2.853-13.427 3.276-15.38L23.676 4.725C23.972 3.625 23.863 2.617 23.18 2.02 22.838 1.723 22.444 1.593 22.05 1.576z"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2017-2020 Weihang Lo</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.67d669ac.js></script><script src=/js/custom.js></script></body></html>

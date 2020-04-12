@@ -1,28 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Assembly on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/assembly/</link>
-    <description>Recent content in Assembly on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
-      <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
-      <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;quot;. has Now problems. two he
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Assembly on Weihang Lo</title><link>https://weihanglo.tw/tags/assembly/</link><description>Recent content in Assembly on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/assembly/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title><link>https://weihanglo.tw/posts/2020/www-0x0a/</link><pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid><description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I'll solve it with threads!&amp;quot;. has Now problems. two he
 — Davidlohr Bueso
- 這裡是 WWW 第十期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+這裡是 WWW 第十期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 The Missing Semester of Your CS Education 這是近期看過最實用導向的大學課程了！由 MIT 博士生授課，但不教死板又混亂的計算機科學，而是貼近開發者，異常實際的工具和技巧。
 雖然內容對部分業界人士來說可能略淺，例如 metaprogramming 居然是在講 build system 和 makefile，不過學資訊的學生不一定熟稔，非常適合作為進入業界前先修的「失落的課程」。我自己印象最深刻的是「 &amp;hellip;if you start a command with a leading space it won’t be added to you shell history. 」真的是嚇歪我的毛，推薦大家翻翻看看。
- 順便提一下 JonHoo 是我有認真在看的 live-coder。嗯，應該猜的到他寫什麼語言</description>
-    </item>
-    
-  </channel>
-</rss>
+順便提一下 JonHoo 是我有認真在看的 live-coder。嗯，應該猜的到他寫什麼語言</description></item></channel></rss>

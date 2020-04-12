@@ -1,28 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Memory Alignment on Weihang Lo</title>
-    <link>https://weihanglo.tw/tags/memory-alignment/</link>
-    <description>Recent content in Memory Alignment on Weihang Lo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Sep 2017 23:35:55 +0800</lastBuildDate>
-    
-	<atom:link href="https://weihanglo.tw/tags/memory-alignment/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>使用 JavaScript 處理二進位資料</title>
-      <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
-      <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
-      <guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid>
-      <description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Memory Alignment on Weihang Lo</title><link>https://weihanglo.tw/tags/memory-alignment/</link><description>Recent content in Memory Alignment on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 03 Sep 2017 23:35:55 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/memory-alignment/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 JavaScript 處理二進位資料</title><link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link><pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid><description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖然方便，卻多了效能開銷。當 Canvas、WebGL、WebVR 開始走紅，效能越來越受重視，如何讓 JavaScript 達到如同 C 指標般操作 binary data 變得至關重要。
 存在許久但最近才變為 ES6 標準「Typed Array」就是解放 JavaScript 操作 binary data 能力的好工具！一起來了解 Typed Array 吧！
 （撰於 2017-09-03，基於 ECMAScript 6+，Node.js 8.3）
 Buffer v.s View ES6 引入的 Typed Array 家族，可以分為兩大類：Buffer 與 View。
 所謂 Buffer 是一個指向儲存資料的記憶體區塊之物件，類似於 malloc 配置出來的空間，無法直接存取或修改 buffer 內部的資料，在 JavaScript 中 Buffer 的實作就是 ArrayBuffer。
-如果我們想存取某些 buffer 底下的內容，我們需要 View（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取呢？抑或以 unsigned integer 來操作。</description>
-    </item>
-    
-  </channel>
-</rss>
+如果我們想存取某些 buffer 底下的內容，我們需要 View（視圖），透過宣告不同資料型別的 view，電腦就會了解如何操作這段 data chunk，該當作 float32 讀取呢？抑或以 unsigned integer 來操作。</description></item></channel></rss>
