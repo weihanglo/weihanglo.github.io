@@ -50,7 +50,7 @@ DoH 算是一個容易起爭議的功能，例如：
 綜合上述，如果我的服務叫做 `my-service`，DNS resolution 的順序可能會是：
 
 1. ndots < 5，不是 FQDN，不當作 FQDN 解析，嘗試 prepend 到 search list
-2. 我的服務叫 `my-service`，則嘗試解析 `my-service.my-ns.svc.cluster.local.`
+2. 我的 namespace 叫 `my-ns`，則嘗試解析 `my-service.my-ns.svc.cluster.local.`
 3. 若解析失敗，則嘗試解析 `my-service.svc.cluster.local.`
 4. 若解析失敗，則嘗試解析 `my-service.cluster.local.`
 5. 最後才會把 `my-service.` 當作 FQDN 來解析
