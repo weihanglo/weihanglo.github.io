@@ -74,7 +74,7 @@ All the data on heap will move its ownership to `s2`. Now, `s1` is no longer ava
 
 ![](https://doc.rust-lang.org/book/second-edition/img/trpl04-04.svg)
 
-**Clone:** When you do want to keep the ownership of the variable, explicitly call `clone` may perform a shallow copy.
+**Clone:** When you do want to keep the ownership of the variable, explicitly call `clone` may perform a deep copy.
 
 ```rust
 let s1 = String::from("hello");
@@ -83,7 +83,7 @@ let s2 = s1.clone();
 println!("s1 = {}, s2 = {}", s1, s2);
 ```
 
-![](https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg)
+![](https://doc.rust-lang.org/book/second-edition/img/trpl04-03.svg)
 
 **Copy:** Sometimes if a type implements `Copy` trait, it instead has *copy semantics*. That means `clone` would be performed automatically when aliasing variables.
 
