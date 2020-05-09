@@ -33,6 +33,7 @@ Visual chart provided by [ayshen](https://gist.github.com/ayshen)
 **感想：** 感覺這種 operation log 當作事件處理的流程漸漸成為標準配備，像 MongoDB 直接提供 [Change Streams](https://docs.mongodb.com/manual/changeStreams/) 統一介面很方便，能夠以更接近資料的面向訂閱資料流當然更好。
 
 **觀察：** 預設還是使用 MySQL，但積極嘗試 TiDB，並通過 Redis 弭平鴻溝。
+
 **感想：** 這表示 1）TiDB 和 MySQL 底層實作差很多，內文也提到不太可能 1:1 遷移，還有 2）DBA 和 RD 設計管理 sharding 的成本太大，大過學習 TiDB 加上維護 Redis，尤其是 logging 這種大量產生的資料的場景。
 
 ## [Backpressuring in Streams](https://nodejs.org/en/docs/guides/backpressuring-in-streams/)
