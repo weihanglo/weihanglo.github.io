@@ -11,7 +11,7 @@ tags:
 >
 > — Weihang Lo 2020.4
 
-這裡是 WWW 第十三期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 
 ## [The Facts: Mozilla’s DNS over HTTPs (DoH)](https://blog.mozilla.org/netpolicy/2020/02/25/the-facts-mozillas-dns-over-https-doh/)
 

@@ -12,7 +12,7 @@ tags:
 >
 > — Zoom: Attendee attention tracking
 
-這裡是 WWW 第十一期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
+這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
 
 ## [What future does the captical of Japan carry?](https://bit.ly/2S7NwbL)
 
