@@ -44,7 +44,7 @@ tags:
 
 作者提供了一般性通則： **避免 cardinality 超過 10 的 label** 。但這僅僅是通則，如果 replicas 數量不會太大，cardinality 超過 10 也可接受。
 
-你會想說，媽的我不能最終這麼細，還要蒐集 metrics 幹啥吃？其實 nginx-ingress 團隊也因為 [`uri`、`remoteAddress` 等 label cardinality 太爆炸而移除過於細緻的 label](https://github.com/kubernetes/ingress-nginx/pull/2701)。
+你會想說，媽的我不能追蹤這麼細，還要蒐集 metrics 幹啥吃？其實 nginx-ingress 團隊也因為 [`uri`、`remoteAddress` 等 label cardinality 太爆炸而移除過於細緻的 label](https://github.com/kubernetes/ingress-nginx/pull/2701)。
 
 文末畫龍點睛的一句話，分享給大家細細品味： 
 
