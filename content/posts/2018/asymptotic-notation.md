@@ -1,7 +1,7 @@
 ---
 title: 漸進符號 Asymptotic Notation
 date: 2018-05-31T23:38:59+08:00
-mathjax: true
+katex: true
 tags:
   - Algorithms
   - Big O
