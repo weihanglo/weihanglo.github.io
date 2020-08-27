@@ -25,7 +25,7 @@ Intro of Exception Handling 在開始介紹 Swift 例外處理之前，先來了
 Declaration 宣告變數使用 var，宣告常數使用 let
 使用 var 宣告，該值為 mutable 使用 let 宣告，該值為 immutable let myConst = &amp;#34;constant&amp;#34; var myVar = 1234 myVar = 5678 慣例是都先使用 let 宣告，等到之後需求或 compiler 報錯時，再修正為 mutable 的 var
 Type Inference 自動透過賦予的值推斷型別，也可以顯式聲明型別。
-let doubleValue = 70.0 //Doubletype let myStr: String myStr = &amp;#34;1234&amp;#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
+let doubleValue = 70.0 // Double type let myStr: String myStr = &amp;#34;1234&amp;#34; Type Safety Swift 是一個非常嚴謹的語言，注重型別安全（Type Safety）
 宣告常數、變數時必須賦值或聲明顯示型別 常數、變數使用前必須給定初始值 型別無法任意轉換，必須顯式指定型別轉換。 Fundamental data type Swift Standard Library 定義了許多基本型別：</description></item><item><title>閱讀原始碼：Swift-Then</title><link>https://weihanglo.tw/posts/2017/readthesource-swift-then/</link><pubDate>Tue, 10 Jan 2017 12:15:34 +0800</pubDate><guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid><description>本系列文視筆者心情不定期撰寫。
 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
 Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
