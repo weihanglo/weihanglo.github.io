@@ -1,6 +1,7 @@
 ---
 title: "布隆過濾器 Bloom Filter"
 date: 2020-08-28T00:00:00+08:00
+katex: true
 tags:
   - Algorithms
 ---
