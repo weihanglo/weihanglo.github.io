@@ -17,16 +17,7 @@ tags:
   - [與其他語言的 Interpolation](#與其他語言的-interpolation)
   - [穩定性與 Compatibility](#穩定性與-compatibility)
 - Rust 業界採用情形
-  - 大型公司如 FAANG、RedHat、Dropbox、Mozilla 等如何採用
-  - Cloudflare、Fastly 等 CDN 服務商對 Rust 的適用
-  - 區塊鏈、高頻交易、加密貨幣領域的公司
-  - 嵌入式系統、遊戲界與其他領域
-- Rust 開源社群
-  - Rust 團隊開放分工的作法
-  - 工作組專案組的籌備
-  - 核心團隊對 Rust 語言的展望和規劃
-  - 研討會 Meetup 和線上討論的風氣與聚集地
-  - 台灣、華文圈的 Rust 生態
+- Rust 開源社群運作與生態
 
 本篇將會介紹 **「Rust 生態工具發展」**。
 
