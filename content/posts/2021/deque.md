@@ -1,6 +1,6 @@
 ---
 title: "雙端佇列 Deque"
-date: 2020-02-16T00:00:00+08:00
+date: 2021-02-16T00:00:00+08:00
 katex: true
 tags:
   - Algorithms
