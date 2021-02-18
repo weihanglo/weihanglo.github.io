@@ -3,7 +3,17 @@ Bloom filter 是一種機率資料結構（probabilistic data structure），類
 Bloom filter 的優勢是：
 類似集合，可在 $O(1)$ 時間複雜度驗證成員是否存在，卻僅需相對少的儲存空間。 承上，在 0.1% 錯誤率下儲存一百萬個元素僅需 1.71 MiB。 非常容易實作的機率資料結構，僅需多次雜湊。 Bloom filter 則有以下短處：
 經典款 Bloom filter 容器大小固定（fixed-size），無法動態調整儲存空間。 可能給出假陽性答案：回報存在但實際不存在，且錯誤隨數量變多上升。 自身不儲存成員資料，需要有額外的儲存資料方案。 只能新增成員，但不能移除成員（可透過變形解決）。 若輸入資料集本身離散，接近隨機存取，無法充分利用 CPU cache。 承上，因為隨機存取，不利於延伸到記憶體以外的外部儲存裝置。 Bloom filter 常見應用場景為：
-資料庫利用 Bloom filter 中減少實際存取 disk 的 IO 開銷。 Chromium 瀏覽器驗證大量惡意連結。 Medium 避免推薦已推薦過的文章。 小知識：bloom 是開花之意，但 Bloom filter 和開花沒任何關係，只因發明人姓氏為 Bloom</description></item><item><title>漸進符號 Asymptotic Notation</title><link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link><pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate><guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid><description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
+資料庫利用 Bloom filter 中減少實際存取 disk 的 IO 開銷。 Chromium 瀏覽器驗證大量惡意連結。 Medium 避免推薦已推薦過的文章。 小知識：bloom 是開花之意，但 Bloom filter 和開花沒任何關係，只因發明人姓氏為 Bloom</description></item><item><title>雙端佇列 Deque</title><link>https://weihanglo.tw/posts/2020/deque/</link><pubDate>Sun, 16 Feb 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/deque/</guid><description>本篇從 Rust Algorithm Club 移植，若欲閱讀最新版，請移駕至Rust 演算法俱樂部：布隆過濾器 Bloom Filter 一文，此文不同步更新。
+雙端佇列（double-ended queue，通常縮寫為 deque）是一般化（generalize）的佇列或堆疊。比起佇列只能「先進先出 FIFO」，以及堆疊只有「後進先出 LIFO」，雙端佇列可以從最前端或最末端任意方向，在常數時間複雜度內增刪元素，更為方便。
+雙端佇列常見用動態陣列或是鏈結串列實作，動態陣列的實作會因空間不夠，需要重新配置記憶體，但通常會支援隨機存取（random access）；鏈結串列的實作版本雖無法隨機存取，相對地增刪元素不需記憶體重配置。
+雙端佇列顯著的缺點是：無論以動態陣列或連結串列實作，基本款實作通常無法在 $O(k)$ 時間複雜度的情況下，選定範圍內 k 個元素並取得單一切片（slice）。這肇因於動態陣列的實作通常內部儲存空間經過多次增刪，空間利用會不連續；而用鏈結串列實作者，則因不支援隨機存取而無法達到相應的複雜度。
+本次實作的程式碼置於在 rust_algorithm_club::collections::Deque API 文件中。
+架構設計 雙端佇列有個實作重點：可在常數時間從頭尾兩端增刪元素。在資料結構設計上，會儲存分別指向頭尾的兩個指標，長相可能如下：
+struct Deque { head: usize, tail: usize, storage: SomeStorageType, } 第一直覺肯定是選用雙向鏈結串列可以雙向增刪節點的特性，作為解決方案。不過這裡我們採用動態陣列實作，更精確來說，底層儲存容器同樣是有兩個分別指向頭尾的指標的「環形緩衝區（Ring buffer）」。
+環形緩衝區 環形緩衝區（Ring buffer） 是一個長度大小固定的緩衝區，可以視為頭尾相連的記憶體區塊，上圖雖以環狀呈現，但在計算機架構中儲存方式通常是線性陣列，再搭配指向頭端的 head 與指向尾端的 tail 兩個指標構成。
+環形緩衝區有分兩種，一種是有循環的，緩衝區寫滿了就覆蓋尾端舊的資料，另一種是不會循環，緩衝區會放滿的，後者就是本次實作會用到的，以下將來探討：
+如何表示環形緩衝區為空 如何表示環形緩衝區已滿 環形緩衝區如何增加元素 這節以 ASCII chart 表示之。
+h: head t: tail x: no data [number]: has data 下面一個容量為 8，尚未有任何元素存入的環形緩衝區，這裡觀察到，若 head 與 tail 指向的儲存單元相同，換句話說兩者索引值相同，則緩衝區為空。</description></item><item><title>漸進符號 Asymptotic Notation</title><link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link><pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate><guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid><description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。
 （撰於 2018-05-31）
 日常生活中，你會如何描述處理事情的效率？
 「原來她五分鐘內可以吃掉一頭牛！」
