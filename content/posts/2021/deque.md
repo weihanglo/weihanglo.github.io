@@ -6,7 +6,7 @@ tags:
   - Algorithms
 ---
 
-> 本篇從 [Rust Algorithm Club](https://rust-algo.club) 移植，若欲閱讀最新版，請移駕至[Rust 演算法俱樂部：布隆過濾器 Bloom Filter](https://rust-algo.club/collections/deque) 一文，此文不同步更新。
+> 本篇從 [Rust Algorithm Club](https://rust-algo.club) 移植，若欲閱讀最新版，請移駕至[Rust 演算法俱樂部：雙端佇列 Deque](https://rust-algo.club/collections/deque) 一文，此文不同步更新。
 
 雙端佇列（double-ended queue，通常縮寫為 deque）是一般化（generalize）的[佇列]或[堆疊]。比起佇列只能「先進先出 FIFO」，以及堆疊只有「後進先出 LIFO」，雙端佇列可以從最前端或最末端任意方向，在常數時間複雜度內增刪元素，更為方便。
 
