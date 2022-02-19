@@ -55,5 +55,11 @@ ShowReadingTime = true
 ShowPostNavLinks = true
 showtoc = true
 disableSpecial1stPost = true
+
 [params.assets]
 disableFingerprinting = true
+disableHLJS = true
+
+[markup.highlight]
+codeFences = true
+style = "monokai"
