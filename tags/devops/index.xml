@@ -1,39 +1,92 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DevOps on Weihang Lo</title><link>https://weihanglo.tw/tags/devops/</link><description>Recent content in DevOps on Weihang Lo</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>WWW 0x17: 再見 weekly</title><link>https://weihanglo.tw/posts/2020/www-0x17/</link><pubDate>Fri, 17 Jul 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x17/</guid><description>這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-Weekly 無限期停刊 很遺憾要在此宣布 Wow Weihang Weekly 將無限期停刊，這一期沒意外會是最後一期，其實很訝異自己可以堅持半年每個禮拜都出三篇文章摘要，但至今週刊已經逐漸脫離初衷。當初想寫週刊主要有兩個原因：咀嚼自己所見並分享，還有當作資料庫供未來查詢。我覺得 WWW 一直有達到分享的功效，但卻僅僅止於「摘要」，而且若當週事務繁忙，就連摘要都看起來像是摘要機器人產生出來的，這種純手工的事情，我覺得不需要人類介入，這是第一個停刊理由。
-第二個則是週刊很難供自己日後查詢使用，你只能在週刊標題和標籤上下文章，了不起之後做一個站內全文搜尋，但這樣都太過繁瑣，我希望有一個心智圖或是關係圖的呈現方式將我所學串連起來，並提供給其他人參考我怎麼連結每個概念，但週刊的形式真的力有未逮，放棄這條路可能是個不錯的選擇。
-相信我們會再相見的。
-兩個不錯的 Rust 入門學習資源 最近越來越多人對 Rust 產生興趣，這裡就來推薦除了 TRPL 以外，可以快速上手（其實不行）的學習資源：
-Rust 程式設計語言（正體中文版）：其實就是 TRPL 的翻譯版，是 Rust Taiwan 社群近期嘔心理解的作品，有任何問題請到 GitHub Repo 回應或直接寄送GitHub 站內郵件給我。 A half-hour to learn Rust：一個我覺得 blog post 幹話很多的 Rustacean 寫的三十分鐘學習 Rust（結果預計閱讀時間顯示 51 分鐘 😂），範例程式碼超多，很適合熟透其他語言的開發者閱讀，會發現 Rust 語法其實非常現代（當然還有可愛的 Turbofish)，在還沒進入 lifetime 前完全可以快速掌握 XD Tour of Rust：向 A Tour of Go 致敬的專案，Rust 版本涵蓋的主題非常全面，static/dynamic dispatch 都講了，其實已經超越入門了。但不得不說 Go 版本讀取速度快不少，而且自己魔改的 Ferris 有夠醜。總歸一句還是很值得作為入門讀物，尤其是有 Playground 很方便。 Multitenancy Webinar: Better walls make better tenants Google 的人來講怎麼做 Kubernetes 的 multi-tenancy，基本上是透過 namespace 切分 tenancy，就可以做到在同一個 cluster 內「共享資源」和「限制資源」。這篇演講完整複習了 namespace resource limit、limit range，到 pod security policy 和 network policy 種種和 multi-tenancy 相關的設定，可為抱佛腳大全。</description></item><item><title>WWW 0x16: JWT、分散式 ID 生成、k8s 安全性</title><link>https://weihanglo.tw/posts/2020/www-0x16/</link><pubDate>Sat, 20 Jun 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x16/</guid><description>這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-Kubernetes Blog: 11 Ways (Not) to Get Hacked 管理 Kubernetes 就和管理 VM 一樣，一定會遇到各種安全性問題，這篇文章提出 11 種可以增加安全性的小撇步，順便分享 @hwchiu 整理的中文版，資訊更多更完整，感恩惜福。
-JWT 是否適合 session mechanism 最近翻到 The Ultimate Guide to handling JWTs on frontend clients 這篇小巧精緻的 JWT 身分驗證教學，流程圖簡明易懂，內容包括：
-JWT 的結構：header.payload.signature JWT 會儲存在 client-side，不適合儲存敏感資料 JWT 不適合放在 browser storage，容易被 XSS（所以推薦 in-memory） 由於 JWT 本身無狀態，誰幹走都能奪權，請保持 JWT 過期時間不會太長，文中案例是 15 分鐘 鑑於過期比較快，請配合 HttpOnly 的 cookie 的 refresh token 來更新 JWT（但 XSS 還是有點不安全） Revoke all login sessions 可以簡單透過 refresh token 達成：刪除該使用者的所有 refresh token 就行 Server-side rendering 和 JWT + refresh token 如何整合：JWT 會存在 SSR server 上，refresh token 則是每個 page request 都會產生新的 token 有趣的是，留言提出許多 JWT 與這篇文章的實作總總問題，像是：</description></item><item><title>WWW 0x12: Oxidized Chromium?</title><link>https://weihanglo.tw/posts/2020/www-0x12/</link><pubDate>Sat, 23 May 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x12/</guid><description>這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-10 Ways to Shoot Yourself in the Foot with Kubernetes, #9 Will Surprise You - Laurent Bernaille Datadog 的工程師分享十個在正式環境踩到的 K8s 坑，這邊簡單條列標題，有興趣的請直接看影片：
-永遠是 DNS 的鍋 Job 沒開始，Image 又 pull 失敗惹 我不能 kubectl 了：apiserver 被 DDOS 而且 OOM killed 新 node 不能 schedule pod log volume 成長了十倍：都是一堆 audit logs 我的 pod 怎麼沒有漲到 replicas 數量 120 node 的 Cassandra cluster 爆了 Deploy 的 heartbeat 越來越慢 Runtime 壞了（寫壞的 readinessProbe、效能問題） 優雅地關閉你的 pod RedisJSON - a JSON data type for Redis Redis 可以和 NGINX 一樣支援 load 各種外掛 modules，而且 Redis 官方（RedisLabs）甚至做了可以在 Redis 裡面操作 JSON 的 RedisJSON。</description></item><item><title>WWW 0x11: 庫存文章已用罄</title><link>https://weihanglo.tw/posts/2020/www-0x11/</link><pubDate>Sat, 16 May 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x11/</guid><description>這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-Optimizing Kubernetes Resource Requests/Limits for Cost-Efficiency and Latency / Henning Jacobs 如何設定 K8s Pod 的資源最低需求 containers.resources.requests 和最高限制 containers.resources.limits 一直是門藝術，最低需求影響 scheduler 如何安排 pod，最高限制，尤其是 memory，可能會有 OOM kill 把 pod 殺死。
-@hjabocs 分享了幾個作法：
-測來測去發現停用 CPU CFS 的 latency 最小 要記得你的 node 會被 system、kubelet，還有 container runtime 佔去部分資源 😨 用 Admission Controller 設定和 requests 一樣的 limit，防止 overcommit 知道你的 pod 的 container-aware limit，例如 JVM 就是 maxheap，node cluster 就是你設定的 process number 用他的本人寫的 K8s Resouce Report 來看冗余資源可以幫你省下多少美金 可以設定一些 priorityclass 很低的 pod 作為 buffer capacity，讓資源不足時他們可以先被踢掉應急，再慢慢等 Cluster autoscaler 來 privision 新 node 又在老王賣瓜推銷自己寫的 downscaler，離峰時間自動關機省錢 Rust Logo is a Bike Chainring!</description></item><item><title>WWW 0x10: 重構不是病，寫起來要人命</title><link>https://weihanglo.tw/posts/2020/www-0x10/</link><pubDate>Sat, 09 May 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x10/</guid><description>這裡是 WWW 第拾陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-Graceful shutdown in Kubernetes is not always trivial 對不起，分享一篇 medium 付費牆的文章。重點節錄：
-讓你的 app delay 一些時間再停止接收 connection 如果你沒辦法控制 app（code 不是你寫的），可加 preStop hook 來控制 如果加了沒用，請去看該 app 如何處理各種 Signal 請測試，請分析，不要盲目寫完就當作自己做好 graceful shutdown 三篇文章了解 TiDB 技术内幕 - 说计算 由於開源資料庫系統 TiDB 為中國人研發，中文撰寫的文件非常多，這篇主要介紹 SQL 的 relation model 如何映射到 Key-Value model，處理 index 和 unique index 也不相同。很有趣，值得一讀（TiDB/TiKV 的 source code 也是 😂）。
-Rewriting the heart of our sync engine Dropbox 重寫整個電腦版的同步引擎 Nucleus，花了四年時間，節錄些（其實不是節錄）有趣發現：</description></item><item><title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日</title><link>https://weihanglo.tw/posts/2020/www-0x0f/</link><pubDate>Sat, 02 May 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x0f/</guid><description>這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-Latency Numbers Every Programmer Should Know 最近替公司服務做 autoscaling，需要各種伺服器數據，好來順便做 cache 和最佳化 API，剛好讀到這篇「程式設計師都應知道的延遲數字」，心裡有個概念，大概就可以抓到服務什麼地方可能需要加強了。
-Visual chart provided by ayshen
-Shopee 的分布式数据库实践之路 內容比較分散的「漫談」，主要闡述蝦皮使用知名分散式資料庫 TiDB 的各種姿勢和場景。幾個有趣的點：
-觀察： 原本 1000 sharding 的把表分片，改成 TiDB 同一張表，結果某個佔 90% read op 的 latency 大到會把 TiDB cluster 卡死，最後把這個效能吃緊的 read cache 在 Redis 上才解決。
-感想： 省了 sharding 的管理規劃成本，多了 Redis cache 的成本，不過這層 cache 個人覺得遲早的事。
-觀察： 蝦皮寫了自己的 Binlog middleware 來解析 binlog，在儲存到 Kafka 或 Redis。
-感想： 感覺這種 operation log 當作事件處理的流程漸漸成為標準配備，像 MongoDB 直接提供 Change Streams 統一介面很方便，能夠以更接近資料的面向訂閱資料流當然更好。</description></item><item><title>Kuberenetes Autoscaling 相關知識小整理</title><link>https://weihanglo.tw/posts/2020/k8s-autoscaling/</link><pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/k8s-autoscaling/</guid><description>K8s 有好用的 autoscaling 功能，但你知道除了 pod 之外，node 也可以 auto scaling 嗎？帥，你知道就不用分享了啊 🚬
-本文以重點整理的方式，先介紹目前常見的 Autoscaler，再介紹一些防止 pod 被亂殺的 config。
-（撰於 2020-03-23，基於 Kubernetes 1.17，但 Api Versions 太多請自行查閱手冊）
-讓我們歡迎第一位 Autoscaler 出場！
-Cluster Autoscaler（CA） 負責調整 node-pool 的 node size scaling，屬於 cluster level autoscaler。
-白話文：開新機器，關沒路用的機器 😈
-Scale-up： 有 pod 的狀態是 unschedulable 時 Scale-down： 觀察 pod 總共的 memory/CPU request 是否 &amp;lt; 50%（非真實的 resource utilization）+ 沒有其他 pod/node 的條件限制 可設定 min/maxi poolsize（GKE），自己管理的叢集可以設定更多參數 會參照 PriorityClass 來調控 pod，但就是僅僅設立一條貧窮截止線，當前是 -10 ，autoscaler 不會因為低於此線的 pod 而去 scale-up，需要 scale-down 也不會理會 node 裡面是否有這種 pod 部分設定設不好會讓 CA 沒辦法 scaling CA 要關 node 然後 evict pod 時違反 pod affinity/anti-affinity 和 PodDisruptionBudget 在 node 加上 annotation 可防止被 scale down：&amp;quot;cluster-autoscaler.</description></item><item><title>WWW 0x02: Distroless Docker for distressed human</title><link>https://weihanglo.tw/posts/2020/www-0x02/</link><pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x02/</guid><description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-How to Review a Pull Request 這份是 Rust 的 crates.io（類似 PyPI 和 rubygems）如何審閱拉取請求的文件， 和 Google 那份不太一樣，更貼近專案一點，節錄重點：
-先拉到自己的本地分支，看看 PR 是否達到他宣稱的療效（檢查一般行為） 嘗試用各種手段打爆他（檢查 edge case） 如果有任何失敗，請寫清楚重新產生錯誤的流程 再來就是理解這個修改到底合不合理，是不是其實不需要 這篇 review guideline 短短的，剩下的自己看囉。
-Distroless Docker: Containerizing Apps, not VMs - Matthew Moore 本文是 Google 雇員介紹 Distroless Image 演講的重點摘要，對容器化和 Docker 最佳化有興趣的朋友千萬別錯過。
-Distroless GitHub Repo 在此
-Q：何謂 Distroless Image
-Distroless 的 distro 是指 Linux 發行版（distro），加了一個 less 就是替 docker image 瘦身，只留 app source 和 runtime 需要的 dependencies，把發行版中不必要的東西都幹掉。</description></item><item><title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title><link>https://weihanglo.tw/posts/2020/www-0x01/</link><pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate><guid>https://weihanglo.tw/posts/2020/www-0x01/</guid><description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。
-How to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了
-move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 =&amp;gt; Rust 已經是 NLL 了 Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次
-YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事 這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DevOps on Weihang Lo</title>
+    <link>https://weihanglo.tw/tags/devops/</link>
+    <description>Recent content in DevOps on Weihang Lo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>CC BY-NC-SA 4.0</copyright>
+    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WWW 0x17: 再見 weekly</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x17/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x17/</guid>
+      <description>這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x16: JWT、分散式 ID 生成、k8s 安全性</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x16/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x16/</guid>
+      <description>這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x12: Oxidized Chromium?</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x12/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x12/</guid>
+      <description>這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x11: 庫存文章已用罄</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x11/</link>
+      <pubDate>Sat, 16 May 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x11/</guid>
+      <description>這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x10: 重構不是病，寫起來要人命</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x10/</link>
+      <pubDate>Sat, 09 May 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x10/</guid>
+      <description>這裡是 WWW 第拾陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x0f/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x0f/</guid>
+      <description>這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
+    </item>
+    
+    <item>
+      <title>Kuberenetes Autoscaling 相關知識小整理</title>
+      <link>https://weihanglo.tw/posts/2020/k8s-autoscaling/</link>
+      <pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/k8s-autoscaling/</guid>
+      <description>K8s 有好用的 autoscaling 功能，但你知道除了 pod 之外，node 也可以 auto scaling 嗎？帥，你知道就不用分享了啊 🚬 本文以重點整理的方式，先介紹目前常見的 Autoscal</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x02: Distroless Docker for distressed human</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x02/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x02/</guid>
+      <description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
+    </item>
+    
+    <item>
+      <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
+      <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
+      <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
+    </item>
+    
+  </channel>
+</rss>

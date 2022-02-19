@@ -1,34 +1,152 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="本系列文視筆者心情不定期撰寫。
-提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
-  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
-Weihang Lo &ndash; Daily Trash Talk
- 厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，
-第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。
-（撰於 2017-01-10，基於 Swift 3.0、 Then 2.1.0）
-Problem to Solve 我們知道，Block 的引入為古老的 Objective-C 增添了 lambda／closure 的現代感，Swift 則繼續將其發揚光大。有了 closure，我們不必將所有 UI 元件的設置全擠在 viewDidLoad 裡面。我們只需要：
-let label: UILabel = { let label = UILabel() label.textAlignment = .center label.textColor = .black label.text = &#34;Hello, World!&#34; return label }() 可是對懶惰的 programmer 來說，這段程式碼太多地方重複，必定還有偷懶的空間。Then 這個迷你的語法糖 library 就是專為偷懶而生，目的就是將上面冗長的初始化設置簡寫如下："><meta name=theme-color content="#ffcd00"><meta property="og:title" content="閱讀原始碼：Swift-Then • Weihang Lo"><meta property="og:description" content="本系列文視筆者心情不定期撰寫。
-提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！
-  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！
-Weihang Lo &ndash; Daily Trash Talk
- 厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，
-第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。
-（撰於 2017-01-10，基於 Swift 3.0、 Then 2.1.0）
-Problem to Solve 我們知道，Block 的引入為古老的 Objective-C 增添了 lambda／closure 的現代感，Swift 則繼續將其發揚光大。有了 closure，我們不必將所有 UI 元件的設置全擠在 viewDidLoad 裡面。我們只需要：
-let label: UILabel = { let label = UILabel() label.textAlignment = .center label.textColor = .black label.text = &#34;Hello, World!&#34; return label }() 可是對懶惰的 programmer 來說，這段程式碼太多地方重複，必定還有偷懶的空間。Then 這個迷你的語法糖 library 就是專為偷懶而生，目的就是將上面冗長的初始化設置簡寫如下："><meta property="og:url" content="https://weihanglo.tw/posts/2017/readthesource-swift-then/"><meta property="og:site_name" content="Weihang Lo"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="Swift"><meta property="article:tag" content="Source Reading"><meta property="article:published_time" content="2017-01-10T12:15:34+08:00"><meta property="article:modified_time" content="2017-01-10T12:15:34+08:00"><meta name=twitter:card content="summary"><meta name=generator content="Hugo 0.74.3"><title>閱讀原始碼：Swift-Then • Weihang Lo</title><link rel=canonical href=https://weihanglo.tw/posts/2017/readthesource-swift-then/><link rel=icon href=/favicon.ico><link rel=stylesheet href=/assets/css/main.ab98e12b.css><link rel=stylesheet href=/css/custom.css><style>:root{--color-accent:#ffcd00}</style></head><body class="page type-posts"><div class=site><a class=screen-reader-text href=#content>Skip to Content</a><div class=main><nav id=main-menu class="menu main-menu" aria-label="Main Menu"><div class=container><ul><li class=item><a href=/>Home</a></li><li class=item><a href=/posts/>Posts</a></li><li class=item><a href=/tags/>Tags</a></li><li class=item><a href=/about/>About</a></li></ul></div></nav><div class=header-widgets><div class=container></div></div><header id=header class="header site-header"><div class="container sep-after"><div class=header-info><p class="site-title title">Weihang Lo</p><p class="desc site-desc"></p></div></div></header><main id=content><article lang=en class=entry><header class="header entry-header"><div class="container sep-after"><div class=header-info><h1 class=title>閱讀原始碼：Swift-Then</h1></div><div class=entry-meta><span class=posted-on><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class=screen-reader-text>Posted on</span>
-<time class=entry-date datetime=2017-01-10T12:15:34+08:00>2017, Jan 10</time></span>
-<span class=reading-time><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg>4 mins read</span></div></div></header><div class="container entry-content"><p>本系列文視筆者心情不定期撰寫。</p><p>提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！</p><hr><blockquote><p>Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！</p><p><strong><em>Weihang Lo</em></strong> &ndash; <em>Daily Trash Talk</em></p></blockquote><p>厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，</p><p>第一篇，先從簡單的 Framework 開始，<a href=https://github.com/devxoul/Then>Then</a> 就非常有代表性。</p><p><em>（撰於 2017-01-10，基於 Swift 3.0、 Then 2.1.0）</em></p><h2 id=problem-to-solve>Problem to Solve</h2><p>我們知道，Block 的引入為古老的 Objective-C 增添了 lambda／closure 的現代感，Swift 則繼續將其發揚光大。有了 closure，我們不必將所有 UI 元件的設置全擠在 <code>viewDidLoad</code> 裡面。我們只需要：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>let</span> label: UILabel = {
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>閱讀原始碼：Swift-Then | Weihang Lo</title>
+<meta name=keywords content="Swift,Source Reading">
+<meta name=description content="本系列文視筆者心情不定期撰寫。 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式">
+<meta name=author content>
+<link rel=canonical href=https://weihanglo.tw/posts/2017/readthesource-swift-then/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://weihanglo.tw/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://weihanglo.tw/apple-touch-icon.png>
+<link rel=mask-icon href=https://weihanglo.tw/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css integrity=sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ crossorigin=anonymous>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js integrity=sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:!0},{left:'$',right:'$',display:!1},{left:'\\(',right:'\\)',display:!1},{left:'\\[',right:'\\]',display:!0}],throwOnError:!1})})</script>
+<meta property="og:title" content="閱讀原始碼：Swift-Then">
+<meta property="og:description" content="本系列文視筆者心情不定期撰寫。 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://weihanglo.tw/posts/2017/readthesource-swift-then/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2017-01-10T12:15:34+08:00">
+<meta property="article:modified_time" content="2017-01-10T12:15:34+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="閱讀原始碼：Swift-Then">
+<meta name=twitter:description content="本系列文視筆者心情不定期撰寫。 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"閱讀原始碼：Swift-Then","item":"https://weihanglo.tw/posts/2017/readthesource-swift-then/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"閱讀原始碼：Swift-Then","name":"閱讀原始碼：Swift-Then","description":"本系列文視筆者心情不定期撰寫。 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式","keywords":["Swift","Source Reading"],"articleBody":"本系列文視筆者心情不定期撰寫。\n提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！\n  Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！\nWeihang Lo – Daily Trash Talk\n 厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，\n第一篇，先從簡單的 Framework 開始，Then 就非常有代表性。\n（撰於 2017-01-10，基於 Swift 3.0、 Then 2.1.0）\nProblem to Solve 我們知道，Block 的引入為古老的 Objective-C 增添了 lambda／closure 的現代感，Swift 則繼續將其發揚光大。有了 closure，我們不必將所有 UI 元件的設置全擠在 viewDidLoad 裡面。我們只需要：\nlet label: UILabel = { let label = UILabel() label.textAlignment = .center label.textColor = .black label.text = \"Hello, World!\" return label }() 可是對懶惰的 programmer 來說，這段程式碼太多地方重複，必定還有偷懶的空間。Then 這個迷你的語法糖 library 就是專為偷懶而生，目的就是將上面冗長的初始化設置簡寫如下：\nlet label = UILabel().then { $0.textAlignment = .center $0.textColor = .black $0.text = \"Hello, World!\" } 出自韓國人之手的 Then，僅為了節省 Programmer 珍貴的鍵盤敲擊次數，卻在 Github 上獲得不少關注，截止 2016 年底，得到 1402 stars。深入觀察這正港韓貨，扣除 Framework 複雜的 build settings，真正的原始碼只有短短 76 行，再扣掉 comments 和 license 後剩不到 40 行。雖然這個 library 很小，該有的技術卻沒少，可謂一字千金。\nWhat to learn 我認為 Then 有以下幾個技術點值得關注：\n Protocol Extensions Value Types V.S. Reference Types In-Out Parameters Generic Where Clauses  How To Solve Protocol Extensions 要給所有 NSObject subclass 添加一個 then method，使用 Protocol 絕對是不二法門。Protocol 常對應到其他語言的 Interface，類似 class，有自己的 methods 和 properties，但並不包含任何實作，而是等著其他 class 來滿足實作，使不同 class 之間可以分享相同的介面。缺點是，所有繼承 protocol 的 subclass 都需實作這些 methods，豈不麻煩？\n如果我們可以從 protocol（interface）提供 default implementations 呢？很抱歉，在 Java 和 Objective-C 的世界裡，protocol 只能存在抽象介面（註一）。事實上，Swift 的 protocol 本身也沒辦法提供實作，直到 Swift 2 釋出， protocol 才能透過 extension 提供 default implementations，當個名副其實的富爸爸，而非虛有其表。\n我們來看 Then 中的實例（實際上，最初版本就長這樣，短短八行）：\npublic protocol Then {} // 1 extension Then { // 2 public func then(_ block: (Self) - Void) - Self { block(self) return self } } extension NSObject: Then {} // 3  Then 最核心的部分就是這純淨的 Then protocol，毫無任何 requirements。 這個 protocol extension 提供 default implementations 給所有 adopter。 Then 被 NSObject adopted，NSObject 就像是富二代，不用做事，就能直接獲得 then method 的能力。  利用 Protocol Extensions，subclass 不需再次實作，大大減少 boilerplate code。嫌污染環境，甚至可以透過 ACL（Access Control）來決定 protocol extension 的作用域，但關於 ACL 又是一個議題了，打住先。\n不過，protocol extensions 也是有大坑，多重繼承的問題依然存在。如果繼承多個 protocols 中包含相同 method signatures 的 default implementations，compile 會過，但 runtime 會找到太多 candidates 而報錯。總之，作者 open source 八行程式碼，成功延長你我鍵盤使用年限，揪甘心！\nIssue: Cannot used with struct 不過問題沒這麼簡單，有人發現 struct 沒辦法使用 then，會報錯：\n Cannot assign to property: ‘$0’ is a ‘let’ constant\n Swift 的 function parameters 是 constant 的 let（註二），傳入 function 後無法更改其 value（這裡的 value 是該 argument 實際指向的 value）。當然，如果是 class 這種 reference type，可以更改其 properties，但若是 struct、enum 這些 value type，必須要宣告一個新的變數 var newValue = oldValue，將其 copy 一份，直接更改 newValue。可能的解法如下：\nfunc then(_ block: (Self) - Void) - Self { var copy = self block(self) return self } 結果還是報一樣的 Error！\n這是因為傳入 closure（block）的 parameter 仍然是 immutable 的 let constant。為了讓 value type 可以使用這個 syntax sugar，豈不是實作上還要多宣告一個 copy 的變數，完全沒偷到懶，根本脫褲子放屁嘛！\nC 或 Objective-C 的開發者也許已經想到使用讓人又愛又恨的 pointer 來解決，實際上，Apple 官方的 Framework 也常用 pointer 解決這種惱人事。例如：在一些 UIKit 的 delegate 中，不時看到被 inout 修飾（註三）的 function parameter，透過 pointer dereferencing 來修改並 write back 傳入的argument。\n傳統 C 語言 function call 皆是 call-by-value，pointer 的使用實際上也只是透過傳遞 memory address 的 value 來模擬 call-by-reference。眾所周知，Swift: Objective-C without the C。在 Swift 這個階級分明、極不平等的世界裡，value type 統一是 call-by-value，而 reference type 則是 call-by-reference。可愛 pointer 的戲份因此被刪，僅留下修飾參數的 attribute：inout。\nSwift 的 inout 和 Objective-C 的功能不太一樣，一個被修飾的 Swift in-out parameter 既非 call-by-value 也非 call-by-reference，而是俗稱 copy-in copy-out 的 call-by-value-result，可以參考蘋果官方的解釋：\n  When the function is called, the value of the argument is copied. In the body of the function, the copy is modified. When the function returns, the copy’s value is assigned to the original argument.   意思就是指：\n function call 之初，先 copy 一份給你褻玩，等 function return，再把 value assign 回去\n 於是 code 立馬修改成：\nfunc then(_ block: (inout Self) - Void) - Self { // 1 var copy = self block(\u0026copy) // 2 return copy }  使用 inout 修飾 closure 的參數。 傳入 inout parameter，要加 \u0026 prefix（感覺還是很 C 啊）。  此後，value type 終於爭取到真平權，與 reference type 一樣，毫無違和地使用 then 了！\nGeneric Where Clauses 事情沒有這麼簡單，又有人發了 issue，言下之意是 reference type 不需要 inout 修飾，作者你 value type reference type 共用同一個 method，我還要多打 inout 來修飾，這樣要怎麼教小孩？幸好，Swift 有提供 Generic Where Clauses（一種泛型條件限制），讓我們 overload 不同的型別的實作。請看 code：\nextension Then where Self: Any { // 1 public func with(_ block: (inout Self) - Void) - Self { var copy = self block(\u0026copy) return copy } } extension Then where Self: AnyObject { // 2 public func then(_ block: (Self) - Void) - Self { block(self) return self } }  where clause 限制此 extension 僅作用在 Any 型別（如果是 Any 好像不用寫齁XD）。 where clause 限制此 extension 僅作用在 AnyObject 型別，也就是 reference type。  透過泛型的限制，我們成功隔離 value type 與 reference type 的不同需求。雖然仍無法爭取到真平權，但我們是 Swift 不是 Ruby，別把國外那一套拿來比較。至少現在 value type 透過 inout 修飾，可以獲得同樣的功能，只是多了幾道手續，我們還是很看好 value type 的！\nSummary Then library 會受到如此多關注，大概是因為它夠「Swifty」吧，從第二個 issue 就開始熱烈討論是否該將這個 syntax sugar propose 到 Swift Evolution，作為下一版的新 Features，陸陸續續有類似想法的人就開始行動了（mailing list \u0026 cascading issue），不難看出 Swift 社群有多麼活躍。我想，多多關注 Swift Evolution，應該會有不少收穫！\nReference  devxoul/Then Apple Swift Documentation Stackoverflow: Is Swift Pass By Value or Pass By Reference    註一：Java 8 引進 Default methods，interface 可以有自己的 implementations 。 註二：在 Swift 3 之前 function argument 可以宣告為 var，但普遍認為實用性比 inout 低，且容易混淆，就提案將 argument 改為常數 let 了。 註三：實際上 Objective-C 的 inout 修飾只是在 compile 層會做優化，對 function 本身沒啥影響。   ","wordCount":"2764","inLanguage":"en","datePublished":"2017-01-10T12:15:34+08:00","dateModified":"2017-01-10T12:15:34+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2017/readthesource-swift-then/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://weihanglo.tw/ title=Home>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a href=https://weihanglo.tw/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://weihanglo.tw/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://weihanglo.tw/about/ title=About>
+<span>About</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<h1 class=post-title>
+閱讀原始碼：Swift-Then
+</h1>
+<div class=post-meta><span title="2017-01-10 12:15:34 +0800 +0800">January 10, 2017</span>&nbsp;·&nbsp;6 min
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#problem-to-solve aria-label="Problem to Solve">Problem to Solve</a></li>
+<li>
+<a href=#what-to-learn aria-label="What to learn">What to learn</a></li>
+<li>
+<a href=#how-to-solve aria-label="How To Solve">How To Solve</a><ul>
+<li>
+<a href=#protocol-extensionsprotocol-extensions aria-label="Protocol Extensions"><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID521>Protocol Extensions</a></a></li>
+<li>
+<a href=#issue-cannot-used-with-structissue-16 aria-label="Issue: Cannot used with struct"><a href=https://github.com/devxoul/Then/issues/16>Issue: Cannot used with <code>struct</code></a></a></li>
+<li>
+<a href=#generic-where-clausesgeneric-where-clauses aria-label="Generic Where Clauses"><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/doc/uid/TP40014097-CH37-ID406>Generic Where Clauses</a></a></li></ul>
+</li>
+<li>
+<a href=#summary aria-label=Summary>Summary</a></li>
+<li>
+<a href=#reference aria-label=Reference>Reference</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p>本系列文視筆者心情不定期撰寫。</p>
+<p>提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式碼，卻不易從程式碼反推回作者的意圖。藉由閱讀原始碼，可了解問題脈絡與解法邏輯，探討值得學習的技術點，將別人的多年修煉化為自身內功！</p>
+<hr>
+<blockquote>
+<p>Programmer 不一定懶惰，但厲害的 programmer 絕對很懶惰！</p>
+<p><strong><em>Weihang Lo</em></strong> &ndash; <em>Daily Trash Talk</em></p>
+</blockquote>
+<p>厲害的 programmer 會為了少打幾個字，犧牲睡眠與休閒時間來開發偷懶工具，</p>
+<p>第一篇，先從簡單的 Framework 開始，<a href=https://github.com/devxoul/Then>Then</a> 就非常有代表性。</p>
+<p><em>（撰於 2017-01-10，基於 Swift 3.0、 Then 2.1.0）</em></p>
+<h2 id=problem-to-solve>Problem to Solve<a hidden class=anchor aria-hidden=true href=#problem-to-solve>#</a></h2>
+<p>我們知道，Block 的引入為古老的 Objective-C 增添了 lambda／closure 的現代感，Swift 則繼續將其發揚光大。有了 closure，我們不必將所有 UI 元件的設置全擠在 <code>viewDidLoad</code> 裡面。我們只需要：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>let</span> label: UILabel = {
   <span style=color:#66d9ef>let</span> label = UILabel()
   label.textAlignment = .center
   label.textColor = .black
   label.text = <span style=color:#e6db74>&#34;Hello, World!&#34;</span>
   <span style=color:#66d9ef>return</span> label
 }()
-</code></pre></div><p>可是對懶惰的 programmer 來說，這段程式碼太多地方重複，必定還有偷懶的空間。<a href=https://github.com/devxoul/Then>Then</a> 這個迷你的語法糖 library 就是專為偷懶而生，目的就是將上面冗長的初始化設置簡寫如下：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>let</span> label = UILabel().then {
+</code></pre></div><p>可是對懶惰的 programmer 來說，這段程式碼太多地方重複，必定還有偷懶的空間。<a href=https://github.com/devxoul/Then>Then</a> 這個迷你的語法糖 library 就是專為偷懶而生，目的就是將上面冗長的初始化設置簡寫如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>let</span> label = UILabel().then {
   $0.textAlignment = .center
   $0.textColor = .black
   $0.text = <span style=color:#e6db74>&#34;Hello, World!&#34;</span>
 }
-</code></pre></div><p>出自韓國人之手的 <a href=https://github.com/devxoul/Then>Then</a>，僅為了節省 Programmer 珍貴的鍵盤敲擊次數，卻在 Github 上獲得不少關注，截止 2016 年底，得到 1402 stars。深入觀察這正港韓貨，扣除 Framework 複雜的 build settings，真正的原始碼只有<a href=https://github.com/devxoul/Then/blob/master/Sources/Then.swift>短短 76 行</a>，再扣掉 comments 和 license 後剩不到 40 行。雖然這個 library 很小，該有的技術卻沒少，可謂一字千金。</p><h2 id=what-to-learn>What to learn</h2><p>我認為 <strong>Then</strong> 有以下幾個技術點值得關注：</p><ul><li>Protocol Extensions</li><li>Value Types V.S. Reference Types</li><li>In-Out Parameters</li><li>Generic Where Clauses</li></ul><h2 id=how-to-solve>How To Solve</h2><h3 id=protocol-extensionsprotocol-extensions><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID521>Protocol Extensions</a></h3><p>要給所有 NSObject subclass 添加一個 <code>then</code> method，使用 <strong>Protocol</strong> 絕對是不二法門。Protocol 常對應到其他語言的 Interface，類似 class，有自己的 methods 和 properties，但並不包含任何實作，而是等著其他 class 來滿足實作，使不同 class 之間可以分享相同的介面。缺點是，所有繼承 protocol 的 subclass 都需實作這些 methods，豈不麻煩？</p><p>如果我們可以從 protocol（interface）提供 default implementations 呢？很抱歉，在 Java 和 Objective-C 的世界裡，protocol 只能存在抽象介面（註一）。事實上，Swift 的 protocol 本身也沒辦法提供實作，直到 Swift 2 釋出， <strong>protocol 才能透過 extension 提供 default implementations</strong>，當個名副其實的富爸爸，而非虛有其表。</p><p>我們來看 <strong>Then</strong> 中的實例（實際上，最初版本就長這樣，短短八行）：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>protocol</span> <span style=color:#a6e22e>Then</span> {} <span style=color:#75715e>// 1</span>
+</code></pre></div><p>出自韓國人之手的 <a href=https://github.com/devxoul/Then>Then</a>，僅為了節省 Programmer 珍貴的鍵盤敲擊次數，卻在 Github 上獲得不少關注，截止 2016 年底，得到 1402 stars。深入觀察這正港韓貨，扣除 Framework 複雜的 build settings，真正的原始碼只有<a href=https://github.com/devxoul/Then/blob/master/Sources/Then.swift>短短 76 行</a>，再扣掉 comments 和 license 後剩不到 40 行。雖然這個 library 很小，該有的技術卻沒少，可謂一字千金。</p>
+<h2 id=what-to-learn>What to learn<a hidden class=anchor aria-hidden=true href=#what-to-learn>#</a></h2>
+<p>我認為 <strong>Then</strong> 有以下幾個技術點值得關注：</p>
+<ul>
+<li>Protocol Extensions</li>
+<li>Value Types V.S. Reference Types</li>
+<li>In-Out Parameters</li>
+<li>Generic Where Clauses</li>
+</ul>
+<h2 id=how-to-solve>How To Solve<a hidden class=anchor aria-hidden=true href=#how-to-solve>#</a></h2>
+<h3 id=protocol-extensionsprotocol-extensions><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID521>Protocol Extensions</a><a hidden class=anchor aria-hidden=true href=#protocol-extensionsprotocol-extensions>#</a></h3>
+<p>要給所有 NSObject subclass 添加一個 <code>then</code> method，使用 <strong>Protocol</strong> 絕對是不二法門。Protocol 常對應到其他語言的 Interface，類似 class，有自己的 methods 和 properties，但並不包含任何實作，而是等著其他 class 來滿足實作，使不同 class 之間可以分享相同的介面。缺點是，所有繼承 protocol 的 subclass 都需實作這些 methods，豈不麻煩？</p>
+<p>如果我們可以從 protocol（interface）提供 default implementations 呢？很抱歉，在 Java 和 Objective-C 的世界裡，protocol 只能存在抽象介面（註一）。事實上，Swift 的 protocol 本身也沒辦法提供實作，直到 Swift 2 釋出， <strong>protocol 才能透過 extension 提供 default implementations</strong>，當個名副其實的富爸爸，而非虛有其表。</p>
+<p>我們來看 <strong>Then</strong> 中的實例（實際上，最初版本就長這樣，短短八行）：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>protocol</span> <span style=color:#a6e22e>Then</span> {} <span style=color:#75715e>// 1</span>
 
 <span style=color:#66d9ef>extension</span> <span style=color:#a6e22e>Then</span> { <span style=color:#75715e>// 2</span>
   <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>_</span> block: (<span style=color:#66d9ef>Self</span>) -&gt; Void) -&gt; <span style=color:#66d9ef>Self</span> {
@@ -38,17 +156,54 @@ let label: UILabel = { let label = UILabel() label.textAlignment = .center label
 }
 
 <span style=color:#66d9ef>extension</span> <span style=color:#a6e22e>NSObject</span>: Then {} <span style=color:#75715e>// 3</span>
-</code></pre></div><ol><li><strong>Then</strong> 最核心的部分就是這純淨的 <code>Then</code> protocol，毫無任何 requirements。</li><li>這個 protocol extension 提供 default implementations 給所有 adopter。</li><li><code>Then</code> 被 <code>NSObject</code> adopted，<code>NSObject</code> 就像是富二代，不用做事，就能直接獲得 <code>then</code> method 的能力。</li></ol><p>利用 <strong>Protocol Extensions</strong>，subclass 不需再次實作，大大減少 boilerplate code。嫌污染環境，甚至可以透過 <a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html>ACL（Access Control）</a>來決定 protocol extension 的作用域，但關於 ACL 又是一個議題了，打住先。</p><p>不過，protocol extensions <strong>也是有大坑</strong>，多重繼承的問題依然存在。如果繼承多個 protocols 中包含相同 method signatures 的 default implementations，compile 會過，但 runtime 會找到太多 candidates 而報錯。總之，作者 open source 八行程式碼，成功延長你我鍵盤使用年限，揪甘心！</p><h3 id=issue-cannot-used-with-structissue-16><a href=https://github.com/devxoul/Then/issues/16>Issue: Cannot used with <code>struct</code></a></h3><p>不過問題沒這麼簡單，有人發現 <code>struct</code> 沒辦法使用 <code>then</code>，會報錯：</p><blockquote><p>Cannot assign to property: &lsquo;$0&rsquo; is a &lsquo;let&rsquo; constant</p></blockquote><p><code>Swift</code> 的 function parameters 是 constant 的 let（註二），傳入 function 後無法更改其 value（這裡的 value 是該 argument 實際指向的 value）。當然，如果是 <code>class</code> 這種 reference type，可以更改其 properties，但若是 <code>struct</code>、<code>enum</code> 這些 value type，必須要宣告一個新的變數 <code>var newValue = oldValue</code>，將其 copy 一份，直接更改 <code>newValue</code>。可能的解法如下：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>_</span> block: (<span style=color:#66d9ef>Self</span>) -&gt; Void) -&gt; <span style=color:#66d9ef>Self</span> {
+</code></pre></div><ol>
+<li><strong>Then</strong> 最核心的部分就是這純淨的 <code>Then</code> protocol，毫無任何 requirements。</li>
+<li>這個 protocol extension 提供 default implementations 給所有 adopter。</li>
+<li><code>Then</code> 被 <code>NSObject</code> adopted，<code>NSObject</code> 就像是富二代，不用做事，就能直接獲得 <code>then</code> method 的能力。</li>
+</ol>
+<p>利用 <strong>Protocol Extensions</strong>，subclass 不需再次實作，大大減少 boilerplate code。嫌污染環境，甚至可以透過 <a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html>ACL（Access Control）</a>來決定 protocol extension 的作用域，但關於 ACL 又是一個議題了，打住先。</p>
+<p>不過，protocol extensions <strong>也是有大坑</strong>，多重繼承的問題依然存在。如果繼承多個 protocols 中包含相同 method signatures 的 default implementations，compile 會過，但 runtime 會找到太多 candidates 而報錯。總之，作者 open source 八行程式碼，成功延長你我鍵盤使用年限，揪甘心！</p>
+<h3 id=issue-cannot-used-with-structissue-16><a href=https://github.com/devxoul/Then/issues/16>Issue: Cannot used with <code>struct</code></a><a hidden class=anchor aria-hidden=true href=#issue-cannot-used-with-structissue-16>#</a></h3>
+<p>不過問題沒這麼簡單，有人發現 <code>struct</code> 沒辦法使用 <code>then</code>，會報錯：</p>
+<blockquote>
+<p>Cannot assign to property: &lsquo;$0&rsquo; is a &lsquo;let&rsquo; constant</p>
+</blockquote>
+<p><code>Swift</code> 的 function parameters 是 constant 的 let（註二），傳入 function 後無法更改其 value（這裡的 value 是該 argument 實際指向的 value）。當然，如果是 <code>class</code> 這種 reference type，可以更改其 properties，但若是 <code>struct</code>、<code>enum</code> 這些 value type，必須要宣告一個新的變數 <code>var newValue = oldValue</code>，將其 copy 一份，直接更改 <code>newValue</code>。可能的解法如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>_</span> block: (<span style=color:#66d9ef>Self</span>) -&gt; Void) -&gt; <span style=color:#66d9ef>Self</span> {
   <span style=color:#66d9ef>var</span> copy = <span style=color:#66d9ef>self</span>
   block(<span style=color:#66d9ef>self</span>)
   <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>self</span>
 }
-</code></pre></div><p><strong>結果還是報一樣的 Error！</strong></p><p>這是因為傳入 closure（block）的 parameter 仍然是 immutable 的 let constant。為了讓 value type 可以使用這個 syntax sugar，豈不是實作上還要多宣告一個 copy 的變數，完全沒偷到懶，根本脫褲子放屁嘛！</p><p>C 或 Objective-C 的開發者也許已經想到使用讓人又愛又恨的 pointer 來解決，實際上，Apple 官方的 Framework 也常用 pointer 解決這種惱人事。例如：在一些 UIKit 的 delegate 中，不時看到被 <strong>inout</strong> 修飾（註三）的 function parameter，透過 pointer dereferencing 來修改並 write back 傳入的argument。</p><p>傳統 C 語言 function call 皆是 <strong>call-by-value</strong>，pointer 的使用實際上也只是透過傳遞 memory address 的 value 來模擬 <strong>call-by-reference</strong>。眾所周知，<strong>Swift: Objective-C without the C</strong>。在 Swift 這個階級分明、極不平等的世界裡，value type 統一是 <strong>call-by-value</strong>，而 reference type 則是 <strong>call-by-reference</strong>。可愛 pointer 的戲份因此被刪，僅留下修飾參數的 attribute：<a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID545>inout</a>。</p><p>Swift 的 <strong>inout</strong> 和 Objective-C 的功能不太一樣，一個被修飾的 Swift in-out parameter 既非 call-by-value 也非 call-by-reference，而是俗稱 <strong>copy-in copy-out</strong> 的 <strong>call-by-value-result</strong>，可以參考蘋果官方的解釋：</p><blockquote><ol><li>When the function is called, the value of the argument is copied.</li><li>In the body of the function, the copy is modified.</li><li>When the function returns, the copy’s value is assigned to the original argument.</li></ol></blockquote><p>意思就是指：</p><blockquote><p>function call 之初，先 copy 一份給你褻玩，等 function return，再把 value assign 回去</p></blockquote><p>於是 code 立馬修改成：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>_</span> block: (<span style=color:#66d9ef>inout</span> <span style=color:#66d9ef>Self</span>) -&gt; Void) -&gt; <span style=color:#66d9ef>Self</span> { <span style=color:#75715e>// 1</span>
+</code></pre></div><p><strong>結果還是報一樣的 Error！</strong></p>
+<p>這是因為傳入 closure（block）的 parameter 仍然是 immutable 的 let constant。為了讓 value type 可以使用這個 syntax sugar，豈不是實作上還要多宣告一個 copy 的變數，完全沒偷到懶，根本脫褲子放屁嘛！</p>
+<p>C 或 Objective-C 的開發者也許已經想到使用讓人又愛又恨的 pointer 來解決，實際上，Apple 官方的 Framework 也常用 pointer 解決這種惱人事。例如：在一些 UIKit 的 delegate 中，不時看到被 <strong>inout</strong> 修飾（註三）的 function parameter，透過 pointer dereferencing 來修改並 write back 傳入的argument。</p>
+<p>傳統 C 語言 function call 皆是 <strong>call-by-value</strong>，pointer 的使用實際上也只是透過傳遞 memory address 的 value 來模擬 <strong>call-by-reference</strong>。眾所周知，<strong>Swift: Objective-C without the C</strong>。在 Swift 這個階級分明、極不平等的世界裡，value type 統一是 <strong>call-by-value</strong>，而 reference type 則是 <strong>call-by-reference</strong>。可愛 pointer 的戲份因此被刪，僅留下修飾參數的 attribute：<a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID545>inout</a>。</p>
+<p>Swift 的 <strong>inout</strong> 和 Objective-C 的功能不太一樣，一個被修飾的 Swift in-out parameter 既非 call-by-value 也非 call-by-reference，而是俗稱 <strong>copy-in copy-out</strong> 的 <strong>call-by-value-result</strong>，可以參考蘋果官方的解釋：</p>
+<blockquote>
+<ol>
+<li>When the function is called, the value of the argument is copied.</li>
+<li>In the body of the function, the copy is modified.</li>
+<li>When the function returns, the copy’s value is assigned to the original argument.</li>
+</ol>
+</blockquote>
+<p>意思就是指：</p>
+<blockquote>
+<p>function call 之初，先 copy 一份給你褻玩，等 function return，再把 value assign 回去</p>
+</blockquote>
+<p>於是 code 立馬修改成：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>_</span> block: (<span style=color:#66d9ef>inout</span> <span style=color:#66d9ef>Self</span>) -&gt; Void) -&gt; <span style=color:#66d9ef>Self</span> { <span style=color:#75715e>// 1</span>
   <span style=color:#66d9ef>var</span> copy = <span style=color:#66d9ef>self</span>
   block(&amp;copy) <span style=color:#75715e>// 2</span>
   <span style=color:#66d9ef>return</span> copy
 }
-</code></pre></div><ol><li>使用 <strong>inout</strong> 修飾 closure 的參數。</li><li>傳入 inout parameter，要加 <code>&</code> prefix（感覺還是很 C 啊）。</li></ol><p>此後，value type 終於爭取到真平權，與 reference type 一樣，毫無違和地使用 <code>then</code> 了！</p><h3 id=generic-where-clausesgeneric-where-clauses><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/doc/uid/TP40014097-CH37-ID406>Generic Where Clauses</a></h3><p>事情沒有這麼簡單，又有人發了 <a href=https://github.com/devxoul/Then/issues/25>issue</a>，言下之意是 reference type 不需要 inout 修飾，作者你 value type reference type 共用同一個 method，我還要多打 inout 來修飾，這樣要怎麼教小孩？幸好，Swift 有提供 <strong>Generic Where Clauses</strong>（一種泛型條件限制），讓我們 overload 不同的型別的實作。請看 code：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>extension</span> <span style=color:#a6e22e>Then</span> <span style=color:#66d9ef>where</span> <span style=color:#66d9ef>Self</span>: Any { <span style=color:#75715e>// 1</span>
+</code></pre></div><ol>
+<li>使用 <strong>inout</strong> 修飾 closure 的參數。</li>
+<li>傳入 inout parameter，要加 <code>&</code> prefix（感覺還是很 C 啊）。</li>
+</ol>
+<p>此後，value type 終於爭取到真平權，與 reference type 一樣，毫無違和地使用 <code>then</code> 了！</p>
+<h3 id=generic-where-clausesgeneric-where-clauses><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GenericParametersAndArguments.html#//apple_ref/doc/uid/TP40014097-CH37-ID406>Generic Where Clauses</a><a hidden class=anchor aria-hidden=true href=#generic-where-clausesgeneric-where-clauses>#</a></h3>
+<p>事情沒有這麼簡單，又有人發了 <a href=https://github.com/devxoul/Then/issues/25>issue</a>，言下之意是 reference type 不需要 inout 修飾，作者你 value type reference type 共用同一個 method，我還要多打 inout 來修飾，這樣要怎麼教小孩？幸好，Swift 有提供 <strong>Generic Where Clauses</strong>（一種泛型條件限制），讓我們 overload 不同的型別的實作。請看 code：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-swift data-lang=swift><span style=color:#66d9ef>extension</span> <span style=color:#a6e22e>Then</span> <span style=color:#66d9ef>where</span> <span style=color:#66d9ef>Self</span>: Any { <span style=color:#75715e>// 1</span>
   <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>func</span> <span style=color:#a6e22e>with</span>(<span style=color:#66d9ef>_</span> block: (<span style=color:#66d9ef>inout</span> <span style=color:#66d9ef>Self</span>) -&gt; Void) -&gt; <span style=color:#66d9ef>Self</span> {
     <span style=color:#66d9ef>var</span> copy = <span style=color:#66d9ef>self</span>
     block(&amp;copy)
@@ -62,4 +217,54 @@ let label: UILabel = { let label = UILabel() label.textAlignment = .center label
     <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>self</span>
   }
 }
-</code></pre></div><ol><li>where clause 限制此 extension 僅作用在 Any 型別（如果是 Any 好像不用寫齁XD）。</li><li>where clause 限制此 extension 僅作用在 AnyObject 型別，也就是 reference type。</li></ol><p>透過泛型的限制，我們成功隔離 value type 與 reference type 的不同需求。雖然仍無法爭取到真平權，但我們是 Swift 不是 Ruby，別把國外那一套拿來比較。至少現在 value type 透過 inout 修飾，可以獲得同樣的功能，只是多了幾道手續，我們還是很看好 value type 的！</p><h2 id=summary>Summary</h2><p><strong>Then</strong> library 會受到如此多關注，大概是因為它夠「Swifty」吧，從第二個 <a href=https://github.com/devxoul/Then/issues/2>issue</a> 就開始熱烈討論是否該將這個 syntax sugar propose 到 <a href=https://github.com/apple/swift-evolution>Swift Evolution</a>，作為下一版的新 Features，陸陸續續有類似想法的人就開始行動了（<a href=https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20151228/005122.html>mailing list</a> & <a href=https://bugs.swift.org/browse/SR-160>cascading issue</a>），不難看出 Swift 社群有多麼活躍。我想，多多關注 <a href=https://github.com/apple/swift-evolution>Swift Evolution</a>，應該會有不少收穫！</p><h2 id=reference>Reference</h2><ul><li><a href=https://github.com/devxoul/Then>devxoul/Then</a></li><li><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/>Apple Swift Documentation</a></li><li><a href=https://stackoverflow.com/questions/27364117/is-swift-pass-by-value-or-pass-by-reference>Stackoverflow: Is Swift Pass By Value or Pass By Reference</a></li></ul><blockquote><ul><li>註一：Java 8 引進 <a href=https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html>Default methods</a>，interface 可以有自己的 implementations 。</li><li>註二：在 Swift 3 之前 function argument 可以宣告為 <code>var</code>，但普遍認為實用性比 <code>inout</code> 低，且容易混淆，就<a href=https://github.com/apple/swift-evolution/blob/master/proposals/0003-remove-var-parameters.md>提案將 argument 改為常數 <code>let</code></a> 了。</li><li>註三：實際上 Objective-C 的 inout 修飾只是在 compile 層會做優化，對 function 本身沒啥影響。</li></ul></blockquote></div><footer class=entry-footer><div class="container sep-before"><div class=tags><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2H12l8.59 8.59A2 2 0 0120.59 13.41z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=screen-reader-text>Tags: </span><a class=tag href=/tags/swift/>Swift</a>, <a class=tag href=/tags/source-reading/>Source Reading</a></div></div><div style=text-align:center;padding-top:2em><a href=https://creativecommons.org/licenses/by-nc-sa/4.0/><img src=https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png alt=cc-by-nc-sa-4></a></div></footer></article><nav class=entry-nav><div class=container><div class="next-entry sep-before"><a href=/posts/2017/swift-quick-note/><span class=screen-reader-text>Next post: </span>Swift 初學速記<span aria-hidden=true>Next<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></a></div></div></nav></main><footer id=footer class=footer><div class="container sep-before"><section class="widget widget-social_menu sep-after"><nav aria-label="Social Menu"><ul><li><a href=https://github.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Github account in new tab</span><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77a5.44 5.44.0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=https://facebook.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Facebook account in new tab</span><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a></li><li><a href=https://twitter.com/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Twitter account in new tab</span><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><title>Twitter icon</title><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg></a></li><li><a href=https://linkedin.com/in/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Linkedin account in new tab</span><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li><li><a href=https://t.me/weihanglo target=_blank rel=noopener><span class=screen-reader-text>Open Telegram account in new tab</span><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><title>Telegram icon</title><path d="M23.91 3.79 20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.56-1.1.56-.72.0-.6-.27-.84-.95L6.3 13.7l-5.45-1.7c-1.18-.35-1.19-1.16.26-1.75l21.26-8.2c.97-.43 1.9.24 1.53 1.73z"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2017-2021 Weihang Lo</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.c3bcf2df.js></script><script src=/js/custom.js></script></body></html>
+</code></pre></div><ol>
+<li>where clause 限制此 extension 僅作用在 Any 型別（如果是 Any 好像不用寫齁XD）。</li>
+<li>where clause 限制此 extension 僅作用在 AnyObject 型別，也就是 reference type。</li>
+</ol>
+<p>透過泛型的限制，我們成功隔離 value type 與 reference type 的不同需求。雖然仍無法爭取到真平權，但我們是 Swift 不是 Ruby，別把國外那一套拿來比較。至少現在 value type 透過 inout 修飾，可以獲得同樣的功能，只是多了幾道手續，我們還是很看好 value type 的！</p>
+<h2 id=summary>Summary<a hidden class=anchor aria-hidden=true href=#summary>#</a></h2>
+<p><strong>Then</strong> library 會受到如此多關注，大概是因為它夠「Swifty」吧，從第二個 <a href=https://github.com/devxoul/Then/issues/2>issue</a> 就開始熱烈討論是否該將這個 syntax sugar propose 到 <a href=https://github.com/apple/swift-evolution>Swift Evolution</a>，作為下一版的新 Features，陸陸續續有類似想法的人就開始行動了（<a href=https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20151228/005122.html>mailing list</a> & <a href=https://bugs.swift.org/browse/SR-160>cascading issue</a>），不難看出 Swift 社群有多麼活躍。我想，多多關注 <a href=https://github.com/apple/swift-evolution>Swift Evolution</a>，應該會有不少收穫！</p>
+<h2 id=reference>Reference<a hidden class=anchor aria-hidden=true href=#reference>#</a></h2>
+<ul>
+<li><a href=https://github.com/devxoul/Then>devxoul/Then</a></li>
+<li><a href=https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/>Apple Swift Documentation</a></li>
+<li><a href=https://stackoverflow.com/questions/27364117/is-swift-pass-by-value-or-pass-by-reference>Stackoverflow: Is Swift Pass By Value or Pass By Reference</a></li>
+</ul>
+<blockquote>
+<ul>
+<li>註一：Java 8 引進 <a href=https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html>Default methods</a>，interface 可以有自己的 implementations 。</li>
+<li>註二：在 Swift 3 之前 function argument 可以宣告為 <code>var</code>，但普遍認為實用性比 <code>inout</code> 低，且容易混淆，就<a href=https://github.com/apple/swift-evolution/blob/master/proposals/0003-remove-var-parameters.md>提案將 argument 改為常數 <code>let</code></a> 了。</li>
+<li>註三：實際上 Objective-C 的 inout 修飾只是在 compile 層會做優化，對 function 本身沒啥影響。</li>
+</ul>
+</blockquote>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://weihanglo.tw/tags/swift/>Swift</a></li>
+<li><a href=https://weihanglo.tw/tags/source-reading/>Source Reading</a></li>
+</ul>
+<nav class=paginav>
+<a class=prev href=https://weihanglo.tw/posts/2017/swift-quick-note/>
+<span class=title>« Prev Page</span>
+<br>
+<span>Swift 初學速記</span>
+</a>
+</nav>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>CC BY-NC-SA 4.0</span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>
