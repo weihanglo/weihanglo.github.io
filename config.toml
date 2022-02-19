@@ -56,5 +56,4 @@ ShowPostNavLinks = true
 showtoc = true
 disableSpecial1stPost = true
 [params.assets]
-favicon = "favicon.ico"
 disableFingerprinting = true
