@@ -373,6 +373,7 @@
 <p>（4）若第一個 <code>then</code> fulfilled，執行這個 then 的 <code>onFulfilled</code> callback，並將 blob 轉換為 url。</p>
 <p>（5）若上述任一步驟出錯，error 會繼續往下傳遞，直到被實作 <code>onRejected</code> callback 的 handler 捕捉。（本例為（5）的 <code>catch</code>)。</p>
 <p>（6）若沒有錯誤，最終將執行這個 callback；由於（5）的 catch 回傳了一個 recoverable promise（回傳 <code>undefined</code>，無 throw error），因此就算（5）的 catch 有捕捉到 error ，仍然會執行（6）的 callback。</p>
+<img src=promise-flow.png height=300px>
 <h3 id=promise-chaining-flow>Promise Chaining Flow<a hidden class=anchor aria-hidden=true href=#promise-chaining-flow>#</a></h3>
 <p>這裡參考 <a href=https://developers.google.com/web/fundamentals/getting-started/primers/promises>Google Web Fundamentals - Promises</a> 一章的範例，作為 Promise Chaining 的總結，圖中的紅色箭頭代表 rejected，藍色代表 fulfilled（recovery），碼、圖和著看，非常清楚。</p>
 <p>有幾點再次提醒：</p>
@@ -397,7 +398,7 @@
 }).<span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>function</span>() {
   <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;All done!&#34;</span>);
 })
-</code></pre></div>
+</code></pre></div><img src=google-promises.png height=600px>
 <blockquote>
 <p><code>Promise#catch</code> V.S. <code>Promise#then(null, onRejected)</code></p>
 <p>還記得 <code>then</code> method 第二個參數是 <code>onRejected</code> callback 嗎？這個參數其實比較少用，大部分都會透過 <code>.catch</code> 這個 syntax sugar 做 error handling。因為 <code>onRejected</code> 僅在當該 promise 被 reject 時，才能捕捉到錯誤，並無法捕捉到同一個 <code>.then</code> 的 <code>onFulfilled</code> 拋出的錯誤。</p>
