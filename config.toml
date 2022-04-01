@@ -63,3 +63,6 @@ disableHLJS = true
 [markup.highlight]
 codeFences = true
 style = "monokai"
+
+[markup.goldmark.renderer]
+unsafe = true
