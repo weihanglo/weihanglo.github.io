@@ -6,7 +6,16 @@
     <description>Recent content in Rust on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sun, 01 Nov 2020 08:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Apr 2022 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>不必是眾星拱月那個月 也能替世界增添光芒</title>
+      <link>https://weihanglo.tw/posts/2022/make-the-world-better-even-you-arent-a-super-hero/</link>
+      <pubDate>Fri, 01 Apr 2022 00:00:00 +0800</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2022/make-the-world-better-even-you-arent-a-super-hero/</guid>
+      <description>謹以此文紀念 Alex Crichton 從 Cargo Team 退休 Thank you Alex for your hard work making Rust great! 猶記得，在大學生涯最後一年，我不小心掉進程式設計的兔子洞，深不見底。那時，也是我初次接觸開放原</description>
+    </item>
+    
     <item>
       <title>我眼中的 Rust 2020：生態工具發展</title>
       <link>https://weihanglo.tw/posts/2020/rust-2020-tooling-ecosystem/</link>
