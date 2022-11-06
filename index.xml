@@ -8,11 +8,11 @@
     <copyright>CC BY-NC-SA 4.0</copyright>
     <lastBuildDate>Sun, 06 Nov 2022 20:19:00 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>I (almost) broke 99% of Rust ecosystem</title>
-      <link>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-ecosystem/</link>
+      <title>I (almost) broke 99% of Rust prjects in the world</title>
+      <link>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</link>
       <pubDate>Sun, 06 Nov 2022 20:19:00 +0000</pubDate>
       
-      <guid>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-ecosystem/</guid>
+      <guid>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</guid>
       <description>Title is boasting but indeed could have broken builds of a huge amount of projects.
  Once upon a time (2022-10), I was trying to fix a tricky bug regarding the feature “artifact dependencies”. Artifact dependencies is a humongous feature too hard to implement it 100% right, as it touches almost every components of Cargo. There&amp;rsquo;s a saying from an anonymous Cargo maintainer, “I am mostly confident to make a change until it touches the dependency resolver.</description>
     </item>
