@@ -13,7 +13,7 @@
       <pubDate>Sun, 06 Nov 2022 20:19:00 +0000</pubDate>
       
       <guid>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</guid>
-      <description>Title is boasting but indeed could have broken builds of a huge amount of projects.
+      <description>Title is boasting but indeed could have broken builds of a lot of projects.
  Once upon a time (2022-10), I was trying to fix a tricky bug regarding the feature “artifact dependencies”. Artifact dependencies is a humongous feature too hard to implement it 100% right, as it touches almost every components of Cargo. There&amp;rsquo;s a saying from an anonymous Cargo maintainer, “I am mostly confident to make a change until it touches the dependency resolver.</description>
     </item>
     
