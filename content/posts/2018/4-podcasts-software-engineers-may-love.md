@@ -4,9 +4,8 @@ date: 2018-07-09T23:48:41+08:00
 tags:
   - Podcasts
 cover:
-  image: podcast.jpg
+  image: http://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/podcast.jpg
   caption: Image by Nick Youngson CC BY-SA 3.0
-  style: normal
 ---
 
 As a non-native English speaker, I often try several methods to improve my English skills. Listening to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
