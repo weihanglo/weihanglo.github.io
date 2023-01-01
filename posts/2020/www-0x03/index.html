@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x03: What Color is Your Function? | Weihang Lo</title>
+<title>WWW 0x03: What Color is Your Function? | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Asynchronous,System Programming">
 <meta name=description content="你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x03/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x03: What Color is Your Function?">
 <meta name=twitter:description content="你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x03: What Color is Your Function?","item":"https://weihanglo.tw/posts/2020/www-0x03/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x03: What Color is Your Function?","name":"WWW 0x03: What Color is Your Function?","description":"你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富","keywords":["Weekly","Asynchronous","System Programming"],"articleBody":" 你的 function 是什麼顏色？\n 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nUsing Rust in Windows 相較於 Microsoft 近期在 Rust 社群動作不斷，這篇文章相對平實，不過也藏了許多有趣事實。\n Microsoft 覺得 Cargo 不能容易配合既有的 build system，這個其實和 Google 使用 Bazel 和 Facebook 自己搞 tool 一樣，超巨頭的工作環境太特殊了。不過也提及正在與社群接觸，微軟真的開始關注 Rust 了。 提到了 Rust 很適合做 C 的 safe wrapper，其實這個也是官方死靈書提及的作法，bindgen 真心方便。 對熟悉 C++ 的開發者而言，Rust 學習成本比想像中低了很多，一兩天配合 Rust 好用的周邊工具就可以寫出 idiomatic Rust，這和 RustConf 2019 上 Facebook 僱員的說法一致。 看到最後才發現作者是 Hyper-V team 成員，再聯想到 AWS 用 Rust 寫的 Firecracker 作為 Fargate 和 Lambda 底層的 micro vm，不難想像這些大公司用 C++寫底層的底層員工生活多苦 。  What Color is Your Function? 看起來滿篇幹話，但其實在講一個非常有趣的概念：這個世界被分為兩種 function， synchronous 和 asynchronous。async function 具有感染力，不能在 sync function 內部呼叫，因此，寫程式就要一直把「這個是 sync 那個是 async」的思維放在腦中，不累嗎？\n作者提到了三種語言沒有這個問題：Go、Lua、Ruby。這三種都做了類似 green thread 的實作，所以例如操作 IO 就會 suspend 當前執行環境到 callstack，並 resume 其他 function 和 stack，撰寫程式不再需要刻意分辨 sync/async，寫起來都一樣。\n雖然本文並非 Go 推坑文，但作者和我的想法的十分接近：Go 語言真的很簡單，連非同步都可以當作不知道，反正語言底層幫你解決了。\n200 行以內實作 Green Thread Go 的 Goroutine 和 Python 的 Greenlet 滿火熱的，最近來研究一下的實作 Green Thread，剛好看到 C 和 Rust 兩個實作版本，順便紀錄閱讀心得。\n Rust 線上示範 Rust 180 行版本（推薦） C 150 行版本（一樣很棒）  Green Thread 不負責任定義 提供在 userspace 的 non-preemptive multitasking，一個可以 yield 將 CPU 控制權讓出，並儲存當前的 context，在未來可以 resume 繼續執行。這種作法常見於 blocking-IO 的場景。\n 正名一下，Green thread 稍微正式的名字是 coroutine。\n 要懂 Green Thread 的先備知識  ABI 的概念（CPU calling convention） CPU 如何管理 call stack 一些 Assembly（會需要用 asm 於 register 溝通）  Thread 實作重點整理（直接看文章比較快）  x86 會把 function pointer、return address 記錄在 register 把 function pointer 放到 stack pointer 上 就會執行函式 有個 Runtime 負責管理每一個 userspace Thread Thread 有個 context，記錄當前 register 的狀態 Runtime 有兩個最重要的 method：yield、spawn Runtime.yield 轉讓 CPU 使用權： 找尋 yielding Thread，記錄當前的 register 狀態到它自己的 context 以便未來 resume，然後將準備執行的 Thread 的 context 寫入 register Runtime.spawn 啟動一個 thread 執行任務： 傳入任意的函式，將函式指標寫入 context 的特定 offset，這個 offset 對應 x86 ABI 的 stack pointer  ","wordCount":"1130","inLanguage":"en","datePublished":"2020-02-08T00:00:00+08:00","dateModified":"2020-02-08T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x03/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x03: What Color is Your Function?","name":"WWW 0x03: What Color is Your Function?","description":"你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富","keywords":["Weekly","Asynchronous","System Programming"],"articleBody":" 你的 function 是什麼顏色？\n 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nUsing Rust in Windows 相較於 Microsoft 近期在 Rust 社群動作不斷，這篇文章相對平實，不過也藏了許多有趣事實。\n Microsoft 覺得 Cargo 不能容易配合既有的 build system，這個其實和 Google 使用 Bazel 和 Facebook 自己搞 tool 一樣，超巨頭的工作環境太特殊了。不過也提及正在與社群接觸，微軟真的開始關注 Rust 了。 提到了 Rust 很適合做 C 的 safe wrapper，其實這個也是官方死靈書提及的作法，bindgen 真心方便。 對熟悉 C++ 的開發者而言，Rust 學習成本比想像中低了很多，一兩天配合 Rust 好用的周邊工具就可以寫出 idiomatic Rust，這和 RustConf 2019 上 Facebook 僱員的說法一致。 看到最後才發現作者是 Hyper-V team 成員，再聯想到 AWS 用 Rust 寫的 Firecracker 作為 Fargate 和 Lambda 底層的 micro vm，不難想像這些大公司用 C++寫底層的底層員工生活多苦 。  What Color is Your Function? 看起來滿篇幹話，但其實在講一個非常有趣的概念：這個世界被分為兩種 function， synchronous 和 asynchronous。async function 具有感染力，不能在 sync function 內部呼叫，因此，寫程式就要一直把「這個是 sync 那個是 async」的思維放在腦中，不累嗎？\n作者提到了三種語言沒有這個問題：Go、Lua、Ruby。這三種都做了類似 green thread 的實作，所以例如操作 IO 就會 suspend 當前執行環境到 callstack，並 resume 其他 function 和 stack，撰寫程式不再需要刻意分辨 sync/async，寫起來都一樣。\n雖然本文並非 Go 推坑文，但作者和我的想法的十分接近：Go 語言真的很簡單，連非同步都可以當作不知道，反正語言底層幫你解決了。\n200 行以內實作 Green Thread Go 的 Goroutine 和 Python 的 Greenlet 滿火熱的，最近來研究一下的實作 Green Thread，剛好看到 C 和 Rust 兩個實作版本，順便紀錄閱讀心得。\n Rust 線上示範 Rust 180 行版本（推薦） C 150 行版本（一樣很棒）  Green Thread 不負責任定義 提供在 userspace 的 non-preemptive multitasking，一個可以 yield 將 CPU 控制權讓出，並儲存當前的 context，在未來可以 resume 繼續執行。這種作法常見於 blocking-IO 的場景。\n 正名一下，Green thread 稍微正式的名字是 coroutine。\n 要懂 Green Thread 的先備知識  ABI 的概念（CPU calling convention） CPU 如何管理 call stack 一些 Assembly（會需要用 asm 於 register 溝通）  Thread 實作重點整理（直接看文章比較快）  x86 會把 function pointer、return address 記錄在 register 把 function pointer 放到 stack pointer 上 就會執行函式 有個 Runtime 負責管理每一個 userspace Thread Thread 有個 context，記錄當前 register 的狀態 Runtime 有兩個最重要的 method：yield、spawn Runtime.yield 轉讓 CPU 使用權： 找尋 yielding Thread，記錄當前的 register 狀態到它自己的 context 以便未來 resume，然後將準備執行的 Thread 的 context 寫入 register Runtime.spawn 啟動一個 thread 執行任務： 傳入任意的函式，將函式指標寫入 context 的特定 offset，這個 offset 對應 x86 ABI 的 stack pointer  ","wordCount":"1130","inLanguage":"en","datePublished":"2020-02-08T00:00:00+08:00","dateModified":"2020-02-08T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x03/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -156,12 +156,12 @@ WWW 0x03: What Color is Your Function?
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x04/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x04: Not feeling the async pressure</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x02/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x02: Distroless Docker for distressed human</span>
 </a>
@@ -174,7 +174,7 @@ WWW 0x03: What Color is Your Function?
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF | Weihang Lo</title>
+<title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Rust,Golang,Assembly">
 <meta name=description content="A programmer had a problem. He thought to himself, &ldquo;I know, I&rsquo;ll solve it with threads!&rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x0a/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x0A: 嗯，你這塊 0xDEADBEEF">
 <meta name=twitter:description content="A programmer had a problem. He thought to himself, &ldquo;I know, I&rsquo;ll solve it with threads!&rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x0A: 嗯，你這塊 0xDEADBEEF","item":"https://weihanglo.tw/posts/2020/www-0x0a/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0A: 嗯，你這塊 0xDEADBEEF","name":"WWW 0x0A: 嗯，你這塊 0xDEADBEEF","description":"A programmer had a problem. He thought to himself, \u0026ldquo;I know, I\u0026rsquo;ll solve it with threads!\u0026rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。","keywords":["Weekly","Rust","Golang","Assembly"],"articleBody":" A programmer had a problem. He thought to himself, “I know, I’ll solve it with threads!”. has Now problems. two he\n— Davidlohr Bueso\n 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nThe Missing Semester of Your CS Education 這是近期看過最實用導向的大學課程了！由 MIT 博士生授課，但不教死板又混亂的計算機科學，而是貼近開發者，異常實際的工具和技巧。\n雖然內容對部分業界人士來說可能略淺，例如 metaprogramming 居然是在講 build system 和 makefile，不過學資訊的學生不一定熟稔，非常適合作為進入業界前先修的「失落的課程」。我自己印象最深刻的是「 …if you start a command with a leading space it won’t be added to you shell history. 」真的是嚇歪我的毛，推薦大家翻翻看看。\n 順便提一下 JonHoo 是我有認真在看的 live-coder。嗯，應該猜的到他寫什麼語言\n Early Impressions of Go from a Rust Programmer 我有過很多面之緣的 Rust 核心成員 Nick Cameron 在大型專案中使用 Go 語言後（我猜是 TiDB）的評價，摘要個人覺得有趣的觀察面向：\n 很實際，設計得宜、小巧好學、std lib 很小很讚 比 C、C++、Java、Python 開發快，而且有很多改善，但撰寫感覺上是同世代的語言，例如還是有 null pointer 少了 macro 和 generic，專案大就會有許多 boilerplate 和 if err != nil { return err }，讓閱讀原始碼變得困難 有 var args（應該是跟 Rust 比 XDD） go tooling 集中一處而非分散成好幾個小工具，很方便 沒有 first class enum，用 constant 代替感覺開倒車（也導致 switch 並非 exhaustive，也就是 compiler 不會要求窮舉所有 enum member） 在內建功能和黑魔法之間的取捨不太一致，Go 有很多魔法，但也很多簡單的事無法達成，例如 for ... range 可用在 array 和 slice 但不能用在其他 collection type；len、append 是全域泛型函數，但只能用在內建型別，而且不能自己定義全域函數  個人認為 Nick 給的評價很正面，而我根據自己不太多的經驗，對 Go 的評價是「A tool to get jobs done easily」，但感覺就是把事情做完，寫程式那種創意設計回饋感較低。\n（理性勿戰）\nA slick matches! macro comes with Rust 1.42.0  其實是一篇複習 x86 assembly 的文章\n Rust 1.42.0 在 2020 年 3 月 12 日正式釋出，除了實用的 subslice patterns（和 Python 的 slicing 很相似）、更詳細的 unwrap 錯誤訊息（不用再 RUST_BACKTRACE=1 看 callstack），最有趣的就是 matches! 這個 macro，提供了比較 expression 是否符合特定 pattern，不用再寫整個 match expression 來比較。\n但今天想要分享的是 Rust 在 pattern matching 上如何最佳化，這個例子比較 char 是否落在大小寫 A-Z a-z 的範圍中：\npub fn slick(c: char) - bool { matches!(c, 'A'..='Z' | 'a'..='z') } 編譯出來最佳化的組合語言長這樣：\nexample::slick: and edi, -33 ; #1 add edi, -65 ; #2 cmp edi, 26 ; #3 setb al ; #4 ret 帥！其實原理很簡單，讓我們一行一行解密：\n 第一行是在抹去大小寫差異，A 是 0b1100001，a 則是 0b1000001，兩者剛好差了 32，也就是 0b100000，因此可利用 bitmask 抹去第六個 bit，這樣小寫字母都會得到跟大寫一樣的值 0b1100001 # a \u0026 0b1011111 # -33 = ~32 = 0b1000001 # A  第二行則是將大家一視同仁減去 65，這樣的結果就會落在 0 ~ 25 之間 第三行的 cmp 實際上是執行 SUB 指令，但只會將結果狀態紀錄在 EFLAGS 暫存器，由於 0 ≤ edi ，所以 edi - 26 ，可以得知需要借位，所以 CF（carry flag）會被設為 1 第四行的 setb 屬於 SETcc 指令家族，會針對不同的條件設定 byte value，而 SETB 的功能是「Set byte if below (CF=1)」，理所當然 AL 會被設定為 1 然後回傳了。   打到這邊心好累，x86 asm 整個忘光，還請教了即將進入 Amazon 實習的大大才解決，我們感謝他。\n ","wordCount":"1342","inLanguage":"en","datePublished":"2020-03-28T00:00:00+08:00","dateModified":"2020-03-28T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0a/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0A: 嗯，你這塊 0xDEADBEEF","name":"WWW 0x0A: 嗯，你這塊 0xDEADBEEF","description":"A programmer had a problem. He thought to himself, \u0026ldquo;I know, I\u0026rsquo;ll solve it with threads!\u0026rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。","keywords":["Weekly","Rust","Golang","Assembly"],"articleBody":" A programmer had a problem. He thought to himself, “I know, I’ll solve it with threads!”. has Now problems. two he\n— Davidlohr Bueso\n 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nThe Missing Semester of Your CS Education 這是近期看過最實用導向的大學課程了！由 MIT 博士生授課，但不教死板又混亂的計算機科學，而是貼近開發者，異常實際的工具和技巧。\n雖然內容對部分業界人士來說可能略淺，例如 metaprogramming 居然是在講 build system 和 makefile，不過學資訊的學生不一定熟稔，非常適合作為進入業界前先修的「失落的課程」。我自己印象最深刻的是「 …if you start a command with a leading space it won’t be added to you shell history. 」真的是嚇歪我的毛，推薦大家翻翻看看。\n 順便提一下 JonHoo 是我有認真在看的 live-coder。嗯，應該猜的到他寫什麼語言\n Early Impressions of Go from a Rust Programmer 我有過很多面之緣的 Rust 核心成員 Nick Cameron 在大型專案中使用 Go 語言後（我猜是 TiDB）的評價，摘要個人覺得有趣的觀察面向：\n 很實際，設計得宜、小巧好學、std lib 很小很讚 比 C、C++、Java、Python 開發快，而且有很多改善，但撰寫感覺上是同世代的語言，例如還是有 null pointer 少了 macro 和 generic，專案大就會有許多 boilerplate 和 if err != nil { return err }，讓閱讀原始碼變得困難 有 var args（應該是跟 Rust 比 XDD） go tooling 集中一處而非分散成好幾個小工具，很方便 沒有 first class enum，用 constant 代替感覺開倒車（也導致 switch 並非 exhaustive，也就是 compiler 不會要求窮舉所有 enum member） 在內建功能和黑魔法之間的取捨不太一致，Go 有很多魔法，但也很多簡單的事無法達成，例如 for ... range 可用在 array 和 slice 但不能用在其他 collection type；len、append 是全域泛型函數，但只能用在內建型別，而且不能自己定義全域函數  個人認為 Nick 給的評價很正面，而我根據自己不太多的經驗，對 Go 的評價是「A tool to get jobs done easily」，但感覺就是把事情做完，寫程式那種創意設計回饋感較低。\n（理性勿戰）\nA slick matches! macro comes with Rust 1.42.0  其實是一篇複習 x86 assembly 的文章\n Rust 1.42.0 在 2020 年 3 月 12 日正式釋出，除了實用的 subslice patterns（和 Python 的 slicing 很相似）、更詳細的 unwrap 錯誤訊息（不用再 RUST_BACKTRACE=1 看 callstack），最有趣的就是 matches! 這個 macro，提供了比較 expression 是否符合特定 pattern，不用再寫整個 match expression 來比較。\n但今天想要分享的是 Rust 在 pattern matching 上如何最佳化，這個例子比較 char 是否落在大小寫 A-Z a-z 的範圍中：\npub fn slick(c: char) - bool { matches!(c, 'A'..='Z' | 'a'..='z') } 編譯出來最佳化的組合語言長這樣：\nexample::slick: and edi, -33 ; #1 add edi, -65 ; #2 cmp edi, 26 ; #3 setb al ; #4 ret 帥！其實原理很簡單，讓我們一行一行解密：\n 第一行是在抹去大小寫差異，A 是 0b1100001，a 則是 0b1000001，兩者剛好差了 32，也就是 0b100000，因此可利用 bitmask 抹去第六個 bit，這樣小寫字母都會得到跟大寫一樣的值 0b1100001 # a \u0026 0b1011111 # -33 = ~32 = 0b1000001 # A  第二行則是將大家一視同仁減去 65，這樣的結果就會落在 0 ~ 25 之間 第三行的 cmp 實際上是執行 SUB 指令，但只會將結果狀態紀錄在 EFLAGS 暫存器，由於 0 ≤ edi ，所以 edi - 26 ，可以得知需要借位，所以 CF（carry flag）會被設為 1 第四行的 setb 屬於 SETcc 指令家族，會針對不同的條件設定 byte value，而 SETB 的功能是「Set byte if below (CF=1)」，理所當然 AL 會被設定為 1 然後回傳了。   打到這邊心好累，x86 asm 整個忘光，還請教了即將進入 Amazon 實習的大大才解決，我們感謝他。\n ","wordCount":"1342","inLanguage":"en","datePublished":"2020-03-28T00:00:00+08:00","dateModified":"2020-03-28T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0a/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -161,12 +161,12 @@ WWW 0x0A: 嗯，你這塊 0xDEADBEEF
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x0b/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/k8s-autoscaling/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>Kuberenetes Autoscaling 相關知識小整理</span>
 </a>
@@ -179,7 +179,7 @@ WWW 0x0A: 嗯，你這塊 0xDEADBEEF
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

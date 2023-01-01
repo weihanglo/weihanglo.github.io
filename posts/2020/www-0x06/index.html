@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x06: Life is short. I hate GIL | Weihang Lo</title>
+<title>WWW 0x06: Life is short. I hate GIL | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Python,Concurrency,Kubernetes,WebAssembly">
 <meta name=description content="這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x06/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x06: Life is short. I hate GIL">
 <meta name=twitter:description content="這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x06: Life is short. I hate GIL","item":"https://weihanglo.tw/posts/2020/www-0x06/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x06: Life is short. I hate GIL","name":"WWW 0x06: Life is short. I hate GIL","description":"這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","Python","Concurrency","Kubernetes","WebAssembly"],"articleBody":"這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWebAssembly Isolation with Tyler McMullen 聽了一集個人覺得不難但蠻有內容的 Podcast，主要在講 Isolation 和 WebAssembly 相關的知識，我覺得 web developer 都很值得稍微聽一下，內容包含：\n 概要提點了 VM vs. Container 等各種 Isolation 的差異 WASM 如何 isolation workloads：限制 jump instruction 跳到任意的地方 etc. Fastly 為什麼要使用 WASM： 一個請求本來可能要起 container，但 container 啟動時間還是不夠快，WASM 的 isolation 可以提供安全快速的環境 WASM 使用 linear memory model：和一般的 virtual memory 不同，memory space 是連續性一個 block，需要用到更多再與系統 / 瀏覽器請求 WASM 還在解決的問題：與外部世界互動的標準還沒完整， 但可以參考 Fastly 和 Mozilla 等幾個大廠訂定的 WASI（WebAssembly System Interface） WASM 目前 function pointer 只能用 dynamic dispatch，對要求極極極高效能的應用場景較不吃香 市面上的 WASM runtime：lucet、wasmtime（個人補充 wasmer）   Note: Fastly 是市面上前十大的 CDN provider（約第六）\n An Introduction to Python Concurrency 如果你想用 Python 寫 Concurrency Programming，大推這篇！\n雖然這份簡報因為早在 2010 年製作，沒有提到 async/await，但內容非常紮實，摘錄我有印象的點：\n threading 應用時機與底層概念 各種常見鎖的原理與應用時機 GIL 原理以及如何克服 multiprocessing 應用時機，並與 threading 比較 使用上述工具實作高層次抽象的 message queue、event communication  其中讓孤陋寡聞的我最驚艷的是，原來 pickle 可以再 thread/process 中序列化 class instance，太好用了！\nLoad balancing and scaling long-lived connections in Kubernetes 一行摘要：Kubernetes 的 Service 資源提供負載均衡功能，但並沒提供 long-lived connection 負載均衡。如果使用 gRPC、AMQP、HTTP/2 或資料庫連線等，可能需要做 client-side 負載均衡。\n本篇圖文並茂，詳細說明：\n Kubernetes 如何透過 Service 做 proxy 但 iptable 用機率選擇 IP 而不算能有做負載均衡 long-lived connection 為什麼會造成負載不均衡 如何解決 long-lived connection 造成負載不均衡的問題  做 client-side 負載均衡：提供 client 所有服務節點，讓 client 自己選擇要送到哪個節點 用 service mesh（Linkerd、Istio）   哪些情境下可暫時忽略這個問題，哪些不行  ✅ 多 client 少 server ❌ 少 client 多 server     本文連圖片都有 step-by-step guide，不愧是教學為重的 learnk8s.io\n ","wordCount":"904","inLanguage":"en","datePublished":"2020-02-29T00:00:00+08:00","dateModified":"2020-02-29T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x06/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x06: Life is short. I hate GIL","name":"WWW 0x06: Life is short. I hate GIL","description":"這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","Python","Concurrency","Kubernetes","WebAssembly"],"articleBody":"這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWebAssembly Isolation with Tyler McMullen 聽了一集個人覺得不難但蠻有內容的 Podcast，主要在講 Isolation 和 WebAssembly 相關的知識，我覺得 web developer 都很值得稍微聽一下，內容包含：\n 概要提點了 VM vs. Container 等各種 Isolation 的差異 WASM 如何 isolation workloads：限制 jump instruction 跳到任意的地方 etc. Fastly 為什麼要使用 WASM： 一個請求本來可能要起 container，但 container 啟動時間還是不夠快，WASM 的 isolation 可以提供安全快速的環境 WASM 使用 linear memory model：和一般的 virtual memory 不同，memory space 是連續性一個 block，需要用到更多再與系統 / 瀏覽器請求 WASM 還在解決的問題：與外部世界互動的標準還沒完整， 但可以參考 Fastly 和 Mozilla 等幾個大廠訂定的 WASI（WebAssembly System Interface） WASM 目前 function pointer 只能用 dynamic dispatch，對要求極極極高效能的應用場景較不吃香 市面上的 WASM runtime：lucet、wasmtime（個人補充 wasmer）   Note: Fastly 是市面上前十大的 CDN provider（約第六）\n An Introduction to Python Concurrency 如果你想用 Python 寫 Concurrency Programming，大推這篇！\n雖然這份簡報因為早在 2010 年製作，沒有提到 async/await，但內容非常紮實，摘錄我有印象的點：\n threading 應用時機與底層概念 各種常見鎖的原理與應用時機 GIL 原理以及如何克服 multiprocessing 應用時機，並與 threading 比較 使用上述工具實作高層次抽象的 message queue、event communication  其中讓孤陋寡聞的我最驚艷的是，原來 pickle 可以再 thread/process 中序列化 class instance，太好用了！\nLoad balancing and scaling long-lived connections in Kubernetes 一行摘要：Kubernetes 的 Service 資源提供負載均衡功能，但並沒提供 long-lived connection 負載均衡。如果使用 gRPC、AMQP、HTTP/2 或資料庫連線等，可能需要做 client-side 負載均衡。\n本篇圖文並茂，詳細說明：\n Kubernetes 如何透過 Service 做 proxy 但 iptable 用機率選擇 IP 而不算能有做負載均衡 long-lived connection 為什麼會造成負載不均衡 如何解決 long-lived connection 造成負載不均衡的問題  做 client-side 負載均衡：提供 client 所有服務節點，讓 client 自己選擇要送到哪個節點 用 service mesh（Linkerd、Istio）   哪些情境下可暫時忽略這個問題，哪些不行  ✅ 多 client 少 server ❌ 少 client 多 server     本文連圖片都有 step-by-step guide，不愧是教學為重的 learnk8s.io\n ","wordCount":"904","inLanguage":"en","datePublished":"2020-02-29T00:00:00+08:00","dateModified":"2020-02-29T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x06/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -155,12 +155,12 @@ WWW 0x06: Life is short. I hate GIL
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x07/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x07: 為什麼薯餅要炸兩次</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x05/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x05: 若單體服務是屎，微服務就是許多屎</span>
 </a>
@@ -173,7 +173,7 @@ WWW 0x06: Life is short. I hate GIL
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

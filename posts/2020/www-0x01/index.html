@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具 | Weihang Lo</title>
+<title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,C++,DevOps,Kubernetes,Front-end">
 <meta name=description content="這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x01/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x01: 有個部署「部署「部署 K8s 」」的工具">
 <meta name=twitter:description content="這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x01: 有個部署「部署「部署 K8s 」」的工具","item":"https://weihanglo.tw/posts/2020/www-0x01/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x01: 有個部署「部署「部署 K8s 」」的工具","name":"WWW 0x01: 有個部署「部署「部署 K8s 」」的工具","description":"這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","C++","DevOps","Kubernetes","Front-end"],"articleBody":"這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nHow to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了\n move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 = Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次\n YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。\nTanka 用了 Jsonnet 這個小眾動態語言來解決上述問題，並在上面寫了 Tanka 自己用的小小 Jsonnet 函式庫，個人認為雖然看似有解決問題，但同時引進新的概念和語言，依舊是個成本，而且 Helm 目前還有 CNCF 和生態系的加持。\n事實上，維運到底要如何封裝、封裝多少，比起應用程式面，更需要關注現有 infra，甚至可以說維運幾乎不可能完美封裝。如果有空閱讀 Tanka 在 Hacker News 上的討論串，不難發現 Helm 和 Terrafrom，甚至 kustomize 都有不同的應用場景，Tanka 想要吃下哪塊市場份額，成為什麼角色，拭目以待吧。\nMaking Instagram.com faster Part 4 本文描述前端團隊如何讓 Instagram 網站加速，總共分四篇，本篇強調要注重 code size 本身大小（pre-compression），而非壓縮後大小（post-compression），節錄重點如下：\n 就算用了 Brotli 壓縮程式碼，使用者 page load 的時間依然不變，parser 仍要解析你下面那一大包 重構 UI 做合理的 code splitting 和動態載入需要的工程資源浩大，是個長期目標 Inline require： 模組在需要時再 require，其實就是 lazy initialization，IG 用 Metro 這個 bundler 達成此事 根據不同瀏覽器版本給予不同的 bundle： 新瀏覽器給 ES2017，舊的給 ES5。IG 用了 server-side user-agent 來判斷要給 client 載入什麼資源。這個作法可以同時減少 pre-/post-compression size  ","wordCount":"937","inLanguage":"en","datePublished":"2020-01-25T00:00:11+08:00","dateModified":"2020-01-25T00:00:11+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x01/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x01: 有個部署「部署「部署 K8s 」」的工具","name":"WWW 0x01: 有個部署「部署「部署 K8s 」」的工具","description":"這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","C++","DevOps","Kubernetes","Front-end"],"articleBody":"這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nHow to Adopt Modern C++17 into Your C++ Code : Build 2018 推個 C++ 影片，微軟的大師 Herb Sutter 很精要地講完重要的 modern feature 除了 smart pointer，還包含了\n move semantic string_view optional any_cast/variant RAII scoped lifetime 心法 = Rust 已經是 NLL 了  Tanka：Grafana Lab 部署 k8s 的新工具 Tanka 是 Grafana Lab 開源的新部署工具，原文短又清楚，但這邊還是再疊床架屋摘要一次\n YAML 不是動態語言，很多邏輯會不斷重複，不好寫 Helm 很棒，但奠基在 string template 上仍然難寫難維護，彈性不夠高，Chart 維護者沒 export 的欄位你也不能擅自修改 Helm 其實完全沒有抽象化，就算 values.yaml 挖了很多洞，開發者仍然要去看 template 裡面到底做了什麼事  這些的確都是用 Helm 部署的痛點，尤其是低度抽象化，看看精美的 stable/prometheus-operator，就會開始思考 Helm 的定位與其說是 Package manager，倒像只是一堆 yaml 的集合（事實上就是），完全沒有封裝感，更別提 Resource 修改時，很常遇到 Helm 沒辦法正確更新的痛了。\nTanka 用了 Jsonnet 這個小眾動態語言來解決上述問題，並在上面寫了 Tanka 自己用的小小 Jsonnet 函式庫，個人認為雖然看似有解決問題，但同時引進新的概念和語言，依舊是個成本，而且 Helm 目前還有 CNCF 和生態系的加持。\n事實上，維運到底要如何封裝、封裝多少，比起應用程式面，更需要關注現有 infra，甚至可以說維運幾乎不可能完美封裝。如果有空閱讀 Tanka 在 Hacker News 上的討論串，不難發現 Helm 和 Terrafrom，甚至 kustomize 都有不同的應用場景，Tanka 想要吃下哪塊市場份額，成為什麼角色，拭目以待吧。\nMaking Instagram.com faster Part 4 本文描述前端團隊如何讓 Instagram 網站加速，總共分四篇，本篇強調要注重 code size 本身大小（pre-compression），而非壓縮後大小（post-compression），節錄重點如下：\n 就算用了 Brotli 壓縮程式碼，使用者 page load 的時間依然不變，parser 仍要解析你下面那一大包 重構 UI 做合理的 code splitting 和動態載入需要的工程資源浩大，是個長期目標 Inline require： 模組在需要時再 require，其實就是 lazy initialization，IG 用 Metro 這個 bundler 達成此事 根據不同瀏覽器版本給予不同的 bundle： 新瀏覽器給 ES2017，舊的給 ES5。IG 用了 server-side user-agent 來判斷要給 client 載入什麼資源。這個作法可以同時減少 pre-/post-compression size  ","wordCount":"937","inLanguage":"en","datePublished":"2020-01-25T00:00:11+08:00","dateModified":"2020-01-25T00:00:11+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x01/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -135,12 +135,12 @@ WWW 0x01: 有個部署「部署「部署 K8s 」」的工具
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x02/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x02: Distroless Docker for distressed human</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x00/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x00: Rust 有個靜態 GC</span>
 </a>
@@ -153,7 +153,7 @@ WWW 0x01: 有個部署「部署「部署 K8s 」」的工具
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

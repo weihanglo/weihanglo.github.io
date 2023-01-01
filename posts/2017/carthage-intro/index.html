@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Carthage 套件管理工具 | Weihang Lo</title>
+<title>Carthage 套件管理工具 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Carthage,Swift">
 <meta name=description content="Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2017/carthage-intro/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="Carthage 套件管理工具">
 <meta name=twitter:description content="Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"Carthage 套件管理工具","item":"https://weihanglo.tw/posts/2017/carthage-intro/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Carthage 套件管理工具","name":"Carthage 套件管理工具","description":"Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage","keywords":["Carthage","Swift"],"articleBody":"Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。\n（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）\n特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手 從終端環境安裝 Carthage  brew install carthage  如果還沒有裝 homebrew，請來這下載\n  建立一個 Carfile，列出欲使用的模組，例如：  github \"Alamofire/Alamofire\" ~ 4.4 github \"ReactiveX/RxSwift\" ~ 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target = General = Linked Frameworks and Libraries 在 app target = Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：\n$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework $(SRCROOT)/Carthage/Build/iOS/RxSwift.framework Cartfile 版號語法簡介 Cartfile 版號語法與 Podfile 雷同：\n# 版號 = 3.1.2 github \"ReactiveX/RxSwift\" = 3.1.2 # 版號 3.x (3.0 github \"SnapKit/SnapKit\" ~ 3.0 # 僅匹配版號 0.4.1 github \"jspahrsummers/libextobjc\" == 0.4.1 # 最新版 github \"jspahrsummers/xcconfigs\" # 指定 Git branch github \"jspahrsummers/xcconfigs\" \"branch\" # 其他 Git Server Repository 的 develop 分支 git \"https://agitserver.com/swift-test/swift-test.git\" \"develop\" # 本地 local Git Repository git \"file:///directory/to/project\" \"branch\" 常見議題 Q：Carthage 資料夾裡面究竟有啥？ Carthage/ ├── Build/ │ ├── iOS/ │ │ ├── Alamofire.framework │ │ ├── Alamofire.framework.dSYM │ │ ├── SnapKit.framework │ │ └── SnapKit.framework.dSYM │ └── macOS/ │ └── ... macOS 等其他平台 的 framework └── Checkouts/ ├── Alamofire/ │ ├── ... Alamofire clone 下來的原始碼 └── SnapKit/ └── ... SnapKit clone 下來的原始碼  Carthage/Build: 打包好的 framework（pre-built 或是從 checkouts build 出來的） Carthage/Checkouts: 所有相依模組的 source code  Q：如何避免 carthage udpate 取得的模組版號不同？ Carthage 提供一個鎖定文件 Cartfile.resolved，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，Cartfile.resolved 即會自動更新。可預防部分模組版號沒有完全遵循 語意化版本（SEMVER） 時產生的問題。\n建議將 Cartfile.resolved 提交至版本管理系統中。之後將遠端儲存庫 clone 下來，只需要執行\ncarthage bootstrap 就可以取得與提交時版號完全相同的模組了。\nQ：我不想提交 Carthage 資料夾到 Git Server，怎辦？ 一般而言，我們會將 Carthage 加入 Project 的 .gitignore 中：\n# in .gitignore Carthage 除非另有需求，不然 Cartfile.resolve 應足以還原 project 與提交時相同版號的模組環境。\nQ：我需要開發用但非 Project 相關的模組，該如何？ Carthage 提供另一個 Cartfile.private，配置方法與 Cartfile 相同。Cartfile.private 內的相依模組不會被作為主模組的 dependency。可用來配置開發用模組，譬如使用 testing framework。\nQ：如何只提供 binary framework，不開放 source code？ Carthage 提供的來源除了 Git 以外，事實上最近才提供 binary 這個選項。\nCartfile 範例如下：\nbinary \"https://example.com/release/ExampleFramework.json\" ~ 1.4.0 這裡的 json 檔應描述該 framework 對應版號的下載路徑，配置範例如下：\n{ \"1.3.5\": \"https://example.com/release/1.3.5/framework.zip\", \"1.4.3\": \"https://example.com/release/1.4.3/framework.tar.gz\" } 除此之外，目前只接受 https url 連結，且 version 只能對應語意化版本， Git branch／tag／commit 都暫時無法使用。\nQ：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？ 可以，請新增一個 Run Script build phase，在 Run App 後會自動 build 新的 framework：\n/usr/local/bin/carthage build --platform \"$PLATFORM_NAME\" --project-directory \"$SRCROOT\" ！！！！！注意！！！！！\n所有在 Carthage/checkouts 內的 source 隨時可能改變。如果確定需要改動相依模組，請利用 carthage 指令將相依模組加入 Git submodules。\ncarthage update --use-submodules # or carthage checkout --use-submodules 之後就可以直接操作 Git submodules 了！\n","wordCount":"1312","inLanguage":"en","datePublished":"2017-03-05T08:45:57+08:00","dateModified":"2017-03-05T08:45:57+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2017/carthage-intro/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Carthage 套件管理工具","name":"Carthage 套件管理工具","description":"Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage","keywords":["Carthage","Swift"],"articleBody":"Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。\n（撰於 2017-03-05，基於 Carthage 0.20: Unary, Binary, Ternary）\n特色  時代潮流：Written in Swift! (v.s. CocoaPods in Ruby) 主流現代：iOS 8+, dynamic framework only 去中心化：無提供類似 cocoapods、npm 這種中心儲存庫。 非入侵式：不會修改 Xcode 相關配置，耦合性低。  快速上手 從終端環境安裝 Carthage  brew install carthage  如果還沒有裝 homebrew，請來這下載\n  建立一個 Carfile，列出欲使用的模組，例如：  github \"Alamofire/Alamofire\" ~ 4.4 github \"ReactiveX/RxSwift\" ~ 3.0 在終端環境輸入 carthage update，Carthage 將自動下載所有相依模組至 Carthage/Checkouts 資料夾中，並編譯成 frameworks（或直接下載 pre-compiled framework）。 將 Carthage/Build 資料夾內編譯好的 frameworks 拖拉進你的 app target = General = Linked Frameworks and Libraries 在 app target = Build Phases 下新增一個 New Run Script Phase  # 自動將 framework 複製到 target app 的 bundle中 /usr/local/bin/carthage copy-frameworks 並在 Input Files 加入相依的 frameworks 路徑，例如：\n$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework $(SRCROOT)/Carthage/Build/iOS/RxSwift.framework Cartfile 版號語法簡介 Cartfile 版號語法與 Podfile 雷同：\n# 版號 = 3.1.2 github \"ReactiveX/RxSwift\" = 3.1.2 # 版號 3.x (3.0 github \"SnapKit/SnapKit\" ~ 3.0 # 僅匹配版號 0.4.1 github \"jspahrsummers/libextobjc\" == 0.4.1 # 最新版 github \"jspahrsummers/xcconfigs\" # 指定 Git branch github \"jspahrsummers/xcconfigs\" \"branch\" # 其他 Git Server Repository 的 develop 分支 git \"https://agitserver.com/swift-test/swift-test.git\" \"develop\" # 本地 local Git Repository git \"file:///directory/to/project\" \"branch\" 常見議題 Q：Carthage 資料夾裡面究竟有啥？ Carthage/ ├── Build/ │ ├── iOS/ │ │ ├── Alamofire.framework │ │ ├── Alamofire.framework.dSYM │ │ ├── SnapKit.framework │ │ └── SnapKit.framework.dSYM │ └── macOS/ │ └── ... macOS 等其他平台 的 framework └── Checkouts/ ├── Alamofire/ │ ├── ... Alamofire clone 下來的原始碼 └── SnapKit/ └── ... SnapKit clone 下來的原始碼  Carthage/Build: 打包好的 framework（pre-built 或是從 checkouts build 出來的） Carthage/Checkouts: 所有相依模組的 source code  Q：如何避免 carthage udpate 取得的模組版號不同？ Carthage 提供一個鎖定文件 Cartfile.resolved，記錄了當前被確切安裝的模組精確版號。每次更動新增相依模組時，Cartfile.resolved 即會自動更新。可預防部分模組版號沒有完全遵循 語意化版本（SEMVER） 時產生的問題。\n建議將 Cartfile.resolved 提交至版本管理系統中。之後將遠端儲存庫 clone 下來，只需要執行\ncarthage bootstrap 就可以取得與提交時版號完全相同的模組了。\nQ：我不想提交 Carthage 資料夾到 Git Server，怎辦？ 一般而言，我們會將 Carthage 加入 Project 的 .gitignore 中：\n# in .gitignore Carthage 除非另有需求，不然 Cartfile.resolve 應足以還原 project 與提交時相同版號的模組環境。\nQ：我需要開發用但非 Project 相關的模組，該如何？ Carthage 提供另一個 Cartfile.private，配置方法與 Cartfile 相同。Cartfile.private 內的相依模組不會被作為主模組的 dependency。可用來配置開發用模組，譬如使用 testing framework。\nQ：如何只提供 binary framework，不開放 source code？ Carthage 提供的來源除了 Git 以外，事實上最近才提供 binary 這個選項。\nCartfile 範例如下：\nbinary \"https://example.com/release/ExampleFramework.json\" ~ 1.4.0 這裡的 json 檔應描述該 framework 對應版號的下載路徑，配置範例如下：\n{ \"1.3.5\": \"https://example.com/release/1.3.5/framework.zip\", \"1.4.3\": \"https://example.com/release/1.4.3/framework.tar.gz\" } 除此之外，目前只接受 https url 連結，且 version 只能對應語意化版本， Git branch／tag／commit 都暫時無法使用。\nQ：如何同時修改相依模組的 code，並在 Run 時同步更新嗎？ 可以，請新增一個 Run Script build phase，在 Run App 後會自動 build 新的 framework：\n/usr/local/bin/carthage build --platform \"$PLATFORM_NAME\" --project-directory \"$SRCROOT\" ！！！！！注意！！！！！\n所有在 Carthage/checkouts 內的 source 隨時可能改變。如果確定需要改動相依模組，請利用 carthage 指令將相依模組加入 Git submodules。\ncarthage update --use-submodules # or carthage checkout --use-submodules 之後就可以直接操作 Git submodules 了！\n","wordCount":"1312","inLanguage":"en","datePublished":"2017-03-05T08:45:57+08:00","dateModified":"2017-03-05T08:45:57+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2017/carthage-intro/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -224,12 +224,12 @@ carthage checkout --use-submodules
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2017/fed-toolchain/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>大前端時代的工具箱</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2017/swift-quick-note/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>Swift 初學速記</span>
 </a>
@@ -242,7 +242,7 @@ carthage checkout --use-submodules
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

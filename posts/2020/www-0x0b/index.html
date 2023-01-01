@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易 | Weihang Lo</title>
+<title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Rust,Kubernetes,Privacy">
 <meta name=description content="Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x0b/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易">
 <meta name=twitter:description content="Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易","item":"https://weihanglo.tw/posts/2020/www-0x0b/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易","name":"WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易","description":"Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初","keywords":["Weekly","Rust","Kubernetes","Privacy"],"articleBody":" Zoom 很讚，host 可以看你有沒有認真\n— Zoom: Attendee attention tracking\n 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWhat future does the captical of Japan carry?  Note: 東京不算是日本的「法定」首都\n 這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。\nUsing Zoom? Here are the privacy issues you need to be aware of 因為疫情緣故，最近 Zoom 很夯，剛好有篇文章寫到 Zoom 有很多噁心有趣的 feature：\n host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」  推薦有空看看這篇文章，尤其是「How you can protect your data」一節。\ncontroller.go:796] only numeric ports are allowed in ExternalName services: http is not valid as a TCP/UDP port 最近一些第三方服務需要設定 custom domain，DNS 簡單解決，但掛 SSL 憑證卻有點棘手，由於不想額外開一台 proxy server，決定使用 Plan A： 使用既有的 NGINX 。我們的 custom domain 需求是兩層 subdomain 的 one.two.example.com，而當前憑證是 *.example.com 的 wildcard certificate，原本以為可以成功掛憑證，卻一直沒有成功，後來才知道 wildcard certificate 只支援一層 subdomain。\nMatching is performed using the matching rules specified by [RFC2459]. If more than one identity of a given type is present in the certificate (e.g., more than one dNSName name, a match in any one of the set is considered acceptable.) Names may contain the wildcard character * which is considered to match any single domain name component or component fragment. E.g., *.a.com matches foo.a.com but not bar.foo.a.com. f*.com matches foo.com but not bar.com. 於是，改用 Plan B：Cloudflare 的 Universal SSL 免費掛憑證 ，嘗試將 DNS 導向 Cloudflare，卻發現 Universal SSL 也不支援 multi-level subdomain（除非付錢），只好 say goodbye。\n最後只能使出 Plan C：沿用在 Kubernetes 上的 NGINX Ingress Controller 。先將 DNS A record 導向 ingress controller，然後建立 ExternalName 的 service 指向第三方服務，再透過 cert-manager 發憑證。豈料一直無法成功掛上憑證，原來是 0.26.0 版之前的 NGINX Ingress Controller 的 Ingress 資源的 backend service 如果是 type ExternalName，就只能使用 numeric port，不能使用 IANA 定義的 named port，本來寫 backend.servicePort=http 只好改寫成 80 port。\n附上錯誤訊息：\nI0229 06:00:03.677872 6 controller.go:177] ingress backend successfully reloaded... W0229 06:00:06.744761 6 controller.go:796] only numeric ports are allowed in ExternalName services: http is not valid as a TCP/UDP port I0229 06:00:06.744977 6 controller.go:168] backend reload required I0229 06:00:06.979204 6 controller.go:177] ingress backend successfully reloaded... ","wordCount":"914","inLanguage":"en","datePublished":"2020-04-04T00:00:00+08:00","dateModified":"2020-04-04T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0b/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易","name":"WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易","description":"Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初","keywords":["Weekly","Rust","Kubernetes","Privacy"],"articleBody":" Zoom 很讚，host 可以看你有沒有認真\n— Zoom: Attendee attention tracking\n 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWhat future does the captical of Japan carry?  Note: 東京不算是日本的「法定」首都\n 這份簡報講解 Rust 最流行的非同步框架 Tokio 運作原理，透過圖像化的流程說明 future 如何於 Tokio 互動中被 poll 和 waken，非常直觀易理解，比敝人在 COSCUP 2019 的簡報 Our Future in Rust 好太多了。\nUsing Zoom? Here are the privacy issues you need to be aware of 因為疫情緣故，最近 Zoom 很夯，剛好有篇文章寫到 Zoom 有很多噁心有趣的 feature：\n host 可以看參與者專不專心，超過 30 喵沒在看 zoom 就會 alert 會存一份聊天紀錄給 host，但沒說 private message 會不會給 host 宣稱蒐集名字、實體位置、email、電話、公司和職稱但不會拿去賣，只會用在「business purposes」  推薦有空看看這篇文章，尤其是「How you can protect your data」一節。\ncontroller.go:796] only numeric ports are allowed in ExternalName services: http is not valid as a TCP/UDP port 最近一些第三方服務需要設定 custom domain，DNS 簡單解決，但掛 SSL 憑證卻有點棘手，由於不想額外開一台 proxy server，決定使用 Plan A： 使用既有的 NGINX 。我們的 custom domain 需求是兩層 subdomain 的 one.two.example.com，而當前憑證是 *.example.com 的 wildcard certificate，原本以為可以成功掛憑證，卻一直沒有成功，後來才知道 wildcard certificate 只支援一層 subdomain。\nMatching is performed using the matching rules specified by [RFC2459]. If more than one identity of a given type is present in the certificate (e.g., more than one dNSName name, a match in any one of the set is considered acceptable.) Names may contain the wildcard character * which is considered to match any single domain name component or component fragment. E.g., *.a.com matches foo.a.com but not bar.foo.a.com. f*.com matches foo.com but not bar.com. 於是，改用 Plan B：Cloudflare 的 Universal SSL 免費掛憑證 ，嘗試將 DNS 導向 Cloudflare，卻發現 Universal SSL 也不支援 multi-level subdomain（除非付錢），只好 say goodbye。\n最後只能使出 Plan C：沿用在 Kubernetes 上的 NGINX Ingress Controller 。先將 DNS A record 導向 ingress controller，然後建立 ExternalName 的 service 指向第三方服務，再透過 cert-manager 發憑證。豈料一直無法成功掛上憑證，原來是 0.26.0 版之前的 NGINX Ingress Controller 的 Ingress 資源的 backend service 如果是 type ExternalName，就只能使用 numeric port，不能使用 IANA 定義的 named port，本來寫 backend.servicePort=http 只好改寫成 80 port。\n附上錯誤訊息：\nI0229 06:00:03.677872 6 controller.go:177] ingress backend successfully reloaded... W0229 06:00:06.744761 6 controller.go:796] only numeric ports are allowed in ExternalName services: http is not valid as a TCP/UDP port I0229 06:00:06.744977 6 controller.go:168] backend reload required I0229 06:00:06.979204 6 controller.go:177] ingress backend successfully reloaded... ","wordCount":"914","inLanguage":"en","datePublished":"2020-04-04T00:00:00+08:00","dateModified":"2020-04-04T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0b/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -143,12 +143,12 @@ I0229 06:00:06.979204       6 controller.go:177] ingress backend successfully re
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x0c/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x0C: 未具名</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x0a/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</span>
 </a>
@@ -161,7 +161,7 @@ I0229 06:00:06.979204       6 controller.go:177] ingress backend successfully re
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x13: 據說網路釣魚比海釣容易成功 | Weihang Lo</title>
+<title>WWW 0x13: 據說網路釣魚比海釣容易成功 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Security,Rust">
 <meta name=description content="這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x13/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x13: 據說網路釣魚比海釣容易成功">
 <meta name=twitter:description content="這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x13: 據說網路釣魚比海釣容易成功","item":"https://weihanglo.tw/posts/2020/www-0x13/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x13: 據說網路釣魚比海釣容易成功","name":"WWW 0x13: 據說網路釣魚比海釣容易成功","description":"這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["Security","Rust"],"articleBody":"這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nB!tch to Boss 這應該是我看過最有趣的 addons，而且還是 Mozilla 官方出品，儘管無法有效減少 internet troll，至少一直有人叫你老闆就是爽。\nGreat job, Mozilla!\n關於 Microsoft 的幾個 Rust 新聞與專案 最近除了 AWS 在找 Rust SDK 和 lambda 的職缺，微軟也不斷在 Rust 有所著墨，簡單介紹兩個專案新聞:\n Microsoft: Why we used programming language Rust over Go for WebAssembly on Kubernetes app：微軟最初開源 Helm 的 Deis Lab 最近嘗試使用 Rust 開發一個 kubelet 叫做 krustlet，專門用來跑 WebAssembly app Microsoft: Our Rust programming language Windows runtime library is now in preview：微軟官方寫了一個 WinRT 的 Rust library，正在 preview stage，可以用 Rust 開發 UWP 了，官方技術部落格甚至有踩地雷的 demo！  To test its security mid-pandemic, GitLab tried phishing its own work-from-home staff. 1 in 5 fell for it GitLab 對自家員工「釣魚」資安演練，至少 20% 的員工中招填入帳號密碼，但驚人的是這個比例居然還是低於業界平均 30-40%。突然想起我在公司內部 hackathon 期間也做過釣魚郵件的資安演練，買了 slack-info.app 的 domain 並寄送重設密碼信來測試釣魚，四十個人只有一人中招。嗯，勉強及格。\nThe Rule Of 2 身為 web developer，經常與資料庫打交道的我們都很熟悉 CAP theorem，但你知道 UHU theorem 嗎？其實沒有這個理論，不過 Chromium 團隊在[最近大廠](https://github.com/microsoft/MSRC-Security-Research/blob/master/papers/2020/Security analysis of memory tagging.pdf)發現 memory safety 是主要的漏洞之一，而攻擊 memory safety 的面向有三個，只要三個都達成，恭喜你來到資安地獄。以下分別介紹三個弱點：\n 不信任的輸入：memory safety 漏洞主要來源 使用缺乏 memory safety 的語言：C、C++、Assembly 都是 unsafe 語言 高權限：權限是一個相對概念，韌體、OS process、容器沙盒，給錯權限你就知死（tsai-sí）  解法至少有四種方向：\n 降低權限：都放入沙盒中，定義清楚的 IPC（或者用 WebAssembly？） 驗證可信任的來源：這裡的例子比較 Chromium-specific，但就是透過官方的 updater 或是直接將 TLS pin 到 Chrmium 裡面 正規化：將輸入轉化成一個語法簡單的格式，縮小錯誤不安全的 scope 安全的語言：例如先用 Java 寫的 JsonSanitizer 來驗證輸入是否安全，再傳給 C++  ","wordCount":"937","inLanguage":"en","datePublished":"2020-05-30T00:00:00+08:00","dateModified":"2020-05-30T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x13/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x13: 據說網路釣魚比海釣容易成功","name":"WWW 0x13: 據說網路釣魚比海釣容易成功","description":"這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["Security","Rust"],"articleBody":"這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nB!tch to Boss 這應該是我看過最有趣的 addons，而且還是 Mozilla 官方出品，儘管無法有效減少 internet troll，至少一直有人叫你老闆就是爽。\nGreat job, Mozilla!\n關於 Microsoft 的幾個 Rust 新聞與專案 最近除了 AWS 在找 Rust SDK 和 lambda 的職缺，微軟也不斷在 Rust 有所著墨，簡單介紹兩個專案新聞:\n Microsoft: Why we used programming language Rust over Go for WebAssembly on Kubernetes app：微軟最初開源 Helm 的 Deis Lab 最近嘗試使用 Rust 開發一個 kubelet 叫做 krustlet，專門用來跑 WebAssembly app Microsoft: Our Rust programming language Windows runtime library is now in preview：微軟官方寫了一個 WinRT 的 Rust library，正在 preview stage，可以用 Rust 開發 UWP 了，官方技術部落格甚至有踩地雷的 demo！  To test its security mid-pandemic, GitLab tried phishing its own work-from-home staff. 1 in 5 fell for it GitLab 對自家員工「釣魚」資安演練，至少 20% 的員工中招填入帳號密碼，但驚人的是這個比例居然還是低於業界平均 30-40%。突然想起我在公司內部 hackathon 期間也做過釣魚郵件的資安演練，買了 slack-info.app 的 domain 並寄送重設密碼信來測試釣魚，四十個人只有一人中招。嗯，勉強及格。\nThe Rule Of 2 身為 web developer，經常與資料庫打交道的我們都很熟悉 CAP theorem，但你知道 UHU theorem 嗎？其實沒有這個理論，不過 Chromium 團隊在[最近大廠](https://github.com/microsoft/MSRC-Security-Research/blob/master/papers/2020/Security analysis of memory tagging.pdf)發現 memory safety 是主要的漏洞之一，而攻擊 memory safety 的面向有三個，只要三個都達成，恭喜你來到資安地獄。以下分別介紹三個弱點：\n 不信任的輸入：memory safety 漏洞主要來源 使用缺乏 memory safety 的語言：C、C++、Assembly 都是 unsafe 語言 高權限：權限是一個相對概念，韌體、OS process、容器沙盒，給錯權限你就知死（tsai-sí）  解法至少有四種方向：\n 降低權限：都放入沙盒中，定義清楚的 IPC（或者用 WebAssembly？） 驗證可信任的來源：這裡的例子比較 Chromium-specific，但就是透過官方的 updater 或是直接將 TLS pin 到 Chrmium 裡面 正規化：將輸入轉化成一個語法簡單的格式，縮小錯誤不安全的 scope 安全的語言：例如先用 Java 寫的 JsonSanitizer 來驗證輸入是否安全，再傳給 C++  ","wordCount":"937","inLanguage":"en","datePublished":"2020-05-30T00:00:00+08:00","dateModified":"2020-05-30T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x13/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -135,12 +135,12 @@ WWW 0x13: 據說網路釣魚比海釣容易成功
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x14/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x14: Structured concurrency is promising</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x12/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x12: Oxidized Chromium?</span>
 </a>
@@ -153,7 +153,7 @@ WWW 0x13: 據說網路釣魚比海釣容易成功
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x02: Distroless Docker for distressed human | Weihang Lo</title>
+<title>WWW 0x02: Distroless Docker for distressed human | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Rust,DevOps">
 <meta name=description content="這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x02/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x02: Distroless Docker for distressed human">
 <meta name=twitter:description content="這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x02: Distroless Docker for distressed human","item":"https://weihanglo.tw/posts/2020/www-0x02/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x02: Distroless Docker for distressed human","name":"WWW 0x02: Distroless Docker for distressed human","description":"這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","Rust","DevOps"],"articleBody":"這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nHow to Review a Pull Request 這份是 Rust 的 crates.io（類似 PyPI 和 rubygems）如何審閱拉取請求的文件， 和 Google 那份不太一樣，更貼近專案一點，節錄重點：\n 先拉到自己的本地分支，看看 PR 是否達到他宣稱的療效（檢查一般行為） 嘗試用各種手段打爆他（檢查 edge case） 如果有任何失敗，請寫清楚重新產生錯誤的流程 再來就是理解這個修改到底合不合理，是不是其實不需要  這篇 review guideline 短短的，剩下的自己看囉。\nDistroless Docker: Containerizing Apps, not VMs - Matthew Moore 本文是 Google 雇員介紹 Distroless Image 演講的重點摘要，對容器化和 Docker 最佳化有興趣的朋友千萬別錯過。\n Distroless GitHub Repo 在此\n Q：何謂 Distroless Image\nDistroless 的 distro 是指 Linux 發行版（distro），加了一個 less 就是替 docker image 瘦身，只留 app source 和 runtime 需要的 dependencies，把發行版中不必要的東西都幹掉。\nQ：部署程式的歷史\n 部署至 VM，貼近開發環境 - sshd、systemd、crond、套件管理我們根本不需要 Docker 橫空出世，但啥東西要放進 docker？ VM 的 filesystem 很棒，也有所有跑 app 需要的 lib，直接把 VM 塞進去 發現 image 太大？縮小 distroapline + musl libc  Q：我們真正需要什麼\n compiled source dependencies (lib, assets cat videos) runtime (libc, JRE, node)  Q：誰知道如何做這件事\nbuild tool（cmake、cargo、go build、bazel）\n上述這些其實 build tool 都知道，所以 build tool 需要的東西就是該進入 docker 的東西，而 gcr.io/distroless 的 image 都是由 bazel 打包構建出來的，這也是 Google production 在用的方法（之一）\nhttps://www.youtube.com/watch?v=lviLZFciDv4\nQ：為什麼不用語言自帶的 build tool\nbazel 很好用，尤其是對 Java、C/C++、Rust 和 Go 這種 AOT-compiling 語言，但其實 distroless 不需要 bazel\ndistroless image + 編譯好的 binary = 一個 dockerfile 就 OK\nFROMgcr.io/distroless/javaADD myapp.jar /CMD /myapp.jarQ：如果編譯期需要其他 deps 怎麼辦\nDocker 有 multi-stage build 啊幹\n# Start by building the application.FROMgolang:1.13-buster as buildWORKDIR/go/src/appADD . /go/src/appRUN go get -d -v ./...RUN go build -o /go/bin/app# Now copy it into our base image.FROMgcr.io/distroless/base-debian10COPY --from=build /go/bin/app /CMD [\"/app\"]Q：現在能用嗎\n如果你的 app 是 Rust、Go 這種語言，幾乎 100% 能用。\n Go - 自己寫了 libc，可以完全不打包 libc 直接用 base image C/C++/Rust - 多打包 libc 的 static image Java - 再多打包 OpenJDK-based runtime  Q：給個結論吧\n作者本來是做 compiler 了，所以從編譯層面，他給出這段 quote：\n Docker solves static linking at distro level\nBazel solve static linking at language lavel\n 再節錄另一個面向的思考點：\n 如果將 JDK 看作開發環境，你為什麼會想要將整個 distro 打包進去而不是給使用者 JRE 呢？\nJDK 之於 JRE 即是 distro image 之於 distroless image\n ","wordCount":"946","inLanguage":"en","datePublished":"2020-02-01T00:00:11+08:00","dateModified":"2020-02-01T00:00:11+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x02/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x02: Distroless Docker for distressed human","name":"WWW 0x02: Distroless Docker for distressed human","description":"這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","Rust","DevOps"],"articleBody":"這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nHow to Review a Pull Request 這份是 Rust 的 crates.io（類似 PyPI 和 rubygems）如何審閱拉取請求的文件， 和 Google 那份不太一樣，更貼近專案一點，節錄重點：\n 先拉到自己的本地分支，看看 PR 是否達到他宣稱的療效（檢查一般行為） 嘗試用各種手段打爆他（檢查 edge case） 如果有任何失敗，請寫清楚重新產生錯誤的流程 再來就是理解這個修改到底合不合理，是不是其實不需要  這篇 review guideline 短短的，剩下的自己看囉。\nDistroless Docker: Containerizing Apps, not VMs - Matthew Moore 本文是 Google 雇員介紹 Distroless Image 演講的重點摘要，對容器化和 Docker 最佳化有興趣的朋友千萬別錯過。\n Distroless GitHub Repo 在此\n Q：何謂 Distroless Image\nDistroless 的 distro 是指 Linux 發行版（distro），加了一個 less 就是替 docker image 瘦身，只留 app source 和 runtime 需要的 dependencies，把發行版中不必要的東西都幹掉。\nQ：部署程式的歷史\n 部署至 VM，貼近開發環境 - sshd、systemd、crond、套件管理我們根本不需要 Docker 橫空出世，但啥東西要放進 docker？ VM 的 filesystem 很棒，也有所有跑 app 需要的 lib，直接把 VM 塞進去 發現 image 太大？縮小 distroapline + musl libc  Q：我們真正需要什麼\n compiled source dependencies (lib, assets cat videos) runtime (libc, JRE, node)  Q：誰知道如何做這件事\nbuild tool（cmake、cargo、go build、bazel）\n上述這些其實 build tool 都知道，所以 build tool 需要的東西就是該進入 docker 的東西，而 gcr.io/distroless 的 image 都是由 bazel 打包構建出來的，這也是 Google production 在用的方法（之一）\nhttps://www.youtube.com/watch?v=lviLZFciDv4\nQ：為什麼不用語言自帶的 build tool\nbazel 很好用，尤其是對 Java、C/C++、Rust 和 Go 這種 AOT-compiling 語言，但其實 distroless 不需要 bazel\ndistroless image + 編譯好的 binary = 一個 dockerfile 就 OK\nFROMgcr.io/distroless/javaADD myapp.jar /CMD /myapp.jarQ：如果編譯期需要其他 deps 怎麼辦\nDocker 有 multi-stage build 啊幹\n# Start by building the application.FROMgolang:1.13-buster as buildWORKDIR/go/src/appADD . /go/src/appRUN go get -d -v ./...RUN go build -o /go/bin/app# Now copy it into our base image.FROMgcr.io/distroless/base-debian10COPY --from=build /go/bin/app /CMD [\"/app\"]Q：現在能用嗎\n如果你的 app 是 Rust、Go 這種語言，幾乎 100% 能用。\n Go - 自己寫了 libc，可以完全不打包 libc 直接用 base image C/C++/Rust - 多打包 libc 的 static image Java - 再多打包 OpenJDK-based runtime  Q：給個結論吧\n作者本來是做 compiler 了，所以從編譯層面，他給出這段 quote：\n Docker solves static linking at distro level\nBazel solve static linking at language lavel\n 再節錄另一個面向的思考點：\n 如果將 JDK 看作開發環境，你為什麼會想要將整個 distro 打包進去而不是給使用者 JRE 呢？\nJDK 之於 JRE 即是 distro image 之於 distroless image\n ","wordCount":"946","inLanguage":"en","datePublished":"2020-02-01T00:00:11+08:00","dateModified":"2020-02-01T00:00:11+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x02/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -175,12 +175,12 @@ WWW 0x02: Distroless Docker for distressed human
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x03/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x03: What Color is Your Function?</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x01/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</span>
 </a>
@@ -193,7 +193,7 @@ WWW 0x02: Distroless Docker for distressed human
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

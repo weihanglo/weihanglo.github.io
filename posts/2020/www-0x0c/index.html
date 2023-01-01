@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x0C: 未具名 | Weihang Lo</title>
+<title>WWW 0x0C: 未具名 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Rust,Kubernetes,Privacy">
 <meta name=description content="既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x0c/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x0C: 未具名">
 <meta name=twitter:description content="既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x0C: 未具名","item":"https://weihanglo.tw/posts/2020/www-0x0c/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0C: 未具名","name":"WWW 0x0C: 未具名","description":"既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內","keywords":["Weekly","Rust","Kubernetes","Privacy"],"articleBody":" 既然疫情嚴重，連假就在家加班吧！\n— Weihang Lo 2020.4\n 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWords Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：\n 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。\nThe Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：\n follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：\n Leader Election：從 follower 中投票選出 leader，可以處理 split vote Log Replication：將 state machine 以 log 形式複製到每個 server，大多數的 server 回覆後才會 commit change  不贅述了，這個簡單的動畫教學很清楚點出 Raft 最重要的核心元件，當然自己看論文 😈。\nWe need tool support for keyset pagination \n這篇文章的重點只有一個：不要使用 offset 來做分頁。原因如下：\n offset 的 SQL 標準定義是先 fetch 所有 row，再丟棄被 offset 掉的 row 承上，小 offset 效能影響不大，高 offset 就很慘 若在計算 offset 時，同時 insert 新 row，就可能拿到重複的 row 不論 SQL 還是 NoSQL database 都可能受影響  哪些 SQL 可能會有這樣問題:\n OFFSET keyword 雙參數的 LIMIT [offset, ] limit 一些用 row-numbering 來篩選 lower-bound，如 ROW_NUMBER()、ROWNUM  作者想表達的是，這並非 Database 的鍋，而是 framework 應使用其他 pagination 方法，例如 keyset pagination，也就是傳入上一分頁最後一組 key，來找下一分頁。當然，並非所有情境都適合這種分頁模式，且要改善程式分頁效能之前，請先做 benchmark，阿彌陀佛。\n","wordCount":"816","inLanguage":"en","datePublished":"2020-04-11T00:00:00+08:00","dateModified":"2020-04-11T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0c/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0C: 未具名","name":"WWW 0x0C: 未具名","description":"既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內","keywords":["Weekly","Rust","Kubernetes","Privacy"],"articleBody":" 既然疫情嚴重，連假就在家加班吧！\n— Weihang Lo 2020.4\n 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWords Are Hard - An Essay on Communicating With Non-Programmers 以直白的口吻，分享和不同背景的人講解技術的法則。節錄重點如下：\n 避免用過多行話 放尊重點，不要擺出紆尊降貴的姿態 給技術解釋加些人性生動的類比 視覺化圖表比口語更易理解 承認自己不熟，但可花時間研究  願我們一起打破工程師古怪又難溝通的刻板印象。\nThe Raft Consensus Algorithm 最近嘗試貢獻 TiKV，順便複習一下 Raft 共識演算法 Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Raft 的 server 分為三個 state：\n follower：所有非 leader 的 server 都是 follower leader：所有 client request 都會送到 leader，一個 Raft group 理論上只有一個 leader candidate：達到 election timeout 的 follower 會把自己提升為 candidate，並向其他 server 發出訊息：「請 promote 我當 leader」  而 Raft 主要有兩個的步驟：\n Leader Election：從 follower 中投票選出 leader，可以處理 split vote Log Replication：將 state machine 以 log 形式複製到每個 server，大多數的 server 回覆後才會 commit change  不贅述了，這個簡單的動畫教學很清楚點出 Raft 最重要的核心元件，當然自己看論文 😈。\nWe need tool support for keyset pagination \n這篇文章的重點只有一個：不要使用 offset 來做分頁。原因如下：\n offset 的 SQL 標準定義是先 fetch 所有 row，再丟棄被 offset 掉的 row 承上，小 offset 效能影響不大，高 offset 就很慘 若在計算 offset 時，同時 insert 新 row，就可能拿到重複的 row 不論 SQL 還是 NoSQL database 都可能受影響  哪些 SQL 可能會有這樣問題:\n OFFSET keyword 雙參數的 LIMIT [offset, ] limit 一些用 row-numbering 來篩選 lower-bound，如 ROW_NUMBER()、ROWNUM  作者想表達的是，這並非 Database 的鍋，而是 framework 應使用其他 pagination 方法，例如 keyset pagination，也就是傳入上一分頁最後一組 key，來找下一分頁。當然，並非所有情境都適合這種分頁模式，且要改善程式分頁效能之前，請先做 benchmark，阿彌陀佛。\n","wordCount":"816","inLanguage":"en","datePublished":"2020-04-11T00:00:00+08:00","dateModified":"2020-04-11T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0c/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -153,12 +153,12 @@ Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Ra
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x0d/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x0D: 已達上限</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x0b/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</span>
 </a>
@@ -171,7 +171,7 @@ Raft 主要訴求是 Understandability，因為 Paxos 太複雜（無誤），Ra
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
