@@ -2,9 +2,10 @@
 title: Home
 ---
 
-Finally, I realized.
+[<center><img src="https://gravatar.com/avatar/fc3e298fb8704b44725ad76fb31d26ac?s=300" style="border-radius: 300px;"></center>](https://github.com/weihanglo)
 
-## Life is a refactoring process without tests.
+<center style="font-size: 1.5em;">📦 Cargo worker at home</center>
+<center>Here are random thoughts from Weihang Lo about programming and life.</center>
 
 <a rel="me" href="https://hachyderm.io/@weihanglo"></a>
 <a rel="me" href="https://g0v.social/@weihanglo"></a>

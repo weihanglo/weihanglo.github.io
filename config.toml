@@ -1,5 +1,5 @@
 baseURL = "https://weihanglo.tw"
-title = "Weihang Lo"
+title = "Life is a refactoring process without tests"
 copyright = "CC BY-NC-SA 4.0"
 theme = "PaperMod"
 paginate = 1000
@@ -25,10 +25,10 @@ identifier = "home"
 url = "/"
 
 [[menu.main]]
-name = "Posts"
+name = "Archives"
 weight = 20
-identifier = "posts"
-url = "/posts/"
+identifier = "archives"
+url = "/archives/"
 
 [[menu.main]]
 name = "Tags"
