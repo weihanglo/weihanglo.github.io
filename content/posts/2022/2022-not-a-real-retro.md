@@ -1,14 +1,12 @@
 ---
-title: "2022 年度流水帳式回顧"
+title: "2022 流水帳式年度回顧"
 date: 2022-12-31T12:00:00+00:00
 katex: true
 tags:
   - Retrospective
 cover:
-  image: https://i.imgur.com/XhXyjKD.jpg # ./working-abroad.jpg
+  image: https://weihanglo.tw/posts/2022/2022-not-a-real-retro/working-abroad.jpg
 ---
-
-![](./working-abroad.jpg)
 
 赫然發現人生已經快過一半了。
 

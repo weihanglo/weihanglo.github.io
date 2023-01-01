@@ -5,9 +5,8 @@ tags:
   - Interview
   - Front-end
 cover:
-  image: hahow-frontdoor.jpg
+  image: http://weihanglo.tw/posts/2018/2018-interviews/hahow-frontdoor.jpg
   caption: 三次面試中唯一一張照片
-  style: normal
 ---
 
 這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。

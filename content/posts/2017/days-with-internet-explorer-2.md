@@ -8,9 +8,8 @@ tags:
   - Web Access Right
 date: 2017-12-09T18:48:48+08:00
 cover:
-  image: build-websites-for-web.png
+  image: http://weihanglo.tw/posts/2017/days-with-internet-explorer-2/build-websites-for-web.png
   caption: Modified from Webcompat.com
-  style: wide
 ---
 
 還記得之前整理的 [IE 相容性][days-with-internet-explorer] 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽器相容性吧！
