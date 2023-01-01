@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x00: Rust 有個靜態 GC | Weihang Lo</title>
+<title>WWW 0x00: Rust 有個靜態 GC | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly">
 <meta name=description content="如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。 傑森 - 2020 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x00/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x00: Rust 有個靜態 GC">
 <meta name=twitter:description content="如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。 傑森 - 2020 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x00: Rust 有個靜態 GC","item":"https://weihanglo.tw/posts/2020/www-0x00/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x00: Rust 有個靜態 GC","name":"WWW 0x00: Rust 有個靜態 GC","description":"如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。 傑森 - 2020 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五","keywords":["Weekly"],"articleBody":" 如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。\n傑森 - 2020\n 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nRust has a static garbage collector 雖然這篇作者是 Rust 核心成員，文章鋪陳也是為了褒 Rust，但內文講到 static typed 與 dynamic typed lang 的權衡比較，還有各種 GC 和記憶體管理的精實介紹，覺得蠻值得一讀，第一次聽到 escape analysis 也是驚呼了一下，不就是 GC 版 RAII 嗎！\nStarship 小又快的 shell prompt\n config 超簡單 支援顯示 Node.js/Ruby/Python/Rust/Go/AWS/K8s/… 非常多環境 支援 Git rebase/merge stage 還有 status/branch 還有自帶很醜的顏色  如果覺得 oh-my-zsh 太肥的同學可以來試試看，個人用了半年沒出什麼問題。\nA simple C thread pool implementation 看到一個很簡單的 300 行 threadpool in C 實作，想分享一下：\n 只有一個 thread queue 和一個 task queue 利用 mutex 限制一次只能一個 thread 取 task 來執行 沒有 task 時就用 condition variable 來 block thread 等待新增 task 最重要的 loop 在這裡 threadpool_task_t 這個 Task 儲存了 function 和它的 args：  不過這並非 lock-free 的實作，Mutex 鎖仍然有不少效能改善空間，等我看懂 lock-free threadpool 再來分享。\nThe Case for Writing Network Drivers in High-Level Programming Languages 慕尼黑工大寫了一系列論文，用各種語言實作 Network driver，實作細節包含 DMA 到封包傳遞，Rust 的效能接近 C 在意料之中，比較令我驚訝的是 C# 效能好得誇張。\nGitHub 專案請點此。\n","wordCount":"494","inLanguage":"en","datePublished":"2020-01-18T00:00:00+08:00","dateModified":"2020-01-18T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x00/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x00: Rust 有個靜態 GC","name":"WWW 0x00: Rust 有個靜態 GC","description":"如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。 傑森 - 2020 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五","keywords":["Weekly"],"articleBody":" 如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。\n傑森 - 2020\n 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nRust has a static garbage collector 雖然這篇作者是 Rust 核心成員，文章鋪陳也是為了褒 Rust，但內文講到 static typed 與 dynamic typed lang 的權衡比較，還有各種 GC 和記憶體管理的精實介紹，覺得蠻值得一讀，第一次聽到 escape analysis 也是驚呼了一下，不就是 GC 版 RAII 嗎！\nStarship 小又快的 shell prompt\n config 超簡單 支援顯示 Node.js/Ruby/Python/Rust/Go/AWS/K8s/… 非常多環境 支援 Git rebase/merge stage 還有 status/branch 還有自帶很醜的顏色  如果覺得 oh-my-zsh 太肥的同學可以來試試看，個人用了半年沒出什麼問題。\nA simple C thread pool implementation 看到一個很簡單的 300 行 threadpool in C 實作，想分享一下：\n 只有一個 thread queue 和一個 task queue 利用 mutex 限制一次只能一個 thread 取 task 來執行 沒有 task 時就用 condition variable 來 block thread 等待新增 task 最重要的 loop 在這裡 threadpool_task_t 這個 Task 儲存了 function 和它的 args：  不過這並非 lock-free 的實作，Mutex 鎖仍然有不少效能改善空間，等我看懂 lock-free threadpool 再來分享。\nThe Case for Writing Network Drivers in High-Level Programming Languages 慕尼黑工大寫了一系列論文，用各種語言實作 Network driver，實作細節包含 DMA 到封包傳遞，Rust 的效能接近 C 在意料之中，比較令我驚訝的是 C# 效能好得誇張。\nGitHub 專案請點此。\n","wordCount":"494","inLanguage":"en","datePublished":"2020-01-18T00:00:00+08:00","dateModified":"2020-01-18T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x00/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -137,12 +137,12 @@ WWW 0x00: Rust 有個靜態 GC
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x01/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2019/rustconf-2019-1/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>RustConf 2019 雲參訪錄（1）</span>
 </a>
@@ -155,7 +155,7 @@ WWW 0x00: Rust 有個靜態 GC
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

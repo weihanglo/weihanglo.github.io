@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x16: JWT、分散式 ID 生成、k8s 安全性 | Weihang Lo</title>
+<title>WWW 0x16: JWT、分散式 ID 生成、k8s 安全性 | Life is a refactoring process without tests</title>
 <meta name=keywords content="DevOps,Distributed Systems">
 <meta name=description content="這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x16/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x16: JWT、分散式 ID 生成、k8s 安全性">
 <meta name=twitter:description content="這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x16: JWT、分散式 ID 生成、k8s 安全性","item":"https://weihanglo.tw/posts/2020/www-0x16/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x16: JWT、分散式 ID 生成、k8s 安全性","name":"WWW 0x16: JWT、分散式 ID 生成、k8s 安全性","description":"這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多","keywords":["DevOps","Distributed Systems"],"articleBody":"這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nKubernetes Blog: 11 Ways (Not) to Get Hacked 管理 Kubernetes 就和管理 VM 一樣，一定會遇到各種安全性問題，這篇文章提出 11 種可以增加安全性的小撇步，順便分享 @hwchiu 整理的中文版，資訊更多更完整，感恩惜福。\nJWT 是否適合 session mechanism 最近翻到 The Ultimate Guide to handling JWTs on frontend clients 這篇小巧精緻的 JWT 身分驗證教學，流程圖簡明易懂，內容包括：\n JWT 的結構：header.payload.signature JWT 會儲存在 client-side，不適合儲存敏感資料 JWT 不適合放在 browser storage，容易被 XSS（所以推薦 in-memory） 由於 JWT 本身無狀態，誰幹走都能奪權，請保持 JWT 過期時間不會太長，文中案例是 15 分鐘 鑑於過期比較快，請配合 HttpOnly 的 cookie 的 refresh token 來更新 JWT（但 XSS 還是有點不安全） Revoke all login sessions 可以簡單透過 refresh token 達成：刪除該使用者的所有 refresh token 就行 Server-side rendering 和 JWT + refresh token 如何整合：JWT 會存在 SSR server 上，refresh token 則是每個 page request 都會產生新的 token  有趣的是，留言提出許多 JWT 與這篇文章的實作總總問題，像是：\n JWT 不適合用在 session 上 文章 refresh token 還是會被 XSS 多個 tab 同時發送 refresh token API 要如何處理 IETF RFC 建議 refresh token 每次 refresh 都要產生新的  句句都在逼宮作者，但作者完全沒有出來說明，於是我只能好好點擊進入留言中的文章分享。不看也罷，一看便驚天地泣鬼神。\n這篇 Stop using JWT for sessions 的標題就破題了（好像很正常），主要是在戳破那些 JWT 沒有告訴你的事，主要是：\n JWT 開啟 session 透過 JavaScript 控制的大門，相較於 HttpOnly cookie 更不安全更容 XSS 無法主動過期，如果 token 權限設定錯誤或是伺服器受攻擊，很難第一時間解決問題 還是需要 cookie consent，functional purpose 像登入使用產品服務，本來就不需要 cookie consent，追蹤行為才需要使用者同意。  看來 JWT vs. cookie 大戰還會持續下去。\nLeaf——美团点评分布式ID生成系统 本篇文章把分散式 ID 生成常見的解法和需求點出來，最後歸納出適合美團使用的 Leaf。重點節錄：\n UUID： 長度太長，而且無序，一般 RDMBS index 都是 B+ tree，不適合無序資料（所以 laravel 做了一個 timestamp-first ordered UUID） snowflake： 很讚很快，有序但並非 autoincrement 的 ID，不過相依機器時鐘，如果不小心 sync NTP 之類的，可能就會產生重複 ID 用資料庫生成 ID： 很 robust，但資料庫本身就會變成瓶頸，可以用 step 解決，也就是多台機器，每台發不同 step 的號碼  以下是 Leaf 兩種 ID 生成的簡單介紹：\n Leaf-segment： 和資料生成類似，不過一次發一個區段（例如 1-1000）的號碼，讓 DB 壓力小很多，而且可以在取到 10% 是先去取得下一個 segment，降低 latency Leaf-snowflake： 註冊到 ZooKeeper 來產生 worker ID，server 啟動時檢查時間是否正常，不正常就等到時鐘追上或重試，然後關掉 NTP….  ","wordCount":"1122","inLanguage":"en","datePublished":"2020-06-20T00:00:00+08:00","dateModified":"2020-06-20T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x16/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x16: JWT、分散式 ID 生成、k8s 安全性","name":"WWW 0x16: JWT、分散式 ID 生成、k8s 安全性","description":"這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多","keywords":["DevOps","Distributed Systems"],"articleBody":"這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nKubernetes Blog: 11 Ways (Not) to Get Hacked 管理 Kubernetes 就和管理 VM 一樣，一定會遇到各種安全性問題，這篇文章提出 11 種可以增加安全性的小撇步，順便分享 @hwchiu 整理的中文版，資訊更多更完整，感恩惜福。\nJWT 是否適合 session mechanism 最近翻到 The Ultimate Guide to handling JWTs on frontend clients 這篇小巧精緻的 JWT 身分驗證教學，流程圖簡明易懂，內容包括：\n JWT 的結構：header.payload.signature JWT 會儲存在 client-side，不適合儲存敏感資料 JWT 不適合放在 browser storage，容易被 XSS（所以推薦 in-memory） 由於 JWT 本身無狀態，誰幹走都能奪權，請保持 JWT 過期時間不會太長，文中案例是 15 分鐘 鑑於過期比較快，請配合 HttpOnly 的 cookie 的 refresh token 來更新 JWT（但 XSS 還是有點不安全） Revoke all login sessions 可以簡單透過 refresh token 達成：刪除該使用者的所有 refresh token 就行 Server-side rendering 和 JWT + refresh token 如何整合：JWT 會存在 SSR server 上，refresh token 則是每個 page request 都會產生新的 token  有趣的是，留言提出許多 JWT 與這篇文章的實作總總問題，像是：\n JWT 不適合用在 session 上 文章 refresh token 還是會被 XSS 多個 tab 同時發送 refresh token API 要如何處理 IETF RFC 建議 refresh token 每次 refresh 都要產生新的  句句都在逼宮作者，但作者完全沒有出來說明，於是我只能好好點擊進入留言中的文章分享。不看也罷，一看便驚天地泣鬼神。\n這篇 Stop using JWT for sessions 的標題就破題了（好像很正常），主要是在戳破那些 JWT 沒有告訴你的事，主要是：\n JWT 開啟 session 透過 JavaScript 控制的大門，相較於 HttpOnly cookie 更不安全更容 XSS 無法主動過期，如果 token 權限設定錯誤或是伺服器受攻擊，很難第一時間解決問題 還是需要 cookie consent，functional purpose 像登入使用產品服務，本來就不需要 cookie consent，追蹤行為才需要使用者同意。  看來 JWT vs. cookie 大戰還會持續下去。\nLeaf——美团点评分布式ID生成系统 本篇文章把分散式 ID 生成常見的解法和需求點出來，最後歸納出適合美團使用的 Leaf。重點節錄：\n UUID： 長度太長，而且無序，一般 RDMBS index 都是 B+ tree，不適合無序資料（所以 laravel 做了一個 timestamp-first ordered UUID） snowflake： 很讚很快，有序但並非 autoincrement 的 ID，不過相依機器時鐘，如果不小心 sync NTP 之類的，可能就會產生重複 ID 用資料庫生成 ID： 很 robust，但資料庫本身就會變成瓶頸，可以用 step 解決，也就是多台機器，每台發不同 step 的號碼  以下是 Leaf 兩種 ID 生成的簡單介紹：\n Leaf-segment： 和資料生成類似，不過一次發一個區段（例如 1-1000）的號碼，讓 DB 壓力小很多，而且可以在取到 10% 是先去取得下一個 segment，降低 latency Leaf-snowflake： 註冊到 ZooKeeper 來產生 worker ID，server 啟動時檢查時間是否正常，不正常就等到時鐘追上或重試，然後關掉 NTP….  ","wordCount":"1122","inLanguage":"en","datePublished":"2020-06-20T00:00:00+08:00","dateModified":"2020-06-20T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x16/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -144,12 +144,12 @@ WWW 0x16: JWT、分散式 ID 生成、k8s 安全性
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x17/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x17: 再見 weekly</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x15/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x15: 你懂資料庫嗎</span>
 </a>
@@ -162,7 +162,7 @@ WWW 0x16: JWT、分散式 ID 生成、k8s 安全性
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

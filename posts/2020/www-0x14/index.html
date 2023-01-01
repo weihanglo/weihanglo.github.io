@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x14: Structured concurrency is promising | Weihang Lo</title>
+<title>WWW 0x14: Structured concurrency is promising | Life is a refactoring process without tests</title>
 <meta name=keywords content="Interview,Rust,Concurrency">
 <meta name=description content="這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x14/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x14: Structured concurrency is promising">
 <meta name=twitter:description content="這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x14: Structured concurrency is promising","item":"https://weihanglo.tw/posts/2020/www-0x14/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x14: Structured concurrency is promising","name":"WWW 0x14: Structured concurrency is promising","description":"這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["Interview","Rust","Concurrency"],"articleBody":"這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nOxidizing the technical interview 非常瞎搞的一篇 Rust 面試文，面試者要求解演算法題，被面試者開始手寫 libcore 的 trait 再用 compile time const fn 做到 O(1) runtime。內文更提及 no_core 也就是不導入 libcore，本來以為是開玩笑，，沒想到還真有 no_core 的 feature，太可怕了。\nMongoDB Retryable Reads and Writes 最近在做 MongoDB zero downtime 遷移與升級，本來以為已經萬無一失，卻還是在 reconfig 切換 primary 時遇到not master and slaveOk=false 這種錯誤，導致部分使用者 HTTP request status 500，推斷發生原因如下：\n A server 為 primary client 與 A server 建立 TCP 連線 其他 server 選為 primary，A server 切換為 secondary， client 沿用舊連線連到 A server，發生 not master and slaveOk=false 錯誤  根據 client spec，這種錯誤會透過 retryReads 和 retryWrites 重試，而且這些功能在 MongoDB 4.2 早已預設開啟，但還是很神奇地失敗了。\n我們來整理幾個規範中提到，可能拋出 not master and slaveOk=false 的點：\n 使用了 transaction 使用了 Cursor.getMore() retryable read/write 只會 retry 一次，但遇到多次 retryable error 無法成功 若 retry 失敗但錯誤無法讓 caller 知道有 retry 過，會拋出原始的 retryable error  看來真的要支援 zero downtime 的升級，還是得客製化 multiple retry 的 client，或是多架一層 proxy 了。\nTokio: Structured Concurrency Support  Trio 透過 async with 實作一個 structured concurrency context\n Structured concurrency 簡單來說就是「讓 concurrent task 之間有階層概念」，上層任務知道有哪些子任務，而且子任務的生命週期包含在上層任務中 內，因此可以輕易做到上層任務來取消子任務，防止資源洩漏，堪稱 concurrency 界的 RAII。換句話說，類似從前 goto 到 control flow 的 structured programming 典範轉移，concurrent task 都會有明確的進入與離開點。\n幾個作者認為 structured concurrency 要做到的功能：\n 上層任務只會在所有子任務結束時結束 任務只能在上層任務的 context 內產生，且上層任務需記憶其子任務 上層任務需有對子任務的取消機制 錯誤應該向上層傳播，且所有同階層的子任務都該取消  除了主要 Issue 內容，其他留言討論和各種文章連結都非常有意思，值得一讀。\n libdill 的 structured concurrency 示意圖\n ","wordCount":"770","inLanguage":"en","datePublished":"2020-06-06T00:00:00+08:00","dateModified":"2020-06-06T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x14/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x14: Structured concurrency is promising","name":"WWW 0x14: Structured concurrency is promising","description":"這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["Interview","Rust","Concurrency"],"articleBody":"這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nOxidizing the technical interview 非常瞎搞的一篇 Rust 面試文，面試者要求解演算法題，被面試者開始手寫 libcore 的 trait 再用 compile time const fn 做到 O(1) runtime。內文更提及 no_core 也就是不導入 libcore，本來以為是開玩笑，，沒想到還真有 no_core 的 feature，太可怕了。\nMongoDB Retryable Reads and Writes 最近在做 MongoDB zero downtime 遷移與升級，本來以為已經萬無一失，卻還是在 reconfig 切換 primary 時遇到not master and slaveOk=false 這種錯誤，導致部分使用者 HTTP request status 500，推斷發生原因如下：\n A server 為 primary client 與 A server 建立 TCP 連線 其他 server 選為 primary，A server 切換為 secondary， client 沿用舊連線連到 A server，發生 not master and slaveOk=false 錯誤  根據 client spec，這種錯誤會透過 retryReads 和 retryWrites 重試，而且這些功能在 MongoDB 4.2 早已預設開啟，但還是很神奇地失敗了。\n我們來整理幾個規範中提到，可能拋出 not master and slaveOk=false 的點：\n 使用了 transaction 使用了 Cursor.getMore() retryable read/write 只會 retry 一次，但遇到多次 retryable error 無法成功 若 retry 失敗但錯誤無法讓 caller 知道有 retry 過，會拋出原始的 retryable error  看來真的要支援 zero downtime 的升級，還是得客製化 multiple retry 的 client，或是多架一層 proxy 了。\nTokio: Structured Concurrency Support  Trio 透過 async with 實作一個 structured concurrency context\n Structured concurrency 簡單來說就是「讓 concurrent task 之間有階層概念」，上層任務知道有哪些子任務，而且子任務的生命週期包含在上層任務中 內，因此可以輕易做到上層任務來取消子任務，防止資源洩漏，堪稱 concurrency 界的 RAII。換句話說，類似從前 goto 到 control flow 的 structured programming 典範轉移，concurrent task 都會有明確的進入與離開點。\n幾個作者認為 structured concurrency 要做到的功能：\n 上層任務只會在所有子任務結束時結束 任務只能在上層任務的 context 內產生，且上層任務需記憶其子任務 上層任務需有對子任務的取消機制 錯誤應該向上層傳播，且所有同階層的子任務都該取消  除了主要 Issue 內容，其他留言討論和各種文章連結都非常有意思，值得一讀。\n libdill 的 structured concurrency 示意圖\n ","wordCount":"770","inLanguage":"en","datePublished":"2020-06-06T00:00:00+08:00","dateModified":"2020-06-06T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x14/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -146,12 +146,12 @@ WWW 0x14: Structured concurrency is promising
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x15/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x15: 你懂資料庫嗎</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x13/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x13: 據說網路釣魚比海釣容易成功</span>
 </a>
@@ -164,7 +164,7 @@ WWW 0x14: Structured concurrency is promising
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

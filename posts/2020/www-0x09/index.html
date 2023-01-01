@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x09: 到底要不要擔心 blocking | Weihang Lo</title>
+<title>WWW 0x09: 到底要不要擔心 blocking | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Asynchronous,System Programming">
 <meta name=description content="A programmer had a problem. He thought to himself, &ldquo;I know, I&rsquo;ll solve it with threads!&rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x09/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x09: 到底要不要擔心 blocking">
 <meta name=twitter:description content="A programmer had a problem. He thought to himself, &ldquo;I know, I&rsquo;ll solve it with threads!&rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x09: 到底要不要擔心 blocking","item":"https://weihanglo.tw/posts/2020/www-0x09/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x09: 到底要不要擔心 blocking","name":"WWW 0x09: 到底要不要擔心 blocking","description":"A programmer had a problem. He thought to himself, \u0026ldquo;I know, I\u0026rsquo;ll solve it with threads!\u0026rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。","keywords":["Weekly","Asynchronous","System Programming"],"articleBody":" A programmer had a problem. He thought to himself, “I know, I’ll solve it with threads!”. has Now problems. two he\n— Davidlohr Bueso\n 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nStop worrying about blocking: the new async-std runtime, inspired by Go async-std 是 Rust 非同步生態中兩雄之一，欲與 tokio 爭天下。這次的實驗性更新受到 Go 語言啟發，實作了新的 scheduler，主要特點有：\n 更快更好更自適應 自動偵測 blocking task 並將其卸載到其他執行緒，避免阻塞 使用者可在 async context 內呼叫 blocking task 而不阻塞  要點重申：你不需函式是 blocking 還是 non-blockging，全丟到 async 裡面呼叫吧！async-std 的 runtime 會偵測，然後幫你解決一切。\n但事情往往沒這麼單純 😈\nDo NOT stop worrying about blocking in async functions! async-std 新的 scheduler 在處理 nested Future 或是使用其他非 async-std 的 select! 等 macro 時，blocking call 仍然會 block。這個 Reddit 討論串認為 async-std 不應該讓大家對 blocking function 降低警覺，否則一個 async library 就沒辦法替換其他沒有提供「自動偵測 blocking」的 runtime，會造成社群更加分裂。\n其中也提到了 withoutboats 在 Interal forum 提及的 #[might_block] attribute，這是一個非常有趣的標記，類似 #[must_use] 告知 compiler 這個 function 會 block。不過另一方面，也有人提出 blocking/non-blocking 其實並非一邊一國：取得 array slice 中的元素是 non-blocking，但如果 array 實際上是 mmap 映射出來的檔案，取得元素就會有 page fault 然後就真的需要「讀檔」。\n也有人在 PR 提問，如果 async-std 新的 scheduler 賣點是可在 async block 使用 blocking function，是否產生一堆執行緒，造成 C10k 問題？async-std 團隊正式回應是，其實只會產生一個執行緒，和 10000 個 socket，當然，整個討論串仍持續進行，非常值得一讀。\n 有人提到 C10k 其實應該用 semaphore 解決，這的確是比較正確直觀的作法，畢竟，你知道你的函式是什麼顏色嗎？\n 如果这篇文章说不清epoll的本质，那就过来掐死我吧！ 這是在知乎專欄上的三篇文章，從硬體，歷史沿革，到實際程式碼來說明 epoll(7) 到底為什麼如此高效。\n如果你之前就理解 epoll，看看是否可以回答下列問題，若覺得不是很透澈，再讀一遍吧！\n 知道 Unix/Linux 上的 file descriptor 是什麼 知道 epoll 透過 CPU 中斷來接收網卡數據的流程 知道 kernel 和 socket 如何處理 buffer 來喚醒 process 知道 select(2) 的實作原理 知道 select 什麼情境可能會比 epoll 更有效率  ","wordCount":"875","inLanguage":"en","datePublished":"2020-03-21T00:00:00+08:00","dateModified":"2020-03-21T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x09/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x09: 到底要不要擔心 blocking","name":"WWW 0x09: 到底要不要擔心 blocking","description":"A programmer had a problem. He thought to himself, \u0026ldquo;I know, I\u0026rsquo;ll solve it with threads!\u0026rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。","keywords":["Weekly","Asynchronous","System Programming"],"articleBody":" A programmer had a problem. He thought to himself, “I know, I’ll solve it with threads!”. has Now problems. two he\n— Davidlohr Bueso\n 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nStop worrying about blocking: the new async-std runtime, inspired by Go async-std 是 Rust 非同步生態中兩雄之一，欲與 tokio 爭天下。這次的實驗性更新受到 Go 語言啟發，實作了新的 scheduler，主要特點有：\n 更快更好更自適應 自動偵測 blocking task 並將其卸載到其他執行緒，避免阻塞 使用者可在 async context 內呼叫 blocking task 而不阻塞  要點重申：你不需函式是 blocking 還是 non-blockging，全丟到 async 裡面呼叫吧！async-std 的 runtime 會偵測，然後幫你解決一切。\n但事情往往沒這麼單純 😈\nDo NOT stop worrying about blocking in async functions! async-std 新的 scheduler 在處理 nested Future 或是使用其他非 async-std 的 select! 等 macro 時，blocking call 仍然會 block。這個 Reddit 討論串認為 async-std 不應該讓大家對 blocking function 降低警覺，否則一個 async library 就沒辦法替換其他沒有提供「自動偵測 blocking」的 runtime，會造成社群更加分裂。\n其中也提到了 withoutboats 在 Interal forum 提及的 #[might_block] attribute，這是一個非常有趣的標記，類似 #[must_use] 告知 compiler 這個 function 會 block。不過另一方面，也有人提出 blocking/non-blocking 其實並非一邊一國：取得 array slice 中的元素是 non-blocking，但如果 array 實際上是 mmap 映射出來的檔案，取得元素就會有 page fault 然後就真的需要「讀檔」。\n也有人在 PR 提問，如果 async-std 新的 scheduler 賣點是可在 async block 使用 blocking function，是否產生一堆執行緒，造成 C10k 問題？async-std 團隊正式回應是，其實只會產生一個執行緒，和 10000 個 socket，當然，整個討論串仍持續進行，非常值得一讀。\n 有人提到 C10k 其實應該用 semaphore 解決，這的確是比較正確直觀的作法，畢竟，你知道你的函式是什麼顏色嗎？\n 如果这篇文章说不清epoll的本质，那就过来掐死我吧！ 這是在知乎專欄上的三篇文章，從硬體，歷史沿革，到實際程式碼來說明 epoll(7) 到底為什麼如此高效。\n如果你之前就理解 epoll，看看是否可以回答下列問題，若覺得不是很透澈，再讀一遍吧！\n 知道 Unix/Linux 上的 file descriptor 是什麼 知道 epoll 透過 CPU 中斷來接收網卡數據的流程 知道 kernel 和 socket 如何處理 buffer 來喚醒 process 知道 select(2) 的實作原理 知道 select 什麼情境可能會比 epoll 更有效率  ","wordCount":"875","inLanguage":"en","datePublished":"2020-03-21T00:00:00+08:00","dateModified":"2020-03-21T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x09/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -137,12 +137,12 @@ WWW 0x09: 到底要不要擔心 blocking
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/k8s-autoscaling/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>Kuberenetes Autoscaling 相關知識小整理</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x08/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x08: 你的 Helm chart 安全嗎</span>
 </a>
@@ -155,7 +155,7 @@ WWW 0x09: 到底要不要擔心 blocking
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日 | Weihang Lo</title>
+<title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日 | Life is a refactoring process without tests</title>
 <meta name=keywords content="DevOps,Asynchronous,Monitoring,Databases">
 <meta name=description content="這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x0f/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日">
 <meta name=twitter:description content="這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日","item":"https://weihanglo.tw/posts/2020/www-0x0f/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日","name":"WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日","description":"這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["DevOps","Asynchronous","Monitoring","Databases"],"articleBody":"這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nLatency Numbers Every Programmer Should Know 最近替公司服務做 autoscaling，需要各種伺服器數據，好來順便做 cache 和最佳化 API，剛好讀到這篇「程式設計師都應知道的延遲數字」，心裡有個概念，大概就可以抓到服務什麼地方可能需要加強了。\nVisual chart provided by ayshen\nShopee 的分布式数据库实践之路 內容比較分散的「漫談」，主要闡述蝦皮使用知名分散式資料庫 TiDB 的各種姿勢和場景。幾個有趣的點：\n觀察： 原本 1000 sharding 的把表分片，改成 TiDB 同一張表，結果某個佔 90% read op 的 latency 大到會把 TiDB cluster 卡死，最後把這個效能吃緊的 read cache 在 Redis 上才解決。\n感想： 省了 sharding 的管理規劃成本，多了 Redis cache 的成本，不過這層 cache 個人覺得遲早的事。\n觀察： 蝦皮寫了自己的 Binlog middleware 來解析 binlog，在儲存到 Kafka 或 Redis。\n感想： 感覺這種 operation log 當作事件處理的流程漸漸成為標準配備，像 MongoDB 直接提供 Change Streams 統一介面很方便，能夠以更接近資料的面向訂閱資料流當然更好。\n觀察： 預設還是使用 MySQL，但積極嘗試 TiDB，並通過 Redis 弭平鴻溝。\n感想： 這表示 1）TiDB 和 MySQL 底層實作差很多，內文也提到不太可能 1:1 遷移，還有 2）DBA 和 RD 設計管理 sharding 的成本太大，大過學習 TiDB 加上維護 Redis，尤其是 logging 這種大量產生的資料的場景。\nBackpressuring in Streams 無意間看到這個 Stream Guide，才發現 Node.js 原生就有處理 backpressure，在 Readable/Writable stream 裡面個放一個 internal buffer 和 highWaterMark（threshold），只要高過這個 threshold 就會停止讀寫或通知 source 停止傳送資料。\n文中最有趣的一段是講萬一缺乏 backpressure 處理，恐導致記憶體用量驚人， GC 開銷要顧及這些 buffer 也逐漸緩慢，範例程式碼最後 RSS（resident set size，可看作實際物理記憶體用量）兩者分別為 87.81 MiB 和 1.52 GiB，已經達到不可忽視的地步。\n讓我想起 Flask/Redis-rs 的作者呼籲所有 async library 作者一起來解決 backpressure 的文章，附上連結供看倌享用。\n 寫 Node.js 這麼久，今天才知道這件事，覺得慚愧。\n ","wordCount":"815","inLanguage":"en","datePublished":"2020-05-02T00:00:00+08:00","dateModified":"2020-05-02T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0f/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日","name":"WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日","description":"這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["DevOps","Asynchronous","Monitoring","Databases"],"articleBody":"這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nLatency Numbers Every Programmer Should Know 最近替公司服務做 autoscaling，需要各種伺服器數據，好來順便做 cache 和最佳化 API，剛好讀到這篇「程式設計師都應知道的延遲數字」，心裡有個概念，大概就可以抓到服務什麼地方可能需要加強了。\nVisual chart provided by ayshen\nShopee 的分布式数据库实践之路 內容比較分散的「漫談」，主要闡述蝦皮使用知名分散式資料庫 TiDB 的各種姿勢和場景。幾個有趣的點：\n觀察： 原本 1000 sharding 的把表分片，改成 TiDB 同一張表，結果某個佔 90% read op 的 latency 大到會把 TiDB cluster 卡死，最後把這個效能吃緊的 read cache 在 Redis 上才解決。\n感想： 省了 sharding 的管理規劃成本，多了 Redis cache 的成本，不過這層 cache 個人覺得遲早的事。\n觀察： 蝦皮寫了自己的 Binlog middleware 來解析 binlog，在儲存到 Kafka 或 Redis。\n感想： 感覺這種 operation log 當作事件處理的流程漸漸成為標準配備，像 MongoDB 直接提供 Change Streams 統一介面很方便，能夠以更接近資料的面向訂閱資料流當然更好。\n觀察： 預設還是使用 MySQL，但積極嘗試 TiDB，並通過 Redis 弭平鴻溝。\n感想： 這表示 1）TiDB 和 MySQL 底層實作差很多，內文也提到不太可能 1:1 遷移，還有 2）DBA 和 RD 設計管理 sharding 的成本太大，大過學習 TiDB 加上維護 Redis，尤其是 logging 這種大量產生的資料的場景。\nBackpressuring in Streams 無意間看到這個 Stream Guide，才發現 Node.js 原生就有處理 backpressure，在 Readable/Writable stream 裡面個放一個 internal buffer 和 highWaterMark（threshold），只要高過這個 threshold 就會停止讀寫或通知 source 停止傳送資料。\n文中最有趣的一段是講萬一缺乏 backpressure 處理，恐導致記憶體用量驚人， GC 開銷要顧及這些 buffer 也逐漸緩慢，範例程式碼最後 RSS（resident set size，可看作實際物理記憶體用量）兩者分別為 87.81 MiB 和 1.52 GiB，已經達到不可忽視的地步。\n讓我想起 Flask/Redis-rs 的作者呼籲所有 async library 作者一起來解決 backpressure 的文章，附上連結供看倌享用。\n 寫 Node.js 這麼久，今天才知道這件事，覺得慚愧。\n ","wordCount":"815","inLanguage":"en","datePublished":"2020-05-02T00:00:00+08:00","dateModified":"2020-05-02T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0f/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -128,12 +128,12 @@ WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x10/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x10: 重構不是病，寫起來要人命</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x0e/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x0E: 親愛的，我把快取都放你腦中了</span>
 </a>
@@ -146,7 +146,7 @@ WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x12: Oxidized Chromium? | Weihang Lo</title>
+<title>WWW 0x12: Oxidized Chromium? | Life is a refactoring process without tests</title>
 <meta name=keywords content="DevOps,Kubernetes,Security,Databases">
 <meta name=description content="這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x12/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x12: Oxidized Chromium?">
 <meta name=twitter:description content="這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x12: Oxidized Chromium?","item":"https://weihanglo.tw/posts/2020/www-0x12/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x12: Oxidized Chromium?","name":"WWW 0x12: Oxidized Chromium?","description":"這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["DevOps","Kubernetes","Security","Databases"],"articleBody":"這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\n10 Ways to Shoot Yourself in the Foot with Kubernetes, #9 Will Surprise You - Laurent Bernaille Datadog 的工程師分享十個在正式環境踩到的 K8s 坑，這邊簡單條列標題，有興趣的請直接看影片：\n 永遠是 DNS 的鍋 Job 沒開始，Image 又 pull 失敗惹 我不能 kubectl 了：apiserver 被 DDOS 而且 OOM killed 新 node 不能 schedule pod log volume 成長了十倍：都是一堆 audit logs 我的 pod 怎麼沒有漲到 replicas 數量 120 node 的 Cassandra cluster 爆了 Deploy 的 heartbeat 越來越慢 Runtime 壞了（寫壞的 readinessProbe、效能問題） 優雅地關閉你的 pod  RedisJSON - a JSON data type for Redis Redis 可以和 NGINX 一樣支援 load 各種外掛 modules，而且 Redis 官方（RedisLabs）甚至做了可以在 Redis 裡面操作 JSON 的 RedisJSON。\nBenchmark 顯示 RedisJSON：\n 整個 object root 的 get/set 比 lua script 的 cjson 和 msgpack 慢，雖然已經不錯了 object.path 的 get/set 完全相反過來，一整個好非常多，，隨著 payload size 上升 ops 還是維持常數  感覺如果有 nested JSON update on Redis 需求可以考慮，而且這個 module 不小心用到 Rust 的 bson（現由 MongoDB 官方維護）和 Rust 社群最知名最強大的 serde_json JSON 序列化反序列化這兩個 crate， 哪間公司採用 RedisJSON 後想要 fork 可以找我。\n附上範例：\n127.0.0.1:6379 JSON.SET foo . '\"bar\"' OK 127.0.0.1:6379 JSON.GET foo \"\\\"bar\\\"\" 127.0.0.1:6379 JSON.TYPE foo . string 127.0.0.1:6379 JSON.SET arr . [] OK 127.0.0.1:6379 JSON.ARRAPPEND arr . 0 (integer) 1 127.0.0.1:6379 JSON.GET arr \"[0]\" 127.0.0.1:6379 JSON.ARRINSERT arr . 0 -2 -1 (integer) 3 127.0.0.1:6379 JSON.GET arr \"[-2,-1,0]\" The Chromium Projects: Memory safety Chromium 團隊檢視了目前 Chromium 軟體漏洞分類，並做出未來的行動規劃：\n 將近七成是 memory unsafety，也就是 C 和 C++ 指標使用錯誤導致，而其中一半是 use-after-free 這種問題 Chromium 安全機制很大一部分建立在「產生不同 process 來隔離資源作為沙盒」，但 process 不便宜，尤其在手機上 Network layer 仍是整個 app 共用，違反了 Rule Of 2，但把 network 拆成 per-process 資源消耗會更可怕  魔高一丈，道高一尺，團隊覺得不行動就等死，所以有了以下幾個方向：\n 開啟 std/abseil（類似 boost 的 std extension lib） 檢查 caller 的編譯機制、用更多 GC 機制 自己做個 C++ 方言，並限制使用 raw pointer 使用更 memory safe 的語言：Java/Kotlin、JavaScript、Rust、Swift 最適切的語言選擇要有編譯期的安全檢查，而且效能影響要夠低 團隊能預見導入新語言的 bridge 成本存在（軟體面、工程面都有指涉我猜） Chromium 已經有個 Rust 實驗性分支  ","wordCount":"871","inLanguage":"en","datePublished":"2020-05-23T00:00:00+08:00","dateModified":"2020-05-23T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x12/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x12: Oxidized Chromium?","name":"WWW 0x12: Oxidized Chromium?","description":"這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["DevOps","Kubernetes","Security","Databases"],"articleBody":"這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\n10 Ways to Shoot Yourself in the Foot with Kubernetes, #9 Will Surprise You - Laurent Bernaille Datadog 的工程師分享十個在正式環境踩到的 K8s 坑，這邊簡單條列標題，有興趣的請直接看影片：\n 永遠是 DNS 的鍋 Job 沒開始，Image 又 pull 失敗惹 我不能 kubectl 了：apiserver 被 DDOS 而且 OOM killed 新 node 不能 schedule pod log volume 成長了十倍：都是一堆 audit logs 我的 pod 怎麼沒有漲到 replicas 數量 120 node 的 Cassandra cluster 爆了 Deploy 的 heartbeat 越來越慢 Runtime 壞了（寫壞的 readinessProbe、效能問題） 優雅地關閉你的 pod  RedisJSON - a JSON data type for Redis Redis 可以和 NGINX 一樣支援 load 各種外掛 modules，而且 Redis 官方（RedisLabs）甚至做了可以在 Redis 裡面操作 JSON 的 RedisJSON。\nBenchmark 顯示 RedisJSON：\n 整個 object root 的 get/set 比 lua script 的 cjson 和 msgpack 慢，雖然已經不錯了 object.path 的 get/set 完全相反過來，一整個好非常多，，隨著 payload size 上升 ops 還是維持常數  感覺如果有 nested JSON update on Redis 需求可以考慮，而且這個 module 不小心用到 Rust 的 bson（現由 MongoDB 官方維護）和 Rust 社群最知名最強大的 serde_json JSON 序列化反序列化這兩個 crate， 哪間公司採用 RedisJSON 後想要 fork 可以找我。\n附上範例：\n127.0.0.1:6379 JSON.SET foo . '\"bar\"' OK 127.0.0.1:6379 JSON.GET foo \"\\\"bar\\\"\" 127.0.0.1:6379 JSON.TYPE foo . string 127.0.0.1:6379 JSON.SET arr . [] OK 127.0.0.1:6379 JSON.ARRAPPEND arr . 0 (integer) 1 127.0.0.1:6379 JSON.GET arr \"[0]\" 127.0.0.1:6379 JSON.ARRINSERT arr . 0 -2 -1 (integer) 3 127.0.0.1:6379 JSON.GET arr \"[-2,-1,0]\" The Chromium Projects: Memory safety Chromium 團隊檢視了目前 Chromium 軟體漏洞分類，並做出未來的行動規劃：\n 將近七成是 memory unsafety，也就是 C 和 C++ 指標使用錯誤導致，而其中一半是 use-after-free 這種問題 Chromium 安全機制很大一部分建立在「產生不同 process 來隔離資源作為沙盒」，但 process 不便宜，尤其在手機上 Network layer 仍是整個 app 共用，違反了 Rule Of 2，但把 network 拆成 per-process 資源消耗會更可怕  魔高一丈，道高一尺，團隊覺得不行動就等死，所以有了以下幾個方向：\n 開啟 std/abseil（類似 boost 的 std extension lib） 檢查 caller 的編譯機制、用更多 GC 機制 自己做個 C++ 方言，並限制使用 raw pointer 使用更 memory safe 的語言：Java/Kotlin、JavaScript、Rust、Swift 最適切的語言選擇要有編譯期的安全檢查，而且效能影響要夠低 團隊能預見導入新語言的 bridge 成本存在（軟體面、工程面都有指涉我猜） Chromium 已經有個 Rust 實驗性分支  ","wordCount":"871","inLanguage":"en","datePublished":"2020-05-23T00:00:00+08:00","dateModified":"2020-05-23T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x12/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -166,12 +166,12 @@ OK
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x13/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x13: 據說網路釣魚比海釣容易成功</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x11/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x11: 庫存文章已用罄</span>
 </a>
@@ -184,7 +184,7 @@ OK
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

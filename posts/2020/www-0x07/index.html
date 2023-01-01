@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x07: 為什麼薯餅要炸兩次 | Weihang Lo</title>
+<title>WWW 0x07: 為什麼薯餅要炸兩次 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Weekly,Data structure,Rust,Databases">
 <meta name=description content="這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x07/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x07: 為什麼薯餅要炸兩次">
 <meta name=twitter:description content="這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x07: 為什麼薯餅要炸兩次","item":"https://weihanglo.tw/posts/2020/www-0x07/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x07: 為什麼薯餅要炸兩次","name":"WWW 0x07: 為什麼薯餅要炸兩次","description":"這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","Data structure","Rust","Databases"],"articleBody":"這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWhy is Rust the Most Loved Programming Language? 又到了推坑 Rust 的時間！這次，Intellij Rust 和 Rust Analyzer 的作者想聊聊為什麼 Rust 值得「最受喜愛的程式語言」的稱號，節錄我覺得蠻有共鳴的點：\n  Intellij Rust：用 Kotlin 寫的 Jetbrains IDE Rust Plugin Rust Analyzer：新一代的 Rust IDE language server    Keyword First Syntax：搜尋 foo 函式只要文字搜尋 fn foo 就解決，有利於一般人開發，更使得 IDE 的 parser 更容易開發 Crates：Rust 的 crate 是一個編譯單元，但並沒有 global shared namespace，取而代之的是每個 crate 都會是你的 dependant crate 的一個 property，解決了 lib 命名衝突問題 Eq 並非多型：以前從來沒想過這個問題，但的確不同型別的比較直接 compile error 很合理，不過代價是需要寫一堆 as usize 😂 Trivial Data Types：透過 #[derive(...)] 可以很快速衍生出一堆 boilerplate，不需要再像某 Gx 語言一樣複製貼上 String encoded in UTF-8：現在看起來是優點，未來就不一定了 😈  Understanding the power of data types 滿全面的 PostgreSQL Data Type 概觀，二十分鐘內讀完，推推。\n 字串一律用 text、時間一律用 timestamptz type 底層的 data layout，並介紹 TOAST 技術來儲存巨大 field value array/jsonb/enum/range 使用時機和各種小技巧 各種強大 extension e.g. PostGIS（好用）、PostBIS（生物資訊） 如何自幹 data type 並整合 aggregate、function、operator  Hashbrown/SwissTable 最近在看 hashbrown 的實作（Google SwissTable 的 Rust 版），發現幾個有趣的點分享給大家：\n 雜湊碰撞的解法有 open addressing 和 separate chaining ，open addressing 有強大的 cache hit rate。 open addressing 的問題在於 delete k-v pair 時，假如現在有三個 pair 碰撞在同個 slot (hash value 一樣 slot 就一樣），當 delete (29, 7) 時，index 1 的 bucket 就為空， (6, 6) 就沒辦法在線性搜尋中找到  index | 0 | 1 | 2 | ------|-----|------|-----| value | 5,7 | 29,7 | 6,6 | ------|-----|------|-----| slot | 0 | 0 | 0 |  承上，解法有兩個， 1）backshift 向前重排法 ，deleted pair 之後所有碰撞的 pair 都往前 shift，還有 2）tombstone 墓碑標記法 ，標記該 bucket 曾經死過人，線性搜尋就可以延續往後找，跳過這個墓碑 hashbrown/SwissTable 有做 SIMD 最佳化，可以把 SIMD 想成一個 CPU 指令下去多個 byte 同時平行處理，因此 hashbrown 每個 bucket 除了儲存 k-v pair，還會多存 control byte，是 hash value 的最大（或最小）的 8-bits，讓每個 SIMD 指令一下去，可同時比較 16 bucket (16 * 8 = 128 bits 的 register size） 的資料是否 hash value 相同，速度飛快 我想不到了言盡於此，大家可以自己看文章  References  雜湊表界的瑞士刀 為什麼薯餅要炸兩次  ","wordCount":"983","inLanguage":"en","datePublished":"2020-03-07T00:00:00+08:00","dateModified":"2020-03-07T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x07/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x07: 為什麼薯餅要炸兩次","name":"WWW 0x07: 為什麼薯餅要炸兩次","description":"這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食","keywords":["Weekly","Data structure","Rust","Databases"],"articleBody":"這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWhy is Rust the Most Loved Programming Language? 又到了推坑 Rust 的時間！這次，Intellij Rust 和 Rust Analyzer 的作者想聊聊為什麼 Rust 值得「最受喜愛的程式語言」的稱號，節錄我覺得蠻有共鳴的點：\n  Intellij Rust：用 Kotlin 寫的 Jetbrains IDE Rust Plugin Rust Analyzer：新一代的 Rust IDE language server    Keyword First Syntax：搜尋 foo 函式只要文字搜尋 fn foo 就解決，有利於一般人開發，更使得 IDE 的 parser 更容易開發 Crates：Rust 的 crate 是一個編譯單元，但並沒有 global shared namespace，取而代之的是每個 crate 都會是你的 dependant crate 的一個 property，解決了 lib 命名衝突問題 Eq 並非多型：以前從來沒想過這個問題，但的確不同型別的比較直接 compile error 很合理，不過代價是需要寫一堆 as usize 😂 Trivial Data Types：透過 #[derive(...)] 可以很快速衍生出一堆 boilerplate，不需要再像某 Gx 語言一樣複製貼上 String encoded in UTF-8：現在看起來是優點，未來就不一定了 😈  Understanding the power of data types 滿全面的 PostgreSQL Data Type 概觀，二十分鐘內讀完，推推。\n 字串一律用 text、時間一律用 timestamptz type 底層的 data layout，並介紹 TOAST 技術來儲存巨大 field value array/jsonb/enum/range 使用時機和各種小技巧 各種強大 extension e.g. PostGIS（好用）、PostBIS（生物資訊） 如何自幹 data type 並整合 aggregate、function、operator  Hashbrown/SwissTable 最近在看 hashbrown 的實作（Google SwissTable 的 Rust 版），發現幾個有趣的點分享給大家：\n 雜湊碰撞的解法有 open addressing 和 separate chaining ，open addressing 有強大的 cache hit rate。 open addressing 的問題在於 delete k-v pair 時，假如現在有三個 pair 碰撞在同個 slot (hash value 一樣 slot 就一樣），當 delete (29, 7) 時，index 1 的 bucket 就為空， (6, 6) 就沒辦法在線性搜尋中找到  index | 0 | 1 | 2 | ------|-----|------|-----| value | 5,7 | 29,7 | 6,6 | ------|-----|------|-----| slot | 0 | 0 | 0 |  承上，解法有兩個， 1）backshift 向前重排法 ，deleted pair 之後所有碰撞的 pair 都往前 shift，還有 2）tombstone 墓碑標記法 ，標記該 bucket 曾經死過人，線性搜尋就可以延續往後找，跳過這個墓碑 hashbrown/SwissTable 有做 SIMD 最佳化，可以把 SIMD 想成一個 CPU 指令下去多個 byte 同時平行處理，因此 hashbrown 每個 bucket 除了儲存 k-v pair，還會多存 control byte，是 hash value 的最大（或最小）的 8-bits，讓每個 SIMD 指令一下去，可同時比較 16 bucket (16 * 8 = 128 bits 的 register size） 的資料是否 hash value 相同，速度飛快 我想不到了言盡於此，大家可以自己看文章  References  雜湊表界的瑞士刀 為什麼薯餅要炸兩次  ","wordCount":"983","inLanguage":"en","datePublished":"2020-03-07T00:00:00+08:00","dateModified":"2020-03-07T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x07/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -155,12 +155,12 @@ slot  |  0  |  0   |  0  |
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x08/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x08: 你的 Helm chart 安全嗎</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x06/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x06: Life is short. I hate GIL</span>
 </a>
@@ -173,7 +173,7 @@ slot  |  0  |  0   |  0  |
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

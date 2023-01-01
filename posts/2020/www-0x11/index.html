@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x11: 庫存文章已用罄 | Weihang Lo</title>
+<title>WWW 0x11: 庫存文章已用罄 | Life is a refactoring process without tests</title>
 <meta name=keywords content="DevOps,Kubernetes,Rust">
 <meta name=description content="這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x11/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x11: 庫存文章已用罄">
 <meta name=twitter:description content="這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x11: 庫存文章已用罄","item":"https://weihanglo.tw/posts/2020/www-0x11/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x11: 庫存文章已用罄","name":"WWW 0x11: 庫存文章已用罄","description":"這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["DevOps","Kubernetes","Rust"],"articleBody":"這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nOptimizing Kubernetes Resource Requests/Limits for Cost-Efficiency and Latency / Henning Jacobs 如何設定 K8s Pod 的資源最低需求 containers.resources.requests 和最高限制 containers.resources.limits 一直是門藝術，最低需求影響 scheduler 如何安排 pod，最高限制，尤其是 memory，可能會有 OOM kill 把 pod 殺死。\n@hjabocs 分享了幾個作法：\n 測來測去發現停用 CPU CFS 的 latency 最小 要記得你的 node 會被 system、kubelet，還有 container runtime 佔去部分資源 😨 用 Admission Controller 設定和 requests 一樣的 limit，防止 overcommit 知道你的 pod 的 container-aware limit，例如 JVM 就是 maxheap，node cluster 就是你設定的 process number 用他的本人寫的 K8s Resouce Report 來看冗余資源可以幫你省下多少美金 可以設定一些 priorityclass 很低的 pod 作為 buffer capacity，讓資源不足時他們可以先被踢掉應急，再慢慢等 Cluster autoscaler 來 privision 新 node 又在老王賣瓜推銷自己寫的 downscaler，離峰時間自動關機省錢  Rust Logo is a Bike Chainring! \n關注 Rust 社群這麼久了，直到最近才意識到 Rust 的 Logo 其實是單車的大盤（踏板旁的齒盤），原意是 Rust 作者們常常騎單車，而且單車大盤通常都有點生鏽。身為單車愛好者怎能不愛 Rust ♥️\nCardinality is key 最近遇到了寫出很爛的 Prom Query 還有短時間發送太多 Query，導致整個 Prometheus 服務火爆炸開，當然，Prometheus 的 High Available 有很多種做法，例如導入 Thanos/Cortex，使用外部 storage 等等，不過根本下手，應該要改善 metrics 和 query 這層的效能，否則只是矇著眼騙自己。\n這篇文章開頭就點出最重要的一句話： Prometheus 的效能幾乎皆取決於 label cardinality 。這裡的 cardinality 指的是唯一值的數量。\n文中簡單計算了 label cardinality 多容易爆炸，假設我們有一個 Node.js 服務有 100 replicas， 會追蹤 heap 上新生，中生代等 12 種相關指標，若系統每 30 秒抓一次資料，拉三個小時的報表算起來就有 100 * 12 = 1200 個 series，也就是有 1200 * (60 * 60 * 3 / 30) = 432000 個資料點，聽起來不太多對吧，但通常一個 Prometheus 不會只看一個 metrics 也不只有一個服務，真實的爆炸程度超乎想像。\n作者提供了一般性通則： 避免 cardinality 超過 10 的 label 。但這僅僅是通則，如果 replicas 數量不會太大，cardinality 超過 10 也可接受。\n你會想說，媽的我不能追蹤這麼細，還要蒐集 metrics 幹啥吃？其實 nginx-ingress 團隊也因為 uri、remoteAddress 等 label cardinality 太爆炸而移除過於細緻的 label。\n文末畫龍點睛的一句話，分享給大家細細品味：\n Metrics giving you a high level view of your subsystems, logs the blow-by-blow of individual requests.\n ","wordCount":"949","inLanguage":"en","datePublished":"2020-05-16T00:00:00+08:00","dateModified":"2020-05-16T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x11/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x11: 庫存文章已用罄","name":"WWW 0x11: 庫存文章已用罄","description":"這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜","keywords":["DevOps","Kubernetes","Rust"],"articleBody":"這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nOptimizing Kubernetes Resource Requests/Limits for Cost-Efficiency and Latency / Henning Jacobs 如何設定 K8s Pod 的資源最低需求 containers.resources.requests 和最高限制 containers.resources.limits 一直是門藝術，最低需求影響 scheduler 如何安排 pod，最高限制，尤其是 memory，可能會有 OOM kill 把 pod 殺死。\n@hjabocs 分享了幾個作法：\n 測來測去發現停用 CPU CFS 的 latency 最小 要記得你的 node 會被 system、kubelet，還有 container runtime 佔去部分資源 😨 用 Admission Controller 設定和 requests 一樣的 limit，防止 overcommit 知道你的 pod 的 container-aware limit，例如 JVM 就是 maxheap，node cluster 就是你設定的 process number 用他的本人寫的 K8s Resouce Report 來看冗余資源可以幫你省下多少美金 可以設定一些 priorityclass 很低的 pod 作為 buffer capacity，讓資源不足時他們可以先被踢掉應急，再慢慢等 Cluster autoscaler 來 privision 新 node 又在老王賣瓜推銷自己寫的 downscaler，離峰時間自動關機省錢  Rust Logo is a Bike Chainring! \n關注 Rust 社群這麼久了，直到最近才意識到 Rust 的 Logo 其實是單車的大盤（踏板旁的齒盤），原意是 Rust 作者們常常騎單車，而且單車大盤通常都有點生鏽。身為單車愛好者怎能不愛 Rust ♥️\nCardinality is key 最近遇到了寫出很爛的 Prom Query 還有短時間發送太多 Query，導致整個 Prometheus 服務火爆炸開，當然，Prometheus 的 High Available 有很多種做法，例如導入 Thanos/Cortex，使用外部 storage 等等，不過根本下手，應該要改善 metrics 和 query 這層的效能，否則只是矇著眼騙自己。\n這篇文章開頭就點出最重要的一句話： Prometheus 的效能幾乎皆取決於 label cardinality 。這裡的 cardinality 指的是唯一值的數量。\n文中簡單計算了 label cardinality 多容易爆炸，假設我們有一個 Node.js 服務有 100 replicas， 會追蹤 heap 上新生，中生代等 12 種相關指標，若系統每 30 秒抓一次資料，拉三個小時的報表算起來就有 100 * 12 = 1200 個 series，也就是有 1200 * (60 * 60 * 3 / 30) = 432000 個資料點，聽起來不太多對吧，但通常一個 Prometheus 不會只看一個 metrics 也不只有一個服務，真實的爆炸程度超乎想像。\n作者提供了一般性通則： 避免 cardinality 超過 10 的 label 。但這僅僅是通則，如果 replicas 數量不會太大，cardinality 超過 10 也可接受。\n你會想說，媽的我不能追蹤這麼細，還要蒐集 metrics 幹啥吃？其實 nginx-ingress 團隊也因為 uri、remoteAddress 等 label cardinality 太爆炸而移除過於細緻的 label。\n文末畫龍點睛的一句話，分享給大家細細品味：\n Metrics giving you a high level view of your subsystems, logs the blow-by-blow of individual requests.\n ","wordCount":"949","inLanguage":"en","datePublished":"2020-05-16T00:00:00+08:00","dateModified":"2020-05-16T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x11/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -135,12 +135,12 @@ WWW 0x11: 庫存文章已用罄
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x12/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x12: Oxidized Chromium?</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x10/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x10: 重構不是病，寫起來要人命</span>
 </a>
@@ -153,7 +153,7 @@ WWW 0x11: 庫存文章已用罄
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

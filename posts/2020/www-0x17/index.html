@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x17: 再見 weekly | Weihang Lo</title>
+<title>WWW 0x17: 再見 weekly | Life is a refactoring process without tests</title>
 <meta name=keywords content="Rust,DevOps,Kubernetes">
 <meta name=description content="這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x17/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x17: 再見 weekly">
 <meta name=twitter:description content="這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x17: 再見 weekly","item":"https://weihanglo.tw/posts/2020/www-0x17/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x17: 再見 weekly","name":"WWW 0x17: 再見 weekly","description":"這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多","keywords":["Rust","DevOps","Kubernetes"],"articleBody":"這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWeekly 無限期停刊 很遺憾要在此宣布 Wow Weihang Weekly 將無限期停刊，這一期沒意外會是最後一期，其實很訝異自己可以堅持半年每個禮拜都出三篇文章摘要，但至今週刊已經逐漸脫離初衷。當初想寫週刊主要有兩個原因：咀嚼自己所見並分享，還有當作資料庫供未來查詢。我覺得 WWW 一直有達到分享的功效，但卻僅僅止於「摘要」，而且若當週事務繁忙，就連摘要都看起來像是摘要機器人產生出來的，這種純手工的事情，我覺得不需要人類介入，這是第一個停刊理由。\n第二個則是週刊很難供自己日後查詢使用，你只能在週刊標題和標籤上下文章，了不起之後做一個站內全文搜尋，但這樣都太過繁瑣，我希望有一個心智圖或是關係圖的呈現方式將我所學串連起來，並提供給其他人參考我怎麼連結每個概念，但週刊的形式真的力有未逮，放棄這條路可能是個不錯的選擇。\n相信我們會再相見的。\n兩個不錯的 Rust 入門學習資源 最近越來越多人對 Rust 產生興趣，這裡就來推薦除了 TRPL 以外，可以快速上手（其實不行）的學習資源：\n Rust 程式設計語言（正體中文版）：其實就是 TRPL 的翻譯版，是 Rust Taiwan 社群近期嘔心理解的作品，有任何問題請到 GitHub Repo 回應或直接寄送GitHub 站內郵件給我。 A half-hour to learn Rust：一個我覺得 blog post 幹話很多的 Rustacean 寫的三十分鐘學習 Rust（結果預計閱讀時間顯示 51 分鐘 😂），範例程式碼超多，很適合熟透其他語言的開發者閱讀，會發現 Rust 語法其實非常現代（當然還有可愛的 Turbofish)，在還沒進入 lifetime 前完全可以快速掌握 XD Tour of Rust：向 A Tour of Go 致敬的專案，Rust 版本涵蓋的主題非常全面，static/dynamic dispatch 都講了，其實已經超越入門了。但不得不說 Go 版本讀取速度快不少，而且自己魔改的 Ferris 有夠醜。總歸一句還是很值得作為入門讀物，尤其是有 Playground 很方便。  Multitenancy Webinar: Better walls make better tenants Google 的人來講怎麼做 Kubernetes 的 multi-tenancy，基本上是透過 namespace 切分 tenancy，就可以做到在同一個 cluster 內「共享資源」和「限制資源」。這篇演講完整複習了 namespace resource limit、limit range，到 pod security policy 和 network policy 種種和 multi-tenancy 相關的設定，可為抱佛腳大全。\n此外，也提到正在 k8s-sig 的 hierachical namespace，可以讓 namespace 將各種 policy 傳遞下去，非常適合複雜團隊使用。\n節錄我覺得全文最重要的地方：\n What does “multitenancy in Kubernetes” mean?\nProvide isolation and fair resource sharing between multiple users and their workloads within a single cluster.\n ","wordCount":"1012","inLanguage":"en","datePublished":"2020-07-17T00:00:00+08:00","dateModified":"2020-07-17T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x17/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x17: 再見 weekly","name":"WWW 0x17: 再見 weekly","description":"這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多","keywords":["Rust","DevOps","Kubernetes"],"articleBody":"這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nWeekly 無限期停刊 很遺憾要在此宣布 Wow Weihang Weekly 將無限期停刊，這一期沒意外會是最後一期，其實很訝異自己可以堅持半年每個禮拜都出三篇文章摘要，但至今週刊已經逐漸脫離初衷。當初想寫週刊主要有兩個原因：咀嚼自己所見並分享，還有當作資料庫供未來查詢。我覺得 WWW 一直有達到分享的功效，但卻僅僅止於「摘要」，而且若當週事務繁忙，就連摘要都看起來像是摘要機器人產生出來的，這種純手工的事情，我覺得不需要人類介入，這是第一個停刊理由。\n第二個則是週刊很難供自己日後查詢使用，你只能在週刊標題和標籤上下文章，了不起之後做一個站內全文搜尋，但這樣都太過繁瑣，我希望有一個心智圖或是關係圖的呈現方式將我所學串連起來，並提供給其他人參考我怎麼連結每個概念，但週刊的形式真的力有未逮，放棄這條路可能是個不錯的選擇。\n相信我們會再相見的。\n兩個不錯的 Rust 入門學習資源 最近越來越多人對 Rust 產生興趣，這裡就來推薦除了 TRPL 以外，可以快速上手（其實不行）的學習資源：\n Rust 程式設計語言（正體中文版）：其實就是 TRPL 的翻譯版，是 Rust Taiwan 社群近期嘔心理解的作品，有任何問題請到 GitHub Repo 回應或直接寄送GitHub 站內郵件給我。 A half-hour to learn Rust：一個我覺得 blog post 幹話很多的 Rustacean 寫的三十分鐘學習 Rust（結果預計閱讀時間顯示 51 分鐘 😂），範例程式碼超多，很適合熟透其他語言的開發者閱讀，會發現 Rust 語法其實非常現代（當然還有可愛的 Turbofish)，在還沒進入 lifetime 前完全可以快速掌握 XD Tour of Rust：向 A Tour of Go 致敬的專案，Rust 版本涵蓋的主題非常全面，static/dynamic dispatch 都講了，其實已經超越入門了。但不得不說 Go 版本讀取速度快不少，而且自己魔改的 Ferris 有夠醜。總歸一句還是很值得作為入門讀物，尤其是有 Playground 很方便。  Multitenancy Webinar: Better walls make better tenants Google 的人來講怎麼做 Kubernetes 的 multi-tenancy，基本上是透過 namespace 切分 tenancy，就可以做到在同一個 cluster 內「共享資源」和「限制資源」。這篇演講完整複習了 namespace resource limit、limit range，到 pod security policy 和 network policy 種種和 multi-tenancy 相關的設定，可為抱佛腳大全。\n此外，也提到正在 k8s-sig 的 hierachical namespace，可以讓 namespace 將各種 policy 傳遞下去，非常適合複雜團隊使用。\n節錄我覺得全文最重要的地方：\n What does “multitenancy in Kubernetes” mean?\nProvide isolation and fair resource sharing between multiple users and their workloads within a single cluster.\n ","wordCount":"1012","inLanguage":"en","datePublished":"2020-07-17T00:00:00+08:00","dateModified":"2020-07-17T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x17/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -124,12 +124,12 @@ WWW 0x17: 再見 weekly
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/bloom-filter/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>布隆過濾器 Bloom Filter</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x16/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x16: JWT、分散式 ID 生成、k8s 安全性</span>
 </a>
@@ -142,7 +142,7 @@ WWW 0x17: 再見 weekly
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

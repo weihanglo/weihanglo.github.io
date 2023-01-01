@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x0D: 已達上限 | Weihang Lo</title>
+<title>WWW 0x0D: 已達上限 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Cryptography,Kubernetes,Privacy">
 <meta name=description content="欸，工時系統禁止報加班！？ — Weihang Lo 2020.4 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x0d/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x0D: 已達上限">
 <meta name=twitter:description content="欸，工時系統禁止報加班！？ — Weihang Lo 2020.4 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x0D: 已達上限","item":"https://weihanglo.tw/posts/2020/www-0x0d/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0D: 已達上限","name":"WWW 0x0D: 已達上限","description":"欸，工時系統禁止報加班！？ — Weihang Lo 2020.4 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟","keywords":["Cryptography","Kubernetes","Privacy"],"articleBody":" 欸，工時系統禁止報加班！？\n— Weihang Lo 2020.4\n 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nThe Facts: Mozilla’s DNS over HTTPs (DoH) 西元二零二零年二月二十五日起，Firefox 預設開啟了 DNS over HTTPS（DoH）的功能，這會導致：\n 原本裸奔的 DNS query 可以透過 HTTPS 加密，不會再被看光光 DNS 隱私資料從被 ISP 幹走變成被 Cloudflare/NextDNS 或其他 DoH 供應商幹走 因為不會走你家的 internal DNS service，有些解析會壞掉 👋 你不會再看見色情守門員  DoH 算是一個容易起爭議的功能，例如：\n Firefox DoH 預設是 Cloudflare 讓 OpenBSD 的 Firefox 版預設直接關閉 DoH Chrome 的行為則是如果 DNS provider 有支援 DoH 才自動開啟，爭議點在很多人都用 8.8.8.8 那還不是一定會走 Google 的 DoH 英國 ISP 商們票選 Mozilla 為 2019 年度網路惡棍，因為「DoH 阻撓網路監管，網路會成犯罪溫床」，帥 DoH 造成 DNS server 從集中在 ISP 變成集中在大型 DoH 網路公司  還是可以理解一下為什麼 Firefox 要預設 DoH，至於是否開啟就看個人囉。\nNo More Crypto Fails 現代密碼學入門 非常簡明的密碼學入門，沒有提到太多數學理論，花個十五分鐘閱讀，然後再花十五分鐘 google，搞懂不熟的知識點吧！\n 順便推薦個 Stanford 大學 Dan Boneh 的密碼學課程\n DNS Lookups in Kubernetes 你以為 Kubernetes 的 DNS 解析只是 $service.$namespace.svc.cluster.local 嗎？其實 pod 的 DNS 解析一樣會看 /etc/resolv.conf 檔案，而且會做以下設定：\n nameserver：指向 CoreDNS 服務 IP search：欲解析的 domain 不是 FQDN 時，這個 search list 的 domain 會被當作 root domain，K8s 預設會加入 $namespace.svc.$zone、svc.$zone、$zone 三個 domain options ndots:5：表示只有 domain 有超過五個 . 時，才會被當作 FQDN，否則則是 prepend 到 search list 的 root domain來搜尋  綜合上述，如果我的服務叫做 my-service，DNS resolution 的順序可能會是：\n ndots 我的 namespace 叫 my-ns，則嘗試解析 my-service.my-ns.svc.cluster.local. 若解析失敗，則嘗試解析 my-service.svc.cluster.local. 若解析失敗，則嘗試解析 my-service.cluster.local. 最後才會把 my-service. 當作 FQDN 來解析  Kubernetes 官方也有對這個 ndots:5 的設計做出解釋（但現在換成 CoreDNS 了？），是為了要同時支援解析 same-namespace、cross-namespace 還有 SRV record（_$port._$proto 的格式，講到這個就想到 external-dns 一直不 review 我的 SRV 相關 PR 🤯）。雖然有人說 ndots:5 有效能隱憂，但 DNS 照理說應該會被 cache 起來？總之，如果不是需要 low latency 的服務，使用 Kubernetes 預設值應該不會錯。\n","wordCount":"960","inLanguage":"en","datePublished":"2020-04-18T00:00:00+08:00","dateModified":"2020-04-18T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0d/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0D: 已達上限","name":"WWW 0x0D: 已達上限","description":"欸，工時系統禁止報加班！？ — Weihang Lo 2020.4 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟","keywords":["Cryptography","Kubernetes","Privacy"],"articleBody":" 欸，工時系統禁止報加班！？\n— Weihang Lo 2020.4\n 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nThe Facts: Mozilla’s DNS over HTTPs (DoH) 西元二零二零年二月二十五日起，Firefox 預設開啟了 DNS over HTTPS（DoH）的功能，這會導致：\n 原本裸奔的 DNS query 可以透過 HTTPS 加密，不會再被看光光 DNS 隱私資料從被 ISP 幹走變成被 Cloudflare/NextDNS 或其他 DoH 供應商幹走 因為不會走你家的 internal DNS service，有些解析會壞掉 👋 你不會再看見色情守門員  DoH 算是一個容易起爭議的功能，例如：\n Firefox DoH 預設是 Cloudflare 讓 OpenBSD 的 Firefox 版預設直接關閉 DoH Chrome 的行為則是如果 DNS provider 有支援 DoH 才自動開啟，爭議點在很多人都用 8.8.8.8 那還不是一定會走 Google 的 DoH 英國 ISP 商們票選 Mozilla 為 2019 年度網路惡棍，因為「DoH 阻撓網路監管，網路會成犯罪溫床」，帥 DoH 造成 DNS server 從集中在 ISP 變成集中在大型 DoH 網路公司  還是可以理解一下為什麼 Firefox 要預設 DoH，至於是否開啟就看個人囉。\nNo More Crypto Fails 現代密碼學入門 非常簡明的密碼學入門，沒有提到太多數學理論，花個十五分鐘閱讀，然後再花十五分鐘 google，搞懂不熟的知識點吧！\n 順便推薦個 Stanford 大學 Dan Boneh 的密碼學課程\n DNS Lookups in Kubernetes 你以為 Kubernetes 的 DNS 解析只是 $service.$namespace.svc.cluster.local 嗎？其實 pod 的 DNS 解析一樣會看 /etc/resolv.conf 檔案，而且會做以下設定：\n nameserver：指向 CoreDNS 服務 IP search：欲解析的 domain 不是 FQDN 時，這個 search list 的 domain 會被當作 root domain，K8s 預設會加入 $namespace.svc.$zone、svc.$zone、$zone 三個 domain options ndots:5：表示只有 domain 有超過五個 . 時，才會被當作 FQDN，否則則是 prepend 到 search list 的 root domain來搜尋  綜合上述，如果我的服務叫做 my-service，DNS resolution 的順序可能會是：\n ndots 我的 namespace 叫 my-ns，則嘗試解析 my-service.my-ns.svc.cluster.local. 若解析失敗，則嘗試解析 my-service.svc.cluster.local. 若解析失敗，則嘗試解析 my-service.cluster.local. 最後才會把 my-service. 當作 FQDN 來解析  Kubernetes 官方也有對這個 ndots:5 的設計做出解釋（但現在換成 CoreDNS 了？），是為了要同時支援解析 same-namespace、cross-namespace 還有 SRV record（_$port._$proto 的格式，講到這個就想到 external-dns 一直不 review 我的 SRV 相關 PR 🤯）。雖然有人說 ndots:5 有效能隱憂，但 DNS 照理說應該會被 cache 起來？總之，如果不是需要 low latency 的服務，使用 Kubernetes 預設值應該不會錯。\n","wordCount":"960","inLanguage":"en","datePublished":"2020-04-18T00:00:00+08:00","dateModified":"2020-04-18T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0d/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -148,12 +148,12 @@ WWW 0x0D: 已達上限
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x0e/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x0E: 親愛的，我把快取都放你腦中了</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x0c/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x0C: 未具名</span>
 </a>
@@ -166,7 +166,7 @@ WWW 0x0D: 已達上限
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

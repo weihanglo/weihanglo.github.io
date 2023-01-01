@@ -3,12 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>WWW 0x0E: 親愛的，我把快取都放你腦中了 | Weihang Lo</title>
+<title>WWW 0x0E: 親愛的，我把快取都放你腦中了 | Life is a refactoring process without tests</title>
 <meta name=keywords content="Cache,Databases">
 <meta name=description content="If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular? — @dabit3 2020.4.19 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期">
 <meta name=author content>
 <link rel=canonical href=https://weihanglo.tw/posts/2020/www-0x0e/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.css rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style>
 <link rel=icon href=https://weihanglo.tw/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://weihanglo.tw/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://weihanglo.tw/favicon-32x32.png>
@@ -33,18 +33,18 @@
 <meta name=twitter:title content="WWW 0x0E: 親愛的，我把快取都放你腦中了">
 <meta name=twitter:description content="If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular? — @dabit3 2020.4.19 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://weihanglo.tw/posts/"},{"@type":"ListItem","position":3,"name":"WWW 0x0E: 親愛的，我把快取都放你腦中了","item":"https://weihanglo.tw/posts/2020/www-0x0e/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0E: 親愛的，我把快取都放你腦中了","name":"WWW 0x0E: 親愛的，我把快取都放你腦中了","description":"If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular? — @dabit3 2020.4.19 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期","keywords":["Cache","Databases"],"articleBody":" If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular?\n— @dabit3 2020.4.19\n 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nApple just killed Offline Web Apps while purporting to protect your privacy: why that’s A Bad Thing and why you should care 標題很聳動但無誤，Apple 決定幫 Safari 給所有 storage 加上一個**「七天沒進站就刪掉」**的限制，不負責任猜測是 app 營收不好。\nCopyrighting all the melodies to avoid accidental infringement  All the Music LLC 是一間懷抱夢想的公司，他們將旋律視為有限的數學排列組合，而數學是既有事實，所以沒有著作權，然後再利用程式組合不同音高的音符，每秒產生三十萬不同旋律的 midi，放在 public domain，進而保障音樂創作者不會被來路不明的著作權蟑螂吿到死。\n該專案認為，音樂是由旋律、節奏、合聲，音色的要素組合，但在節奏差距不大的情況下，聽起來會像同一個旋律，加上美國著作權有「實質相似性」的概念，所以目前窮舉 8 個音高 x 12 個音符組合的旋律即可涵蓋大部分的旋律（之後又加上更多小調，以涵蓋更多種類的音樂）。\n這個專案我覺得非常有趣，而且是用 Rust 寫的！不過其實世界上音樂不是只有西方古典音樂的五線譜，印度、中國、日本還有大大小小的部落民族都有各種超越五線譜的音樂，這些著作權要怎麼保障？又要怎樣讓創作者盡情發揮？仍然有難度存在。\n 更多細節可以看專案的 FAQ，雖然載入超慢…\n Why We Started Putting Unpopular Assets in Memory  Image from Cloudflare blog\n 乍聽之下，標題聳動駭人，依然推薦閱讀此文。抽絲剝繭，層層理出技術決策如何從觀察、實驗、可能問題、現實部署情況，到未來展望的脈絡，值得技術撰文者參考。稍加摘要（根本稱不上是摘要）：\n背景 Cloudflare 的 Cache 放在 SSD，客製化的超強 SSD，但仍遭遇一些問題：\n 問題一： SSD 的 IO 是造成 tail latency 的主因 問題二： 物理 SSD 壞掉替換的維運成本很高（Cloudflare 在兩百座城市的資料中心的運費、人力替換成本）  觀察現況 熱點資源已有作業系統 page cache 將之放在 memory：\n Linux LRU 等各種演算法早就針對熱點做讀取快取 page cache 也會做寫入緩衝（buffer write） 但 Cloudflare 作為 CDN 服務，更新資源次數極少，page cache 沒辦法幫助減少硬碟寫入  非熱點資源似乎可以放進 memory：\n 動機一： 寫入過多導致 SSD 壽命驟減，寫入需要對 storage 晶片送 P/E operation ，這個 operation 會阻擋 read ops 動機二： 很多資源都是一次性再也不會存取第二次  假說： 減少硬碟寫入可加速硬碟讀取 方法： 只 cache 第二次存取的資源 結果： 減少硬碟寫入次數，P75 cache hit duration 也降低，因為不需要 evict 非熱點資源、cache hit ratio 和 retention 也提高了    如何實作 解法一： 紀錄存取次數，但不要快取\n 用 bloom filter 等 memory-efficient 資料結構來儲存存取次數 新問題：資源都會 miss 第二次才會被 cache，這對 CDN 供應商或客戶來說都無法接受。  解法二： 多一個 transient cache (in memory cache)。\n 先將欲快取到 SSD 的資源放在 memory 中，如果存取它太多次，就 promote 到 SSD 中 沒被 promote 的資源最後會被 evict  權衡 這聽起來很合理，全部放到 memory 中，但其實需要在 SSD 壽命、cache tail hit latency 和 memory 使用量之間權衡，而這次影響最大的就是 memory 使用量上升：\n transient cache memory 究竟要多大： 影響 eviction、cache hit ratio 和 page cache 競爭： page cache 抓熱門資源、但 transient cache 大多為非熱門，有排擠效應 和 process memory 競爭： process 和 page cache 不一樣，對 memory 有剛性需求，而且 edge service 的升級需要 zero downtime，所以會同時有兩個版本的服務（藍綠佈署 🙃），如果記憶體不夠，就會讓 page cache 減少，反而增加 IO。  有段話透露出 Cloudflare 對於客戶太在乎 miss rate 的抱怨，認為只是在博取「眼球效能」😈\n From a customer’s perspective, cache retention being too short is unacceptable because it leads to more misses, commensurate higher cost, and worse eyeball performance.\n 結果與展望 Cloudlfare 採取在新的機器上部署新的 transient cache，並只在部分 asset 使用，不斷尋找 memory size 的甜蜜點，最後結果為\n 在 SSD 壽命、cache tail hit latency 和 memory 使用量三者間，Cloudflare 選擇前兩者 減少 20%-25% SSD 寫入 CDN tail latency 在高峰期間也減少了 20%  而對未來可以做更好的部分則是：\n 部署更多： 舊機器退役後，新世代機器（更多 memory 的機器）就會上去 更智慧的 promotion 演算法： 現在僅透過資源觸擊數，未來可依據資源的 TTL 決定是否 promote；另一面向則是 demotion，雖然不會減少硬碟寫入，但可增加 cache hit ratio 和 cache retention 用其他儲存裝置做 transient cache： 選擇 memory 是因為損耗花費低，HDD 同樣耐操，可以考慮混合 SSD、HDD、memory 在費用和效能取得平衡  ","wordCount":"1700","inLanguage":"en","datePublished":"2020-04-25T00:00:00+08:00","dateModified":"2020-04-25T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0e/"},"publisher":{"@type":"Organization","name":"Weihang Lo","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WWW 0x0E: 親愛的，我把快取都放你腦中了","name":"WWW 0x0E: 親愛的，我把快取都放你腦中了","description":"If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular? — @dabit3 2020.4.19 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期","keywords":["Cache","Databases"],"articleBody":" If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular?\n— @dabit3 2020.4.19\n 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食篇章。\nApple just killed Offline Web Apps while purporting to protect your privacy: why that’s A Bad Thing and why you should care 標題很聳動但無誤，Apple 決定幫 Safari 給所有 storage 加上一個**「七天沒進站就刪掉」**的限制，不負責任猜測是 app 營收不好。\nCopyrighting all the melodies to avoid accidental infringement  All the Music LLC 是一間懷抱夢想的公司，他們將旋律視為有限的數學排列組合，而數學是既有事實，所以沒有著作權，然後再利用程式組合不同音高的音符，每秒產生三十萬不同旋律的 midi，放在 public domain，進而保障音樂創作者不會被來路不明的著作權蟑螂吿到死。\n該專案認為，音樂是由旋律、節奏、合聲，音色的要素組合，但在節奏差距不大的情況下，聽起來會像同一個旋律，加上美國著作權有「實質相似性」的概念，所以目前窮舉 8 個音高 x 12 個音符組合的旋律即可涵蓋大部分的旋律（之後又加上更多小調，以涵蓋更多種類的音樂）。\n這個專案我覺得非常有趣，而且是用 Rust 寫的！不過其實世界上音樂不是只有西方古典音樂的五線譜，印度、中國、日本還有大大小小的部落民族都有各種超越五線譜的音樂，這些著作權要怎麼保障？又要怎樣讓創作者盡情發揮？仍然有難度存在。\n 更多細節可以看專案的 FAQ，雖然載入超慢…\n Why We Started Putting Unpopular Assets in Memory  Image from Cloudflare blog\n 乍聽之下，標題聳動駭人，依然推薦閱讀此文。抽絲剝繭，層層理出技術決策如何從觀察、實驗、可能問題、現實部署情況，到未來展望的脈絡，值得技術撰文者參考。稍加摘要（根本稱不上是摘要）：\n背景 Cloudflare 的 Cache 放在 SSD，客製化的超強 SSD，但仍遭遇一些問題：\n 問題一： SSD 的 IO 是造成 tail latency 的主因 問題二： 物理 SSD 壞掉替換的維運成本很高（Cloudflare 在兩百座城市的資料中心的運費、人力替換成本）  觀察現況 熱點資源已有作業系統 page cache 將之放在 memory：\n Linux LRU 等各種演算法早就針對熱點做讀取快取 page cache 也會做寫入緩衝（buffer write） 但 Cloudflare 作為 CDN 服務，更新資源次數極少，page cache 沒辦法幫助減少硬碟寫入  非熱點資源似乎可以放進 memory：\n 動機一： 寫入過多導致 SSD 壽命驟減，寫入需要對 storage 晶片送 P/E operation ，這個 operation 會阻擋 read ops 動機二： 很多資源都是一次性再也不會存取第二次  假說： 減少硬碟寫入可加速硬碟讀取 方法： 只 cache 第二次存取的資源 結果： 減少硬碟寫入次數，P75 cache hit duration 也降低，因為不需要 evict 非熱點資源、cache hit ratio 和 retention 也提高了    如何實作 解法一： 紀錄存取次數，但不要快取\n 用 bloom filter 等 memory-efficient 資料結構來儲存存取次數 新問題：資源都會 miss 第二次才會被 cache，這對 CDN 供應商或客戶來說都無法接受。  解法二： 多一個 transient cache (in memory cache)。\n 先將欲快取到 SSD 的資源放在 memory 中，如果存取它太多次，就 promote 到 SSD 中 沒被 promote 的資源最後會被 evict  權衡 這聽起來很合理，全部放到 memory 中，但其實需要在 SSD 壽命、cache tail hit latency 和 memory 使用量之間權衡，而這次影響最大的就是 memory 使用量上升：\n transient cache memory 究竟要多大： 影響 eviction、cache hit ratio 和 page cache 競爭： page cache 抓熱門資源、但 transient cache 大多為非熱門，有排擠效應 和 process memory 競爭： process 和 page cache 不一樣，對 memory 有剛性需求，而且 edge service 的升級需要 zero downtime，所以會同時有兩個版本的服務（藍綠佈署 🙃），如果記憶體不夠，就會讓 page cache 減少，反而增加 IO。  有段話透露出 Cloudflare 對於客戶太在乎 miss rate 的抱怨，認為只是在博取「眼球效能」😈\n From a customer’s perspective, cache retention being too short is unacceptable because it leads to more misses, commensurate higher cost, and worse eyeball performance.\n 結果與展望 Cloudlfare 採取在新的機器上部署新的 transient cache，並只在部分 asset 使用，不斷尋找 memory size 的甜蜜點，最後結果為\n 在 SSD 壽命、cache tail hit latency 和 memory 使用量三者間，Cloudflare 選擇前兩者 減少 20%-25% SSD 寫入 CDN tail latency 在高峰期間也減少了 20%  而對未來可以做更好的部分則是：\n 部署更多： 舊機器退役後，新世代機器（更多 memory 的機器）就會上去 更智慧的 promotion 演算法： 現在僅透過資源觸擊數，未來可依據資源的 TTL 決定是否 promote；另一面向則是 demotion，雖然不會減少硬碟寫入，但可增加 cache hit ratio 和 cache retention 用其他儲存裝置做 transient cache： 選擇 memory 是因為損耗花費低，HDD 同樣耐操，可以考慮混合 SSD、HDD、memory 在費用和效能取得平衡  ","wordCount":"1700","inLanguage":"en","datePublished":"2020-04-25T00:00:00+08:00","dateModified":"2020-04-25T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://weihanglo.tw/posts/2020/www-0x0e/"},"publisher":{"@type":"Organization","name":"Life is a refactoring process without tests","logo":{"@type":"ImageObject","url":"https://weihanglo.tw/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://weihanglo.tw accesskey=h title="Weihang Lo (Alt + H)">Weihang Lo</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<a href=https://weihanglo.tw accesskey=h title="Life is a refactoring process without tests (Alt + H)">Life is a refactoring process without tests</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
-</span>
+</div>
 </div>
 <ul id=menu>
 <li>
@@ -53,8 +53,8 @@
 </a>
 </li>
 <li>
-<a href=https://weihanglo.tw/posts/ title=Posts>
-<span>Posts</span>
+<a href=https://weihanglo.tw/archives/ title=Archives>
+<span>Archives</span>
 </a>
 </li>
 <li>
@@ -193,12 +193,12 @@ WWW 0x0E: 親愛的，我把快取都放你腦中了
 </ul>
 <nav class=paginav>
 <a class=prev href=https://weihanglo.tw/posts/2020/www-0x0f/>
-<span class=title>« Prev Page</span>
+<span class=title>« Prev</span>
 <br>
 <span>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日</span>
 </a>
 <a class=next href=https://weihanglo.tw/posts/2020/www-0x0d/>
-<span class=title>Next Page »</span>
+<span class=title>Next »</span>
 <br>
 <span>WWW 0x0D: 已達上限</span>
 </a>
@@ -211,7 +211,7 @@ WWW 0x0E: 親愛的，我把快取都放你腦中了
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
 </span>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
