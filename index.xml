@@ -6,7 +6,16 @@
     <description>Recent content in Home on Weihang Lo</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sun, 06 Nov 2022 20:19:00 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 31 Dec 2022 12:00:00 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022 年度流水帳式回顧</title>
+      <link>https://weihanglo.tw/posts/2022/2022-not-a-real-retro/</link>
+      <pubDate>Sat, 31 Dec 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2022/2022-not-a-real-retro/</guid>
+      <description>2022 年度流水帳式回顧 赫然發現人生已經快過一半了。 二十五歲之後，時間的流逝感和體重增長一樣，只有不斷加速的份。若想為過去看似光怪陸離實則空白一年</description>
+    </item>
+    
     <item>
       <title>I (almost) broke 99% of Rust prjects in the world</title>
       <link>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</link>
