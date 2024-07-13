@@ -4,550 +4,433 @@
     <title>Posts on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/posts/</link>
     <description>Recent content in Posts on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 13 Jul 2024 17:00:00 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jul 2024 17:00:00 +0000</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The missing parts in Cargo</title>
       <link>https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/</link>
       <pubDate>Sat, 13 Jul 2024 17:00:00 +0000</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/</guid>
       <description>When people discuss the merits of Rust, they often mention its strict ownership rules, excellent diagnostics, and impressive performance. Cargo and the crates.io ecosystem frequently receive praise as well. Initially, when I started learning Rust, I couldn&amp;rsquo;t understand why Cargo was so highly loved. Having extensive experience with JavaScript, I was accustomed to convenient package managers and couldn&amp;rsquo;t grasp the enthusiasm—wasn&amp;rsquo;t such a tool a given for any serious programming language?</description>
     </item>
-    
     <item>
       <title>如何成為正港倫敦人</title>
       <link>https://weihanglo.tw/posts/2023/become-a-real-londoner/</link>
       <pubDate>Wed, 12 Jul 2023 00:59:59 +0000</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2023/become-a-real-londoner/</guid>
       <description>認識我的人多少知道我是單車迷，但迷的並不是單車比賽，亦非一輛三十萬台幣的高價奢侈品。我迷上的是騎單車的隨心所欲，想去哪就去哪，毫無拘束，把所</description>
     </item>
-    
     <item>
       <title>2022 流水帳式年度回顧</title>
       <link>https://weihanglo.tw/posts/2022/2022-not-a-real-retro/</link>
       <pubDate>Sat, 31 Dec 2022 12:00:00 +0000</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2022/2022-not-a-real-retro/</guid>
       <description>赫然發現人生已經快過一半了。 二十五歲之後，時間的流逝感和體重增長一樣，只有不斷加速的份。若想為過去看似光怪陸離實則空白一年留下點什麼，文字記</description>
     </item>
-    
     <item>
       <title>I (almost) broke 99% of Rust prjects in the world</title>
       <link>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</link>
       <pubDate>Sun, 06 Nov 2022 20:19:00 +0000</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</guid>
       <description>Title is boasting but indeed could have broken builds of a lot of projects.
- Once upon a time (2022-10), I was trying to fix a tricky bug regarding the feature “artifact dependencies”. Artifact dependencies is a humongous feature too hard to implement it 100% right, as it touches almost every components of Cargo. There&amp;rsquo;s a saying from an anonymous Cargo maintainer, “I am mostly confident to make a change until it touches the dependency resolver.</description>
+Once upon a time (2022-10), I was trying to fix a tricky bug regarding the feature “artifact dependencies”. Artifact dependencies is a humongous feature too hard to implement it 100% right, as it touches almost every components of Cargo. There&amp;rsquo;s a saying from an anonymous Cargo maintainer, “I am mostly confident to make a change until it touches the dependency resolver.</description>
     </item>
-    
     <item>
       <title>不必是眾星拱月那個月 也能替世界增添光芒</title>
       <link>https://weihanglo.tw/posts/2022/make-the-world-better-even-you-arent-a-super-hero/</link>
       <pubDate>Fri, 01 Apr 2022 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2022/make-the-world-better-even-you-arent-a-super-hero/</guid>
       <description>謹以此文紀念 Alex Crichton 從 Cargo Team 退休 Thank you Alex for your hard work making Rust great! 猶記得，在大學生涯最後一年，我不小心掉進程式設計的兔子洞，深不見底。那時，也是我初次接觸開放原</description>
     </item>
-    
     <item>
       <title>雙端佇列 Deque</title>
       <link>https://weihanglo.tw/posts/2021/deque/</link>
       <pubDate>Tue, 16 Feb 2021 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2021/deque/</guid>
       <description>本篇從 Rust Algorithm Club 移植，若欲閱讀最新版，請移駕至Rust 演算法俱樂部：雙端佇列 Deque 一文，此文不同步更新。 雙端佇列（double-ended queue</description>
     </item>
-    
     <item>
       <title>我眼中的 Rust 2020：生態工具發展</title>
       <link>https://weihanglo.tw/posts/2020/rust-2020-tooling-ecosystem/</link>
       <pubDate>Sun, 01 Nov 2020 08:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/rust-2020-tooling-ecosystem/</guid>
       <description>最近越來越多人想要學 Rust，也有一些朋友來諮詢 Rust 相關的生態，這裡稍微囉嗦一下我眼中的 Rust 2020 吧。 如果沒有拖稿的話，文章應該會分三篇，表列如下：</description>
     </item>
-    
     <item>
       <title>布隆過濾器 Bloom Filter</title>
       <link>https://weihanglo.tw/posts/2020/bloom-filter/</link>
       <pubDate>Fri, 28 Aug 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/bloom-filter/</guid>
       <description>本篇從 Rust Algorithm Club 移植，若欲閱讀最新版，請移駕至Rust 演算法俱樂部：布隆過濾器 Bloom Filter 一文，此文不同步更新。 Bloom filter 是一種機率資料結構（probabil</description>
     </item>
-    
     <item>
       <title>WWW 0x17: 再見 weekly</title>
       <link>https://weihanglo.tw/posts/2020/www-0x17/</link>
       <pubDate>Fri, 17 Jul 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x17/</guid>
       <description>這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
     </item>
-    
     <item>
       <title>WWW 0x16: JWT、分散式 ID 生成、k8s 安全性</title>
       <link>https://weihanglo.tw/posts/2020/www-0x16/</link>
       <pubDate>Sat, 20 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x16/</guid>
       <description>這裡是 WWW 第貳拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
     </item>
-    
     <item>
       <title>WWW 0x15: 你懂資料庫嗎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x15/</link>
       <pubDate>Sat, 13 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x15/</guid>
       <description>這裡是 WWW 第貳拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
     </item>
-    
     <item>
       <title>WWW 0x14: Structured concurrency is promising</title>
       <link>https://weihanglo.tw/posts/2020/www-0x14/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x14/</guid>
       <description>這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x13: 據說網路釣魚比海釣容易成功</title>
       <link>https://weihanglo.tw/posts/2020/www-0x13/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x13/</guid>
       <description>這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x12: Oxidized Chromium?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x12/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x12/</guid>
       <description>這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x11: 庫存文章已用罄</title>
       <link>https://weihanglo.tw/posts/2020/www-0x11/</link>
       <pubDate>Sat, 16 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x11/</guid>
       <description>這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x10: 重構不是病，寫起來要人命</title>
       <link>https://weihanglo.tw/posts/2020/www-0x10/</link>
       <pubDate>Sat, 09 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x10/</guid>
       <description>這裡是 WWW 第拾陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0f/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0f/</guid>
       <description>這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x0E: 親愛的，我把快取都放你腦中了</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0e/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0e/</guid>
       <description>If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular? — @dabit3 2020.4.19 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期</description>
     </item>
-    
     <item>
       <title>WWW 0x0D: 已達上限</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0d/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0d/</guid>
       <description>欸，工時系統禁止報加班！？ — Weihang Lo 2020.4 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟</description>
     </item>
-    
     <item>
       <title>WWW 0x0C: 未具名</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
       <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
       <description>既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內</description>
     </item>
-    
     <item>
       <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
       <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
       <description>Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初</description>
     </item>
-    
     <item>
       <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>Kuberenetes Autoscaling 相關知識小整理</title>
       <link>https://weihanglo.tw/posts/2020/k8s-autoscaling/</link>
       <pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/k8s-autoscaling/</guid>
       <description>K8s 有好用的 autoscaling 功能，但你知道除了 pod 之外，node 也可以 auto scaling 嗎？帥，你知道就不用分享了啊 🚬 本文以重點整理的方式，先介紹目前常見的 Autoscal</description>
     </item>
-    
     <item>
       <title>WWW 0x09: 到底要不要擔心 blocking</title>
       <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
       <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
       <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. &amp;ndash; M. Conway 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期</description>
     </item>
-    
     <item>
       <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
       <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
       <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x06: Life is short. I hate GIL</title>
       <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
       <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x05: 若單體服務是屎，微服務就是許多屎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x05/</link>
       <pubDate>Sat, 22 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x05/</guid>
       <description>這裡是 WWW 第伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x04: Not feeling the async pressure</title>
       <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
       <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x03: What Color is Your Function?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
       <description>你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富</description>
     </item>
-    
     <item>
       <title>WWW 0x02: Distroless Docker for distressed human</title>
       <link>https://weihanglo.tw/posts/2020/www-0x02/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x02/</guid>
       <description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
       <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
       <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
       <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x00: Rust 有個靜態 GC</title>
       <link>https://weihanglo.tw/posts/2020/www-0x00/</link>
       <pubDate>Sat, 18 Jan 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x00/</guid>
       <description>如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。 傑森 - 2020 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五</description>
     </item>
-    
     <item>
       <title>RustConf 2019 雲參訪錄（1）</title>
       <link>https://weihanglo.tw/posts/2019/rustconf-2019-1/</link>
       <pubDate>Sun, 29 Sep 2019 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2019/rustconf-2019-1/</guid>
       <description>RustConf 是 Rust 社群年度最重要的研討會之一，從 Rust 在 2015 年 1.0 版正式發布之後，2016、2017、2018 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球</description>
     </item>
-    
     <item>
       <title>向上管理的設計模式</title>
       <link>https://weihanglo.tw/posts/2019/design-patterns-for-managing-up/</link>
       <pubDate>Sun, 27 Jan 2019 15:04:29 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2019/design-patterns-for-managing-up/</guid>
       <description>在資訊產業工作久了，其實就會知道，成功的軟體工程師並非社會眼中的科技宅男，溝通反而是做好工作的關鍵。Kate Matsudaira 整理了四個工作上常見的難題，並</description>
     </item>
-    
     <item>
       <title>HLS 串流協議二三事</title>
       <link>https://weihanglo.tw/posts/2019/streamin-hls/</link>
       <pubDate>Sun, 27 Jan 2019 12:31:29 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2019/streamin-hls/</guid>
       <description>最近開始研究很夯的直播技術，一般常見的直播方案為 HLS 以及 RTMP 等，本篇將介紹 Apple 強迫使用 大力支持的 HLS 協議。 （撰於 2017-04-10） 本文是兩年前的</description>
     </item>
-    
     <item>
       <title>Rust: Ownership and References</title>
       <link>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</link>
       <pubDate>Sun, 30 Sep 2018 11:07:45 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</guid>
       <description>This is a series of quick notes about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.
 (written on 2018-09-30)
 Ownership and References While a program runs, it need a way to manage memory .</description>
     </item>
-    
     <item>
       <title>【譯】Rust vs. Go</title>
       <link>https://weihanglo.tw/posts/2018/rust-vs-go/</link>
       <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/rust-vs-go/</guid>
       <description>本文譯自 Julio Merino 的 Rust vs. Go。Julio Merino 目前是 G 社僱員，在 G 社工作超過 8 年，無論工作內外，都接觸開發不少 Go 語言，並撰寫 Rust 點評系列文，來聽聽他對 Rust</description>
     </item>
-    
     <item>
       <title>4 Podcasts Software Engineers May Love</title>
       <link>https://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/</link>
       <pubDate>Mon, 09 Jul 2018 23:48:41 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/</guid>
       <description>As a non-native English speaker, I often try several methods to improve my English skills. Listening to podcasts is one of the most interesting way to practice English, especially with fascinating topics I indulge in.
 Therefore, I pick some of my favorite podcasts about software engineering to share with you. Enjoy these awesome shows and don&amp;rsquo;t forget to give them some feedback.
 (written on 2018-07-09)
-Software Engineering Daily 
-If you are not afraid of information explosion, you may love Software Engineering Daily (SE Daily).</description>
+Software Engineering Daily If you are not afraid of information explosion, you may love Software Engineering Daily (SE Daily).</description>
     </item>
-    
     <item>
       <title>漸進符號 Asymptotic Notation</title>
       <link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link>
       <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid>
       <description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。 （撰於 2018-05-31） 日常生</description>
     </item>
-    
     <item>
       <title>2018 前端工程師面試心得</title>
       <link>https://weihanglo.tw/posts/2018/2018-interviews/</link>
       <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/2018-interviews/</guid>
       <description>這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。 （撰於 2018-03-15） 背景 森</description>
     </item>
-    
     <item>
       <title>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架</title>
       <link>https://weihanglo.tw/posts/2018/tokio-internals/</link>
       <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/tokio-internals/</guid>
       <description>本文譯自 Tokio internals: Understanding Rust&amp;rsquo;s asynchronous I/O framework from the bottom up。 Thanks David Simmons for this awesome article! Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，</description>
     </item>
-    
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽</description>
     </item>
-    
     <item>
       <title>How Is New Terminal In VS Code So Fast?</title>
       <link>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
       <description>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &amp;ldquo;Integrated Terminal performance&amp;rdquo; section. Let&amp;rsquo;s check out what they&amp;rsquo;ve done!
 (written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
 Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &amp;ldquo;Xterm.js&amp;rdquo;, which is currently maintained by SourceLair and community contributors.</description>
     </item>
-    
     <item>
       <title>使用 JavaScript 處理二進位資料</title>
       <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid>
       <description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖</description>
     </item>
-    
     <item>
       <title>Rx 入門二：觀察者模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
       <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。 （撰於 2017-08-15，基於 Swift 3.1） Definition 觀察者模式（Observer pat</description>
     </item>
-    
     <item>
       <title>Rx 入門一：迭代器模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
       <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。 （撰於 2017-08-15，基於 Swift 3.1） Definition 迭代器模式（Iterator patter</description>
     </item>
-    
     <item>
       <title>Rx 入門零：ReactiveX</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</link>
       <pubDate>Tue, 15 Aug 2017 09:22:37 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/intro-rx-0-reactivex/</guid>
       <description>聽過 Reactive Programming 嗎？ReactiveX（Rx）是近來火紅的技術，帶動函數響應式程式設計的熱潮。本系列將從 Rx 最原始的概念解釋起，一步步認識 Rx 巧妙的設計</description>
     </item>
-    
     <item>
       <title>Thoughts on React Native from an iOS developer</title>
       <link>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</link>
       <pubDate>Sun, 30 Jul 2017 18:16:45 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/thoughts-on-react-native-from-an-ios-developer/</guid>
       <description>About two month ago, I started making a React Native app &amp;ldquo;PyConTW 17&amp;rdquo; for the biggest annual Python conference in Taiwan (PyCon Taiwan). The app is quite simple, but still took some efforts for me to build. As a complete React newbie, I would like to share some of my thoughts about React Native.
 (written on 2017-07-30, based on React Native 0.44.2)
- Disclaimer: I am a junior iOS developer (about 1 year experience) without any computer science degree.</description>
+Disclaimer: I am a junior iOS developer (about 1 year experience) without any computer science degree.</description>
     </item>
-    
     <item>
       <title>試答 Cherny 所謂「最好的前端面試題」</title>
       <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
       <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現</description>
     </item>
-    
     <item>
       <title>與 IE 相處的日子</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link>
       <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Async Functions</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
       <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Promises</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
       <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（</description>
     </item>
-    
     <item>
       <title>理解 Swift Generics</title>
       <link>https://weihanglo.tw/posts/2017/swift-generics/</link>
       <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-generics/</guid>
       <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛</description>
     </item>
-    
     <item>
       <title>理解 Swift 的 Error Handling</title>
       <link>https://weihanglo.tw/posts/2017/swift-error-handling/</link>
       <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid>
       <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情</description>
     </item>
-    
     <item>
       <title>大前端時代的工具箱</title>
       <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
       <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具</description>
     </item>
-    
     <item>
       <title>Carthage 套件管理工具</title>
       <link>https://weihanglo.tw/posts/2017/carthage-intro/</link>
       <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage</description>
     </item>
-    
     <item>
       <title>Swift 初學速記</title>
       <link>https://weihanglo.tw/posts/2017/swift-quick-note/</link>
       <pubDate>Mon, 06 Feb 2017 23:25:19 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-quick-note/</guid>
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。 （撰於 2017-02-06，基於 Swift 3.1） Declaration 宣告變數使用 var，宣告常數使用 let 使用 var 宣告，該值為 mutable 使用 let 宣告</description>
     </item>
-    
     <item>
       <title>閱讀原始碼：Swift-Then</title>
       <link>https://weihanglo.tw/posts/2017/readthesource-swift-then/</link>
       <pubDate>Tue, 10 Jan 2017 12:15:34 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式</description>
     </item>
-    
   </channel>
 </rss>

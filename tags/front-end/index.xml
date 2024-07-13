@@ -1,94 +1,78 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Front-end on Life is a refactoring process without tests</title>
+    <title>Front-End on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/front-end/</link>
-    <description>Recent content in Front-end on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Front-End on Life is a refactoring process without tests</description>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/front-end/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Jan 2020 00:00:11 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/front-end/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
       <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
       <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
       <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>2018 前端工程師面試心得</title>
       <link>https://weihanglo.tw/posts/2018/2018-interviews/</link>
       <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/2018-interviews/</guid>
       <description>這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。 （撰於 2018-03-15） 背景 森</description>
     </item>
-    
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽</description>
     </item>
-    
     <item>
       <title>How Is New Terminal In VS Code So Fast?</title>
       <link>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</link>
       <pubDate>Thu, 12 Oct 2017 22:05:03 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/how-is-new-terminal-in-vs-code-so-fast/</guid>
       <description>Last week, a new version (1.17) of Visual Studio Code was released. While there are many fascinating improvements and features introduced, the one that cought my eyes is &amp;ldquo;Integrated Terminal performance&amp;rdquo; section. Let&amp;rsquo;s check out what they&amp;rsquo;ve done!
 (written on 2017-10-12, based on Xterm.js v3, VS Code 1.17)
 Old Performance Issue The integrated terminal in VS Code is powered by another popular open-source project &amp;ldquo;Xterm.js&amp;rdquo;, which is currently maintained by SourceLair and community contributors.</description>
     </item>
-    
     <item>
       <title>試答 Cherny 所謂「最好的前端面試題」</title>
       <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
       <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現</description>
     </item>
-    
     <item>
       <title>與 IE 相處的日子</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link>
       <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Async Functions</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
       <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Promises</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
       <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（</description>
     </item>
-    
     <item>
       <title>大前端時代的工具箱</title>
       <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
       <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具</description>
     </item>
-    
   </channel>
 </rss>

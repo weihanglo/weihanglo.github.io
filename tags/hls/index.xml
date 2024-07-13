@@ -4,17 +4,17 @@
     <title>HLS on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/hls/</link>
     <description>Recent content in HLS on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sun, 27 Jan 2019 12:31:29 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/hls/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Jan 2019 12:31:29 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/hls/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HLS 串流協議二三事</title>
       <link>https://weihanglo.tw/posts/2019/streamin-hls/</link>
       <pubDate>Sun, 27 Jan 2019 12:31:29 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2019/streamin-hls/</guid>
       <description>最近開始研究很夯的直播技術，一般常見的直播方案為 HLS 以及 RTMP 等，本篇將介紹 Apple 強迫使用 大力支持的 HLS 協議。 （撰於 2017-04-10） 本文是兩年前的</description>
     </item>
-    
   </channel>
 </rss>

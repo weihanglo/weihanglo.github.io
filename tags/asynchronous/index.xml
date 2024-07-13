@@ -4,53 +4,45 @@
     <title>Asynchronous on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/asynchronous/</link>
     <description>Recent content in Asynchronous on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 02 May 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/asynchronous/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 May 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/asynchronous/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0f/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0f/</guid>
       <description>這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x09: 到底要不要擔心 blocking</title>
       <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
       <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>WWW 0x04: Not feeling the async pressure</title>
       <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
       <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x03: What Color is Your Function?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
       <description>你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富</description>
     </item>
-    
     <item>
       <title>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架</title>
       <link>https://weihanglo.tw/posts/2018/tokio-internals/</link>
       <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/tokio-internals/</guid>
       <description>本文譯自 Tokio internals: Understanding Rust&amp;rsquo;s asynchronous I/O framework from the bottom up。 Thanks David Simmons for this awesome article! Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，</description>
     </item>
-    
   </channel>
 </rss>

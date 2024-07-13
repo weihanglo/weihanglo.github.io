@@ -4,98 +4,80 @@
     <title>Kubernetes on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x17: 再見 weekly</title>
       <link>https://weihanglo.tw/posts/2020/www-0x17/</link>
       <pubDate>Fri, 17 Jul 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x17/</guid>
       <description>這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
     </item>
-    
     <item>
       <title>WWW 0x12: Oxidized Chromium?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x12/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x12/</guid>
       <description>這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x11: 庫存文章已用罄</title>
       <link>https://weihanglo.tw/posts/2020/www-0x11/</link>
       <pubDate>Sat, 16 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x11/</guid>
       <description>這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x0D: 已達上限</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0d/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0d/</guid>
       <description>欸，工時系統禁止報加班！？ — Weihang Lo 2020.4 這裡是 WWW 第拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟</description>
     </item>
-    
     <item>
       <title>WWW 0x0C: 未具名</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
       <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
       <description>既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內</description>
     </item>
-    
     <item>
       <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
       <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
       <description>Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初</description>
     </item>
-    
     <item>
       <title>Kuberenetes Autoscaling 相關知識小整理</title>
       <link>https://weihanglo.tw/posts/2020/k8s-autoscaling/</link>
       <pubDate>Mon, 23 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/k8s-autoscaling/</guid>
       <description>K8s 有好用的 autoscaling 功能，但你知道除了 pod 之外，node 也可以 auto scaling 嗎？帥，你知道就不用分享了啊 🚬 本文以重點整理的方式，先介紹目前常見的 Autoscal</description>
     </item>
-    
     <item>
       <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
       <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. &amp;ndash; M. Conway 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期</description>
     </item>
-    
     <item>
       <title>WWW 0x06: Life is short. I hate GIL</title>
       <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
       <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
       <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
       <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
       <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
   </channel>
 </rss>

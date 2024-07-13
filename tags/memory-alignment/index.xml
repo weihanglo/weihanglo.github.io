@@ -4,17 +4,17 @@
     <title>Memory Alignment on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/memory-alignment/</link>
     <description>Recent content in Memory Alignment on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sun, 03 Sep 2017 23:35:55 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/memory-alignment/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Sep 2017 23:35:55 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/memory-alignment/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 JavaScript 處理二進位資料</title>
       <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid>
       <description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖</description>
     </item>
-    
   </channel>
 </rss>

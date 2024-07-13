@@ -4,71 +4,59 @@
     <title>Swift on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/swift/</link>
     <description>Recent content in Swift on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/swift/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/swift/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rx 入門二：觀察者模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
       <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。 （撰於 2017-08-15，基於 Swift 3.1） Definition 觀察者模式（Observer pat</description>
     </item>
-    
     <item>
       <title>Rx 入門一：迭代器模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 13:06:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/intro-rx-1-iterator-pattern/</guid>
       <description>本篇介紹 Rx 的重要基礎概念 Iterator pattern（迭代器模式）。 （撰於 2017-08-15，基於 Swift 3.1） Definition 迭代器模式（Iterator patter</description>
     </item>
-    
     <item>
       <title>理解 Swift Generics</title>
       <link>https://weihanglo.tw/posts/2017/swift-generics/</link>
       <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-generics/</guid>
       <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛</description>
     </item>
-    
     <item>
       <title>理解 Swift 的 Error Handling</title>
       <link>https://weihanglo.tw/posts/2017/swift-error-handling/</link>
       <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid>
       <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情</description>
     </item>
-    
     <item>
       <title>Carthage 套件管理工具</title>
       <link>https://weihanglo.tw/posts/2017/carthage-intro/</link>
       <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage</description>
     </item>
-    
     <item>
       <title>Swift 初學速記</title>
       <link>https://weihanglo.tw/posts/2017/swift-quick-note/</link>
       <pubDate>Mon, 06 Feb 2017 23:25:19 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-quick-note/</guid>
       <description>簡單記錄 Apple 官方 Swift Guide 的重點與心得。 （撰於 2017-02-06，基於 Swift 3.1） Declaration 宣告變數使用 var，宣告常數使用 let 使用 var 宣告，該值為 mutable 使用 let 宣告</description>
     </item>
-    
     <item>
       <title>閱讀原始碼：Swift-Then</title>
       <link>https://weihanglo.tw/posts/2017/readthesource-swift-then/</link>
       <pubDate>Tue, 10 Jan 2017 12:15:34 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/readthesource-swift-then/</guid>
       <description>本系列文視筆者心情不定期撰寫。 提升程式設計能力的途徑，不外乎一個字「寫」。而另一個重要方法，則是「讀」。我們很容易將雜亂無章的想法轉化為程式</description>
     </item>
-    
   </channel>
 </rss>

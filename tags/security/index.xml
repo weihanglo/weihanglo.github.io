@@ -4,26 +4,24 @@
     <title>Security on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/security/</link>
     <description>Recent content in Security on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x13: 據說網路釣魚比海釣容易成功</title>
       <link>https://weihanglo.tw/posts/2020/www-0x13/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x13/</guid>
       <description>這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x12: Oxidized Chromium?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x12/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x12/</guid>
       <description>這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
   </channel>
 </rss>

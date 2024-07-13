@@ -4,7 +4,9 @@
     <title>Authors on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/authors/</link>
     <description>Recent content in Authors on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <copyright>CC BY-NC-SA 4.0</copyright><atom:link href="https://weihanglo.tw/authors/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
+    <copyright>CC BY-NC-SA 4.0</copyright>
+    <atom:link href="https://weihanglo.tw/authors/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -4,17 +4,17 @@
     <title>Node.js on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/node.js/</link>
     <description>Recent content in Node.js on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Fri, 10 Mar 2017 15:36:46 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Mar 2017 15:36:46 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>大前端時代的工具箱</title>
       <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
       <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具</description>
     </item>
-    
   </channel>
 </rss>

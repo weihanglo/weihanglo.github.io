@@ -4,44 +4,38 @@
     <title>Concurrency on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/concurrency/</link>
     <description>Recent content in Concurrency on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x14: Structured concurrency is promising</title>
       <link>https://weihanglo.tw/posts/2020/www-0x14/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x14/</guid>
       <description>這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x06: Life is short. I hate GIL</title>
       <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
       <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Async Functions</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
       <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Promises</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
       <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（</description>
     </item>
-    
   </channel>
 </rss>

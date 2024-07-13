@@ -4,17 +4,17 @@
     <title>Carthage on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/carthage/</link>
     <description>Recent content in Carthage on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sun, 05 Mar 2017 08:45:57 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/carthage/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Mar 2017 08:45:57 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/carthage/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Carthage 套件管理工具</title>
       <link>https://weihanglo.tw/posts/2017/carthage-intro/</link>
       <pubDate>Sun, 05 Mar 2017 08:45:57 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/carthage-intro/</guid>
       <description>Carthage 是一個較新的 Cocoa 開發第三方套件管理工具，相較於知名 CocoaPods 管理工具的複雜配置，輕巧的 Carthage 在推出之後廣受 Swift 社群喜愛。 （撰於 2017-03-05，基於 Carthage</description>
     </item>
-    
   </channel>
 </rss>

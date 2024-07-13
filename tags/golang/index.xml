@@ -4,26 +4,24 @@
     <title>Golang on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/golang/</link>
     <description>Recent content in Golang on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>【譯】Rust vs. Go</title>
       <link>https://weihanglo.tw/posts/2018/rust-vs-go/</link>
       <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/rust-vs-go/</guid>
       <description>本文譯自 Julio Merino 的 Rust vs. Go。Julio Merino 目前是 G 社僱員，在 G 社工作超過 8 年，無論工作內外，都接觸開發不少 Go 語言，並撰寫 Rust 點評系列文，來聽聽他對 Rust</description>
     </item>
-    
   </channel>
 </rss>

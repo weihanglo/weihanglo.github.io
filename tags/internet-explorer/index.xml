@@ -4,26 +4,24 @@
     <title>Internet Explorer on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/internet-explorer/</link>
     <description>Recent content in Internet Explorer on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/internet-explorer/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/internet-explorer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽</description>
     </item>
-    
     <item>
       <title>與 IE 相處的日子</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link>
       <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，</description>
     </item>
-    
   </channel>
 </rss>
