@@ -4,17 +4,17 @@
     <title>Web Access Right on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/web-access-right/</link>
     <description>Recent content in Web Access Right on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/web-access-right/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/web-access-right/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽</description>
     </item>
-    
   </channel>
 </rss>

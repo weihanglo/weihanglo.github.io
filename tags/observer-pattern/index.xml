@@ -4,17 +4,17 @@
     <title>Observer Pattern on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/observer-pattern/</link>
     <description>Recent content in Observer Pattern on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/observer-pattern/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Aug 2017 16:32:39 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/observer-pattern/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rx 入門二：觀察者模式</title>
       <link>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</link>
       <pubDate>Tue, 15 Aug 2017 16:32:39 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/intro-rx-2-observer-pattern/</guid>
       <description>本篇介紹 Rx 另一個重要的基礎概念 Observer pattern（觀察者模式）。 （撰於 2017-08-15，基於 Swift 3.1） Definition 觀察者模式（Observer pat</description>
     </item>
-    
   </channel>
 </rss>

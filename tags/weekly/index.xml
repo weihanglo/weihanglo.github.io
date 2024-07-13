@@ -4,125 +4,101 @@
     <title>Weekly on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/weekly/</link>
     <description>Recent content in Weekly on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x0C: 未具名</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
       <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
       <description>既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內</description>
     </item>
-    
     <item>
       <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
       <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
       <description>Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初</description>
     </item>
-    
     <item>
       <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>WWW 0x09: 到底要不要擔心 blocking</title>
       <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
       <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
       <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. &amp;ndash; M. Conway 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期</description>
     </item>
-    
     <item>
       <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
       <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
       <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x06: Life is short. I hate GIL</title>
       <link>https://weihanglo.tw/posts/2020/www-0x06/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x06/</guid>
       <description>這裡是 WWW 第陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x05: 若單體服務是屎，微服務就是許多屎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x05/</link>
       <pubDate>Sat, 22 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x05/</guid>
       <description>這裡是 WWW 第伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x04: Not feeling the async pressure</title>
       <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
       <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x03: What Color is Your Function?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
       <description>你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富</description>
     </item>
-    
     <item>
       <title>WWW 0x02: Distroless Docker for distressed human</title>
       <link>https://weihanglo.tw/posts/2020/www-0x02/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x02/</guid>
       <description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x01: 有個部署「部署「部署 K8s 」」的工具</title>
       <link>https://weihanglo.tw/posts/2020/www-0x01/</link>
       <pubDate>Sat, 25 Jan 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x01/</guid>
       <description>這裡是 WWW 第壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x00: Rust 有個靜態 GC</title>
       <link>https://weihanglo.tw/posts/2020/www-0x00/</link>
       <pubDate>Sat, 18 Jan 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x00/</guid>
       <description>如果員工年齡用 5 bits 存，那 J 同事的確最年輕，在 overflow 之後。 傑森 - 2020 這裡是 WWW 第零期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五</description>
     </item>
-    
   </channel>
 </rss>

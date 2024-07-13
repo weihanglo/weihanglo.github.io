@@ -4,182 +4,146 @@
     <title>Rust on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/rust/</link>
     <description>Recent content in Rust on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 13 Jul 2024 17:00:00 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jul 2024 17:00:00 +0000</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The missing parts in Cargo</title>
       <link>https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/</link>
       <pubDate>Sat, 13 Jul 2024 17:00:00 +0000</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/</guid>
       <description>When people discuss the merits of Rust, they often mention its strict ownership rules, excellent diagnostics, and impressive performance. Cargo and the crates.io ecosystem frequently receive praise as well. Initially, when I started learning Rust, I couldn&amp;rsquo;t understand why Cargo was so highly loved. Having extensive experience with JavaScript, I was accustomed to convenient package managers and couldn&amp;rsquo;t grasp the enthusiasm—wasn&amp;rsquo;t such a tool a given for any serious programming language?</description>
     </item>
-    
     <item>
       <title>I (almost) broke 99% of Rust prjects in the world</title>
       <link>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</link>
       <pubDate>Sun, 06 Nov 2022 20:19:00 +0000</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2022/i-almost-broke-99-percents-of-rust-projects-in-the-world/</guid>
       <description>Title is boasting but indeed could have broken builds of a lot of projects.
- Once upon a time (2022-10), I was trying to fix a tricky bug regarding the feature “artifact dependencies”. Artifact dependencies is a humongous feature too hard to implement it 100% right, as it touches almost every components of Cargo. There&amp;rsquo;s a saying from an anonymous Cargo maintainer, “I am mostly confident to make a change until it touches the dependency resolver.</description>
+Once upon a time (2022-10), I was trying to fix a tricky bug regarding the feature “artifact dependencies”. Artifact dependencies is a humongous feature too hard to implement it 100% right, as it touches almost every components of Cargo. There&amp;rsquo;s a saying from an anonymous Cargo maintainer, “I am mostly confident to make a change until it touches the dependency resolver.</description>
     </item>
-    
     <item>
       <title>不必是眾星拱月那個月 也能替世界增添光芒</title>
       <link>https://weihanglo.tw/posts/2022/make-the-world-better-even-you-arent-a-super-hero/</link>
       <pubDate>Fri, 01 Apr 2022 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2022/make-the-world-better-even-you-arent-a-super-hero/</guid>
       <description>謹以此文紀念 Alex Crichton 從 Cargo Team 退休 Thank you Alex for your hard work making Rust great! 猶記得，在大學生涯最後一年，我不小心掉進程式設計的兔子洞，深不見底。那時，也是我初次接觸開放原</description>
     </item>
-    
     <item>
       <title>我眼中的 Rust 2020：生態工具發展</title>
       <link>https://weihanglo.tw/posts/2020/rust-2020-tooling-ecosystem/</link>
       <pubDate>Sun, 01 Nov 2020 08:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/rust-2020-tooling-ecosystem/</guid>
       <description>最近越來越多人想要學 Rust，也有一些朋友來諮詢 Rust 相關的生態，這裡稍微囉嗦一下我眼中的 Rust 2020 吧。 如果沒有拖稿的話，文章應該會分三篇，表列如下：</description>
     </item>
-    
     <item>
       <title>WWW 0x17: 再見 weekly</title>
       <link>https://weihanglo.tw/posts/2020/www-0x17/</link>
       <pubDate>Fri, 17 Jul 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x17/</guid>
       <description>這裡是 WWW 第貳拾參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
     </item>
-    
     <item>
       <title>WWW 0x14: Structured concurrency is promising</title>
       <link>https://weihanglo.tw/posts/2020/www-0x14/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x14/</guid>
       <description>這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x13: 據說網路釣魚比海釣容易成功</title>
       <link>https://weihanglo.tw/posts/2020/www-0x13/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x13/</guid>
       <description>這裡是 WWW 第拾玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x11: 庫存文章已用罄</title>
       <link>https://weihanglo.tw/posts/2020/www-0x11/</link>
       <pubDate>Sat, 16 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x11/</guid>
       <description>這裡是 WWW 第拾柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x10: 重構不是病，寫起來要人命</title>
       <link>https://weihanglo.tw/posts/2020/www-0x10/</link>
       <pubDate>Sat, 09 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x10/</guid>
       <description>這裡是 WWW 第拾陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x0C: 未具名</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0c/</link>
       <pubDate>Sat, 11 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0c/</guid>
       <description>既然疫情嚴重，連假就在家加班吧！ — Weihang Lo 2020.4 這裡是 WWW 第拾貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內</description>
     </item>
-    
     <item>
       <title>WWW 0x0B: 個資被偷和管理 DNS 紀錄，孰難孰易</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0b/</link>
       <pubDate>Sat, 04 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0b/</guid>
       <description>Zoom 很讚，host 可以看你有沒有認真 — Zoom: Attendee attention tracking 這裡是 WWW 第拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初</description>
     </item>
-    
     <item>
       <title>WWW 0x0A: 嗯，你這塊 0xDEADBEEF</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0a/</link>
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0a/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
       <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
       <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x04: Not feeling the async pressure</title>
       <link>https://weihanglo.tw/posts/2020/www-0x04/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x04/</guid>
       <description>這裡是 WWW 第肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>WWW 0x02: Distroless Docker for distressed human</title>
       <link>https://weihanglo.tw/posts/2020/www-0x02/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:11 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x02/</guid>
       <description>這裡是 WWW 第貳期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
     <item>
       <title>RustConf 2019 雲參訪錄（1）</title>
       <link>https://weihanglo.tw/posts/2019/rustconf-2019-1/</link>
       <pubDate>Sun, 29 Sep 2019 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2019/rustconf-2019-1/</guid>
       <description>RustConf 是 Rust 社群年度最重要的研討會之一，從 Rust 在 2015 年 1.0 版正式發布之後，2016、2017、2018 連續三年都在美國舉辦，今年當然不例外，八月底在 NBA 球</description>
     </item>
-    
     <item>
       <title>Rust: Ownership and References</title>
       <link>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</link>
       <pubDate>Sun, 30 Sep 2018 11:07:45 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/rust-ownership-and-references/</guid>
       <description>This is a series of quick notes about the fundamentals of the Rust programming language. It would cover parts of basic concepts and patterns in Rust. As a Rust begineer and a non-native English speaker, I may make some silly mistakes in my notes. Please contact me if there are some misleading words.
 (written on 2018-09-30)
 Ownership and References While a program runs, it need a way to manage memory .</description>
     </item>
-    
     <item>
       <title>【譯】Rust vs. Go</title>
       <link>https://weihanglo.tw/posts/2018/rust-vs-go/</link>
       <pubDate>Fri, 20 Jul 2018 10:58:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/rust-vs-go/</guid>
       <description>本文譯自 Julio Merino 的 Rust vs. Go。Julio Merino 目前是 G 社僱員，在 G 社工作超過 8 年，無論工作內外，都接觸開發不少 Go 語言，並撰寫 Rust 點評系列文，來聽聽他對 Rust</description>
     </item>
-    
     <item>
       <title>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架</title>
       <link>https://weihanglo.tw/posts/2018/tokio-internals/</link>
       <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/tokio-internals/</guid>
       <description>本文譯自 Tokio internals: Understanding Rust&amp;rsquo;s asynchronous I/O framework from the bottom up。 Thanks David Simmons for this awesome article! Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，</description>
     </item>
-    
   </channel>
 </rss>

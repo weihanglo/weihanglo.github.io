@@ -4,26 +4,24 @@
     <title>System Programming on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/system-programming/</link>
     <description>Recent content in System Programming on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/system-programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/system-programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x09: 到底要不要擔心 blocking</title>
       <link>https://weihanglo.tw/posts/2020/www-0x09/</link>
       <pubDate>Sat, 21 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x09/</guid>
       <description>A programmer had a problem. He thought to himself, &amp;ldquo;I know, I&amp;rsquo;ll solve it with threads!&amp;rdquo;. has Now problems. two he — Davidlohr Bueso 這裡是 WWW 第玖期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。</description>
     </item>
-    
     <item>
       <title>WWW 0x03: What Color is Your Function?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x03/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x03/</guid>
       <description>你的 function 是什麼顏色？ 這裡是 WWW 第參期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富</description>
     </item>
-    
   </channel>
 </rss>

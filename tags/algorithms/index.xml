@@ -4,35 +4,31 @@
     <title>Algorithms on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/algorithms/</link>
     <description>Recent content in Algorithms on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Tue, 16 Feb 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/algorithms/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Feb 2021 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/algorithms/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>雙端佇列 Deque</title>
       <link>https://weihanglo.tw/posts/2021/deque/</link>
       <pubDate>Tue, 16 Feb 2021 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2021/deque/</guid>
       <description>本篇從 Rust Algorithm Club 移植，若欲閱讀最新版，請移駕至Rust 演算法俱樂部：雙端佇列 Deque 一文，此文不同步更新。 雙端佇列（double-ended queue</description>
     </item>
-    
     <item>
       <title>布隆過濾器 Bloom Filter</title>
       <link>https://weihanglo.tw/posts/2020/bloom-filter/</link>
       <pubDate>Fri, 28 Aug 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/bloom-filter/</guid>
       <description>本篇從 Rust Algorithm Club 移植，若欲閱讀最新版，請移駕至Rust 演算法俱樂部：布隆過濾器 Bloom Filter 一文，此文不同步更新。 Bloom filter 是一種機率資料結構（probabil</description>
     </item>
-    
     <item>
       <title>漸進符號 Asymptotic Notation</title>
       <link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link>
       <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid>
       <description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。 （撰於 2018-05-31） 日常生</description>
     </item>
-    
   </channel>
 </rss>

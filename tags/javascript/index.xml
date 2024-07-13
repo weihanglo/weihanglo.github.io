@@ -4,71 +4,59 @@
     <title>JavaScript on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/javascript/</link>
     <description>Recent content in JavaScript on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Dec 2017 18:48:48 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>與 IE 相處的日子二：淺談網頁相容性</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</link>
       <pubDate>Sat, 09 Dec 2017 18:48:48 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer-2/</guid>
       <description>還記得之前整理的 IE 相容性 一文嗎？筆者最近參與公司新版 Web App 架構規劃與開發，又遇到許多相容性的問題，連新版瀏覽器也無法倖免。就讓我們再次探討瀏覽</description>
     </item>
-    
     <item>
       <title>使用 JavaScript 處理二進位資料</title>
       <link>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</link>
       <pubDate>Sun, 03 Sep 2017 23:35:55 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/binary-data-manipulations-in-javascript/</guid>
       <description>由於高度封裝與抽象，JavaScript 的執行效率比不上 C 的語言。例如 JavaScript 的 Array 下標（subscript）是根據 hash key 而非實體記憶體位址 offset 取值，雖</description>
     </item>
-    
     <item>
       <title>試答 Cherny 所謂「最好的前端面試題」</title>
       <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
       <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現</description>
     </item>
-    
     <item>
       <title>與 IE 相處的日子</title>
       <link>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</link>
       <pubDate>Sat, 15 Jul 2017 11:36:04 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/days-with-internet-explorer/</guid>
       <description>近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，「沒碰過 IE，</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Async Functions</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</link>
       <pubDate>Sun, 18 Jun 2017 12:45:34 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-async-function/</guid>
       <description>在前一篇介紹 JavaScript Concurrency 的文章中，Promise 提供開發者安全統一的標準 API，透過 thenable 減少 callback hell，巨幅降低開發非同步程式的門檻，大大提升可維護性</description>
     </item>
-    
     <item>
       <title>現代化的 JavaScript 併發 - Promises</title>
       <link>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</link>
       <pubDate>Mon, 12 Jun 2017 23:02:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/javascript-concurrency-promise/</guid>
       <description>所謂良好的使用者體驗，有個基本要求：「能即時回饋使用者的互動」。在 Mobile Native，常利用多線程（Multi-threading）分散主線程（</description>
     </item>
-    
     <item>
       <title>大前端時代的工具箱</title>
       <link>https://weihanglo.tw/posts/2017/fed-toolchain/</link>
       <pubDate>Fri, 10 Mar 2017 15:36:46 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/fed-toolchain/</guid>
       <description>在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具</description>
     </item>
-    
   </channel>
 </rss>

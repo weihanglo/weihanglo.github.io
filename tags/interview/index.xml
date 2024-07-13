@@ -4,35 +4,31 @@
     <title>Interview on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/interview/</link>
     <description>Recent content in Interview on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/interview/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/interview/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x14: Structured concurrency is promising</title>
       <link>https://weihanglo.tw/posts/2020/www-0x14/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x14/</guid>
       <description>這裡是 WWW 第貳拾期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>2018 前端工程師面試心得</title>
       <link>https://weihanglo.tw/posts/2018/2018-interviews/</link>
       <pubDate>Thu, 15 Mar 2018 10:44:17 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/2018-interviews/</guid>
       <description>這是我在 2018 年 Q1 的求職面試心得，不算實習的話，就是第一次正式求職。記錄下來作爲人生里程碑，也分享給大家參考。 （撰於 2018-03-15） 背景 森</description>
     </item>
-    
     <item>
       <title>試答 Cherny 所謂「最好的前端面試題」</title>
       <link>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</link>
       <pubDate>Wed, 26 Jul 2017 20:48:30 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/answers-to-cherny-interview-questions/</guid>
       <description>這份面試題出自於此，是從 /r/Frontend/ 連結過去的，看到如此自豪的標題和簡介，便手癢來作答，結果寫完基礎概念篇，才發現這份題目在 reddit 上被批評得體無完膚，與現</description>
     </item>
-    
   </channel>
 </rss>

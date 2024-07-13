@@ -4,17 +4,17 @@
     <title>Translation on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/translation/</link>
     <description>Recent content in Translation on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Fri, 05 Jan 2018 08:44:43 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/translation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Jan 2018 08:44:43 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/translation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【譯】Tokio 內部機制：從頭理解 Rust 非同步 I/O 框架</title>
       <link>https://weihanglo.tw/posts/2018/tokio-internals/</link>
       <pubDate>Fri, 05 Jan 2018 08:44:43 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/tokio-internals/</guid>
       <description>本文譯自 Tokio internals: Understanding Rust&amp;rsquo;s asynchronous I/O framework from the bottom up。 Thanks David Simmons for this awesome article! Tokio 是 Rust 的開發框架，用於開發非同步 I/O 程式（asynchronous I/O，一種事件驅動的作法，</description>
     </item>
-    
   </channel>
 </rss>

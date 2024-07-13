@@ -4,17 +4,17 @@
     <title>Big O on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/big-o/</link>
     <description>Recent content in Big O on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Thu, 31 May 2018 23:38:59 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/big-o/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 May 2018 23:38:59 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/big-o/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>漸進符號 Asymptotic Notation</title>
       <link>https://weihanglo.tw/posts/2018/asymptotic-notation/</link>
       <pubDate>Thu, 31 May 2018 23:38:59 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2018/asymptotic-notation/</guid>
       <description>這是個人第一次撰寫 CS 基礎知識的文章，同時也是 Rust Algorithm Club 基礎概念的首篇文章，目前 Rust Algorithm Club 尚未完工，請各位敬請期待。 （撰於 2018-05-31） 日常生</description>
     </item>
-    
   </channel>
 </rss>

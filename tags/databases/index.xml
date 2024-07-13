@@ -4,62 +4,52 @@
     <title>Databases on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/databases/</link>
     <description>Recent content in Databases on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 13 Jun 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/databases/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jun 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/databases/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x15: 你懂資料庫嗎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x15/</link>
       <pubDate>Sat, 13 Jun 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x15/</guid>
       <description>這裡是 WWW 第貳拾壹期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多</description>
     </item>
-    
     <item>
       <title>WWW 0x12: Oxidized Chromium?</title>
       <link>https://weihanglo.tw/posts/2020/www-0x12/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x12/</guid>
       <description>這裡是 WWW 第拾捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x10: 重構不是病，寫起來要人命</title>
       <link>https://weihanglo.tw/posts/2020/www-0x10/</link>
       <pubDate>Sat, 09 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x10/</guid>
       <description>這裡是 WWW 第拾陸期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x0F: 工程師唯一需要知道的數字是伴侶生日</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0f/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0f/</guid>
       <description>這裡是 WWW 第拾伍期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜</description>
     </item>
-    
     <item>
       <title>WWW 0x0E: 親愛的，我把快取都放你腦中了</title>
       <link>https://weihanglo.tw/posts/2020/www-0x0e/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x0e/</guid>
       <description>If you cloud end Covid-19 by sacrificing a JavaScript framework, which one would you choose and why Angular? — @dabit3 2020.4.19 這裡是 WWW 第拾肆期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期</description>
     </item>
-    
     <item>
       <title>WWW 0x07: 為什麼薯餅要炸兩次</title>
       <link>https://weihanglo.tw/posts/2020/www-0x07/</link>
       <pubDate>Sat, 07 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x07/</guid>
       <description>這裡是 WWW 第柒期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期內容以軟體工程為主，等財富自由後會有更多雜食</description>
     </item>
-    
   </channel>
 </rss>

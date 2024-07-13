@@ -4,17 +4,17 @@
     <title>FOSS on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/foss/</link>
     <description>Recent content in FOSS on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Sat, 14 Mar 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/foss/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Mar 2020 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/foss/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WWW 0x08: 你的 Helm chart 安全嗎</title>
       <link>https://weihanglo.tw/posts/2020/www-0x08/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2020/www-0x08/</guid>
       <description>organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. &amp;ndash; M. Conway 這裡是 WWW 第捌期，Wow Weihang Weekly 是一個毫無章法的個人週刊，出刊週期極不固定，從一週到五年都有可能。初期</description>
     </item>
-    
   </channel>
 </rss>

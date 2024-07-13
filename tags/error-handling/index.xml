@@ -4,17 +4,17 @@
     <title>Error Handling on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/error-handling/</link>
     <description>Recent content in Error Handling on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Mon, 10 Apr 2017 16:36:33 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/error-handling/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Apr 2017 16:36:33 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/error-handling/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>理解 Swift 的 Error Handling</title>
       <link>https://weihanglo.tw/posts/2017/swift-error-handling/</link>
       <pubDate>Mon, 10 Apr 2017 16:36:33 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-error-handling/</guid>
       <description>如何利用 Swift 的語言特性來處理例外？使用 Optional 是常見的做法。如果成功就返回 value，失敗則返回 nil，這種模式常用於簡單的狀況。然而，面對複雜的情</description>
     </item>
-    
   </channel>
 </rss>

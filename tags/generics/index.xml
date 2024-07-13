@@ -4,17 +4,17 @@
     <title>Generics on Life is a refactoring process without tests</title>
     <link>https://weihanglo.tw/tags/generics/</link>
     <description>Recent content in Generics on Life is a refactoring process without tests</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Mon, 08 May 2017 22:28:09 +0800</lastBuildDate><atom:link href="https://weihanglo.tw/tags/generics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 May 2017 22:28:09 +0800</lastBuildDate>
+    <atom:link href="https://weihanglo.tw/tags/generics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>理解 Swift Generics</title>
       <link>https://weihanglo.tw/posts/2017/swift-generics/</link>
       <pubDate>Mon, 08 May 2017 22:28:09 +0800</pubDate>
-      
       <guid>https://weihanglo.tw/posts/2017/swift-generics/</guid>
       <description>泛型程式設計（Generic Programming） 是經典的程式設計典範之一，不論是老牌的 C++，還是潮潮的 TypeScript，都能一睹泛</description>
     </item>
-    
   </channel>
 </rss>
