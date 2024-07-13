@@ -6,7 +6,16 @@
     <description>Recent content in Home on Life is a refactoring process without tests</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY-NC-SA 4.0</copyright>
-    <lastBuildDate>Wed, 12 Jul 2023 00:59:59 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jul 2024 17:00:00 +0000</lastBuildDate><atom:link href="https://weihanglo.tw/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The missing parts in Cargo</title>
+      <link>https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/</link>
+      <pubDate>Sat, 13 Jul 2024 17:00:00 +0000</pubDate>
+      
+      <guid>https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/</guid>
+      <description>When people discuss the merits of Rust, they often mention its strict ownership rules, excellent diagnostics, and impressive performance. Cargo and the crates.io ecosystem frequently receive praise as well. Initially, when I started learning Rust, I couldn&amp;rsquo;t understand why Cargo was so highly loved. Having extensive experience with JavaScript, I was accustomed to convenient package managers and couldn&amp;rsquo;t grasp the enthusiasm—wasn&amp;rsquo;t such a tool a given for any serious programming language?</description>
+    </item>
+    
     <item>
       <title>如何成為正港倫敦人</title>
       <link>https://weihanglo.tw/posts/2023/become-a-real-londoner/</link>
