@@ -9,43 +9,43 @@ cover:
   caption: A cargo ship stagnated in March, 2021 (Julianne Cona / Instagram)
 ---
 
-When people talk about the merits of Rust, they often mention the strict ownership rule, awesome diagnostics, and performance. They also praise Cargo and the crates.io ecosystem. Back in the day, when I just learned Rust, I had no idea why people loved Cargo so much. I wrote JavaScript at work a lot before I met Rust, so that enthusiasm confused me — isn't a convenient package manager a must-have for a serious programming language? It turns out not. Not every programming language has such a great toolchain. Scripting languages tend to have a better story in this regard. When it comes to system-level programming, the solution is nearly empty.
+When people discuss the merits of Rust, they often mention its strict ownership rules, excellent diagnostics, and impressive performance. Cargo and the crates.io ecosystem frequently receive praise as well. Initially, when I started learning Rust, I couldn't understand why Cargo was so highly loved. Having extensive experience with JavaScript, I was accustomed to convenient package managers and couldn't grasp the enthusiasm—wasn't such a tool a given for any serious programming language? Surprisingly, not every programming language boasts a robust toolchain. While scripting languages often excel in this area, solutions for system-level programming is nearly empty.
 
 ## A sweet meet in the universe
 
-Cargo is quite handy for most individual developers because it JUST WORKS. You create a new package by running `cargo new foo`. Then you `cargo add` some useful dependencies. And `cargo build` the blazingly fast Rust tool. Cool! You then `cargo publish` to crates.io and share the awesome project on `r/rust`. It works just like how npm does in the JavaScript ecosystem — Download. Build. Publish. It is a one-stop shop without you configuring a lot of unnecessary boilerplate or dealing with system dependencies [^1]. It was one of the blessed tools in the universe for individual developers. 
+Cargo is incredibly user-friendly for most individual developers because it JUST WORKS. You can create a new package with `cargo new foo`, add dependencies using `cargo add`, and build with the blazing-fast Rust tool using `cargo build`. Cool! Then, you `cargo publish` to crates.io and share your project on `r/rust`. This process mirrors npm in the JavaScript ecosystem—download, build, publish. It’s a seamless, one-stop shop without unnecessary boilerplate or system dependency hassles [^1]. For individual developers, it’s a blessed tool.
 
 ## When Rust grows beyond Cargo
 
-Cargo, while it is advanced as a package manager and build tool that works for developers to work on a pure Rust project, it doesn't really serve well for a more complicated, polyglot project. An enterprise development environment tends to be more resource-constrained. By constrained, I mean there might be no network access, limited access to pre-approved open-source projects, weird linkage setup, ancient or modified C compiler toolchain, strict security audit process, advanced but incompatible cache mechanism. You name it.
+Although Cargo is an advanced package manager and build tool for pure Rust projects, it falls short for more complex, polyglot projects. Enterprise development environments often face resource constraints—no network access, limited access to pre-approved open-source projects, unusual linkage setups, outdated or customized C compiler toolchains, stringent security audits, and advanced but incompatible cache mechanisms.
 
-It becomes frustrating when people find that Cargo is not suitable for their projects. They either request [CITATION NEEDED] for features for their own needs (sometimes useful in general, sometimes not), or just completely opt out of Cargo. That's sad. Especially when the Cargo project starts losing users from some of the largest companies in the world [^2].
+Frustration mounts when developers discover Cargo's limitations for their projects. They either request specific features (sometimes broadly useful, sometimes not) or abandon Cargo altogether. This is disheartening, particularly as Cargo begins to lose users from some of the world's largest companies [^2].
 
-## Most wanted features that never come
+## Most wanted features that never arrive
 
-By just looking at issues with [most thumb-ups] and [most comments], we can feel the needs from the community. As of 2024-07-11, the rust-lang/cargo repository has 1,398 open issues. It is not really a number beyond management but nearly on the edge. One of the most interesting parts of these issues is that some of them are seemingly duplicates with just slight differences. Those differences, however, are often too essential to neglect, making it way more difficult to find a solution general enough to cover variants for 10 different workflows. 
+Examining issues with [most thumb-ups] and [most comments] reveals the community's needs. As of 2024-07-11, the rust-lang/cargo repository has 1,398 open issues—a manageable number, but nearly at its limit. Many issues appear to be duplicates with slight but essential differences, complicating the search for a general solution that covers various workflows.
 
-Alright, let us see what we have hoped Cargo to support these years:
+Let's look at the features the community has wanted for Cargo to support over the years:
 
 [most thumb-ups]: https://github.com/rust-lang/cargo/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc
 [most comments]: https://github.com/rust-lang/cargo/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc
 
 ### It's all about cache
 
-There are two major kinds of caches in Cargo:
+Cargo uses two major types of caches:
 
-* A global cache for downloaded dependency sources (`.crate` tarballs and Git repositories under the `~/.cargo` directory). This kind of cache never invalidates.
-* A local per-workspace-level cache for intermediate build artifacts (the famous `target` directory). This cache invalidates when a rebuild is needed. We will focus on this.
+* **Global Cache**: This cache stores downloaded dependency sources (`.crate` tarballs and Git repositories) under the `~/.cargo` directory. It never invalidates.
+* **Local Cache**: This is a per-workspace-level cache for intermediate build artifacts (the `target` directory). This cache invalidates when a rebuild is needed. We will focus on this.
 
-Cargo relies heavily on file modification times (mtime) reported by the operating system to determine cache freshness. This rebuild detection is notoriously unreliable. For example, the clock may go backward, or the system mtime [has a low precision][#12060] e.g., on Docker or Apple's HFS. People have been looking at [content-hash based solutions][#6529] as a solution, and the main challenge is around performance, which may largely be solved by [reusing hashing results from rustc][zulip-content-hash]. That requires non-trivial investigation and cross-team communication, though.
+Cargo relies heavily on file modification times (mtime) reported by the operating system to determine cache freshness. However, this rebuild detection method is notoriously unreliable. For example, the clock may go backward, or the system mtime [may have low precision][#12060], such as on Docker or Apple's HFS. Some developers have been exploring [content-hash based solutions][#6529] to address this issue, though the main challenge is performance. This could potentially be solved by [reusing hashing results from rustc][zulip-content-hash], but it requires significant investigation and cross-team communication.
 
-Rust build time is really bad. People are thinking if we can reuse build artifacts between different projects for common crates like `syn`, `serde`, and `rand`. It sounds valid at first glance but is quite hard. Cargo has a complicated model for conditional compilation based on different [compiler flags][#8716], [Cargo features][#4463], and target platforms. The rebuild detection mechanism (aka fingerprint) tracks [these properties][fingerprint]. If any of them changes, Cargo rebuilds. That means we need to track not only what to build but also how to build. Without the knowledge of "how", it's unlikely to ship a reasonable generalized fix for [docker-cache layers][#2644]. 
+Rust build times can be quite slow. To improve this, there is interest in reusing build artifacts between different projects for common crates like `syn`, `serde`, and `rand`. Although this seems logical, it is challenging. Cargo has a complex model for conditional compilation based on different [compiler flags][#8716], [Cargo features][#4463], and target platforms. The rebuild detection mechanism, known as the fingerprint, tracks [these properties][fingerprint]. If any of them changes, Cargo rebuilds. This means we need to track not only what to build but also how to build it. Without knowing "how," it’s hard to provide a generalized fix for [docker-cache layers][#2644].
 
-Therefore, [reusing compiled artifact caches][#5931] or [sharing target-dirs][#11156] isn't extremely useful if we only roll out a dumb implementation caching everything. We need a design that separates artifacts from different combinations of flags/features/platforms/configs, and provides an easy-to-use interface for users to define how to cache what.
+Thus, simply [reusing compiled artifact caches][#5931] or [sharing target-dirs][#11156] is not very useful if we implement a basic cache-everything solution. We need a design that separates artifacts based on different combinations of flags, features, platforms, and configurations, providing an easy-to-use interface for users to define what to cache and how.
 
-If your CI system generates a random path for each build, you have one more bad news. The seemingly static download sources will also affect cache freshness — [by changing the value of `CARGO_HOME`][#10915]. This is because the `CARGO_HOME` path is embedded in debug symbols.
+If your CI system generates a random path for each build, there's another issue. The seemingly static download sources will affect cache freshness by [changing the value of `CARGO_HOME`][#10915]. This happens because the `CARGO_HOME` path is embedded in debug symbols.
 
-It's even more fun when looking into non-determinism of build scripts and proc macros, though I shall stop here.
+The situation becomes even more complex when considering the non-determinism of build scripts and proc macros, but I will stop here for now.
 
 [#6529]: https://github.com/rust-lang/cargo/issues/6529
 [#12060]: https://github.com/rust-lang/cargo/issues/12060
@@ -67,15 +67,15 @@ The potential of offloading build executions to other tools is essential. It mak
 
 To push it further, a build task with well-defined input/output could open a door for different kinds of [pre][#7178]/[post][#545] build processing. Hmm... I shouldn't say pre/post processing. Tasks ought to be composable. Apart from the execution order, the interface of defining a build task should be pretty much the same, regardless of whether it is pre or post processing. Designing such an interface is unfortunately the most difficult part that slows down the design and development. For now, Cargo prefers TOML for build configuration. Its static property ensures Cargo only does things in a defined manner. When you are not on the happy path and need an escape hatch, Cargo provides a complete unsandboxed environment to do arbitrary things. Yes, that's called "build scripts".
 
-These two approaches are at opposite ends of the spectrum. There is a huge gap in between that Cargo doesn't even look into. Why? Because people who look at it often end up inventing a programming language (e.g., [Nickle], [Nix], and [Starlark]). Should Cargo evolve toward that direction? I don't know. There is a proposal for sandboxing build scripts, but it's more like a patch for build scripts themselves, not a total solution for build task composability. [Ed Page's post] last year also provides an overview and potential solutions for it. It's short and worth a read.
+These two approaches are at opposite ends of the spectrum. There is a huge gap in between that Cargo doesn't even look into. Why? Because developers who look at it often end up inventing a programming language (e.g., [Nickel], [Nix], and [Starlark]). Should Cargo evolve toward that direction? I don't know. There is a proposal for sandboxing build scripts, but it's more like a patch for build scripts themselves, not a total solution for build task composability. [Ed Page's post] last year also provides an overview and potential solutions for it. It's short and worth a read.
 
-Speaking of breaking a build into phases, [Bazel] and [Buck2] are good examples. From my truly belief, by doing so, it also helps achieve distributed executions and remote caching for their use cases. It may not be a necessary feature for indie developers or small startups. Think about it: What if we've solved [the cache issue](#Its-all-about-cache) and somebody just built a [sharable cache service][cachix] that benefits everybody's CI pipeline?
+Speaking of breaking a build into phases, [Bazel] and [Buck2] are good examples. From my truly belief, by doing so, it also helps achieve distributed executions and remote caching for their use cases. It may not be a necessary feature for indie developers or small startups. Think about it: What if we solved [the cache issue](#Its-all-about-cache) and someone just built a [sharable cache service][cachix] that benefits everyone's CI pipeline?
 
 [#2904]: https://github.com/rust-lang/cargo/issues/2904
 [#1924]: https://github.com/rust-lang/cargo/issues/1924
 [#545]: https://github.com/rust-lang/cargo/issues/545
 [#7178]: https://github.com/rust-lang/cargo/issues/7178
-[Nickle]: https://nickel-lang.org/
+[Nickel]: https://nickel-lang.org/
 [Nix]: https://nix.dev/manual/nix/2.23/language/
 [Starlark]: https://github.com/bazelbuild/starlark
 [Ed Page's post]: https://epage.github.io/blog/2023/08/are-we-gui-build-yet/
@@ -85,27 +85,26 @@ Speaking of breaking a build into phases, [Bazel] and [Buck2] are good examples.
 
 ### Build script is not a C package manager
 
-Speaking of build scripts, we must give credit to it for Rust's growing popularity. As a tool for a system-level programming language, Cargo is often considered pretty "out-of-the-box" because the only command you need to run is `cargo build`. Even when a package depends on a missing C library, `build.rs` can fetch and build it from source for you.
+Speaking of build scripts, they deserve credit for Rust's growing popularity. As a tool for system-level programming, Cargo is praised for its simplicity — just `cargo build` and you're set. Even if a package needs a missing C library, `build.rs` steps in to fetch and build it from source.
 
-Everything comes with a cost. A build script is not a proper C package manager. Its imperative and dynamic nature makes the dependency relation nearly untrackable. Let alone the infamous "Cargo feature unification is additive" — Once a `vendored` feature is enabled in a dependency graph, you never have a chance to turn it off. We need a declarative interface like [system-deps] to constrain this. However, how is it possible to model a more versatile build system like CMake in a less powerful language like TOML? So it circles back to [defining the interface of build tasks](#Phases-of-a-cargo-build).
-
-Or, anyone want to write a C package manager and make it mainstream, so Cargo can just call it?
+But convenience comes with trade-offs. A build script isn't a proper C package manager. Its imperative, dynamic nature can make dependency management tricky. Take the "Cargo feature unification" issue: once a `vendored` feature is on in the dependency graph, you can't turn it off. We could use a declarative approach like [system-deps] to handle this better. Yet, how do we model a powerful build system like CMake in TOML, a less flexible language? It all loops back to [defining the interface of build tasks](#Phases-of-a-cargo-build).
+Or maybe someone should create a C package manager that becomes mainstream, so Cargo can just call it?
 
 [system-deps]: https://github.com/gdesmott/system-deps
 
 ### The unconditional conditional compilation
 
-Okay. Let's move on to the ugly part.
+Alright, let's dive into the less glamorous side.
 
-Conditional compilation in Cargo is expressed via "Cargo features". A Cargo feature can:
+Conditional compilation in Cargo revolves around "Cargo features". These features can:
 
-* Toggle on a code block by passing the corresponding `--cfg` flag to the compiler
+* Toggle code blocks with corresponding `--cfg` flags for the compiler
 * Activate optional dependencies
 * Activate other features
 
-This seems more powerful than traditional C's `#ifdef`, but actually not. To prevent excessive compilation overhead, the dependency resolver picks only one compatible version when a crate appears in the dependency graph multiple times, and each is within the SemVer-compatible versions defined. And because they are deemed compatible, Cargo gets one step further that unconditionally merges all activated features into a union of them. This is the "additive" property. You have [no way to opt-out of this behavior][#3126]. If you desperately need [mutually exclusive features][#2980], you and downstream users of your crate likely hit the ground hard, as there is no simple way to support this (yes, please look back [to the `vendored` issue](#Build-script-is-not-a-C-package-manager)). It will become a compatibility hazard if a crate doesn't respect SemVer-compatibility and the additive nature of Cargo features.
+This seems more powerful than traditional C's `#ifdef`, but actually not. To prevent excessive compilation overhead, the dependency resolver picks only one compatible version when a crate appears in the dependency graph multiple times, and each is within the SemVer-compatible versions defined. And because they are deemed compatible, Cargo gets one step further that unconditionally merges all activated features into a union of them. This is the "additive" property. You have [no way to opt-out of this behavior][#3126]. If you desperately need [mutually exclusive features][#2980], you and downstream users of your crate likely hit the ground hard, as there is no simple way to support this (remember the `vendored` problem mentioned earlier). It will become a compatibility hazard if a crate doesn't respect SemVer-compatibility and the additive nature of Cargo features.
 
-To make the situation worse, people want to [activate dependencies based on feature activations][#5954], which may in turn activate more features. How long will it take for a feature unification to converge if that is allowed? I don't really know. That said, it is a valid feature request. Just too hard to make the design right. The Cargo team has made several attempts to make feature resolution better, for example [feature resolver v2]. None of them is a clear win, as users need to know [in which situations a feature resolution may be different][#10112]. Those attempts even [confuse maintainers of Cargo][feature-syntax-confusion]!
+To make the situation worse, developers want to [activate dependencies based on feature activations][#5954], which may in turn activate more features. How long will it take for a feature unification to converge if that is allowed? I don't really know. That said, it is a valid feature request. Just too hard to make the design right. The Cargo team has made several attempts to make feature resolution better, for example [feature resolver v2]. None of them is a clear win, as users need to know [in which situations a feature resolution may be different][#10112]. Those attempts even [confuse maintainers of Cargo][feature-syntax-confusion]!
 
 A piece of good news is that [RFC 3416](https://rust-lang.github.io/rfcs/3416-feature-metadata.html) was merged, allowing future extensions of feature metadata like public/private or unstable features. It will make feature resolution smarter with the sacrifice of software complexity, from the perspective of both tool users and maintainers.
 
@@ -119,12 +118,13 @@ A piece of good news is that [RFC 3416](https://rust-lang.github.io/rfcs/3416-fe
 
 ### Finger-crossed cross-compilation
 
-When discussing cross-compilation, people always say Rust has built-in cross-compilation thanks to Rustup and Cargo. This is true, but they didn't tell you the full story.
+When it comes to cross-compilation, people often highlight its built-in support through Rustup and Cargo. While this is true, they didn't tell you the full story.
 
-First of all, if you're in a pure Rust world, you are the luckiest person in the world. You don't need to deal with different [compiler flags][#4897] and [linkers][#4133]. You don't need to configure `target.<cfg>.rustflags` and find [the dual behavior][#9453] between build scripts and normal dependencies. While `target-applies-to-host` is a solution to this, it never comes stabilized as it [may break some subtle workflows][#10395] around passing rustflags users already rely on.
+First of all, if you're in a pure Rust world, you are the luckiest person in the world. No need to deal with different [compiler flags][#4897] and [linkers][#4133]. No need to configure `target.<cfg>.rustflags` and find [the dual behavior][#9453] between build scripts and normal dependencies. While `target-applies-to-host` is a solution to this, it never comes stabilized as it [may break some subtle workflows][#10395] around passing rustflags.
 
-Apart from configuring flags for cross-compilation, it is also unable to tell from `Cargo.toml` if a package supports or [requires building on certain platforms][#6179]. We have unstable [per-package-target][#9406] though the semantic of it is quite unclear, especially when interacting with [artifact dependencies][#9096] and [building your own standard library (a.k.a. build-std)][build-std]. An even trickier part is the timing of filtering supported platforms. Should dependency resolution be aware of this? Should we make the lockfile possible to track dependencies only on supported platforms?
-All of these questions are not yet answered.
+Beyond flag configurations, it's challenging to determine from `Cargo.toml` whether a package supports or [requires building on certain platforms][#6179]. While we have [per-package-target][#9406], its semantics remain unclear, especially in relation to [artifact dependencies][#9096] and [building the standard library][build-std] (`build-std`). An even trickier part is the right timiing of filtering supported platforms. Should dependency resolution be aware of this? Should the lockfile track dependencies for supported platforms?
+
+All of these questions above are not yet answered.
 
 [#4897]: https://github.com/rust-lang/cargo/issues/4897
 [#4133]: https://github.com/rust-lang/cargo/issues/4133
@@ -163,7 +163,7 @@ The stability guarantee of Cargo is both a blessing and a curse to the community
 
 <center><img src="https://imgs.xkcd.com/comics/workflow.png" alt="There are probably children out there holding down spacebar to stay warm in the winter! YOUR UPDATE MURDERS CHILDREN."></center>
 
-Maybe because of the stability guarantee, people put a much higher bar for new features to be "perfect" and satisfy everybody. There is a [summary of the docker cache problem] calling out:
+Maybe because of the stability guarantee, people put a much higher bar for new features to be "perfect" and satisfy everyone. There is a [summary of the Docker cache problem][docker-cache] calling out:
 
 > For a feature to be stablized in cargo, it needs to fit into the cohesive whole, meaning it needs to work without a lot of caveats. _It can't be a second tier solution_
 
