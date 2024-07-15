@@ -228,6 +228,8 @@ We then looked into a way to break the stagnation. Taking `cargo-nextest` as an 
 
 So, are we ready for a new adventure?
 
+<small>_Discuss on Reddit [r/rust](https://www.reddit.com/r/rust/comments/1e34v6b/the_missing_parts_in_cargo/)_</small>
+
 [^1]: This is a success story for build scripts that they just vendor everything C dependencies, however, silently. It is ironically that it is now considered a failure because silent vendoring is not acceptable from several aspects. See [system-deps#97](https://github.com/gdesmott/system-deps/issues/97).
 [^2]: Apparently, Google and Meta don't really use Cargo. Projects like Nix and Rust-for-Linux are willing to roll out their own build system for Rust.
 [^3]: At least for me, I often feel incapable of merging a PR, even when it seemed completely harmless but actually [broke 3rd-party plugin users](https://github.com/rust-lang/cargo/issues/11487).
