@@ -5,7 +5,7 @@ katex: true
 tags:
   - Rust
 cover:
-  image: https://weihanglo.tw/posts/2024/the-missing-parts-in-cargo/cargo-ship-stagnate.png
+  image: cargo-ship-stagnate.png
   caption: A cargo ship stagnated in March, 2021 (Julianne Cona / Instagram)
 ---
 

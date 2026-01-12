@@ -5,7 +5,7 @@ katex: true
 tags:
   - Retrospective
 cover:
-  image: https://weihanglo.tw/posts/2022/2022-not-a-real-retro/working-abroad.webp
+  image: working-abroad.webp
 ---
 
 赫然發現人生已經快過一半了。
