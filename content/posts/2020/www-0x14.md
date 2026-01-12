@@ -50,8 +50,8 @@ Structured concurrency 簡單來說就是「讓 concurrent task 之間有階層�
 
 除了主要 Issue 內容，其他留言討論和各種文章連結都非常有意思，值得一讀。
 
-![](http://libdill.org/index3.jpeg)
+![](http://libdill.org/index3.webp)
 
-![](http://libdill.org/index2.jpeg)
+![](http://libdill.org/index2.webp)
 
 > libdill 的 structured concurrency 示意圖

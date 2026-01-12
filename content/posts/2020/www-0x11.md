@@ -28,7 +28,7 @@ tags:
 
 ## [Rust Logo is a Bike Chainring!](https://bugzilla.mozilla.org/show_bug.cgi?id=680521)
 
-[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Kettenblatt.jpg/128px-Kettenblatt.jpg)](https://commons.wikimedia.org/wiki/File:Kettenblatt.jpg)
+[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Kettenblatt.webp/128px-Kettenblatt.webp)](https://commons.wikimedia.org/wiki/File:Kettenblatt.webp)
 
 ![](https://www.rust-lang.org/static/images/rust-logo-blk.svg)
 

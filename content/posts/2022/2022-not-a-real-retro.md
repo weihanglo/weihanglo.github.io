@@ -5,7 +5,7 @@ katex: true
 tags:
   - Retrospective
 cover:
-  image: https://weihanglo.tw/posts/2022/2022-not-a-real-retro/working-abroad.jpg
+  image: https://weihanglo.tw/posts/2022/2022-not-a-real-retro/working-abroad.webp
 ---
 
 赫然發現人生已經快過一半了。
@@ -56,7 +56,7 @@ cover:
 
 But，每次都是這個 But，四月初我被告知拿到工作機會了，但並無法給我美國簽證，他們詢問我是否接受先待在大不列顛暨北愛爾蘭聯合王國，我從來沒聽過這個國家，是左駕還右駕，有沒有超過海拔 1400 的山都不了解，想了想覺得不妥。徵詢家人朋友意見後，才發現這個國家也是一座鬼島，身為台灣人應該非常習慣，那就去吧，森林系畢業去雨林工作完全是學以致用。
 
-![](./yeti.jpg)
+![](./yeti.webp)
 
 <center><small><i>公司的週年慶</i></small></center>
 
@@ -80,44 +80,44 @@ But，每次都是這個 But，四月初我被告知拿到工作機會了，但�
 
 話不多說，直接上美景配單車。
 
-![](./seven-sisters.jpg)
+![](./seven-sisters.webp)
 
 <center><small><i>先上個七姊妹斷崖的日落</i></small></center>
 
-![](./south-downs.jpg)
+![](./south-downs.webp)
 
 <center><small><i>南方的青青草原</i></small></center>
 
-<center><img src="./horses.jpg" width="75%"></center>
+<center><img src="./horses.webp" width="75%"></center>
 
 <center><small><i>英國很多「馬」路，但多數是女士騎馬，原因不詳</i></small></center>
 
-![](./hadleigh-castle.jpg)
+![](./hadleigh-castle.webp)
 
 <center><small><i>哈德利城堡，被燒毀的防禦工事和國王別院，大概有八百年歷史</i></small></center>
 
-![](./hainault-forest.jpg)
+![](./hainault-forest.webp)
 
 <center><small><i>Hainault Forest 旁邊的馬廄旁邊的牧地</i></small></center>
 
-![](./farm.jpg)
+![](./farm.webp)
 
 <center><small><i>忘記是哪裡但有彩虹的農場就是讚👍</i></small></center>
 
-![](./olympics-trail.jpg)
+![](./olympics-trail.webp)
 
 <center><small><i>2012 倫敦奧運的越野單車賽場</i></small></center>
 
 
-![](./seaford2.jpg)
+![](./seaford2.webp)
 
 <center><small><i>和我在王國的新歡到海邊吹風</i></small></center>
 
-![](./seaford.jpg)
+![](./seaford.webp)
 
 <center><small><i>Seaford 一隅，👪</i></small></center>
 
-![](./wendover.jpg)
+![](./wendover.webp)
 
 <center><small><i>Wendover，靜謐的小村落</i></small></center>
 
@@ -125,39 +125,39 @@ But，每次都是這個 But，四月初我被告知拿到工作機會了，但�
 
 十二月的王國首都下了今年第一場雪，也是我人生中的第一場雪。雪，就像各位認知的一樣，很冰，比想像中還冰，穿短褲短袖夾腳拖絕對沒辦法撐超過一場二十分鐘的雪仗，雖然鄰居投擲異常得準，但論耐寒連俄羅斯同事都贏不了我，王國的子民怎麼敢跟我比？不過話說回來，也多虧這場雪探出我耐受溫度的底限，至少零下三度還是能穿短褲騎單車通勤半小時的 😂
 
-<center><img src="snowman.jpeg" width="75%"></center>
+<center><img src="snowman.webp" width="75%"></center>
 
 <center><small><i>小朋友堆雪人（沒打馬賽克會不會被告？）</i></small></center>
 
-![](./snow-first-day.jpg)
-![](./snow-fifth-day.jpg)
+![](./snow-first-day.webp)
+![](./snow-fifth-day.webp)
 
 <center><small><i>雪後第一個早晨 vs. 雪後第五個早晨</i></small></center>
 
 既然擅入王國，免不了找些夥伴組隊闖蕩江湖。很感謝有幾個好隊友願意共同分擔冒險雜支，一起打造溫暖的家，或許幾個月後就將別離，願未來你們仍有吃不完的零食和水果。
 
-![](./home.jpg)
+![](./home.webp)
 
 <center><small><i>從湖邊小屋向外看</i></small></center>
 
-![](./roommates.jpeg)
+![](./roommates.webp)
 
 <center><small><i>好夥伴一起去王國的基隆玩</i></small></center>
 
-![](./world-cup.jpg)
+![](./world-cup.webp)
 
 <center><small><i>好夥伴一起烤雞店（？）看世足</i></small></center>
 
-![](./community.jpg)
+![](./community.webp)
 
 <center><small><i>鄰里自辦的夏日派對</i></small></center>
 
-![](./foodstorage.jpg)
-![](./foodstorage2.jpg)
+![](./foodstorage.webp)
+![](./foodstorage2.webp)
 
 <center><small><i>六個月前 vs. 六個月後的~~電視~~零食櫃</i></small></center>
 
-<center><img src="./sainsburygiving.jpeg" width="75%"></center>
+<center><img src="./sainsburygiving.webp" width="75%"></center>
 
 <center><small><i>人不在美國還是硬要過感恩節？</i></small></center>
 
@@ -167,15 +167,15 @@ But，每次都是這個 But，四月初我被告知拿到工作機會了，但�
 
 <center><small><i>大過年的鐵路怎麼可以罷工？民進黨下台啦 🤡</i></small></center>
 
-![](./pub.jpg)
+![](./pub.webp)
 
 <center><small><i>王國統治疆域內，酒吧林立有如台灣的小七🍺</i></small></center>
 
-![](./fairy-wand.jpg)
+![](./fairy-wand.webp)
 
 <center><small><i>王國的小朋友也玩仙女棒🧚</i></small></center>
 
-![](./fox.jpg)
+![](./fox.webp)
 
 <center><small><i>王國的貓🐱</i></small></center>
 
@@ -183,7 +183,7 @@ But，每次都是這個 But，四月初我被告知拿到工作機會了，但�
 
 今年十月飛回台灣擔任我最要好的朋友的婚禮招待，又搶先參觀了他們的新居，才知道結婚也是可以充滿幸福，洋溢粉紅泡泡，朋友嘴上的笑容都快比他的下巴還凸出。祝福朋友的愛情長跑邁向下一階段，相信接下來某次見面就能和朋友的小孩玩皇室戰爭了。
 
-![](./wedding.jpg)
+![](./wedding.webp)
 
 回到女王威武的領土（不對，現在是國王的領土），回到現實，才意識到自己眼前那團迷霧，如果早八十年發生，毫無疑問會是時代悲劇。我相信一切經得起考驗，但究竟要考驗到猴年馬月，我還要逃避到民國幾年？
 
@@ -193,7 +193,7 @@ But，每次都是這個 But，四月初我被告知拿到工作機會了，但�
 
 如果那是我的夢想，如果也是你的夢想，未來的日子就一起努力吧！
 
-![](./rust-gift.jpg)
+![](./rust-gift.webp)
 
 ## 後記
 
@@ -208,4 +208,4 @@ But，每次都是這個 But，四月初我被告知拿到工作機會了，但�
 
 祝福看到這裡的讀者都能走向屬於自己的 2023 年！
 
-![](./commute.jpg)
+![](./commute.webp)

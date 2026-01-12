@@ -88,7 +88,7 @@ The benefit of these abstractions is not only full of cool jargons but predictab
 
 ## The pain points
 
-![pain points](https://images.pexels.com/photos/34667/person-human-male-man.jpg)
+![pain points](https://images.pexels.com/photos/34667/person-human-male-man.webp)
 
 ### One codebase cannot rule them all
 

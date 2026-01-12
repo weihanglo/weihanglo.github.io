@@ -4,7 +4,7 @@ date: 2018-07-09T23:48:41+08:00
 tags:
   - Podcasts
 cover:
-  image: http://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/podcast.jpg
+  image: http://weihanglo.tw/posts/2018/4-podcasts-software-engineers-may-love/podcast.webp
   caption: Image by Nick Youngson CC BY-SA 3.0
 ---
 
@@ -16,7 +16,7 @@ _(written on 2018-07-09)_
 
 ## Software Engineering Daily
 
-[![](https://is1-ssl.mzstatic.com/image/thumb/Music62/v4/6e/3a/7f/6e3a7f2d-b42a-fddd-8761-f2bc316d20b9/source/200x200bb.jpg)][sedaily]
+[![](https://is1-ssl.mzstatic.com/image/thumb/Music62/v4/6e/3a/7f/6e3a7f2d-b42a-fddd-8761-f2bc316d20b9/source/200x200bb.webp)][sedaily]
 
 If you are not afraid of information explosion, you may love [Software Engineering Daily][sedaily] (SE Daily). SE Daily delivers interviews about software technical knowledge. On each episode, SE Daily invites software engineers to share their perspective on a technical topic along with a series of well-prepared questions. The topics in SE Daily cover a wide range of software engineering stuff, such as cloud computing, block chain, data science, and so on.
 
@@ -37,7 +37,7 @@ Gateway episodes:
 
 ## The Bike Shed
 
-[![](https://is2-ssl.mzstatic.com/image/thumb/Music118/v4/b0/76/fd/b076fd6a-dc35-570d-99cb-718b2d019f52/source/200x200bb.jpg)][bikeshed]
+[![](https://is2-ssl.mzstatic.com/image/thumb/Music118/v4/b0/76/fd/b076fd6a-dc35-570d-99cb-718b2d019f52/source/200x200bb.webp)][bikeshed]
 
 If you hear a bike bell singing, you're right. [The Bike Shed][bikeshed] is coming! Hosts Derek Prior and Sean Griffin accompany guests to talk about their development experience from Ruby, Rails, Rust to whatever catches their eyes. The Bike Shed always tries to discuss hard topics in an more relaxing way. Makes the podcast more like a friends' talk than an formal interview.
 
@@ -53,7 +53,7 @@ Gateway episode: [160: Praise Hands Emoji 🙌 (Vaidehi Joshi)](http://bikeshed.
 
 ## Front End Happy Hour
 
-[![](https://is2-ssl.mzstatic.com/image/thumb/Music125/v4/7d/15/39/7d1539eb-123b-8b45-badc-0bbfdedaf82e/source/200x200bb.jpg)][frontendhh]
+[![](https://is2-ssl.mzstatic.com/image/thumb/Music125/v4/7d/15/39/7d1539eb-123b-8b45-badc-0bbfdedaf82e/source/200x200bb.webp)][frontendhh]
 
 [Front End Happy Hour][frontendhh] is the most joyful podcast as far as I know. The ONE rule of Front End Happy Hour is _"Choose a keyword. If the keyword is mentioned, all panelists will have a drink"_. Sometimes the keyword is too common to be uttered accidentally, so all panelists try to speak in an funny way to avoid speaking out that word.
 
@@ -71,7 +71,7 @@ Gateway episode: [A/B testing - Ale or Bourbon?](http://frontendhappyhour.com/ep
 
 ## Soft Skill Engineering
 
-[![](https://is5-ssl.mzstatic.com/image/thumb/Music71/v4/56/d4/c2/56d4c2a4-be6e-5dcc-aec6-aa3817008e3e/source/200x200bb.jpg)][softskills]
+[![](https://is5-ssl.mzstatic.com/image/thumb/Music71/v4/56/d4/c2/56d4c2a4-be6e-5dcc-aec6-aa3817008e3e/source/200x200bb.webp)][softskills]
 
 Unlike other podcasts mentioned above, [Soft Skill Engineering][softskills] does not talk about much technical details. It focuses on soft skills a software engineer needs to learn. Dave Smith and Jamison Dance would lead us to navigate every little but crucial things outside programming, such as quitting jobs without jeopardizing working relationship, or how to work with colleague who often writes code in bad grammer.
 
@@ -87,7 +87,7 @@ Gateway episode: [Episode 113: Quitting Your First Job and Too Many Responsibili
 
 ## Bonus: IRL
 
-[![](https://is5-ssl.mzstatic.com/image/thumb/Music117/v4/3a/07/e5/3a07e502-96b4-7ef2-aa07-7bcb2e2c4c7e/source/200x200bb.jpg)][irl]
+[![](https://is5-ssl.mzstatic.com/image/thumb/Music117/v4/3a/07/e5/3a07e502-96b4-7ef2-aa07-7bcb2e2c4c7e/source/200x200bb.webp)][irl]
 
 [IRL][irl], an original podcast from Mozilla, is a show not only related to software engineering, but also life online and real. Today, we are surrounded by digital signals and online activities, and the Web is tightly bound to our real life. Online trolling, net neutrality, privacy policies, and many more events affect both online and offline life. Host Veronica Belmont and guests share their stories about how the Web changes our future.
 

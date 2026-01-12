@@ -9,7 +9,7 @@ tags:
 date: 2017-07-15T11:36:04+08:00
 ---
 
-![](https://i.imgur.com/VEgmWpv.jpg)
+![](https://i.imgur.com/VEgmWpv.webp)
 
 近幾年來，JavaScript 可謂風生水起，從後端到前端，從 mobile 到 desktop，各種 module 滿天飛，信手拈來就是一個 web app。不過，**「沒碰過 IE，別說你會做前端」**，本人從超新手的角度出發，整理最近修正 IE 相容性遇到的坑與解法，給自己日後留個參考。
 

@@ -115,7 +115,7 @@ scenario: add data onto tail
 
 > 日常生活中，環繞算術運算可見於汽車儀錶板或是電錶，9999 轉過頭後會自動變成 0000，可以想像成在萬分位進位了，但我們看不到。上述減一也可以想像二進位退一位，但我們看不到，所以從 `0b000`（0）變成了 `0b111`（7）。
 >
-> <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Odometer_rollover.jpg" width="300px">
+> <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Odometer_rollover.webp" width="300px">
 
 我們從尾端加更多資料到緩衝區：
 

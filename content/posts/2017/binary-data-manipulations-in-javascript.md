@@ -52,7 +52,7 @@ const bufferCopied = buffer.slice(-4)
 ```javascript
 // XMLHttpRequest 指定 resopnseType (XMLHttpRequest v2)
 const xhr = new XMLHttpRequest()
-xhr.open('GET', '/path/to/黑人問號.jpg', true)
+xhr.open('GET', '/path/to/黑人問號.webp', true)
 xhr.responseType = 'arraybuffer' // 將 reponse 型別設定為 arraybuffer
 xhr.onload = function(e) {
   console.log(this.response) // this.response 為 ArrayBuffer
@@ -403,7 +403,7 @@ new Uint32Array(buffer, 0)
 - `type`：blob 實例的 [MIME type][wiki-mime]。
 - `slice`：切割一部分的 blob 實例，返回新的 blob。
 
-Blob 的 spec 寫在 [W3C File API draft][w3c-blob] 中，為 `File` class 的父類別。主要目的是提供可代表與儲存 JavaScript native 以外的格式，例如以 blob 儲存 **死肥宅.jpg**。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。此外，File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！
+Blob 的 spec 寫在 [W3C File API draft][w3c-blob] 中，為 `File` class 的父類別。主要目的是提供可代表與儲存 JavaScript native 以外的格式，例如以 blob 儲存 **死肥宅.webp**。Blob 除了可以從 object 建構，也可傳入 TypedArray 或 DOMString 建構。此外，File API，Fetch API、XMLHttpRequest v2 也都可以將 Request／Response 的 body 轉換成 Blob，非常泛用途呢！
 
 而 Blob 最強大的地方就是配合 `URL.createObjectURL` 生成一個 Blob URL。如同你我認知中的 URL，任何運用 URL 之處，都可以傳入 Blob URL，比起 `Image`、`ImageData`、`MediaSource`，URL 接受與使用度肯定更為廣闊，這讓資料處理，物件傳遞的耦合性變得更低。
 

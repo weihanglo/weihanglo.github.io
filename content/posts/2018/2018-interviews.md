@@ -5,7 +5,7 @@ tags:
   - Interview
   - Front-end
 cover:
-  image: http://weihanglo.tw/posts/2018/2018-interviews/hahow-frontdoor.jpg
+  image: http://weihanglo.tw/posts/2018/2018-interviews/hahow-frontdoor.webp
   caption: 三次面試中唯一一張照片
 ---
 

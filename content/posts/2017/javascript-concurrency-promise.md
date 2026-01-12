@@ -228,7 +228,7 @@ promise2.then(newValue => { // 3
 我們再看一個複雜一點的例子，利用 [MDN fetch API][mdn-using-fetch] 來解釋
 
 ```javascript
-fetch('flowers.jpg') // 0 (first async)
+fetch('flowers.webp') // 0 (first async)
   .then(response => { // second async
     if(response.ok) { // 1
       return response.blob() // 2
@@ -504,7 +504,7 @@ Promise 是 Modern JavaScript 最為關鍵的一個變革，大大降低非同�
 
 前端技術日新月異，非同步程式設計發展如斯，相信工程師們加班的時間會越來越少吧（但學習新技術的時間需要越來越多⋯⋯)。
 
-![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](https://i.imgur.com/G3X0H78.jpg)
+![A programmer had a problem. He thought to himself, "I know, I'll solve it with threads!". has Now problems. two he](https://i.imgur.com/G3X0H78.webp)
 
 > 後記：眼尖的童鞋應該會發現本篇毫無提及 generator 等非同步的實作，因為本人認為 generator async 實作的太抽象了，學習成本太高，用 promise 和 async function 不就很舒服了嗎XD（不過，利用 generator 實作 async function 又是另一回事了）
 

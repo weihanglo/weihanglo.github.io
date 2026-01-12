@@ -9,7 +9,7 @@ tags:
 ---
 
 <div style="text-align: center;">
-  <img src="https://cafbit.com/resource/tokio/welcome_to_the_futures.jpg">
+  <img src="https://cafbit.com/resource/tokio/welcome_to_the_futures.webp">
 </div>
 
 > 本文譯自 [Tokio internals: Understanding Rust's asynchronous I/O framework from the bottom up][tokio-internals]。  

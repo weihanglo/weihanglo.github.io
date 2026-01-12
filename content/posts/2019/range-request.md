@@ -35,7 +35,7 @@ _（撰於 2018-03-10）_
 我們嘗試發送一個 Range Request，其實非常簡單，只要在 Request header 中加入 `Range` header field 就行了，範例如下：
 
 ```
-GET /z4d4kWk.jpg HTTP/1.1
+GET /z4d4kWk.webp HTTP/1.1
 Host: i.imgur.com
 Range: bytes=0-1023
 ```

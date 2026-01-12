@@ -50,4 +50,4 @@ async-std 新的 scheduler 在處理 nested `Future` 或是使用其他非 async
 [`epoll(7)`]: http://man7.org/linux/man-pages/man7/epoll.7.html
 [`select(2)`]: http://man7.org/linux/man-pages/man2/select.2.html
 
-![](https://pic4.zhimg.com/80/v2-696b131cae434f2a0b5ab4d6353864af_hd.jpg)
+![](https://pic4.zhimg.com/80/v2-696b131cae434f2a0b5ab4d6353864af_hd.webp)

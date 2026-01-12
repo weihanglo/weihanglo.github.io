@@ -7,7 +7,7 @@ tags:
   - Front-end
 ---
 
-![React Tech Stack]( https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.jpg)
+![React Tech Stack]( https://leanpub.com/site_images/reactspeedcoding/tech-stack-w820.webp)
 
 在大前端的時代，開發 Web app 不再像以前使用一個 jQuery 的 CDN 這麼容易，從 html 模板的抉擇，css 預處理器的挑選，Javascript 模組化的方法，自動化工具的使用等等，都是一門學問。本文將從建置基本的前端開發環境起頭，簡單介紹~~個人愛用~~現代常用的前端開發工具。
 

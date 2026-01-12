@@ -6,7 +6,7 @@ tags:
 date: 2017-05-08T22:28:09+08:00
 ---
 
-![](https://i.imgur.com/xuMiBGM.jpg)
+![](https://i.imgur.com/xuMiBGM.webp)
 
 **泛型程式設計（Generic Programming）** 是經典的程式設計典範之一，不論是老牌的 **C++**，還是潮潮的 **TypeScript**，都能一睹**泛型**的風采。近年來，程式設計吹的是 **static typing** 風，泛型又開始被廣泛討論。
 
